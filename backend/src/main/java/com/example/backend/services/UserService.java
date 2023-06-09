@@ -1,9 +1,7 @@
 package com.example.backend.services;
 
-import com.example.backend.dto.AdminDTO;
-import com.example.backend.dto.CustomerDTO;
-import com.example.backend.model.Admin;
-import com.example.backend.model.Customer;
+import com.example.backend.dto.*;
+import com.example.backend.model.*;
 import com.example.backend.repositories.AdminRep;
 import com.example.backend.repositories.CustomerRep;
 import com.example.backend.repositories.UserRep;
@@ -75,5 +73,50 @@ public class UserService {
                                 adminDTO.getName(),
                                 adminDTO.getPassword());
         addAdmin(admin);
+    }
+
+    public boolean login(LoginDTO loginDTO) {
+        User user = userRep.findByEmail(loginDTO.getEmail());
+        return user.getPassword().equals(loginDTO.getPassword());
+    }
+
+    public boolean logout(String token) {
+        return true;
+    }
+
+    public List<FavouriteDTO> getFavourites(int id) {
+        Customer customer = customerRep.findById(id).orElse(null);
+        List<FavouriteDTO> result = new ArrayList<>();
+        customer.getFavourites().forEach(product -> {
+            result.add(new FavouriteDTO(product.getName(), product.getPrice()));
+        });
+        return result;
+    }
+
+    public ShoppingCartDTO getShoppingCart(int id) {
+        Customer customer = customerRep.findById(id).orElse(null);
+        List<ItemDTO> itens = new ArrayList<>();
+        customer.getCart().getItems().forEach(item -> {
+            itens.add(new ItemDTO(item.getProduct().getName(),
+                                  item.getProduct().getPrice(),
+                                  item.getQuantity(),
+                                  item.getMaterial().getImage()));
+        });
+        return new ShoppingCartDTO(itens, customer.getCart().getTotalPrice());
+    }
+
+    public List<OrderSimpleDTO> getOrders(int id) {
+        Customer customer = customerRep.findById(id).orElse(null);
+        List<OrderSimpleDTO> result = new ArrayList<>();
+        customer.getOrders().forEach(order -> {
+            List<ItemDTO> itens = new ArrayList<>();
+            order.getItems().forEach(orderitem -> {
+                itens.add(new ItemDTO(orderitem.getProduct().getName(),
+                                      orderitem.getPrice(),
+                                      orderitem.getQuantity()));
+            });
+            result.add(new OrderSimpleDTO(order, itens));
+        });
+        return result;
     }
 }

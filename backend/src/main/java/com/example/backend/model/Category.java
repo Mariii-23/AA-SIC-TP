@@ -11,11 +11,15 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+
+	@Column(unique = true, nullable = false)
 	private String name;
+
 	private String image;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id")
 	private List<Category> subCategories = new ArrayList<Category>();
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
 	private List<Product> products = new ArrayList<Product>();
 
 	public Category() {

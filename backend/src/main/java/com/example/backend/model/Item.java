@@ -14,13 +14,26 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+	@Column(nullable = false)
 	private int quantity;
 	@ManyToOne
+	@JoinColumn(name = "material_id",nullable = false)
 	private Material material;
 	@ManyToOne
+	@JoinColumn(name = "product_id",nullable = false)
 	private Product product;
 
-	public Item() {
+	@ManyToOne
+	@JoinColumn(name = "cart_id",nullable = false)
+	private ShoppingCart shoppingCart;
+
+	public Item() {}
+
+	public Item(Item item){
+		this.quantity = item.getQuantity();
+		this.material = item.getMaterial();
+		this.product = item.getProduct();
+		this.shoppingCart = item.getShoppingCart();
 
 	}
 
@@ -46,5 +59,17 @@ public class Item {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+	public double getPrice() {
+		return this.quantity * this.product.getPrice();
 	}
 }

@@ -10,19 +10,38 @@ public class Company {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
 	private String email;
-	private int contact;
+
+	@Column(nullable = false)
+	private String contact;
+
+	@Column(nullable = false)
 	private String address;
 	private String logoImage;
+
+	@Column(nullable = false)
 	private String postCode;
+
+	@Column(nullable = false)
 	private String schedule;
 
-	@OneToMany
-	private List<SocialNetwork> socialNetworks;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+	private List<SocialNetwork> socialNetworks = new ArrayList<>();
 
-	public Company() {
+	public Company() {}
 
+	public Company(String name, String email, String contact, String address, String logoImage, String postCode, String schedule) {
+		this.name = name;
+		this.email = email;
+		this.contact = contact;
+		this.address = address;
+		this.logoImage = logoImage;
+		this.postCode = postCode;
+		this.schedule = schedule;
 	}
 
 	public String getName() {
@@ -33,11 +52,11 @@ public class Company {
 		this.name = name;
 	}
 
-	public int getContact() {
+	public String getContact() {
 		return this.contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(String contact) {
 		this.contact = contact;
 	}
 
@@ -87,5 +106,13 @@ public class Company {
 
 	public void setSocialNetworks(List<SocialNetwork> socialNetworks) {
 		this.socialNetworks = socialNetworks;
+	}
+
+	public int getiD() {
+		return iD;
+	}
+
+	public void setiD(int iD) {
+		this.iD = iD;
 	}
 }

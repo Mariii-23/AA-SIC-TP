@@ -1,17 +1,19 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class TechnicalInfo {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+	@Column(nullable = false)
 	private String name;
 	private String description;
+
+	@ManyToOne
+	@JoinColumn(name = "product_id", nullable = false)
+	private Product product;
 
 	public TechnicalInfo(){
 

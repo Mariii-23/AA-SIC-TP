@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,17 +10,22 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("Customer")
 public class Customer extends User {
+
+	@Column(nullable = false)
 	private Date birthday;
+	@Column(unique = true, nullable = false)
 	private String nif;
+	@Column(nullable = false)
 	private String address;
-	@OneToMany
-	public List<Review> reviews;
-	@OneToOne
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+	public List<Review> reviews  = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cart_id")
 	private ShoppingCart cart;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private List<Order> orders;
-	@OneToMany
-	private List<Product> favorites;
+	@ManyToMany
+	private List<Product> favourites;
 
 	public Customer() {
 		super();
@@ -72,12 +78,12 @@ public class Customer extends User {
 		this.orders = orders;
 	}
 
-	public List<Product> getFavorites() {
-		return favorites;
+	public List<Product> getFavourites() {
+		return favourites;
 	}
 
-	public void setFavorites(List<Product> favorites) {
-		this.favorites = favorites;
+	public void setFavourites(List<Product> favorites) {
+		this.favourites = favorites;
 	}
 
 	public List<Review> getReviews() {

@@ -10,17 +10,26 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+
+	@Column(nullable = false)
 	private double price;
+
+	@Column(nullable = false)
 	private String name;
 	private String description;
+
 	@ManyToMany
 	private List<Material> materials = new ArrayList<>();
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private List<TechnicalInfo> infos = new ArrayList<TechnicalInfo>();
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private List<Review> reviews = new ArrayList<Review>();
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private List<Image> images = new ArrayList<Image>();
+
+	@ManyToOne
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
 
 	public Product() {
 
