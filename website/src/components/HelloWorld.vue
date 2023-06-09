@@ -1,4 +1,5 @@
 <template>
+  <Typography.Body>{{$t("hello")}}</Typography.Body>
   <Typography.Body>Body</Typography.Body>
   <Typography.Body :size="2">Body 2</Typography.Body>
   <Typography.Heading>Heading </Typography.Heading>
