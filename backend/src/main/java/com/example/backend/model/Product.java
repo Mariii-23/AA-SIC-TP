@@ -3,6 +3,7 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -13,13 +14,13 @@ public class Product {
 	private String name;
 	private String description;
 	@ManyToMany
-	private ArrayList<Material> materials = new ArrayList<Material>();
+	private List<Material> materials = new ArrayList<>();
 	@OneToMany
-	private ArrayList<TechnicalInfo> infos = new ArrayList<TechnicalInfo>();
+	private List<TechnicalInfo> infos = new ArrayList<TechnicalInfo>();
 	@OneToMany
-	private ArrayList<Review> reviews = new ArrayList<Review>();
+	private List<Review> reviews = new ArrayList<Review>();
 	@OneToMany
-	private ArrayList<Image> images = new ArrayList<Image>();
+	private List<Image> images = new ArrayList<Image>();
 
 	public Product() {
 
@@ -49,35 +50,35 @@ public class Product {
 		this.description = description;
 	}
 
-	public ArrayList<Material> getMaterials() {
+	public List<Material> getMaterials() {
 		return materials;
 	}
 
-	public void setMaterials(ArrayList<Material> materials) {
+	public void setMaterials(List<Material> materials) {
 		this.materials = materials;
 	}
 
-	public ArrayList<TechnicalInfo> getInfos() {
+	public List<TechnicalInfo> getInfos() {
 		return infos;
 	}
 
-	public void setInfos(ArrayList<TechnicalInfo> infos) {
+	public void setInfos(List<TechnicalInfo> infos) {
 		this.infos = infos;
 	}
 
-	public ArrayList<Review> getReviews() {
+	public List<Review> getReviews() {
 		return reviews;
 	}
 
-	public void setReviews(ArrayList<Review> reviews) {
+	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
 
-	public ArrayList<Image> getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
 
-	public void setImages(ArrayList<Image> images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 }

@@ -3,6 +3,7 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -18,7 +19,7 @@ public class Company {
 	private String schedule;
 
 	@OneToMany
-	private ArrayList<SocialNetwork> socialNetworks = new ArrayList<SocialNetwork>();
+	private List<SocialNetwork> socialNetworks;
 
 	public Company() {
 
@@ -80,11 +81,11 @@ public class Company {
 		this.email = email;
 	}
 
-	public ArrayList<SocialNetwork> getSocialNetworks() {
+	public List<SocialNetwork> getSocialNetworks() {
 		return socialNetworks;
 	}
 
-	public void setSocialNetworks(ArrayList<SocialNetwork> socialNetworks) {
+	public void setSocialNetworks(List<SocialNetwork> socialNetworks) {
 		this.socialNetworks = socialNetworks;
 	}
 }

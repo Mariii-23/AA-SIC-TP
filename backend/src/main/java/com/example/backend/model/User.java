@@ -17,11 +17,15 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
-	@OneToMany
-	public ArrayList<Review> reviews = new ArrayList<Review>();
+
 
 	public User() {
-		super();
+	}
+
+	public User(String email, String password, String name) {
+		this.email = email;
+		this.password = password;
+		this.name = name;
 	}
 
 	public String getEmail() {

@@ -2,25 +2,34 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @DiscriminatorValue("Customer")
-public class Costumer extends User {
+public class Customer extends User {
 	private Date birthday;
 	private String nif;
 	private String address;
+	@OneToMany
+	public List<Review> reviews;
 	@OneToOne
 	private ShoppingCart cart;
 	@OneToMany
-	private ArrayList<Order> orders = new ArrayList<Order>();
+	private List<Order> orders;
 	@OneToMany
-	private ArrayList<Product> favorites = new ArrayList<Product>();
+	private List<Product> favorites;
 
-	public Costumer() {
+	public Customer() {
 		super();
+	}
+
+	public Customer(Date birthday, String nif, String address, String email, String password, String name) {
+		super(email, password, name);
+		this.birthday = birthday;
+		this.nif = nif;
+		this.address = address;
 	}
 
 	public Date getBirthday() {
@@ -55,19 +64,27 @@ public class Costumer extends User {
 		this.cart = cart;
 	}
 
-	public ArrayList<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(ArrayList<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 
-	public ArrayList<Product> getFavorites() {
+	public List<Product> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(ArrayList<Product> favorites) {
+	public void setFavorites(List<Product> favorites) {
 		this.favorites = favorites;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 }

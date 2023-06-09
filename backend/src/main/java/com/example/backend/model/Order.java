@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="_order")
@@ -15,7 +16,7 @@ public class Order {
 	private boolean storePickUp;
 	private double total;
 	@OneToMany
-	private ArrayList<OrderItem> items = new ArrayList<OrderItem>();
+	private List<OrderItem> items = new ArrayList<OrderItem>();
 
 	@Enumerated(EnumType.ORDINAL)
 	private OrderState state;
@@ -60,11 +61,11 @@ public class Order {
 		return storePickUp;
 	}
 
-	public ArrayList<OrderItem> getItems() {
+	public List<OrderItem> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<OrderItem> items) {
+	public void setItems(List<OrderItem> items) {
 		this.items = items;
 	}
 

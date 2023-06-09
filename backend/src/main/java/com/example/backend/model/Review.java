@@ -10,7 +10,7 @@ public class Review {
 	private int classification;
 	private String comment;
 	@ManyToOne
-	private Costumer author;
+	private Customer author;
 
 	public Review() {
 
@@ -32,11 +32,11 @@ public class Review {
 		this.comment = comment;
 	}
 
-	public Costumer getAuthor() {
+	public Customer getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(Costumer author) {
+	public void setAuthor(Customer author) {
 		this.author = author;
 	}
 }
