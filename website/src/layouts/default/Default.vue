@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <default-bar />
+    <app-drawer />
+
+    <default-bar :key="$route.fullPath" />
 
     <default-view />
 
@@ -9,7 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-import DefaultBar from "@/components/organisms/AppBar.vue"
-import DefaultView from "./View.vue"
-import DefaultFooter from "@/components/organisms/AppFooter.vue"
+import DefaultBar from "@/components/organisms/AppBar.vue";
+import DefaultView from "./View.vue";
+import DefaultFooter from "@/components/organisms/AppFooter.vue";
+import AppDrawer from "@/components/organisms/AppDrawer.vue";
 </script>

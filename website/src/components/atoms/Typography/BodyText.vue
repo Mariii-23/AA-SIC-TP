@@ -1,5 +1,5 @@
 <template>
-  <div class="[`text-${breakpoint}-body-${size}`]">
+  <div :class="[`text-body-${size}`]">
     <slot />
   </div>
 </template>
@@ -13,11 +13,11 @@ export default {
       default: 1,
       validator: (value: number) => [1, 2].includes(value),
     },
-    breakpoint: {
+   /* breakpoint: {
       type: String,
       default: "sm",
-      validator: (value: string) => ["sm", "md", "lg", "xl"].includes(value),
-    },
+      validator: (value: string) => ["xs","sm", "md", "lg", "xl"].includes(value),
+    },*/
   },
 };
 </script>

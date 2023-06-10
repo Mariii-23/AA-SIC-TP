@@ -1,3 +1,34 @@
 {
-    "hello": "Hello World"
+    "hello": "Hello World",
+    "welcome": "Welcome ",
+    "navbar-login": "Hii! Log in or Sign up!",
+    "where": "Where to find us",
+    "schedule": "Schedule",
+    "contact": "Contacts",
+
+    "english": "English",
+    "portuguese": "Portuguese",
+
+    "goBack": "Go Back",
+    "close": "Close",
+
+    "recover-pw": "Recover Password",
+    "login": "Log in",
+    "continue-google": "Continue with Google",
+    "continue-microsoft": "Continue with Microsoft account",
+    "dont-have-account": "Don't have an account?",
+    "register": "Register",
+    "or": "OR",
+    "password": "Password",
+    "forgot-pw": "Forgot your password?",
+    "enter-email": "Enter your email and you'll receive a code in order to recover your password:",
+    "enter-code": "Enter the code here once you receive it. The code is valid for 2 minutes.",
+    "didnt-receive": "Didn't receive the code?",
+    "resend": "Resend",
+    "code": "Code",
+    "send-code": "Send code",
+
+
+    "search": "Search",
+    "orders": "Orders"
 }

@@ -1,35 +1,99 @@
 <template>
-  <footer class="phone-viewport">
-    <p class="copyright"> Website © 2023</p>
-  </footer>
+  <v-footer class="footer" color="secondary">
+    <v-spacer />
+    <v-col v-if="hasLocalization" class="column">
+      <v-row>
+        <HeadingText :size="6"> {{ $t("where") }} </HeadingText>
+      </v-row>
+      <v-row>{{ address }}</v-row>
+      <v-row>{{ post_code }}</v-row>
+    </v-col>
+    <v-spacer />
+    <v-col v-if="hasSchedule" class="column">
+      <v-row>
+        <HeadingText :size="6"> {{ $t("schedule") }}</HeadingText>
+      </v-row>
+      <v-row v-for="schedule in schedule_list" :key="schedule">{{ schedule }}</v-row>
+    </v-col>
+    <v-spacer />
+    <v-col class="column">
+      <v-row>
+        <HeadingText :size="6"> {{ $t("contact") }}</HeadingText>
+      </v-row>
+      <v-row>{{ phone_number }}</v-row>
+      <v-row>{{ email }}</v-row>
+    </v-col>
+    <v-spacer />
+  </v-footer>
 </template>
 
-<style scoped>
-.phone-viewport {
-  bottom: 0;
-  width: 100%;
-  height: 1.5cm;
-  line-height: 50px;
-  overflow: hidden;
-  background: rgb(240, 240, 240);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px 0px;
-  text-align: center;
-  right: 0;
-  left: 0;
-  background-repeat: no-repeat;
-  z-index: 1111;
-}
-
-.copyright {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: rgba(0, 0, 0, .5);
-  font-weight: bold;
-}
-</style>
-
-
 <script lang="ts">
+import HeadingText from "../atoms/Typography/HeadingText.vue";
 export default {
-  name: "AppFooter"
+  name: "AppFooter",
+  data: () => ({
+    hasLocalization: false,
+    address: null,
+    post_code: null,
+    hasSchedule: false,
+    schedule_list: [],
+    phone_number: null,
+    email: null,
+    social_media_list: [],
+  }),
+  mounted: function () {
+    // TODO: Get info
+    const localization = {
+      address: "Rua do Carvalhal",
+      post_code: "4800-000",
+    };
+
+    const schedule = {
+      schedule_list: ["Seg-Sex", "9h00 - 12h30 | 14h00 - 18h00"],
+    };
+
+    const contact = {
+      phone_number: "253 000 000",
+      email: "email@email.com",
+    };
+
+    if (localization !== false) {
+      this.address = localization.address;
+      this.post_code = localization.post_code;
+      this.hasLocalization = true;
+    }
+
+    if (schedule !== false) {
+      this.schedule_list = schedule.schedule_list;
+      this.hasSchedule = true;
+    }
+
+    if (contact !== false) {
+      this.phone_number = contact.phone_number;
+      this.email = contact.email;
+    }
+  },
+  components: { HeadingText },
 }
 </script>
+
+<style scoped>
+.footer {
+  display: flex;
+  align-content: center;
+}
+
+@media screen and (max-width: 800px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+</style>

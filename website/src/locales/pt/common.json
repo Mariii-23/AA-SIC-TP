@@ -1,3 +1,34 @@
 {
-    "hello": "Olá"
+    "hello": "Olá",
+    "welcome": "Bem vindo ",
+    "navbar-login": "Oiii! Iniciar Sessão ou registar",
+    "where": "Onde nos encontrar",
+    "schedule": "Horário",
+    "contact": "Contactos",
+
+    "english": "Inglês",
+    "portuguese": "Português",
+
+    "goBack": "Voltar",
+    "close": "Fechar",
+
+    "recover-pw": "Recuperar palavra-passe",
+    "login": "Iniciar sessão",
+    "continue-google": "Continuar com Google",
+    "continue-microsoft": "Continuar com conta Microsoft",
+    "dont-have-account": "Ainda não tem conta?",
+    "register": "Registe-se",
+    "or": "OU",
+    "password": "Palavra-passe",
+    "forgot-pw": "Esqueceu a palavra-passe?",
+    "enter-email": "Introduza o seu email e irá receber um código para recupearar a palavra-passe:",
+    "enter-code": "Introduza o código assim que o receber. O código é valido durante 2 minutos.",
+    "didnt-receive": "Não recebeu o código?",
+    "resend": "Voltar a enviar",
+    "code": "Código",
+    "send-code": "Enviar código",
+    
+
+    "search": "Pesquisar",
+    "orders": "Encomendas"
 }

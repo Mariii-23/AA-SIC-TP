@@ -3,45 +3,37 @@
     <v-container fluid fill-height class="custom-full-width">
       <v-card class="elevation-12 rounded-lg">
         <v-toolbar dark color="primary">
-          <v-toolbar-title>{{ $t("login") }}</v-toolbar-title>
+          <v-toolbar-title>{{ $t("recover-pw") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
           <form ref="form" @submit.prevent="login()">
             <div class="custom-flex">
+              <p>{{ $t("enter-email") }}</p>
               <div>
                 <v-text-field v-model="username" name="email" label="Email" type="text" placeholder="Email" single-line
                   class="input-form rounded-lg" required bg-color="primary" />
-                <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-                  :placeholder="$t('password')" required bg-color="primary" single-line />
-              </div>
-
-              <FullWidthButton :handleClick="handleLoginWithEmail"> {{ $t("login") }}</FullWidthButton>
-
-              <div class="signup-phrase">
-                <p>{{ $t("forgot-pw") }} </p>
-                <p class="link">{{ $t("recover-pw") }}</p>
+                <FullWidthButton> {{ $t("send-code") }}</FullWidthButton>
               </div>
 
               <div class="custom-divider">
                 <div class="line" />
-                <div class="text">
-                  <p>
-                    {{ $t("or") }}
-                  </p>
-                </div>
-                <div class="line" />
               </div>
 
-              <div class="custom-flex">
-                <PrimaryButton :handleClick="handleLoginWithGoogle">
-                  {{ $t("continue-google") }}
-                </PrimaryButton>
+              <p>{{ $t("enter-code") }}</p>
+
+              <div>
+                <v-text-field v-model="username" name="email" :label="$t('code')" type="text" :placeholder="$t('code')"
+                  single-line class="input-form rounded-lg" required bg-color="primary" />
+                <FullWidthButton>
+                  {{ $t("recover-pw") }}
+                </FullWidthButton>
               </div>
 
               <div class="signup-phrase">
-                <p>{{ $t("dont-have-account") }}</p>
-                <p class="link">{{ $t("register") }}</p>
+                <p>{{ $t("didnt-receive") }}</p>
+                <p class="link">{{ $t("resend") }}</p>
               </div>
+
             </div>
 
           </form>
@@ -102,7 +94,6 @@
   }
 }
 
-
 .signup-phrase {
   display: flex;
   justify-content: center;
@@ -118,29 +109,10 @@
 
  
 <script lang="ts">
-import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 
 export default {
   name: "Login",
-  data() {
-    return {
-      username: "",
-      password: "",
-    };
-  },
-  methods: {
-    login() {
-      const { username } = this;
-      console.log(username + "logged in");
-    },
-    handleLoginWithGoogle() {
-      console.log(+"hiihih");
-    },
-    handleLoginWithEmail(){
-      console.log("hiihih");
-    }
-  },
-  components: { PrimaryButton, FullWidthButton }
+  components: { FullWidthButton }
 };
 </script>
