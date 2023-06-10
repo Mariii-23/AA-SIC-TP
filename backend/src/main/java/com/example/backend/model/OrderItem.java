@@ -16,7 +16,7 @@ public class OrderItem extends Item {
 
 	}
 
-	public OrderItem(Item item){
+	public OrderItem(Item item) {
 		super(item);
 		this.price = item.getProduct().getPrice();
 	}

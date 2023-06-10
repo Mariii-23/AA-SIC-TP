@@ -13,7 +13,6 @@ public class OrderSimpleDTO {
     private double total;
     private OrderState state;
 
-    private List<ItemDTO> items = new ArrayList<>();
 
     public OrderSimpleDTO() {
     }
@@ -30,12 +29,6 @@ public class OrderSimpleDTO {
         this.state = order.getState();
     }
 
-    public OrderSimpleDTO(Order order, List<ItemDTO> items){
-        this.date = order.getDate();
-        this.total = order.getTotal();
-        this.state = order.getState();
-        this.items = items;
-    }
 
     public LocalDate getDate() {
         return date;
@@ -61,11 +54,4 @@ public class OrderSimpleDTO {
         this.state = state;
     }
 
-    public List<ItemDTO> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemDTO> items) {
-        this.items = items;
-    }
 }

@@ -115,7 +115,7 @@ public class UserService {
                                       orderitem.getPrice(),
                                       orderitem.getQuantity()));
             });
-            result.add(new OrderSimpleDTO(order, itens));
+            result.add(new OrderSimpleDTO(order));
         });
         return result;
     }

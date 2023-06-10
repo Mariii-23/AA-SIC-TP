@@ -11,11 +11,11 @@ import java.util.List;
 @DiscriminatorValue("Customer")
 public class Customer extends User {
 
-	@Column(nullable = false)
+	@Column
 	private Date birthday;
-	@Column(unique = true, nullable = false)
+	@Column(unique = true)
 	private String nif;
-	@Column(nullable = false)
+	@Column
 	private String address;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
 	public List<Review> reviews  = new ArrayList<>();

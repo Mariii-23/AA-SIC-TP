@@ -29,6 +29,13 @@ public class Item {
 
 	public Item() {}
 
+	public Item(int quantity, Material material, Product product, ShoppingCart shoppingCart) {
+		this.quantity = quantity;
+		this.material = material;
+		this.product = product;
+		this.shoppingCart = shoppingCart;
+	}
+
 	public Item(Item item){
 		this.quantity = item.getQuantity();
 		this.material = item.getMaterial();
