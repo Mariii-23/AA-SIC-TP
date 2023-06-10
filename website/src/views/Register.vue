@@ -1,80 +1,161 @@
 <template>
-   <!-- <v-container fill-height fluid center> -->
-   <!-- <v-responsive class="d-flex align-center text-center fill-height">-->
-   <!-- <v-layout align-center justify-center  fill-height wrap>  -->
-   <v-flex fill-height>
-      <v-card class="elevation-15">
-         <v-toolbar dark color="primary">
-            <v-toolbar-title>{{ isRegister ? stateObj.register.name : stateObj.login.name }} form</v-toolbar-title>
-         </v-toolbar>
-         <v-card-text>
-            <form ref="form" @submit.prevent="isRegister ? register() : login()">
-               <v-text-field v-model="username" name="username" label="Username" type="text" placeholder="username"
-                  required/>
+   <div class="body">
+      <v-container fluid fill-height class="custom-full-width">
+         <v-card class="elevation-12 rounded-lg">
+            <v-toolbar dark color="primary">
+               <v-toolbar-title>{{ $t("register") }}</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text class="fill-height">
+               <form ref="form" @submit.prevent="login()">
+                  <div class="custom-flex">
+                     <div>
+                        <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email"
+                           single-line class="input-form rounded-lg" required bg-color="primary" />
+                        <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
+                           :placeholder="$t('password')" required bg-color="primary" single-line />
+                        <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
+                           :placeholder="$t('confirm-pw')" required bg-color="primary" single-line />
+                        <v-text-field v-model="address" name="password" :label="$t('address')" type="input"
+                           :placeholder="$t('address')" required bg-color="primary" single-line />
+                        <v-text-field v-model="nif" name="password" :label="$t('nif')" type="input"
+                           :placeholder="$t('nif')" required bg-color="primary" single-line />
+                     </div>
 
-               <v-text-field v-model="password" name="password" label="Password" type="password" placeholder="password"
-                  required/>
+                     <FullWidthButton :handleClick="handleSignupWithEmail"> {{ $t("register") }}</FullWidthButton>
 
-               <v-text-field v-if="isRegister" v-model="confirmPassword" name="confirmPassword" label="Confirm Password"
-                  type="password" placeholder="confirm password" required/>
-               <div class="red--text"> {{ errorMessage }}</div>
-               <v-btn type="submit" class="mt-4" color="primary" value="log in">{{ isRegister ? stateObj.register.name :
-                  stateObj.login.name }}</v-btn>
-               <div class="grey--text mt-4" v-on:click="isRegister = !isRegister;">
-                  {{toggleMessage}}
-               </div>
-            </form>
-         </v-card-text>
-      </v-card>
-   </v-flex>
-   <!-- </v-layout> -->
-   <!-- </v-layout>
-             </v-responsive> -->
-   <!-- </v-container> -->
+                     <div class="custom-divider">
+                        <div class="line" />
+                        <div class="text">
+                           <p>
+                              {{ $t("or") }}
+                           </p>
+                        </div>
+                        <div class="line" />
+                     </div>
+
+                     <div class="custom-flex">
+                        <PrimaryButton :handleClick="handleSignupWithGoogle">
+                           {{ $t("continue-google") }}
+                        </PrimaryButton>
+                     </div>
+
+                     <div class="login-phrase">
+                        <p>{{ $t("have-account") }}</p>
+                        <p class="link">{{ $t("login") }}</p>
+                     </div>
+                  </div>
+
+               </form>
+            </v-card-text>
+         </v-card>
+      </v-container>
+   </div>
 </template>
  
+<style>
+.custom-full-width {
+   width: 100%;
+}
+
+.custom-flex {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.custom-divider {
+   display: flex;
+   align-items: center;
+   margin: 0px 0;
+}
+
+.custom-divider .line {
+   flex-grow: 1;
+   height: 1px;
+   background-color: black;
+}
+
+.custom-divider .text {
+   margin: 0 10px;
+}
+
+.button-grid {
+   display: grid;
+   grid-template-columns: 48% auto 48%;
+   grid-gap: 10px;
+}
+
+.button-grid>v-btn {
+   width: 100%;
+}
+
+.body {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 500px;
+   margin: 3% auto auto auto;
+}
+
+@media (max-width: 600px) {
+   .body {
+      width: 90%;
+   }
+}
+
+
+.login-phrase {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 4px;
+}
+
+.login-phrase>.link {
+   color: blue;
+}
+</style>
+ 
+ 
+  
 <script lang="ts">
+import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
+import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
+
 export default {
    name: "Register",
    data() {
       return {
-         username: "",
+         email: "",
          password: "",
-         confirmPassword: "",
-         isRegister: false,
-         errorMessage: "",
-         stateObj: {
-            register: {
-               name: "Register",
-               message: "Aleady have an Account? login."
-            },
-            login: {
-               name: "Login",
-               message: "Register"
-            }
-         }
+         conf_password: "",
+         address: "",
+         nif: "",
+         activePicker: null,
+         date: null,
+         menu: false,
       };
    },
+   watch: {
+      menu (val) {
+        val && setTimeout(() => (this.activePicker = 'YEAR'))
+      },
+    },
    methods: {
       login() {
-         const { username } = this;
-         console.log(username + "logged in")
+         const { email } = this;
+         console.log(email + "logged in");
       },
-      register() {
-         if (this.password == this.confirmPassword) {
-            this.isRegister = false;
-            this.errorMessage = "";
-            this.$refs.form.reset();
-         }
-         else {
-            this.errorMessage = "password did not match"
-         }
-      }
+      handleSingupWithGoogle() {
+         console.log(+"hiihih");
+      },
+      handleSignupWithEmail() {
+         console.log("hiihih");
+      },
+      save (date) {
+        this.$refs.menu.save(date)
+      },
    },
-   computed: {
-      toggleMessage: function () {
-         return this.isRegister ? this.stateObj.register.message : this.stateObj.login.message
-      }
-   }
+   components: { PrimaryButton, FullWidthButton }
 };
 </script>

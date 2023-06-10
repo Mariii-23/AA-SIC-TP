@@ -17,7 +17,7 @@
     "continue-google": "Continuar com Google",
     "continue-microsoft": "Continuar com conta Microsoft",
     "dont-have-account": "Ainda não tem conta?",
-    "register": "Registe-se",
+    "register": "Criar conta",
     "or": "OU",
     "password": "Palavra-passe",
     "forgot-pw": "Esqueceu a palavra-passe?",
@@ -27,6 +27,10 @@
     "resend": "Voltar a enviar",
     "code": "Código",
     "send-code": "Enviar código",
+    "confirm-pw": "Confirmar palavra-passe",
+    "have-account": "Já tem conta?",
+    "address": "Morada",
+    "nif": "NIF",
     
 
     "search": "Pesquisar",
