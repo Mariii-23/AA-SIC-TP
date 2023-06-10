@@ -34,7 +34,6 @@ public class Product {
 	private SubCategory subCategory;
 
 	public Product() {
-
 	}
 
 	public Product(double price, String name, String description, List<Material> materials, Category category) {

@@ -4,6 +4,7 @@ import com.example.backend.dto.*;
 import com.example.backend.model.*;
 import com.example.backend.repositories.AdminRep;
 import com.example.backend.repositories.CustomerRep;
+import com.example.backend.repositories.ProductRep;
 import com.example.backend.repositories.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class UserService {
     private CustomerRep customerRep;
     @Autowired
     private AdminRep adminRep;
+    @Autowired
+    private ProductRep productRep;
 
 
     public Customer addCustomer(Customer customer) {
@@ -118,5 +121,19 @@ public class UserService {
             result.add(new OrderSimpleDTO(order));
         });
         return result;
+    }
+
+    public void addFavourite(int costumerId, int productId) {
+        Customer customer = customerRep.getReferenceById(costumerId);
+        Product product = productRep.getReferenceById(productId);
+        customer.addFavourite(product);
+        customerRep.save(customer);
+    }
+
+    public void deleteFavourite(int costumerId, int productId) {
+        Customer customer = customerRep.getReferenceById(costumerId);
+        Product product = productRep.getReferenceById(productId);
+        customer.removeFavourite(product);
+        customerRep.save(customer);
     }
 }

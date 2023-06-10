@@ -16,10 +16,9 @@ public class Category {
 	private String name;
 
 	private String image;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "subcategory")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<SubCategory> subCategories = new ArrayList<SubCategory>();
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Product> products = new ArrayList<Product>();
 
 	public Category() {

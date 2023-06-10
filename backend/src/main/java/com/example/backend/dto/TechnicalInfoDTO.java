@@ -7,6 +7,11 @@ public class TechnicalInfoDTO {
     public TechnicalInfoDTO() {
     }
 
+    public TechnicalInfoDTO(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }

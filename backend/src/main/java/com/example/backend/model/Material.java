@@ -18,6 +18,9 @@ public class Material {
 		this.image = image;
 	}
 
+	public int getID() {
+		return this.iD;
+	}
 	public String getName() {
 		return this.name;
 	}

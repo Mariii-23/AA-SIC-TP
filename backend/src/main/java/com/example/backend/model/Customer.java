@@ -93,4 +93,12 @@ public class Customer extends User {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
+
+	public void addFavourite(Product product) {
+		this.favourites.add(product);
+	}
+
+	public void removeFavourite(Product product) {
+		this.favourites.remove(product);
+	}
 }

@@ -1,7 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.dto.ProductSimpleDTO;
-import com.example.backend.dto.TechnicalInfoDTO;
+import com.example.backend.dto.*;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +95,18 @@ public class ProductService {
         return products.stream()
                 .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getPath()))
                 .toList();
+    }
+
+    public ProductDetailedDTO getProductById(int productId){
+        Product product = productRep.getReferenceById(productId);
+        return new ProductDetailedDTO(productId,
+                product.getName(),
+                product.getPrice(),
+                product.getDescription(),
+                product.getMaterials().stream().map(material -> new MaterialDTO(material.getID(), material.getName(), material.getImage())).toList(),
+                product.getInfos().stream().map(info -> new TechnicalInfoDTO(info.getName(), info.getDescription())).toList(),
+                product.getReviews().stream().map(review -> new ReviewDTO(review.getClassification(), review.getComment(), review.getAuthor().getName())).toList(),
+                product.getImages().stream().map(Image::getPath).toList());
     }
 
 }

@@ -61,4 +61,9 @@ public class ProductController {
         return productService.getProductsBySubCategory(subCategoryId);
     }
 
+    @GetMapping("/{productId}")
+    public ProductDetailedDTO getProductById(@PathVariable int productId) {
+        return productService.getProductById(productId);
+    }
+
 }

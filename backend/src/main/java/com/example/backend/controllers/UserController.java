@@ -68,4 +68,14 @@ public class UserController {
         return userService.logout(token);
     }
 
+    @PostMapping("/favourite/add")
+    public void addFavourite(final @RequestBody AddRemoveFavouriteDTO favourite) {
+        userService.addFavourite(favourite.getCostumerId(), favourite.getProductId());
+    }
+
+    @DeleteMapping("/favourite/delete")
+    public void deleteFavourite(final @RequestBody AddRemoveFavouriteDTO favourite) {
+        userService.deleteFavourite(favourite.getCostumerId(), favourite.getProductId());
+    }
+
 }
