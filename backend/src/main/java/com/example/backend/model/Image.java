@@ -18,6 +18,10 @@ public class Image {
 	public Image() {
 
 	}
+	public Image(String path, Product product) {
+		this.path = path;
+		this.product = product;
+	}
 
 	public String getPath() {
 		return path;

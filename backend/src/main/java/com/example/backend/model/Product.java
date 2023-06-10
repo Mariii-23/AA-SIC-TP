@@ -45,6 +45,14 @@ public class Product {
 		this.category = category;
 	}
 
+	public Product(double price, String name, String description, List<Material> materials, SubCategory subCategory) {
+		this.price = price;
+		this.name = name;
+		this.description = description;
+		this.materials = materials;
+		this.subCategory = subCategory;
+	}
+
 	public int getiD() {
 		return iD;
 	}

@@ -7,8 +7,10 @@ public class AddProductDTO {
     private String description;
     private double price;
     private int categoryId;
+    private int subCategoryId;
     private List<Integer> materialIds;
     private List<TechnicalInfoDTO> infos;
+    private List<String> images;
 
     public AddProductDTO(){
 
@@ -60,5 +62,21 @@ public class AddProductDTO {
 
     public void setInfos(List<TechnicalInfoDTO> infos) {
         this.infos = infos;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 }

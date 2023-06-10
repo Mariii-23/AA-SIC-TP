@@ -3,10 +3,7 @@ package com.example.backend.services;
 import com.example.backend.dto.ProductSimpleDTO;
 import com.example.backend.dto.TechnicalInfoDTO;
 import com.example.backend.model.*;
-import com.example.backend.repositories.CategoryRep;
-import com.example.backend.repositories.MaterialRep;
-import com.example.backend.repositories.ProductRep;
-import com.example.backend.repositories.SubCategoryRep;
+import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +23,27 @@ public class ProductService {
     @Autowired
     private MaterialRep materialRep;
 
-    public void addProduct(String name, String description, double price, int categoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos){
-        Category category = categoryRep.getReferenceById(categoryId);
+    @Autowired
+    private ImageRep imageRep;
+
+    public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<String> images){
+        Category category = null;
+        SubCategory subCategory = null;
+        if(categoryId != 0){
+            category = categoryRep.getReferenceById(categoryId);
+        } else {
+            subCategory = subCategoryRep.getReferenceById(subCategoryId);
+        }
         List<Material> materials = materialRep.findMaterialByIdList(materialIds);
-        Product product = new Product(price, name, description, materials, category);
+        Product product;
+        if (categoryId != 0){
+            product = new Product(price, name, description, materials, category);
+        }else {
+            product = new Product(price, name, description, materials, subCategory);
+        }
+
+        List<Image> imageList = images.stream().map(image -> new Image(image, product)).toList();
+        product.setImages(imageList);
         List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), product)).toList();
         product.setInfos(technicalInfos);
         productRep.save(product);

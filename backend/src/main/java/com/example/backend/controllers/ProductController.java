@@ -20,8 +20,10 @@ public class ProductController {
                 addProductDTO.getDescription(),
                 addProductDTO.getPrice(),
                 addProductDTO.getCategoryId(),
+                addProductDTO.getSubCategoryId(),
                 addProductDTO.getMaterialIds(),
-                addProductDTO.getInfos());
+                addProductDTO.getInfos(),
+                addProductDTO.getImages());
     }
 
     @PostMapping("/category")
@@ -49,12 +51,12 @@ public class ProductController {
         productService.addProductToSubCategory(productId, subCategoryId);
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/category/{categoryId}")
     public List<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId) {
         return productService.getProductsByCategory(categoryId);
     }
 
-    @GetMapping("/subcategory/{id}")
+    @GetMapping("/subcategory/{subCategoryId}")
     public List<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId) {
         return productService.getProductsBySubCategory(subCategoryId);
     }
