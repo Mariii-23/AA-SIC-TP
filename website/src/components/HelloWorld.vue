@@ -8,7 +8,7 @@
 
   <heading-text>Heading</heading-text>
 
-  <div class="ola">
+  <div class="products">
     <!-- <ProductPreviewAdminCards :products="products" /> -->
     <ProductPreviewUserCards :products="products" />
   </div>
@@ -131,7 +131,7 @@ const toggleTheme = () => {
   justify-content: space-between;
 }
 
-.ola {
+.products {
   margin: 10%;
   gap: 50px;
 }

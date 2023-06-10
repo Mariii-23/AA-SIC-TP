@@ -12,7 +12,7 @@
               <div>
                 <v-text-field v-model="username" name="email" label="Email" type="text" placeholder="Email" single-line
                   class="input-form rounded-lg" required bg-color="primary" />
-                <FullWidthButton> {{ $t("send-code") }}</FullWidthButton>
+                <FullWidthButton :handle-click="sendCode"> {{ $t("send-code") }}</FullWidthButton>
               </div>
 
               <div class="custom-divider">
@@ -24,7 +24,7 @@
               <div>
                 <v-text-field v-model="username" name="email" :label="$t('code')" type="text" :placeholder="$t('code')"
                   single-line class="input-form rounded-lg" required bg-color="primary" />
-                <FullWidthButton>
+                <FullWidthButton :handleClick="recoverPassword">
                   {{ $t("recover-pw") }}
                 </FullWidthButton>
               </div>
@@ -113,6 +113,14 @@ import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 
 export default {
   name: "Login",
-  components: { FullWidthButton }
+  components: { FullWidthButton },
+  methods: {
+    sendCode() {
+      console.log("sendCode");
+    },
+    recoverPassword() {
+      console.log("recoverPassword");
+    },
+  },
 };
 </script>
