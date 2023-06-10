@@ -125,15 +125,8 @@ const toggleTheme = () => {
 </script>
 
 <style scoped>
-.previews {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .products {
   margin: 10%;
   gap: 50px;
 }
 </style>
-```

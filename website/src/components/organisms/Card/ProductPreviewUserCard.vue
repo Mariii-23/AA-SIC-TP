@@ -50,8 +50,6 @@ export default {
     border-radius: 5%;
     width: 100%;
     height: 100%;
-    background-color: aqua;
-    object-fit: cover;
 }
 
 .actions {

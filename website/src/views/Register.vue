@@ -35,7 +35,7 @@
  
 <script lang="ts">
 export default {
-   name: "App",
+   name: "Register",
    data() {
       return {
          username: "",
@@ -46,7 +46,7 @@ export default {
          stateObj: {
             register: {
                name: "Register",
-               message: "Aleady have an Acoount? login."
+               message: "Aleady have an Account? login."
             },
             login: {
                name: "Login",

@@ -112,7 +112,7 @@
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 
 export default {
-  name: "Login",
+  name: "RecoverPassword",
   components: { FullWidthButton },
   methods: {
     sendCode() {

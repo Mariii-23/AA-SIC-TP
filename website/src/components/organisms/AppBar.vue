@@ -26,18 +26,18 @@
       </BodyText>
     </div>
 
-    <div v-if="loggedIn && user_type === 'registed_user'" class="icon-w-text">
+    <div v-if="loggedIn && user_type === 'registered_user'" class="icon-w-text">
       <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
       <BodyText class="navbar_text"> {{ $t("welcome") }} {{ truncatedUsername }} </BodyText>
     </div>
 
-    <v-btn icon v-if="loggedIn && user_type == 'registed_user'">
+    <v-btn icon v-if="loggedIn && user_type == 'registered_user'">
       <v-icon>mdi-shopping-outline</v-icon>
     </v-btn>
 
-    <v-btn icon v-if="loggedIn && user_type == 'registed_user'">
+    <v-btn icon v-if="loggedIn && user_type == 'registered_user'">
       <v-icon>mdi-heart-outline</v-icon>
     </v-btn>
 
@@ -85,8 +85,8 @@ export default {
   mounted: function () {
     // TODO: Get user
     const user = {
-      //role: "registed_user",
-      role: "admin",
+      role: "registered_user",
+      //role: "admin",
       username: "Jacinto Alberto",
       id: 12,
     };
