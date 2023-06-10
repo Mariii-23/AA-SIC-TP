@@ -13,6 +13,11 @@ public class Material {
 
 	public Material() {}
 
+	public Material(String name, String image) {
+		this.name = name;
+		this.image = image;
+	}
+
 	public String getName() {
 		return this.name;
 	}

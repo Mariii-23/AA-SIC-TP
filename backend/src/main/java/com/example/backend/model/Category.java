@@ -18,11 +18,16 @@ public class Category {
 	private String image;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
-	private List<Category> subCategories = new ArrayList<Category>();
+	private List<SubCategory> subCategories = new ArrayList<SubCategory>();
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
 	private List<Product> products = new ArrayList<Product>();
 
 	public Category() {
+	}
+
+	public Category(String name, String image) {
+		this.name = name;
+		this.image = image;
 	}
 
 	public String getName() {
@@ -41,11 +46,11 @@ public class Category {
 		this.image = image;
 	}
 
-	public List<Category> getSubCategories() {
+	public List<SubCategory> getSubCategories() {
 		return subCategories;
 	}
 
-	public void setSubCategories(List<Category> subCategories) {
+	public void setSubCategories(List<SubCategory> subCategories) {
 		this.subCategories = subCategories;
 	}
 
@@ -55,6 +60,10 @@ public class Category {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public void addSubCategory(SubCategory subCategory) {
+		this.subCategories.add(subCategory);
 	}
 
 }

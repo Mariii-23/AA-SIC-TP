@@ -19,6 +19,12 @@ public class TechnicalInfo {
 
 	}
 
+	public TechnicalInfo(String name, String description, Product product) {
+		this.name = name;
+		this.description = description;
+		this.product = product;
+	}
+
 	public String getName() {
 		return this.name;
 	}

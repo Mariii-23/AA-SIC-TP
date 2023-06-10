@@ -70,6 +70,7 @@ public class OrderService {
         Customer c = customerRep.getReferenceById(customerId);
         ShoppingCart cart = c.getCart();
         List<OrderItem> orderItems = new ArrayList<>();
+        Order order = new Order(LocalDate.now(),address, storePickUp, OrderState.PENDING, c);
         double total = 0.0;
         for(Item item : cart.getItems()) {
             OrderItem orderItem = new OrderItem(item);
@@ -77,7 +78,8 @@ public class OrderService {
             orderItems.add(orderItem);
             total += orderItem.getPrice();
         }
-        Order order = new Order(LocalDate.now(),address, storePickUp, total, orderItems, OrderState.PENDING, c);
+        order.setTotal(total);
+        order.setItems(orderItems);
         orderRep.save(order);
     }
 

@@ -39,12 +39,10 @@ public class Order {
 
 	}
 
-	public Order(LocalDate date, String address, boolean storePickUp, double total, List<OrderItem> items, OrderState state, Customer customer) {
+	public Order(LocalDate date, String address, boolean storePickUp, OrderState state, Customer customer) {
 		this.date = date;
 		this.address = address;
 		this.storePickUp = storePickUp;
-		this.total = total;
-		this.items = items;
 		this.state = state;
 		this.customer = customer;
 	}
