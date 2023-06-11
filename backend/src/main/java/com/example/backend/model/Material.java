@@ -37,5 +37,7 @@ public class Material {
 		this.image = image;
 	}
 
-
+	public int getiD() {
+		return iD;
+	}
 }

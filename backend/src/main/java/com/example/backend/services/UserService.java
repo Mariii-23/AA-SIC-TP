@@ -62,12 +62,14 @@ public class UserService {
     }
 
     public void addCustomerDTO(CustomerDTO costumerDTO){
+        ShoppingCart cart = new ShoppingCart();
         Customer customer = new Customer(costumerDTO.getBirthday(),
                                          costumerDTO.getNif(),
                                          costumerDTO.getAddress(),
                                          costumerDTO.getEmail(),
                                          costumerDTO.getPassword(),
-                                         costumerDTO.getName());
+                                         costumerDTO.getName(),
+                                         cart);
         addCustomer(customer);
     }
 

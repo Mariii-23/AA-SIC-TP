@@ -24,7 +24,7 @@ public class Item {
 	private Product product;
 
 	@ManyToOne
-	@JoinColumn(name = "cart_id",nullable = false)
+	@JoinColumn(name = "cart_id")
 	private ShoppingCart shoppingCart;
 
 	public Item() {}
@@ -40,8 +40,6 @@ public class Item {
 		this.quantity = item.getQuantity();
 		this.material = item.getMaterial();
 		this.product = item.getProduct();
-		this.shoppingCart = item.getShoppingCart();
-
 	}
 
 	public int getQuantity() {

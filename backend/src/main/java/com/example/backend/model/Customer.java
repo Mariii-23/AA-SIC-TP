@@ -31,11 +31,12 @@ public class Customer extends User {
 		super();
 	}
 
-	public Customer(Date birthday, String nif, String address, String email, String password, String name) {
+	public Customer(Date birthday, String nif, String address, String email, String password, String name, ShoppingCart cart) {
 		super(email, password, name);
 		this.birthday = birthday;
 		this.nif = nif;
 		this.address = address;
+		this.cart = cart;
 	}
 
 	public Date getBirthday() {

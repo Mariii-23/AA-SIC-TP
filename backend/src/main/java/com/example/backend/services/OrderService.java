@@ -73,7 +73,7 @@ public class OrderService {
         Order order = new Order(LocalDate.now(),address, storePickUp, OrderState.PENDING, c);
         double total = 0.0;
         for(Item item : cart.getItems()) {
-            OrderItem orderItem = new OrderItem(item);
+            OrderItem orderItem = new OrderItem(item, order);
             itemRep.delete(item);
             orderItems.add(orderItem);
             total += orderItem.getPrice();
@@ -86,8 +86,9 @@ public class OrderService {
     public void addProductToShoppingCart(int customerId, int productId, int materialId, int quantity){
         Customer c = customerRep.getReferenceById(customerId);
         ShoppingCart cart = c.getCart();
-        Product p = productRep.getReferenceById(productId);
-        Material m = p.getMaterials().get(materialId);
+        Object[] result = productRep.findProductAndMaterialById(productId, materialId).get(0);
+        Product p = (Product) result[0];
+        Material m = (Material) result[1];
         Item item = new Item(quantity, m, p, cart);
         itemRep.save(item);
     }

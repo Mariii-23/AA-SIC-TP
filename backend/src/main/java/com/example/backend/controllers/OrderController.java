@@ -39,7 +39,7 @@ public class OrderController {
         return orderService.setOrderState(orderId, OrderState.DONE);
     }
 
-    @PostMapping("/order")
+    @PostMapping("/create")
     public void createOrder(final @RequestBody CreateOrderDTO order){
         orderService.createOrder(order.getCostumerId(), order.getAddress(), order.isStorePickUp());
     }

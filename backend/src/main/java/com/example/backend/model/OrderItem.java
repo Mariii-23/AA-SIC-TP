@@ -5,20 +5,20 @@ import jakarta.persistence.*;
 @Entity
 @DiscriminatorValue("orderitem")
 public class OrderItem extends Item {
-	@Column(nullable = false)
 	private double price;
 
 	@ManyToOne
-	@JoinColumn(name = "order_id", nullable = false)
+	@JoinColumn(name = "order_id")
 	private Order order;
 
 	public OrderItem() {
 
 	}
 
-	public OrderItem(Item item) {
+	public OrderItem(Item item, Order order) {
 		super(item);
-		this.price = item.getProduct().getPrice();
+		this.price = item.getProduct().getPrice() * item.getQuantity();
+		this.order = order;
 	}
 
 	public double getPrice() {
