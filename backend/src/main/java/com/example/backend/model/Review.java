@@ -22,6 +22,13 @@ public class Review {
 
 	}
 
+	public Review(int classification, String comment, Customer author, Product product) {
+		this.classification = classification;
+		this.comment = comment;
+		this.author = author;
+		this.product = product;
+	}
+
 	public int getClassification() {
 		return this.classification;
 	}

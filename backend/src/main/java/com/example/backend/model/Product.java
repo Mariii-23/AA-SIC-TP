@@ -127,4 +127,8 @@ public class Product {
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
+
+	public void addReview(Review review) {
+		this.reviews.add(review);
+	}
 }

@@ -25,6 +25,9 @@ public class ProductService {
     @Autowired
     private ImageRep imageRep;
 
+    @Autowired
+    private CustomerRep customerRep;
+
     public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<String> images){
         Category category = null;
         SubCategory subCategory = null;
@@ -107,6 +110,24 @@ public class ProductService {
                 product.getInfos().stream().map(info -> new TechnicalInfoDTO(info.getName(), info.getDescription())).toList(),
                 product.getReviews().stream().map(review -> new ReviewDTO(review.getClassification(), review.getComment(), review.getAuthor().getName())).toList(),
                 product.getImages().stream().map(Image::getPath).toList());
+    }
+
+    public List<CategoryDTO> getAllCategories(){
+        return categoryRep.findAll().stream()
+                .map(category -> new CategoryDTO(category.getiD(),
+                        category.getName(),
+                        category.getImage(),
+                        category.getSubCategories().stream()
+                        .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName(), subCategory.getImage())).toList()))
+                .toList();
+    }
+
+    public void addReview(int customerId, int productId, int classification, String comment){
+        Product product = productRep.getReferenceById(productId);
+        Customer customer = customerRep.getReferenceById(customerId);
+        Review review = new Review(classification, comment, customer, product);
+        product.addReview(review);
+        productRep.save(product);
     }
 
 }

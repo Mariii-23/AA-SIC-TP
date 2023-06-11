@@ -27,6 +27,10 @@ public class SubCategory {
         this.category = category;
     }
 
+    public int getiD() {
+        return iD;
+    }
+
     public String getName() {
         return name;
     }

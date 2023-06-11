@@ -66,4 +66,14 @@ public class ProductController {
         return productService.getProductById(productId);
     }
 
+    @GetMapping("/categories")
+    public List<CategoryDTO> getAllCategories() {
+        return productService.getAllCategories();
+    }
+
+    @PostMapping("/review")
+    public void addReview(final @RequestBody AddReviewDTO addReviewDTO) {
+        productService.addReview(addReviewDTO.getCustomerId(), addReviewDTO.getProductId(), addReviewDTO.getClassification(), addReviewDTO.getComment());
+    }
+
 }

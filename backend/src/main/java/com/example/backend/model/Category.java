@@ -29,6 +29,10 @@ public class Category {
 		this.image = image;
 	}
 
+	public int getiD() {
+		return iD;
+	}
+
 	public String getName() {
 		return this.name;
 	}

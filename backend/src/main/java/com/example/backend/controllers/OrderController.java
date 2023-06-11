@@ -29,12 +29,12 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @PostMapping("/orderReady/{orderId}")
+    @PostMapping("/ready/{orderId}")
     public boolean setOrderReady(@PathVariable int orderId){
         return orderService.setOrderState(orderId, OrderState.READY);
     }
 
-    @PostMapping("/orderDone/{orderId}")
+    @PostMapping("/done/{orderId}")
     public boolean setOrderDone(@PathVariable int orderId){
         return orderService.setOrderState(orderId, OrderState.DONE);
     }
