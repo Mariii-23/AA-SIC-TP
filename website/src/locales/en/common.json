@@ -31,6 +31,8 @@
     "have-account": "Already have an account?",
     "address": "Address",
     "nif": "NIF",
+    "finish-register": "Finish Register",
+    "personal-data": "Please fill in your personal data to finish the registration:",
 
 
     "search": "Search",

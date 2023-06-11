@@ -19,6 +19,7 @@
                            :placeholder="$t('address')" required bg-color="primary" single-line />
                         <v-text-field v-model="nif" name="password" :label="$t('nif')" type="input"
                            :placeholder="$t('nif')" required bg-color="primary" single-line />
+
                      </div>
 
                      <FullWidthButton :handleClick="handleSignupWithEmail"> {{ $t("register") }}</FullWidthButton>
@@ -131,29 +132,36 @@ export default {
          conf_password: "",
          address: "",
          nif: "",
-         activePicker: null,
-         date: null,
-         menu: false,
-      };
+         items: [
+            {
+               label: 'Personal',
+               to: "/"
+            },
+            {
+               label: 'Seat',
+               to: "/seat",
+            },
+            {
+               label: 'Payment',
+               to: "/payment",
+            },
+            {
+               label: 'Confirmation',
+               to: "/confirmation",
+            }
+         ]
+      }
    },
-   watch: {
-      menu (val) {
-        val && setTimeout(() => (this.activePicker = 'YEAR'))
-      },
-    },
    methods: {
       login() {
          const { email } = this;
          console.log(email + "logged in");
       },
-      handleSingupWithGoogle() {
+      handleSignupWithGoogle() {
          console.log(+"hiihih");
       },
       handleSignupWithEmail() {
          console.log("hiihih");
-      },
-      save (date) {
-        this.$refs.menu.save(date)
       },
    },
    components: { PrimaryButton, FullWidthButton }
