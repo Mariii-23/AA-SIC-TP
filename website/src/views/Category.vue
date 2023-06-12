@@ -1,11 +1,21 @@
 <template>
   <CategoryUser
-    :v-if="!isAdmin"
+    v-if="!isAdmin"
     :products="products"
     :category="category"
     :links="links"
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
+  />
+
+  <CategoryAdmin
+    v-if="isAdmin"
+    :products="products"
+    :category="category"
+    :links="links"
+    :handle-on-click-avatar="handleOnClickAvatar"
+    :handle-page-change="onChangePagePagination"
+    :add-product-handler="addProductHandler"
   />
 </template>
 
@@ -13,10 +23,11 @@
 import CategoryUser from "./user/CategoryUser.vue";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import CategoryAdmin from "./admin/CategoryAdmin.vue";
 
 const route = useRoute();
 //TODO: change this
-const isAdmin = false;
+const isAdmin = true;
 const links = ref([]);
 
 //TODO: ir buscar ao backend
@@ -40,12 +51,19 @@ for (let i = 0; i < 20; i++) {
   products.push(product);
 }
 
+//TODO:
 const onChangePagePagination = (number: string) => {
   console.log(number);
 };
 
+//TODO:
 const handleOnClickAvatar = (number: string) => {
   console.log(number);
+};
+
+//TODO:
+const addProductHandler = () => {
+  console.log("adicionar produto");
 };
 
 onMounted(() => {
