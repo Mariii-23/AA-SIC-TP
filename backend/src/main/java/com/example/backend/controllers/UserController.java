@@ -67,11 +67,6 @@ public class UserController {
         userService.editAdmin(admin_id, adminDTO);
     }
 
-    @PostMapping("/login")
-    public boolean login(final @RequestBody LoginDTO loginDTO) {
-        return userService.login(loginDTO);
-    }
-
     @PostMapping("/logout")
     public boolean logout(@RequestParam String token) {
         return userService.logout(token);
