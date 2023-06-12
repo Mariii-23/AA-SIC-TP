@@ -115,6 +115,6 @@
             console.log(+"signup");
         }
     },
-    components: { PrimaryButton, FullWidthButton }
+    components: { FullWidthButton }
  };
  </script>

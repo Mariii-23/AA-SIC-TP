@@ -134,19 +134,19 @@ export default {
          nif: "",
          items: [
             {
-               label: 'Personal',
+               label: "Personal",
                to: "/"
             },
             {
-               label: 'Seat',
+               label: "Seat",
                to: "/seat",
             },
             {
-               label: 'Payment',
+               label: "Payment",
                to: "/payment",
             },
             {
-               label: 'Confirmation',
+               label: "Confirmation",
                to: "/confirmation",
             }
          ]
