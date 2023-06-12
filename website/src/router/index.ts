@@ -40,11 +40,6 @@ const routes = [
         name: "RecoverPassword",
         component: () => import("@/views/RecoverPassword.vue"),
       },
-      {
-        path: "date-picker",
-        name: "DatePicker",
-        component: () => import("@/views/DatePicker.vue"),
-      },
     ],
   },
 ];
