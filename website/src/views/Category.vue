@@ -6,6 +6,8 @@
     :links="links"
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
+    :shopping-card-handler="shoppingCardHandler"
+    :favorite-icon-handler="favoriteIconHandler"
   />
 
   <CategoryAdmin
@@ -16,6 +18,8 @@
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
     :add-product-handler="addProductHandler"
+    :delete-product-handler="deleteProductHandler"
+    :edit-product-handler="editProductHandler"
   />
 </template>
 
@@ -27,7 +31,7 @@ import CategoryAdmin from "./admin/CategoryAdmin.vue";
 
 const route = useRoute();
 //TODO: change this
-const isAdmin = true;
+const isAdmin = false;
 const links = ref([]);
 
 //TODO: ir buscar ao backend
@@ -64,6 +68,24 @@ const handleOnClickAvatar = (number: string) => {
 //TODO:
 const addProductHandler = () => {
   console.log("adicionar produto");
+};
+
+//TODO:
+const deleteProductHandler = (number: string) => {
+  console.log(number);
+};
+
+//TODO:
+const editProductHandler = (productId: string) => {
+  console.log(productId);
+};
+
+const shoppingCardHandler = (productId: string) => {
+  console.log(productId);
+};
+
+const favoriteIconHandler = (productId: string) => {
+  console.log(productId);
 };
 
 onMounted(() => {

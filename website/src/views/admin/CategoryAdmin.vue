@@ -13,7 +13,11 @@
       :size="100"
     />
 
-    <ProductPreviewAdminCards :products="products" />
+    <ProductPreviewAdminCards
+      :products="products"
+      :delete-product-handler="deleteProductHandler"
+      :edit-product-handler="editProductHandler"
+    />
 
     <Pagination
       length="10"
@@ -60,6 +64,12 @@ export default {
     addProductHandler: {
       type: Function,
       require: true,
+    },
+    deleteProductHandler: {
+      type: Function,
+    },
+    editProductHandler: {
+      type: Function,
     },
   },
   components: {

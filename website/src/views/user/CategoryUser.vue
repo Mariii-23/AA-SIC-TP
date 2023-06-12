@@ -9,7 +9,11 @@
       :size="100"
     />
 
-    <ProductPreviewUserCards :products="products" />
+    <ProductPreviewUserCards
+      :products="products"
+      :shopping-card-handler="shoppingCardHandler"
+      :favorite-icon-handler="favoriteIconHandler"
+    />
 
     <Pagination
       length="10"
@@ -52,6 +56,12 @@ export default {
     handleOnClickAvatar: {
       type: Function,
       require: true,
+    },
+    shoppingCardHandler: {
+      type: Function,
+    },
+    favoriteIconHandler: {
+      type: Function,
     },
   },
   components: {
