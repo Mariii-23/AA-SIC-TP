@@ -63,6 +63,7 @@ import ErrorAlert from "@/components/atoms/Alert/ErrorAlert.vue";
 import WarningAlert from "@/components/atoms/Alert/WarningAlert.vue";
 
 export default {
+  name: "try",
   data: () => ({
     items: [],
     isModalOpen: false,

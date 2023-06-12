@@ -40,6 +40,17 @@ const routes = [
         name: "RecoverPassword",
         component: () => import("@/views/RecoverPassword.vue"),
       },
+      {
+        path: "category/:id",
+        name: "Category",
+        component: () => import("@/views/Category.vue"),
+      },
+      // FIXME: alterar pagina 
+      {
+        path: "/category/:id/subcategory/:subCategoryId",
+        name: "SubCategory",
+        component: () => import("@/views/LayoutTry.vue"),
+      },
     ],
   },
 ];
