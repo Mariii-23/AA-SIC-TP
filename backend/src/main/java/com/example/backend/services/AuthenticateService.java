@@ -47,4 +47,8 @@ public class AuthenticateService {
         String token = jwtService.generateToken(user);
         return new AuthenticationResponse(token);
     }
+
+    public boolean logout() {
+        return true;
+    }
 }
