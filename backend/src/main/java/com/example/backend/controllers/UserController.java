@@ -48,19 +48,9 @@ public class UserController {
         return userService.getOrders(id);
     }
 
-    @PostMapping("/customer")
-    public void addCustomer(final @RequestBody CustomerDTO costumer) {
-        userService.addCustomerDTO(costumer);
-    }
-
     @PostMapping("/admin")
     public void addAdmin(final @RequestBody AdminDTO admin) {
         userService.addAdminDTO(admin);
-    }
-
-    @PostMapping("/login")
-    public boolean login(final @RequestBody LoginDTO loginDTO) {
-        return userService.login(loginDTO);
     }
 
     @PostMapping("/logout")

@@ -37,6 +37,7 @@ public class Customer extends User {
 		this.nif = nif;
 		this.address = address;
 		this.cart = cart;
+		super.setRole(Role.CUSTOMER);
 	}
 
 	public Date getBirthday() {

@@ -12,5 +12,6 @@ public class Admin extends User {
 
     public Admin(String email, String password, String name) {
         super(email, password, name);
+        super.setRole(Role.ADMIN);
     }
 }
