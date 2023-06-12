@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,27 +10,34 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("Customer")
 public class Customer extends User {
+
+	@Column
 	private Date birthday;
+	@Column(unique = true)
 	private String nif;
+	@Column
 	private String address;
-	@OneToMany
-	public List<Review> reviews;
-	@OneToOne
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+	public List<Review> reviews  = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cart_id")
 	private ShoppingCart cart;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private List<Order> orders;
-	@OneToMany
-	private List<Product> favorites;
+	@ManyToMany
+	private List<Product> favourites;
 
 	public Customer() {
 		super();
 	}
 
-	public Customer(Date birthday, String nif, String address, String email, String password, String name) {
+	public Customer(Date birthday, String nif, String address, String email, String password, String name, ShoppingCart cart) {
 		super(email, password, name);
 		this.birthday = birthday;
 		this.nif = nif;
 		this.address = address;
+		this.cart = cart;
+		super.setRole(Role.CUSTOMER);
 	}
 
 	public Date getBirthday() {
@@ -72,12 +80,12 @@ public class Customer extends User {
 		this.orders = orders;
 	}
 
-	public List<Product> getFavorites() {
-		return favorites;
+	public List<Product> getFavourites() {
+		return favourites;
 	}
 
-	public void setFavorites(List<Product> favorites) {
-		this.favorites = favorites;
+	public void setFavourites(List<Product> favorites) {
+		this.favourites = favorites;
 	}
 
 	public List<Review> getReviews() {
@@ -86,5 +94,13 @@ public class Customer extends User {
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public void addFavourite(Product product) {
+		this.favourites.add(product);
+	}
+
+	public void removeFavourite(Product product) {
+		this.favourites.remove(product);
 	}
 }

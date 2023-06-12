@@ -1,22 +1,26 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Material {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+	@Column(nullable = false, unique = true)
 	private String name;
 	private String image;
 
-	public Material() {
+	public Material() {}
 
+	public Material(String name, String image) {
+		this.name = name;
+		this.image = image;
 	}
 
+	public int getID() {
+		return this.iD;
+	}
 	public String getName() {
 		return this.name;
 	}
@@ -33,5 +37,7 @@ public class Material {
 		this.image = image;
 	}
 
-
+	public int getiD() {
+		return iD;
+	}
 }

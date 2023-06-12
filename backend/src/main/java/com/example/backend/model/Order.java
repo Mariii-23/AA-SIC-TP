@@ -1,6 +1,7 @@
 package com.example.backend.model;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,25 +12,46 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
-	private Date date;
+
+	@Column(nullable = false)
+	private LocalDate date;
+
+	@Column(nullable = false)
 	private String address;
+
+	@Column(nullable = false)
 	private boolean storePickUp;
+
+	@Column(nullable = false)
 	private double total;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 
 	@Enumerated(EnumType.ORDINAL)
+	@Column(nullable = false)
 	private OrderState state;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id", nullable = false)
+	private Customer customer;
 
 	public Order() {
 
 	}
 
-	public Date getDate() {
+	public Order(LocalDate date, String address, boolean storePickUp, OrderState state, Customer customer) {
+		this.date = date;
+		this.address = address;
+		this.storePickUp = storePickUp;
+		this.state = state;
+		this.customer = customer;
+	}
+
+	public LocalDate getDate() {
 		return this.date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -75,5 +97,13 @@ public class Order {
 
 	public void setState(OrderState state) {
 		this.state = state;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 }
