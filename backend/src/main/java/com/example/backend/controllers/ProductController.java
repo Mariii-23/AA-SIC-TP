@@ -43,12 +43,12 @@ public class ProductController {
                 editProductDTO.getInfos());
     }
 
-    @PostMapping("/edit/addimages/{productId}/")
+    @PostMapping("/edit/addimages/{productId}")
     public void addProductImages(final @PathVariable int productId, final @RequestBody List<String> images) {
         productService.addProductImages(productId, images);
     }
 
-    @PostMapping("/edit/removeimages/{productId}/")
+    @PostMapping("/edit/removeimages/{productId}")
     public void removeProductImages(final @PathVariable int productId, final @RequestBody List<String> images) {
         productService.removeProductImages(productId, images);
     }

@@ -3,6 +3,7 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "product_id"}))
 public class TechnicalInfo {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
@@ -39,5 +40,21 @@ public class TechnicalInfo {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public int getiD() {
+		return iD;
+	}
+
+	public void setiD(int iD) {
+		this.iD = iD;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

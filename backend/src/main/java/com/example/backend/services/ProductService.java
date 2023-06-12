@@ -3,6 +3,7 @@ package com.example.backend.services;
 import com.example.backend.dto.*;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,9 @@ public class ProductService {
 
     @Autowired
     private CustomerRep customerRep;
+
+    @Autowired
+    private TechnicalInfoRep technicalInfoRep;
 
     public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<String> images){
         Category category = categoryRep.getReferenceById(categoryId);
@@ -171,6 +175,7 @@ public class ProductService {
         productRep.delete(product);
     }
 
+    @Transactional
     public void editProduct(int productId, String name, String description, double price, int categoryId,
                             int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) {
         Product product = productRep.getReferenceById(productId);
@@ -189,10 +194,17 @@ public class ProductService {
             List<Material> materials = materialRep.findMaterialByIdList(materialIds);
             product.setMaterials(materials);
         }
-        /*if (infos != null) {
-            List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), product)).toList();
-            product.setInfos(technicalInfos);
-        }*/
+        if (infos != null) {
+            List<TechnicalInfo> oldInfos = product.getInfos();
+            for (TechnicalInfo info : oldInfos){
+                technicalInfoRep.deleteTechnicalInfoById(info.getiD());
+            }
+
+            List<TechnicalInfo> newInfos = infos.stream()
+                    .map(info -> new TechnicalInfo(info.getName(), info.getDescription(), product))
+                    .toList();
+            technicalInfoRep.saveAll(newInfos);
+        }
         productRep.save(product);
     }
 
