@@ -2,7 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
-import jakarta.annotation.Resource;
+import jakarta.annotation.Resource;;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

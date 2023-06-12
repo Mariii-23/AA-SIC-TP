@@ -42,6 +42,10 @@ public class Item {
 		this.product = item.getProduct();
 	}
 
+	public int getiD() {
+		return iD;
+	}
+
 	public int getQuantity() {
 		return this.quantity;
 	}

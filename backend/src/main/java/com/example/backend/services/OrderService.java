@@ -74,7 +74,7 @@ public class OrderService {
         double total = 0.0;
         for(Item item : cart.getItems()) {
             OrderItem orderItem = new OrderItem(item, order);
-            itemRep.delete(item);
+            itemRep.deleteById(item.getiD());
             orderItems.add(orderItem);
             total += orderItem.getPrice();
         }

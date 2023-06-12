@@ -82,7 +82,7 @@ public class UserService {
 
     public boolean login(LoginDTO loginDTO) {
         User user = userRep.findByEmail(loginDTO.getEmail());
-        return user.getPassword().equals(loginDTO.getPassword());
+        return user != null && user.getPassword().equals(loginDTO.getPassword());
     }
 
     public boolean logout(String token) {

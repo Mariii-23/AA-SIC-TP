@@ -13,6 +13,8 @@ public class User {
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
 
+	String token;
+
 	@Column(nullable = false, unique = true)
 	private String email;
 
@@ -29,6 +31,14 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.name = name;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public String getEmail() {
