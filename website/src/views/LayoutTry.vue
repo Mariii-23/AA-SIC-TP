@@ -1,11 +1,26 @@
 <template>
+  <div v-if="isAlert">
+    <SucessAlert title="A operacao foi realizada com sucesso" />
+    <ErrorAlert title="A operacao foi realizada com sucesso" />
+    <WarningAlert title="A operacao foi realizada com sucesso" />
+  </div>
+
   <div class="ola">
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton title="All Users" :items="items" button-text="Add User" :button-handler="addUserHandler" />
+        <TitleCardLinksButton
+          title="All Users"
+          :items="items"
+          button-text="Add User"
+          :button-handler="addUserHandler"
+        />
       </template>
       <template v-slot:second>
-        <TitleWithButton title="All Users" button-text="New user" :button-handler="addUserHandler" />
+        <TitleWithButton
+          title="All Users"
+          button-text="New user"
+          :button-handler="addUserHandler"
+        />
         <v-container />
         <TitleWithGoBack title="All Users" />
         <v-container />
@@ -15,7 +30,11 @@
           Abrir Modal
         </SecondaryButton>
 
-        <modal :is-open="isModalOpen" :close-modal="closeModal" title="Ola mundo">
+        <modal
+          :is-open="isModalOpen"
+          :close-modal="closeModal"
+          title="Ola mundo"
+        >
           <template v-slot:body-modal>
             laksdjfal laksjflka sd adslfkjalk
           </template>
@@ -39,14 +58,19 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleWithEditButton from "@/components/molecules/TitleWithEditButton.vue";
 import Modal from "@/components/organisms/Modal.vue";
 import SecondaryButton from "@/components/atoms/Button/SecondaryButton.vue";
+import SucessAlert from "@/components/atoms/Alert/SucessAlert.vue";
+import ErrorAlert from "@/components/atoms/Alert/ErrorAlert.vue";
+import WarningAlert from "@/components/atoms/Alert/WarningAlert.vue";
 
 export default {
   data: () => ({
     items: [],
     isModalOpen: false,
+    isAlert: false,
   }),
   mounted: function () {
     this.isModalOpen = false;
+    this.isAlert = false;
     this.items = [
       { href: "/try", icon: "brightness-1", text: "ola heheh" },
       { href: "/login", icon: "brightness-1", text: "ola heheh" },
@@ -64,10 +88,14 @@ export default {
     TitleWithEditButton,
     Modal,
     SecondaryButton,
+    SucessAlert,
+    ErrorAlert,
+    WarningAlert,
   },
   methods: {
     addUserHandler() {
       console.log("cliquei");
+      this.isAlert = true;
     },
     openModal() {
       this.isModalOpen = true;
