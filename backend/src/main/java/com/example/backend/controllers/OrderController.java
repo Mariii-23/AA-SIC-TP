@@ -14,37 +14,37 @@ public class OrderController {
     @Resource(name = "orderService")
     private OrderService orderService;
 
-    @GetMapping("/orders/{costumerId}")
+    @GetMapping("/customer/orders/{costumerId}")
     public List<OrderSimpleDTO> getOrders(@PathVariable int costumerId){
         return orderService.getOrdersOfCostumer(costumerId);
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/customer/order/{orderId}")
     public OrderDetailedDTO getOrder(@PathVariable int orderId){
         return orderService.getOrder(orderId);
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/admin/orders")
     public List<OrderSimpleDTO> getAllOrders(){
         return orderService.getAllOrders();
     }
 
-    @PostMapping("/ready/{orderId}")
+    @PostMapping("/admin/ready/{orderId}")
     public boolean setOrderReady(@PathVariable int orderId){
         return orderService.setOrderState(orderId, OrderState.READY);
     }
 
-    @PostMapping("/done/{orderId}")
+    @PostMapping("/admin/done/{orderId}")
     public boolean setOrderDone(@PathVariable int orderId){
         return orderService.setOrderState(orderId, OrderState.DONE);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/customer/create")
     public void createOrder(final @RequestBody CreateOrderDTO order){
         orderService.createOrder(order.getCostumerId(), order.getAddress(), order.isStorePickUp());
     }
 
-    @PostMapping("/shoppingCart/product")
+    @PostMapping("/customer/shoppingCart/product")
     public void addProductToShoppingCart(final @RequestBody AddProductToShoppingCartDTO product){
         orderService.addProductToShoppingCart(product.getCostumerId(),
                                               product.getProductId(),
@@ -52,12 +52,12 @@ public class OrderController {
                                               product.getQuantity());
     }
 
-    @PostMapping("/shoppingCart/quantity")
+    @PostMapping("/customer/shoppingCart/quantity")
     public void setProductQuantityInShoppingCart(final @RequestBody SetProductQuantityDTO product){
         orderService.setProductQuantity(product.getItemId(), product.getQuantity());
     }
 
-    @DeleteMapping("/shoppingCart/product/{itemId}")
+    @DeleteMapping("/customer/shoppingCart/product/{itemId}")
     public void deleteProductFromShoppingCart(@PathVariable int itemId){
         orderService.deleteItemFromShoppingCart(itemId);
     }

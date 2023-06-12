@@ -99,22 +99,22 @@ public class ProductController {
         productService.addProductToSubCategory(productId, subCategoryId);
     }
 
-    @GetMapping("/category/{categoryId}")
+    @GetMapping("all/category/{categoryId}")
     public List<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId) {
         return productService.getProductsByCategory(categoryId);
     }
 
-    @GetMapping("/subcategory/{subCategoryId}")
+    @GetMapping("all/subcategory/{subCategoryId}")
     public List<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId) {
         return productService.getProductsBySubCategory(subCategoryId);
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("all/{productId}")
     public ProductDetailedDTO getProductById(@PathVariable int productId) {
         return productService.getProductById(productId);
     }
 
-    @GetMapping("/categories")
+    @GetMapping("all//categories")
     public List<CategoryDTO> getAllCategories() {
         return productService.getAllCategories();
     }
