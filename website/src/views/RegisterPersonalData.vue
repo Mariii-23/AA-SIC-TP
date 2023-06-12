@@ -9,7 +9,7 @@
 
             
             
-                <form ref="form" @submit.prevent="login()">
+                <form ref="form">
                    <div class="custom-flex">
                     <p>{{ $t("personal-data") }}</p>
                       <div>
@@ -17,6 +17,7 @@
                             :placeholder="$t('address')" required bg-color="primary" single-line />
                          <v-text-field v-model="nif" name="password" :label="$t('nif')" type="input"
                             :placeholder="$t('nif')" required bg-color="primary" single-line />
+                            <v-text-field type="date" :label="$t('dob')"></v-text-field>
  
                       </div>
  
