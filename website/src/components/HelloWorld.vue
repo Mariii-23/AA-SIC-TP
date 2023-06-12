@@ -8,6 +8,8 @@
 
   <heading-text>Heading</heading-text>
 
+  <QuantityButton />
+
   <div class="products">
     <!-- <ProductPreviewAdminCards :products="products" /> -->
     <ProductPreviewUserCards :products="products" />
@@ -129,4 +131,18 @@ const toggleTheme = () => {
   margin: 10%;
   gap: 50px;
 }
+
+.carousel {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+
+.product-info {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 </style>

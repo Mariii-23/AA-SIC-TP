@@ -37,5 +37,12 @@
     
 
     "search": "Pesquisar",
-    "orders": "Encomendas"
+    "orders": "Encomendas",
+
+
+    "product-details": "Detalhes do produto",
+    "tech-info": "Informação técnica",
+    "buy-now": "Comprar agora",
+    "add-cart": "Adicionar ao carrinho",
+    "related-products": "Produtos relacionados"
 }

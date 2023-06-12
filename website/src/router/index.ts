@@ -40,6 +40,11 @@ const routes = [
         name: "RecoverPassword",
         component: () => import("@/views/RecoverPassword.vue"),
       },
+      {
+        path: "product",
+        name: "ProductPage",
+        component: () => import("@/views/ProductPage.vue"),
+      }
     ],
   },
 ];

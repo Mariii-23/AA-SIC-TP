@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="footer" color="secondary">
+  <v-footer class="footer" color="secondary" elevation="5">
     <v-spacer />
     <v-col v-if="hasLocalization" class="column">
       <v-row>
@@ -81,6 +81,7 @@ export default {
 .footer {
   display: flex;
   align-content: center;
+  padding: 20px;
 }
 
 @media screen and (max-width: 800px) {
