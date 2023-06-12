@@ -10,6 +10,21 @@
         <TitleWithGoBack title="All Users" />
         <v-container />
         <TitleWithEditButton title="All Users" :edit-handler="addUserHandler" />
+
+        <SecondaryButton :handle-click="openModal" @close="closeModal">
+          Abrir Modal
+        </SecondaryButton>
+
+        <modal :is-open="isModalOpen" :close-modal="closeModal" title="Ola mundo">
+          <template v-slot:body-modal>
+            laksdjfal laksjflka sd adslfkjalk
+          </template>
+          <template v-slot:actions-modal>
+            <PrimaryButton @click="closeModal"> Fechar </PrimaryButton>
+            <SecondaryButton @click="closeModal"> Yes </SecondaryButton>
+          </template>
+        </modal>
+
         <v-container />
       </template>
     </TwoColumnsPanel>
@@ -22,12 +37,16 @@ import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vu
 import TitleWithGoBack from "@/components/molecules/TitleGoBack.vue";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleWithEditButton from "@/components/molecules/TitleWithEditButton.vue";
+import Modal from "@/components/organisms/Modal.vue";
+import SecondaryButton from "@/components/atoms/Button/SecondaryButton.vue";
 
 export default {
   data: () => ({
     items: [],
+    isModalOpen: false,
   }),
   mounted: function () {
+    this.isModalOpen = false;
     this.items = [
       { href: "/try", icon: "brightness-1", text: "ola heheh" },
       { href: "/login", icon: "brightness-1", text: "ola heheh" },
@@ -42,11 +61,19 @@ export default {
     TitleCardLinksButton,
     TitleWithButton,
     TitleWithGoBack,
-    TitleWithEditButton
+    TitleWithEditButton,
+    Modal,
+    SecondaryButton,
   },
   methods: {
     addUserHandler() {
       console.log("cliquei");
+    },
+    openModal() {
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
     },
   },
 };

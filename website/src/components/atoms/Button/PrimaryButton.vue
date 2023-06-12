@@ -1,9 +1,9 @@
 <template>
-  <v-btn type="submit" color="primary" @click="handleClick" value={{value}}>
-    <ButtonText>
-        <slot/>
-    </ButtonText>
-  </v-btn>
+    <v-btn type="submit" color="primary bg-primary" @click="handleClick" value={{value}}>
+        <ButtonText class="text-black">
+            <slot />
+        </ButtonText>
+    </v-btn>
 </template>
 
 <script lang="ts">
