@@ -39,14 +39,16 @@ public class InfoService {
     }
 
     public void addCompanyDTO(CompanyDTO companyDTO){
-        Company company = new Company(companyDTO.getName(),
-                                      companyDTO.getEmail(),
-                                      companyDTO.getContact(),
-                                      companyDTO.getAddress(),
-                                      companyDTO.getLogoImage(),
-                                      companyDTO.getPostCode(),
-                                      companyDTO.getSchedule());
-        addCompany(company);
+        if (Company.getInstance() == null) {
+            Company company = new Company(companyDTO.getName(),
+                    companyDTO.getEmail(),
+                    companyDTO.getContact(),
+                    companyDTO.getAddress(),
+                    companyDTO.getLogoImage(),
+                    companyDTO.getPostCode(),
+                    companyDTO.getSchedule());
+            addCompany(company);
+        }
     }
 
     public SocialNetwork addSocialNetwork(SocialNetwork socialNetwork) {

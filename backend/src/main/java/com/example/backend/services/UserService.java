@@ -75,8 +75,8 @@ public class UserService {
 
     public void addAdminDTO(AdminDTO adminDTO){
         Admin admin = new Admin(adminDTO.getEmail(),
-                                adminDTO.getName(),
-                                adminDTO.getPassword());
+                                adminDTO.getPassword(),
+                                adminDTO.getName());
         addAdmin(admin);
     }
 
@@ -137,5 +137,29 @@ public class UserService {
         Product product = productRep.getReferenceById(productId);
         customer.removeFavourite(product);
         customerRep.save(customer);
+    }
+
+    public void removeAdmin(int adminId) {
+        Admin admin = adminRep.getReferenceById(adminId);
+        adminRep.delete(admin);
+    }
+
+    public void editCustomer(int customer_id, CustomerDTO costumerDTO) {
+        Customer customer = customerRep.getReferenceById(customer_id);
+        if (costumerDTO.getEmail() != null) customer.setEmail(costumerDTO.getEmail());
+        if (costumerDTO.getPassword() != null) customer.setPassword(costumerDTO.getPassword());
+        if (costumerDTO.getName() != null) customer.setName(costumerDTO.getName());
+        if (costumerDTO.getBirthday() != null) customer.setBirthday(costumerDTO.getBirthday());
+        if (costumerDTO.getNif() != null) customer.setNif(costumerDTO.getNif());
+        if (costumerDTO.getAddress() != null) customer.setAddress(costumerDTO.getAddress());
+        customerRep.save(customer);
+    }
+
+    public void editAdmin(int adminId, AdminDTO adminDTO) {
+        Admin admin = adminRep.getReferenceById(adminId);
+        if (adminDTO.getEmail() != null) admin.setEmail(adminDTO.getEmail());
+        if (adminDTO.getPassword() != null) admin.setPassword(adminDTO.getPassword());
+        if (adminDTO.getName() != null) admin.setName(adminDTO.getName());
+        adminRep.save(admin);
     }
 }

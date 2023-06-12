@@ -15,8 +15,8 @@ public class SubCategory {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subCategory")
-    private List<Product> products = new ArrayList<Product>();
+    @OneToMany(mappedBy = "subCategory", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Product> products = new ArrayList<>();
 
     public SubCategory() {
     }

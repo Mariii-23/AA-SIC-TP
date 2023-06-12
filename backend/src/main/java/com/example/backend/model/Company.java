@@ -32,6 +32,9 @@ public class Company {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
 	private List<SocialNetwork> socialNetworks = new ArrayList<>();
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private static Company instance;
+
 	public Company() {}
 
 	public Company(String name, String email, String contact, String address, String logoImage, String postCode, String schedule) {
@@ -42,6 +45,7 @@ public class Company {
 		this.logoImage = logoImage;
 		this.postCode = postCode;
 		this.schedule = schedule;
+		Company.instance = this;
 	}
 
 	public String getName() {
@@ -114,5 +118,9 @@ public class Company {
 
 	public void setiD(int iD) {
 		this.iD = iD;
+	}
+
+	public static Company getInstance() {
+		return instance;
 	}
 }

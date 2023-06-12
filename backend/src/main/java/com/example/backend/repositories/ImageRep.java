@@ -4,4 +4,6 @@ import com.example.backend.model.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImageRep extends JpaRepository<Image, Integer> {
+
+    Image findByPath(String path);
 }

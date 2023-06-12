@@ -58,6 +58,19 @@ public class UserController {
         userService.addAdminDTO(admin);
     }
 
+    @DeleteMapping("/admin/remove/{id}")
+    public void removeAdmin(@PathVariable int id) {userService.removeAdmin(id);}
+
+    @PostMapping("/customer/edit/{customer_id}")
+    public void editCustomer(final @PathVariable int customer_id, final @RequestBody CustomerDTO costumerDTO) {
+        userService.editCustomer(customer_id, costumerDTO);
+    }
+
+    @PostMapping("/admin/edit/{admin_id}")
+    public void editAdmin(final @PathVariable int admin_id, final @RequestBody AdminDTO adminDTO) {
+        userService.editAdmin(admin_id, adminDTO);
+    }
+
     @PostMapping("/login")
     public boolean login(final @RequestBody LoginDTO loginDTO) {
         return userService.login(loginDTO);

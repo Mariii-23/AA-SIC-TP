@@ -6,8 +6,8 @@ public class AddSubCategoryDTO extends AddCategoryDTO{
     public AddSubCategoryDTO() {
     }
 
-    public AddSubCategoryDTO(String name, String description, int categoryId) {
-        super(name, description);
+    public AddSubCategoryDTO(String name, String image, int categoryId) {
+        super(name, image);
         this.categoryId = categoryId;
     }
 

@@ -30,4 +30,12 @@ public class Image {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 }
