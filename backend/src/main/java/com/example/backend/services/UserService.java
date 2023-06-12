@@ -7,6 +7,7 @@ import com.example.backend.repositories.CustomerRep;
 import com.example.backend.repositories.ProductRep;
 import com.example.backend.repositories.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class UserService {
     private AdminRep adminRep;
     @Autowired
     private ProductRep productRep;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public Customer addCustomer(Customer customer) {
@@ -75,14 +78,10 @@ public class UserService {
 
     public void addAdminDTO(AdminDTO adminDTO){
         Admin admin = new Admin(adminDTO.getEmail(),
-                                adminDTO.getPassword(),
-                                adminDTO.getName());
+                                passwordEncoder.encode(adminDTO.getPassword()),
+                                adminDTO.getName()
+                );
         addAdmin(admin);
-    }
-
-    public boolean login(LoginDTO loginDTO) {
-        User user = userRep.findByEmail(loginDTO.getEmail());
-        return user != null && user.getPassword().equals(loginDTO.getPassword());
     }
 
     public boolean logout(String token) {

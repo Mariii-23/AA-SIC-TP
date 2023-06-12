@@ -1,6 +1,12 @@
 package com.example.backend.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -8,12 +14,10 @@ import jakarta.persistence.*;
 		name = "usertype",
 		discriminatorType = DiscriminatorType.STRING
 )
-public class User {
+public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
-
-	String token;
 
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -24,6 +28,9 @@ public class User {
 	@Column(nullable = false)
 	private String name;
 
+	@Enumerated(EnumType.STRING)
+	private Role role;
+
 	public User() {
 	}
 
@@ -33,13 +40,6 @@ public class User {
 		this.name = name;
 	}
 
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public String getEmail() {
 		return this.email;
@@ -49,8 +49,39 @@ public class User {
 		this.email = email;
 	}
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+
+	@Override
 	public String getPassword() {
 		return this.password;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 	public void setPassword(String password) {
@@ -63,5 +94,13 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

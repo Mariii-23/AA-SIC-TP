@@ -48,16 +48,12 @@ public class UserController {
         return userService.getOrders(id);
     }
 
-    @PostMapping("/customer")
-    public void addCustomer(final @RequestBody CustomerDTO costumer) {
-        userService.addCustomerDTO(costumer);
-    }
-
     @PostMapping("/admin")
     public void addAdmin(final @RequestBody AdminDTO admin) {
         userService.addAdminDTO(admin);
     }
 
+  
     @DeleteMapping("/admin/remove/{id}")
     public void removeAdmin(@PathVariable int id) {userService.removeAdmin(id);}
 
