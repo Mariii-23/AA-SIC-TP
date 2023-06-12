@@ -27,6 +27,13 @@
     "resend": "Resend",
     "code": "Code",
     "send-code": "Send code",
+    "confirm-pw": "Confirm password",
+    "have-account": "Already have an account?",
+    "address": "Address",
+    "nif": "NIF",
+    "finish-register": "Finish Register",
+    "personal-data": "Please fill in your personal data to finish the registration:",
+    "dob": "Date of birth",
 
 
     "search": "Search",

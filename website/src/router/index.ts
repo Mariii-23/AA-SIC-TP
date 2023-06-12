@@ -26,6 +26,11 @@ const routes = [
         component: () => import("@/views/Register.vue"),
       },
       {
+        path: "register-personal-data",
+        name: "RegisterPersonalData",
+        component: () => import("@/views/RegisterPersonalData.vue"),
+      },
+      {
         path: "try",
         name: "Layout",
         component: () => import("@/views/LayoutTry.vue"),
@@ -34,6 +39,11 @@ const routes = [
         path: "recover-password",
         name: "RecoverPassword",
         component: () => import("@/views/RecoverPassword.vue"),
+      },
+      {
+        path: "date-picker",
+        name: "DatePicker",
+        component: () => import("@/views/DatePicker.vue"),
       },
     ],
   },

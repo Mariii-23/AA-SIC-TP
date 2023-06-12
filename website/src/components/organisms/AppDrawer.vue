@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer v-model="drawer" temporary>
-    <v-list-item @click="changeDrawer" class="top">
+    <v-list-item @click="changeDrawer" class="close">
       <v-list-item-avatar>
         <v-icon>mdi-chevron-left</v-icon>
       </v-list-item-avatar>
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.top {
+.close {
   display: flex;
   flex-direction: row;
   padding: 10px;

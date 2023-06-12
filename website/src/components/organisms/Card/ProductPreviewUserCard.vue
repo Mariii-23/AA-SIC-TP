@@ -2,7 +2,7 @@
     <v-card width="175" :id="product.id">
         <v-card-item>
             <div class="imgContainer">
-                <v-img :src="product.href" :lazy-src="product.href" class="image" />
+                <v-img cover :src="product.href" :lazy-src="product.href" class="image" />
             </div>
             <v-card-title>{{ product.name }}</v-card-title>
             <v-card-subtitle>{{ product.price }}€</v-card-subtitle>
@@ -50,8 +50,6 @@ export default {
     border-radius: 5%;
     width: 100%;
     height: 100%;
-    background-color: aqua;
-    object-fit: cover;
 }
 
 .actions {

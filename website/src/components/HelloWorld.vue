@@ -8,7 +8,7 @@
 
   <heading-text>Heading</heading-text>
 
-  <div class="ola">
+  <div class="products">
     <!-- <ProductPreviewAdminCards :products="products" /> -->
     <ProductPreviewUserCards :products="products" />
   </div>
@@ -125,15 +125,8 @@ const toggleTheme = () => {
 </script>
 
 <style scoped>
-.previews {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.ola {
+.products {
   margin: 10%;
   gap: 50px;
 }
 </style>
-```
