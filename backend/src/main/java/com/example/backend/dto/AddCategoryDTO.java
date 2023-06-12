@@ -2,26 +2,26 @@ package com.example.backend.dto;
 
 public class AddCategoryDTO {
     private String name;
-    private String description;
+    private String image;
 
     public AddCategoryDTO() {
     }
 
-    public AddCategoryDTO(String name, String description) {
+    public AddCategoryDTO(String name, String image) {
         this.name = name;
-        this.description = description;
+        this.image = image;
     }
 
     public AddCategoryDTO(String name) {
         this.name = name;
-        this.description = "";
+        this.image = "";
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImage() {
+        return image;
     }
 }

@@ -50,6 +50,4 @@ public class InfoController {
     public void addSocialNetwork(final @RequestBody SocialNetworkDTO socialNetwork) {
         infoService.addSocialNetworkDTO(socialNetwork);
     }
-
-
 }

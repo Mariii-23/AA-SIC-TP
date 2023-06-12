@@ -6,7 +6,9 @@ import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("productService")
 public class ProductService {
@@ -29,26 +31,25 @@ public class ProductService {
     private CustomerRep customerRep;
 
     public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<String> images){
-        Category category = null;
-        SubCategory subCategory = null;
-        if(categoryId != 0){
-            category = categoryRep.getReferenceById(categoryId);
-        } else {
-            subCategory = subCategoryRep.getReferenceById(subCategoryId);
-        }
+        Category category = categoryRep.getReferenceById(categoryId);
+        SubCategory subCategory;
+
         List<Material> materials = materialRep.findMaterialByIdList(materialIds);
         Product product;
-        if (categoryId != 0){
+
+        if (subCategoryId != 0 && subCategoryRep.findCategoryById(subCategoryId).getiD() == categoryId){
+            subCategory = subCategoryRep.getReferenceById(subCategoryId);
+            product = new Product(price, name, description, materials, category, subCategory);
+        } else {
             product = new Product(price, name, description, materials, category);
-        }else {
-            product = new Product(price, name, description, materials, subCategory);
         }
 
-        List<Image> imageList = images.stream().map(image -> new Image(image, product)).toList();
-        product.setImages(imageList);
-        List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), product)).toList();
-        product.setInfos(technicalInfos);
-        productRep.save(product);
+        Product finalProduct = product;
+        List<Image> imageList = images.stream().map(image -> new Image(image, finalProduct)).toList();
+        finalProduct.setImages(imageList);
+        List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), finalProduct)).toList();
+        finalProduct.setInfos(technicalInfos);
+        productRep.save(finalProduct);
     }
 
     public void addCategory(String name, String image){
@@ -130,4 +131,86 @@ public class ProductService {
         productRep.save(product);
     }
 
+    public void editCategory(int categoryId, String name, String image) {
+        Category category = categoryRep.getReferenceById(categoryId);
+        category.setName(name);
+        category.setImage(image);
+        categoryRep.save(category);
+    }
+
+    public boolean removeCategory(int categoryId) {
+        Category category = categoryRep.getReferenceById(categoryId);
+        if (category.getProducts().size() == 0){
+            categoryRep.delete(category);
+            return true;
+        }
+        return false;
+    }
+
+    public void editSubCategories(HashMap<Integer, EditCategoryDTO> subCategories) {
+        for (Map.Entry<Integer, EditCategoryDTO> entry : subCategories.entrySet()){
+            SubCategory subCategory = subCategoryRep.getReferenceById(entry.getKey());
+            if (entry.getValue().getName() != null) subCategory.setName(entry.getValue().getName());
+            if (entry.getValue().getImage() != null) subCategory.setImage(entry.getValue().getImage());
+            subCategoryRep.save(subCategory);
+        }
+    }
+
+    public void removeSubCategory(int subCategoryId) {
+        SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
+        List<Product> products = subCategory.getProducts();
+        for (Product product : products){
+            product.setSubCategory(null);
+            productRep.save(product);
+        }
+        subCategoryRep.delete(subCategory);
+    }
+
+    public void removeProduct(int productId) {
+        Product product = productRep.getReferenceById(productId);
+        productRep.delete(product);
+    }
+
+    public void editProduct(int productId, String name, String description, double price, int categoryId,
+                            int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) {
+        Product product = productRep.getReferenceById(productId);
+        if (name != null) product.setName(name);
+        if (description != null) product.setDescription(description);
+        if (price != 0) product.setPrice(price);
+        if (categoryId != 0) {
+            Category category = categoryRep.getReferenceById(categoryId);
+            product.setCategory(category);
+        }
+        if (subCategoryId != 0) {
+            SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
+            product.setSubCategory(subCategory);
+        }
+        if (materialIds != null) {
+            List<Material> materials = materialRep.findMaterialByIdList(materialIds);
+            product.setMaterials(materials);
+        }
+        /*if (infos != null) {
+            List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), product)).toList();
+            product.setInfos(technicalInfos);
+        }*/
+        productRep.save(product);
+    }
+
+    public void addProductImages(int productId, List<String> images) {
+        Product product = productRep.getReferenceById(productId);
+        List<Image> productImages = product.getImages();
+        for(String image: images){
+            Image newImage = new Image(image, product);
+            productImages.add(newImage);
+        }
+        product.setImages(productImages);
+        productRep.save(product);
+    }
+
+    public void removeProductImages(int productId, List<String> images) {
+        for(String image: images){
+            Image imageToRemove = imageRep.findByPath(image);
+            if (imageToRemove.getProduct().getiD() == productId) imageRep.delete(imageToRemove);
+        }
+    }
 }
