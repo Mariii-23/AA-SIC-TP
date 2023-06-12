@@ -5,46 +5,23 @@
         <TitleCardLinksButton title="All Users" :items="items" button-text="Add User" :button-handler="addUserHandler" />
       </template>
       <template v-slot:second>
-        <ContainerPanel>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> ola </v-container>
-          <v-container> adeus </v-container>
-          <v-container> adeus </v-container>
-          <v-container> adeus </v-container>
-          <v-container> adeus </v-container>
-          <v-container> adeus </v-container>
-          <v-container> adeus </v-container>
-        </ContainerPanel>
+        <TitleWithButton title="All Users" button-text="New user" :button-handler="addUserHandler" />
+        <v-container />
+        <TitleWithGoBack title="All Users" />
+        <v-container />
+        <TitleWithEditButton title="All Users" :edit-handler="addUserHandler" />
+        <v-container />
       </template>
     </TwoColumnsPanel>
   </div>
 </template>
 
 <script lang="ts">
+import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
+import TitleWithGoBack from "@/components/molecules/TitleGoBack.vue";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-import ContainerPanel from "@/layouts/ContainerPanel.vue";
+import TitleWithEditButton from "@/components/molecules/TitleWithEditButton.vue";
 
 export default {
   data: () => ({
@@ -62,8 +39,10 @@ export default {
   },
   components: {
     TwoColumnsPanel,
-    ContainerPanel,
     TitleCardLinksButton,
+    TitleWithButton,
+    TitleWithGoBack,
+    TitleWithEditButton
   },
   methods: {
     addUserHandler() {
