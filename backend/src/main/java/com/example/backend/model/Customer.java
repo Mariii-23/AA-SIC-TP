@@ -25,6 +25,10 @@ public class Customer extends User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private List<Order> orders;
 	@ManyToMany
+	@JoinTable(
+			name = "customer_favourites",
+			joinColumns = @JoinColumn(name = "customer_id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> favourites;
 
 	public Customer() {

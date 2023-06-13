@@ -2,9 +2,11 @@ package com.example.backend.services;
 
 import com.example.backend.dto.OrderDetailedDTO;
 import com.example.backend.dto.OrderSimpleDTO;
+import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
@@ -33,6 +35,9 @@ public class OrderService {
     @Autowired
     private ProductRep productRep;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
     public List<OrderSimpleDTO> getOrdersOfCostumer(int costumerId){
         List<Order> orders = orderRep.findByCustomer_iD(costumerId);
         List<OrderSimpleDTO> result = new ArrayList<>();
@@ -58,6 +63,9 @@ public class OrderService {
 
     public boolean setOrderState(int orderId, OrderState state){
         Order order = orderRep.getReferenceById(orderId);
+        String subject = "Order " + orderId + " state changed";
+        String message = "Your order with id " + orderId + " is now " + state + ".";
+        applicationEventPublisher.publishEvent(new EmailEvent(this, order.getCustomer(), subject, message));
         if(order.getState() != state){
             order.setState(state);
             orderRep.save(order);

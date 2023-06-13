@@ -2,6 +2,8 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,9 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
 	private SubCategory subCategory;
+
+	@ManyToMany(mappedBy = "favourites")
+	private List<Customer> customers = new ArrayList<>();
 
 	public Product() {
 	}
@@ -139,6 +144,15 @@ public class Product {
 		this.reviews.add(review);
 	}
 
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+  }
+  
 	public void removeMaterial(Material material) {
 		this.materials.remove(material);
 	}
