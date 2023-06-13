@@ -1,10 +1,12 @@
 package com.example.backend.services;
 
 import com.example.backend.dto.*;
+import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,6 +35,9 @@ public class ProductService {
 
     @Autowired
     private TechnicalInfoRep technicalInfoRep;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<String> images){
         Category category = categoryRep.getReferenceById(categoryId);
@@ -181,7 +186,11 @@ public class ProductService {
         Product product = productRep.getReferenceById(productId);
         if (name != null) product.setName(name);
         if (description != null) product.setDescription(description);
-        if (price != 0) product.setPrice(price);
+        if (price != 0){
+            String message = "The price from the product " + product.getName() + " of your favorites list has changed from " + product.getPrice() + " to " + price;
+            product.getCustomers().stream().forEach(customer -> applicationEventPublisher.publishEvent(new EmailEvent(this, customer, message)));
+            product.setPrice(price);
+        }
         if (categoryId != 0) {
             Category category = categoryRep.getReferenceById(categoryId);
             product.setCategory(category);
