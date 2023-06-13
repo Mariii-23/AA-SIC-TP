@@ -138,4 +138,8 @@ public class Product {
 	public void addReview(Review review) {
 		this.reviews.add(review);
 	}
+
+	public void removeMaterial(Material material) {
+		this.materials.remove(material);
+	}
 }

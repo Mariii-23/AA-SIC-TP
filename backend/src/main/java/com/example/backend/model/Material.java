@@ -14,7 +14,7 @@ public class Material {
 	private String name;
 	private String image;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "materials")
 	private List<Product> products = new ArrayList<>();
 
 	public Material() {}
