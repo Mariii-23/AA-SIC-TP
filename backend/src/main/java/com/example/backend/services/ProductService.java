@@ -39,7 +39,7 @@ public class ProductService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<String> images){
+    public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<byte[]> images){
         Category category = categoryRep.getReferenceById(categoryId);
         SubCategory subCategory;
 
@@ -61,19 +61,19 @@ public class ProductService {
         productRep.save(finalProduct);
     }
 
-    public void addCategory(String name, String image){
+    public void addCategory(String name, byte[] image){
         Category category = new Category(name, image);
         categoryRep.save(category);
     }
 
-    public void addSubCategory(String name, String image, int categoryId){
+    public void addSubCategory(String name, byte[] image, int categoryId){
         Category category = categoryRep.getReferenceById(categoryId);
         SubCategory subCategory = new SubCategory(name, image, category);
         subCategoryRep.save(subCategory);
     }
 
 
-    public void addMaterial(String name, String image){
+    public void addMaterial(String name, byte[] image){
         Material material = new Material(name, image);
         materialRep.save(material);
     }
@@ -98,7 +98,7 @@ public class ProductService {
         category.getSubCategories().forEach(
                 subCategory -> products.addAll(subCategory.getProducts()));
         return products.stream()
-                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getPath()))
+                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getImage()))
                 .toList();
     }
 
@@ -106,7 +106,7 @@ public class ProductService {
         SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
         List<Product> products = subCategory.getProducts();
         return products.stream()
-                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getPath()))
+                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getImage()))
                 .toList();
     }
 
@@ -119,7 +119,7 @@ public class ProductService {
                 product.getMaterials().stream().map(material -> new MaterialDTO(material.getID(), material.getName(), material.getImage())).toList(),
                 product.getInfos().stream().map(info -> new TechnicalInfoDTO(info.getName(), info.getDescription())).toList(),
                 product.getReviews().stream().map(review -> new ReviewDTO(review.getClassification(), review.getComment(), review.getAuthor().getName())).toList(),
-                product.getImages().stream().map(Image::getPath).toList());
+                product.getImages().stream().map(Image::getImage).toList());
     }
 
     public List<CategoryDTO> getAllCategories(){
@@ -140,7 +140,7 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public void editCategory(int categoryId, String name, String image) {
+    public void editCategory(int categoryId, String name, byte[] image) {
         Category category = categoryRep.getReferenceById(categoryId);
         category.setName(name);
         category.setImage(image);
@@ -218,10 +218,10 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public void addProductImages(int productId, List<String> images) {
+    public void addProductImages(int productId, List<byte[]> images) {
         Product product = productRep.getReferenceById(productId);
         List<Image> productImages = product.getImages();
-        for(String image: images){
+        for(byte[] image: images){
             Image newImage = new Image(image, product);
             productImages.add(newImage);
         }
@@ -236,7 +236,7 @@ public class ProductService {
         }
     }
 
-    public void editMaterial(int materialId, String name, String image) {
+    public void editMaterial(int materialId, String name, byte[] image) {
         Material material = materialRep.getReferenceById(materialId);
         if (name != null) material.setName(name);
         if (image != null) material.setImage(image);

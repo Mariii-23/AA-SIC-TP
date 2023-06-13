@@ -44,7 +44,7 @@ public class ProductController {
     }
 
     @PostMapping("/edit/addimages/{productId}")
-    public void addProductImages(final @PathVariable int productId, final @RequestBody List<String> images) {
+    public void addProductImages(final @PathVariable int productId, final @RequestBody List<byte[]> images) {
         productService.addProductImages(productId, images);
     }
 

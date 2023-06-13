@@ -9,11 +9,11 @@ public class CompanyDTO {
     private String email;
     private String contact;
     private String address;
-    private String logoImage;
+    private byte[] logoImage;
     private String postCode;
     private String schedule;
 
-    public CompanyDTO(String name, String email, String contact, String address, String logoImage, String postCode, String schedule) {
+    public CompanyDTO(String name, String email, String contact, String address, byte[] logoImage, String postCode, String schedule) {
         this.name = name;
         this.email = email;
         this.contact = contact;
@@ -57,11 +57,11 @@ public class CompanyDTO {
         this.address = address;
     }
 
-    public String getLogoImage() {
+    public byte[] getLogoImage() {
         return this.logoImage;
     }
 
-    public void setLogoImage(String logoImage) {
+    public void setLogoImage(byte[] logoImage) {
         this.logoImage = logoImage;
     }
 

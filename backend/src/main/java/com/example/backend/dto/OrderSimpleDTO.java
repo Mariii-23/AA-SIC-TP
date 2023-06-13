@@ -4,8 +4,6 @@ import com.example.backend.model.Order;
 import com.example.backend.model.OrderState;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrderSimpleDTO {
     private int id;

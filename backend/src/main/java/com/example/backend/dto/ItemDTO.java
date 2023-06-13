@@ -5,12 +5,12 @@ public class ItemDTO {
     private double price;
 
     private int quantity;
-    private String materialImage;
+    private byte[] materialImage;
 
     public ItemDTO() {
     }
 
-    public ItemDTO(String name, double price, int quantity, String materialImage) {
+    public ItemDTO(String name, double price, int quantity, byte[] materialImage) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -47,11 +47,11 @@ public class ItemDTO {
         this.quantity = quantity;
     }
 
-    public String getMaterialImage() {
+    public byte[] getMaterialImage() {
         return materialImage;
     }
 
-    public void setMaterialImage(String materialImage) {
+    public void setMaterialImage(byte[] materialImage) {
         this.materialImage = materialImage;
     }
 }

@@ -2,12 +2,12 @@ package com.example.backend.dto;
 
 public class EditCategoryDTO {
     private String name;
-    private String image;
+    private byte[] image;
 
     public EditCategoryDTO() {
     }
 
-    public EditCategoryDTO(String name, String image) {
+    public EditCategoryDTO(String name, byte[] image) {
         this.name = name;
         this.image = image;
     }
@@ -16,7 +16,7 @@ public class EditCategoryDTO {
         return this.name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return this.image;
     }
 }

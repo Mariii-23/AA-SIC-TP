@@ -2,7 +2,6 @@ package com.example.backend.dto;
 
 
 import com.example.backend.model.Order;
-import com.example.backend.model.OrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
