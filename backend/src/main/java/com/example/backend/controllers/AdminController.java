@@ -7,15 +7,9 @@ import com.example.backend.dto.CustomerDTO;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-
-
 
 
 @RestController
@@ -76,7 +70,6 @@ public class AdminController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
-
 
     @PostMapping("/edit/{admin_id}")
     public void editAdmin(final @PathVariable int admin_id, final @RequestBody AdminDTO adminDTO) {
