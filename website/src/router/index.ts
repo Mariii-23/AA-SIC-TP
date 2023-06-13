@@ -59,6 +59,11 @@ const routes = [
 
       //ADMINN
       {
+        path: "addAdmin/",
+        name: "Add Admin",
+        component: () => import("@/views/admin/AddAdmin.vue"),
+      },
+      {
         path: "admin/client/",
         name: "Users",
         component: () => import("@/views/admin/Clients.vue"),

@@ -6,8 +6,13 @@
   </v-btn>
 </template>
 
-<script lang="ts">
+<style>
+.custom-full-width {
+  width: 100%;
+}
+</style>
 
+<script lang="ts">
 export default {
   props: {
     handleClick: {

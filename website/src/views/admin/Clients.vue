@@ -5,8 +5,6 @@
         <TitleCardLinksButton
           :title="$t('allClients')"
           :items="items"
-          :button-text="$t('addAdmin')"
-          :button-handler="addAdminHandler"
         />
       </template>
       <template v-slot:second>
