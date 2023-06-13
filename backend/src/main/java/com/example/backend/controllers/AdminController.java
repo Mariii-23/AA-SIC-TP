@@ -4,8 +4,11 @@ import com.example.backend.dto.AdminDTO;
 import com.example.backend.dto.ChangePasswordDTO;
 import com.example.backend.dto.CustomerDTO;
 import com.example.backend.services.UserService;
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -14,6 +17,8 @@ import java.util.List;
 public class AdminController {
     @Resource(name = "userService")
     private UserService userService;
+    @Autowired
+    private WebClient emailVerifier;
 
     @GetMapping("/customer/{id}")
     public CustomerDTO getCustomerbyId(@PathVariable int id) {
@@ -38,7 +43,14 @@ public class AdminController {
 
     @PostMapping("/add")
     public void addAdmin(final @RequestBody AdminDTO admin) {
-        userService.addAdminDTO(admin);
+        boolean valid = emailVerifier
+                .post()
+                .bodyValue("email=" + admin.getEmail())
+                .retrieve()
+                .bodyToMono(JsonNode.class)
+                .map(jsonNode -> jsonNode.get("valid").asBoolean())
+                .block();
+        if (valid) userService.addAdminDTO(admin);
     }
 
     @DeleteMapping("/remove/{id}")
