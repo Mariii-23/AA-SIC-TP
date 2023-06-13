@@ -89,6 +89,16 @@ public class ProductController {
         productService.addMaterial(addMaterialDTO.getName(), addMaterialDTO.getImage());
     }
 
+    @PostMapping("/material/edit/{materialId}")
+    public void editMaterial(final @PathVariable int materialId, final @RequestBody MaterialDTO materialDTO) {
+        productService.editMaterial(materialId, materialDTO.getName(), materialDTO.getImage());
+    }
+
+    @DeleteMapping("/material/remove/{materialId}")
+    public void removeMaterial(final @PathVariable int materialId) {
+        productService.removeMaterial(materialId);
+    }
+
     @PostMapping("/category/add/{productId}/{categoryId}")
     public void addProductToCategory(final @PathVariable int productId, final @PathVariable int categoryId) {
         productService.addProductToCategory(productId, categoryId);

@@ -24,7 +24,7 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**", "user/**", "order/**", "product/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "admin/**", "customer/**", "order/**", "product/**", "info/**").permitAll()
                         //.requestMatchers(("/user/**")).hasAuthority("CUSTOMER")
                         .anyRequest().authenticated()
                 )

@@ -16,19 +16,25 @@ public class Product {
 
 	@Column(nullable = false)
 	private String name;
+
 	private String description;
 
 	@ManyToMany
 	private List<Material> materials = new ArrayList<>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private List<TechnicalInfo> infos = new ArrayList<TechnicalInfo>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private List<Review> reviews = new ArrayList<Review>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private List<Image> images = new ArrayList<Image>();
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
 	private SubCategory subCategory;

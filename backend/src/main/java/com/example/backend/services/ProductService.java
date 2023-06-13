@@ -225,4 +225,21 @@ public class ProductService {
             if (imageToRemove.getProduct().getiD() == productId) imageRep.delete(imageToRemove);
         }
     }
+
+    public void editMaterial(int materialId, String name, String image) {
+        Material material = materialRep.getReferenceById(materialId);
+        if (name != null) material.setName(name);
+        if (image != null) material.setImage(image);
+        materialRep.save(material);
+    }
+
+    public void removeMaterial(int materialId) {
+        Material material = materialRep.getReferenceById(materialId);
+        List<Product> products = material.getProducts();
+        for (Product product : products){
+            product.getMaterials().remove(material);
+            productRep.save(product);
+        }
+        materialRep.delete(material);
+    }
 }

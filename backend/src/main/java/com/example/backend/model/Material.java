@@ -2,6 +2,9 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Material {
 	@Id
@@ -10,6 +13,9 @@ public class Material {
 	@Column(nullable = false, unique = true)
 	private String name;
 	private String image;
+
+	@ManyToMany
+	private List<Product> products = new ArrayList<>();
 
 	public Material() {}
 
@@ -39,5 +45,13 @@ public class Material {
 
 	public int getiD() {
 		return iD;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }

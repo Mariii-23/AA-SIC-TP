@@ -24,27 +24,27 @@ public class AdminController {
         return userService.getAllCustomers();
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/{id}")
     public AdminDTO getAdminbyId(@PathVariable int id) {
         return userService.getAdminById(id);
     }
 
-    @GetMapping("/admin/all")
+    @GetMapping("/all")
     public List<AdminDTO> getAllAdmins() {
         return userService.getAllAdmins();
     }
 
 
-    @PostMapping("/admin")
+    @PostMapping("/add")
     public void addAdmin(final @RequestBody AdminDTO admin) {
         userService.addAdminDTO(admin);
     }
 
-    @DeleteMapping("/admin/remove/{id}")
+    @DeleteMapping("/remove/{id}")
     public void removeAdmin(@PathVariable int id) {userService.removeAdmin(id);}
 
 
-    @PostMapping("/admin/edit/{admin_id}")
+    @PostMapping("/edit/{admin_id}")
     public void editAdmin(final @PathVariable int admin_id, final @RequestBody AdminDTO adminDTO) {
         userService.editAdmin(admin_id, adminDTO);
     }

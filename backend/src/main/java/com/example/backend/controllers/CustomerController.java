@@ -28,7 +28,7 @@ public class CustomerController {
         return userService.getOrders(id);
     }
 
-    @PostMapping("/customer/edit/{customer_id}")
+    @PostMapping("/edit/{customer_id}")
     public void editCustomer(final @PathVariable int customer_id, final @RequestBody CustomerDTO costumerDTO) {
         userService.editCustomer(customer_id, costumerDTO);
     }
