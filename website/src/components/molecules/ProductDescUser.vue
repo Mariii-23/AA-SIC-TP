@@ -10,16 +10,19 @@
         <div class="body">
             <HeadingText :size="6">{{ product.price }}€</HeadingText>
 
-        <Material class="materials" :materials="materials"/>
+            <Material class="materials" 
+                :materials="materials" 
+                :selectMaterialHandler="selectMaterialHandler"
+            />
 
-        <div class="actions">
-            <QuantityButton />
-            <PrimaryButton :handleClick="buyNowHandler">{{ $t("buy-now") }} </PrimaryButton>
-        </div>
-        <FullWidthButton class="btn" :handleClick="addToCartHandler"> {{ $t("add-cart") }} </FullWidthButton>
+            <div class="actions">
+                <QuantityButton />
+                <PrimaryButton :handleClick="buyNowHandler">{{ $t("buy-now") }} </PrimaryButton>
+            </div>
+            <FullWidthButton class="btn" :handleClick="addToCartHandler"> {{ $t("add-cart") }} </FullWidthButton>
 
         </div>
-        
+
     </v-card>
 </template>
 
@@ -60,19 +63,18 @@ export default {
             type: Function,
             require: true,
         },
+        selectMaterialHandler: {
+            type: Function,
+            require: true,
+        },
     },
-    components: { 
-        HeadingText, 
-        QuantityButton, 
-        PrimaryButton, 
+    components: {
+        HeadingText,
+        QuantityButton,
+        PrimaryButton,
         FullWidthButton,
         Material
-     },
-     methods: {
-        changeFavIcon() {
-            this.product.favourite = !this.product.favourite;
-        }
-     }
+    }
 };
 </script>
 
@@ -80,6 +82,7 @@ export default {
 .card {
     padding: 10px;
 }
+
 .header {
     display: flex;
     flex-direction: row;
@@ -99,12 +102,14 @@ export default {
     align-items: center
 }
 
-.btn{
+.btn {
     margin-top: 10px;
     width: 100%;
 }
+
 .materials {
     padding: 0;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 </style>

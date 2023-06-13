@@ -6,6 +6,7 @@
   :addToCartHandler="addToCartHandler"
   :buyNowHandler="buyNowHandler"
   :favouriteIconHandler="favouriteIconHandler"
+  :selectMaterialHandler="selectMaterialHandler"
   />
 
   <ProductAdmin v-if="isAdmin" 
@@ -108,5 +109,9 @@
   
   const favouriteIconHandler = (productId: string) => {
     console.log("favourite " + productId);
+  };
+
+  const selectMaterialHandler = (materialId: string) => {
+    console.log("select material " + materialId);
   };
 </script>

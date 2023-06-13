@@ -11,6 +11,7 @@
                 :addToCartHandler="() => addToCartHandler && addToCartHandler(productDesc.id)"
                 :buyNowHandler="() => buyNowHandler && buyNowHandler(productDesc.id)"
                 :favouriteIconHandler="() => favouriteIconHandler && favouriteIconHandler(productDesc.id)"
+                :selectMaterialHandler="selectMaterialHandler"    
             />
         </div>
     </div>
@@ -55,6 +56,10 @@ export default {
             require: true,
         },
         favouriteIconHandler: {
+            type: Function,
+            require: true,
+        },
+        selectMaterialHandler: {
             type: Function,
             require: true,
         },

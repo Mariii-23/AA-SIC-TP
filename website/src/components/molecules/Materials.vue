@@ -1,42 +1,56 @@
 <template>
-    <v-card class="card">
-        <v-list class="list" v-for="material in materials" bg-color="primary">
-            <v-list-item class="item">
-                <v-btn class="btn elevation-0" size="x-small" color="primary">
-                    <Avatar class="avatar" :image="material.href" :size="20" />
-                    <v-tooltip class="tooltip" activator="parent" location="top" :text="material.name" />
-                </v-btn>
-            </v-list-item>
-        </v-list>
-    </v-card>
+    <v-sheet class="materials" elevation="3" color="primary">
+        <v-slide-group v-model="model" selected-class="selected" mandatory show-arrows>
+            <v-slide-group-item class="item" v-for="(material,index) in materials" :key="material.id"
+                v-slot="{ selectedClass }">
+                <Avatar :class="['ma-2', selectedClass]" class="avatar" 
+                    :href="material.href" :size="20" 
+                    @click="toggle(index, material.id)" 
+                />
+            </v-slide-group-item>
+        </v-slide-group>
+    </v-sheet>
 </template>
+
 
 <script lang="ts">
 import { Materials } from "@/appTypes/Product";
 import Avatar from "@/components/atoms/AvatarVue.vue";
-import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 
 export default {
     name: "Materials",
+    data: () => ({
+        model: 0,
+    }),
     props: {
         materials: {
             type: Array as () => Materials[],
             require: true,
         },
+        selectMaterialHandler: {
+            type: Function,
+            require: true,
+        },
     },
-    components: { Avatar, PrimaryButton },
+    components: { Avatar },
+    methods: {
+        toggle(index: number, material: string) {
+            this.model = index;
+            this.selectMaterialHandler && this.selectMaterialHandler(material);
+        }
+    }
 };
 </script>
 
 <style scoped>
-.card {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    border-radius: 5%;
+.selected {
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px 3px black;
 }
 
-.list {
-    padding: 0;
+.materials {
+    width: fit-content;
+    border-radius: 5px;
 }
+
 </style>

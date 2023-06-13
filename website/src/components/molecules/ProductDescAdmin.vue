@@ -10,7 +10,7 @@
         <div class="body">
             <HeadingText :size="6">{{ product.price }}€</HeadingText>
 
-        <Material :materials="materials" :addMaterialHandler="addMaterialHandler"/>
+        <Material class="materials" :materials="materials" :addMaterialHandler="addMaterialHandler"/>
         <FullWidthButton class="btn" :handleClick="deleteProductHandler">
              {{ $t("remove-product") }} 
         </FullWidthButton>
@@ -90,5 +90,11 @@ export default {
 .btn{
     margin-top: 10px;
     width: 100%;
+}
+
+.materials {
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 </style>

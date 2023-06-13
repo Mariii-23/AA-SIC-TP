@@ -1,7 +1,7 @@
 <template>
     <div class="materials">
         <Material :materials="materials"/>
-        <PrimaryButton :handleClick="addMaterialHandler" size="large" class="add_btn">+</PrimaryButton>
+        <PrimaryButton :handleClick="addMaterialHandler" class="add_btn">+</PrimaryButton>
     </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
 .materials {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .add_btn {
