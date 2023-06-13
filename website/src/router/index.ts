@@ -44,7 +44,18 @@ const routes = [
         path: "product",
         name: "ProductPage",
         component: () => import("@/views/ProductPage.vue"),
-      }
+      },
+      {
+      path: "category/:id",
+        name: "Category",
+        component: () => import("@/views/Category.vue"),
+      },
+      // FIXME: alterar pagina 
+      {
+        path: "/category/:id/subcategory/:subCategoryId",
+        name: "SubCategory",
+        component: () => import("@/views/LayoutTry.vue"),
+      },
     ],
   },
 ];
