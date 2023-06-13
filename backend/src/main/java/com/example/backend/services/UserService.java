@@ -1,5 +1,7 @@
 package com.example.backend.services;
 
+import com.example.backend.Exception.ProductNotFoundException;
+import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
@@ -43,13 +45,19 @@ public class UserService {
         return adminRep.save(admin);
     }
 
-    public CustomerDTO getCustomerById(int id) {
+    public CustomerDTO getCustomerById(int id) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
         return new CustomerDTO(customer);
     }
 
-    public AdminDTO getAdminById(int id) {
+    public AdminDTO getAdminById(int id) throws UserNotFoundException {
         Admin admin = adminRep.findById(id).orElse(null);
+        if (admin == null) {
+            throw new UserNotFoundException("Admin not found");
+        }
         return new AdminDTO(admin);
     }
 
@@ -79,8 +87,11 @@ public class UserService {
         addAdmin(admin);
     }
 
-    public List<FavouriteDTO> getFavourites(int id) {
+    public List<FavouriteDTO> getFavourites(int id) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
         List<FavouriteDTO> result = new ArrayList<>();
         customer.getFavourites().forEach(product -> {
             result.add(new FavouriteDTO(product.getName(), product.getPrice()));
@@ -88,8 +99,11 @@ public class UserService {
         return result;
     }
 
-    public ShoppingCartDTO getShoppingCart(int id) {
+    public ShoppingCartDTO getShoppingCart(int id) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
         List<ItemDTO> itens = new ArrayList<>();
         customer.getCart().getItems().forEach(item -> {
             itens.add(new ItemDTO(item.getProduct().getName(),
@@ -100,8 +114,11 @@ public class UserService {
         return new ShoppingCartDTO(itens, customer.getCart().getTotalPrice());
     }
 
-    public List<OrderSimpleDTO> getOrders(int id) {
+    public List<OrderSimpleDTO> getOrders(int id) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
         List<OrderSimpleDTO> result = new ArrayList<>();
         customer.getOrders().forEach(order -> {
             List<ItemDTO> itens = new ArrayList<>();
@@ -115,45 +132,83 @@ public class UserService {
         return result;
     }
 
-    public void addFavourite(int costumerId, int productId) {
-        Customer customer = customerRep.getReferenceById(costumerId);
-        Product product = productRep.getReferenceById(productId);
+    public void addFavourite(int costumerId, int productId) throws UserNotFoundException, ProductNotFoundException {
+        Customer customer = customerRep.findById(costumerId).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
+        Product product = productRep.findById(productId).orElse(null);
+        if (product == null) {
+            throw new ProductNotFoundException("Product not found");
+        }
         customer.addFavourite(product);
         customerRep.save(customer);
     }
 
-    public void deleteFavourite(int costumerId, int productId) {
-        Customer customer = customerRep.getReferenceById(costumerId);
-        Product product = productRep.getReferenceById(productId);
+    public void deleteFavourite(int costumerId, int productId) throws UserNotFoundException, ProductNotFoundException {
+        Customer customer = customerRep.findById(costumerId).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
+        List<Product> favourites = customer.getFavourites();
+        Product product = favourites.stream().filter(p -> p.getiD() == productId).findFirst().orElse(null);
+        if (product == null) {
+            throw new ProductNotFoundException("Product not in favourites");
+        }
         customer.removeFavourite(product);
         customerRep.save(customer);
     }
 
-    public void removeAdmin(int adminId) {
-        Admin admin = adminRep.getReferenceById(adminId);
+    public void removeAdmin(int adminId) throws UserNotFoundException {
+        Admin admin = adminRep.findById(adminId).orElse(null);
+        if (admin == null) {
+            throw new UserNotFoundException("Admin not found");
+        }
         adminRep.delete(admin);
     }
 
-    public void editCustomer(int customer_id, CustomerDTO costumerDTO) {
+    public void editCustomer(int customer_id, CustomerDTO costumerDTO) throws Exception {
         Customer customer = customerRep.getReferenceById(customer_id);
-        if (costumerDTO.getEmail() != null) customer.setEmail(costumerDTO.getEmail());
+        if (customer == null) {
+            throw new UserNotFoundException("Custumer not found");
+        }
+        if (costumerDTO.getEmail() != null) {
+            if (customerRep.existsByEmail(costumerDTO.getEmail())) {
+                throw new Exception("Email already exists");
+            }
+            customer.setEmail(costumerDTO.getEmail());
+        }
         if (costumerDTO.getPassword() != null) customer.setPassword(costumerDTO.getPassword());
         if (costumerDTO.getName() != null) customer.setName(costumerDTO.getName());
         if (costumerDTO.getBirthday() != null) customer.setBirthday(costumerDTO.getBirthday());
-        if (costumerDTO.getNif() != null) customer.setNif(costumerDTO.getNif());
+        if (costumerDTO.getNif() != null) {
+            if (customerRep.existsByNif(costumerDTO.getNif())) {
+                throw new Exception("Nif already exists");
+            }
+            customer.setNif(costumerDTO.getNif());
+        }
         if (costumerDTO.getAddress() != null) customer.setAddress(costumerDTO.getAddress());
         customerRep.save(customer);
     }
 
-    public void editAdmin(int adminId, AdminDTO adminDTO) {
-        Admin admin = adminRep.getReferenceById(adminId);
-        if (adminDTO.getEmail() != null) admin.setEmail(adminDTO.getEmail());
+    public void editAdmin(int adminId, AdminDTO adminDTO) throws Exception {
+        Admin admin = adminRep.findById(adminId).orElse(null);
+        if (admin == null) {
+            throw new UserNotFoundException("Admin not found");
+        }
+        if (adminDTO.getEmail() != null) {
+            User user = userRep.findByEmail(adminDTO.getEmail()).orElse(null);
+            if (user != null) {
+                throw new Exception("Email already in use");
+            }
+            admin.setEmail(adminDTO.getEmail());
+        }
         if (adminDTO.getPassword() != null) admin.setPassword(adminDTO.getPassword());
         if (adminDTO.getName() != null) admin.setName(adminDTO.getName());
         adminRep.save(admin);
     }
 
-    public String recoverPassword(int userId) {
+    public String recoverPassword(int userId) throws UserNotFoundException {
         SecureRandom secureRandom = new SecureRandom();
         Base64.Encoder encoder = Base64.getUrlEncoder();
         byte[] randomBytes = new byte[24];
@@ -163,6 +218,9 @@ public class UserService {
         String subject = "Password Recovery";
         String message = "Use this token to recover your password: " + token;
         User user = userRep.findById(userId).orElse(null);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
         user.setPasswordToken(token);
         userRep.save(user);
 
@@ -170,8 +228,11 @@ public class UserService {
         return token;
     }
 
-    public boolean confirmRecoverPassword(int userId, String token, String newPassword) {
+    public boolean confirmRecoverPassword(int userId, String token, String newPassword) throws UserNotFoundException {
         User user = userRep.findById(userId).orElse(null);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
         if (user.getPasswordToken().equals(token)) {
             user.setPassword(passwordEncoder.encode(newPassword));
             user.setPasswordToken(null);

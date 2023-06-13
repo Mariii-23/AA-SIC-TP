@@ -1,5 +1,6 @@
 package com.example.backend.services;
 
+import com.example.backend.Exception.*;
 import com.example.backend.dto.*;
 import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,15 +41,15 @@ public class ProductService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<byte[]> images){
-        Category category = categoryRep.getReferenceById(categoryId);
+    public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<byte[]> images) throws Exception {
+        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         SubCategory subCategory;
 
-        List<Material> materials = materialRep.findMaterialByIdList(materialIds);
+        List<Material> materials = materialRep.findMaterialByIdList(materialIds).orElseThrow(() -> new Exception("Material not found"));
         Product product;
 
         if (subCategoryId != 0 && subCategoryRep.findCategoryById(subCategoryId).getiD() == categoryId){
-            subCategory = subCategoryRep.getReferenceById(subCategoryId);
+            subCategory = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
             product = new Product(price, name, description, materials, category, subCategory);
         } else {
             product = new Product(price, name, description, materials, category);
@@ -78,22 +80,22 @@ public class ProductService {
         materialRep.save(material);
     }
 
-    public void addProductToCategory(int productId, int categoryId){
-        Product product = productRep.getReferenceById(productId);
-        Category category = categoryRep.getReferenceById(categoryId);
+    public void addProductToCategory(int productId, int categoryId) throws ProductNotFoundException, CategoryNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         product.setCategory(category);
         productRep.save(product);
     }
 
-    public void addProductToSubCategory(int productId, int subCategoryId){
-        Product product = productRep.getReferenceById(productId);
-        SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
+    public void addProductToSubCategory(int productId, int subCategoryId) throws SubCategoryNotFoundException, ProductNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        SubCategory subCategory = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
         product.setSubCategory(subCategory);
         productRep.save(product);
     }
 
-    public List<ProductSimpleDTO> getProductsByCategory(int categoryId){
-        Category category = categoryRep.getReferenceById(categoryId);
+    public List<ProductSimpleDTO> getProductsByCategory(int categoryId) throws CategoryNotFoundException {
+        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         List<Product> products = category.getProducts();
         category.getSubCategories().forEach(
                 subCategory -> products.addAll(subCategory.getProducts()));
@@ -102,16 +104,16 @@ public class ProductService {
                 .toList();
     }
 
-    public List<ProductSimpleDTO> getProductsBySubCategory(int subCategoryId){
-        SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
+    public List<ProductSimpleDTO> getProductsBySubCategory(int subCategoryId) throws SubCategoryNotFoundException {
+        SubCategory subCategory = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
         List<Product> products = subCategory.getProducts();
         return products.stream()
                 .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getImage()))
                 .toList();
     }
 
-    public ProductDetailedDTO getProductById(int productId){
-        Product product = productRep.getReferenceById(productId);
+    public ProductDetailedDTO getProductById(int productId) throws ProductNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         return new ProductDetailedDTO(productId,
                 product.getName(),
                 product.getPrice(),
@@ -132,23 +134,23 @@ public class ProductService {
                 .toList();
     }
 
-    public void addReview(int customerId, int productId, int classification, String comment){
-        Product product = productRep.getReferenceById(productId);
-        Customer customer = customerRep.getReferenceById(customerId);
+    public void addReview(int customerId, int productId, int classification, String comment) throws ProductNotFoundException, UserNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        Customer customer = customerRep.findById(customerId).orElseThrow(() -> new UserNotFoundException("Customer not found"));
         Review review = new Review(classification, comment, customer, product);
         product.addReview(review);
         productRep.save(product);
     }
 
-    public void editCategory(int categoryId, String name, byte[] image) {
-        Category category = categoryRep.getReferenceById(categoryId);
+    public void editCategory(int categoryId, String name, byte[] image) throws CategoryNotFoundException {
+        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         category.setName(name);
         category.setImage(image);
         categoryRep.save(category);
     }
 
-    public boolean removeCategory(int categoryId) {
-        Category category = categoryRep.getReferenceById(categoryId);
+    public boolean removeCategory(int categoryId) throws CategoryNotFoundException {
+        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         if (category.getProducts().size() == 0){
             categoryRep.delete(category);
             return true;
@@ -156,17 +158,19 @@ public class ProductService {
         return false;
     }
 
-    public void editSubCategories(HashMap<Integer, EditCategoryDTO> subCategories) {
+    public void editSubCategories(HashMap<Integer, EditCategoryDTO> subCategories) throws SubCategoryNotFoundException {
+        List<SubCategory> subCategoryList = new ArrayList<>();
         for (Map.Entry<Integer, EditCategoryDTO> entry : subCategories.entrySet()){
-            SubCategory subCategory = subCategoryRep.getReferenceById(entry.getKey());
+            SubCategory subCategory = subCategoryRep.findById(entry.getKey()).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
             if (entry.getValue().getName() != null) subCategory.setName(entry.getValue().getName());
             if (entry.getValue().getImage() != null) subCategory.setImage(entry.getValue().getImage());
-            subCategoryRep.save(subCategory);
+            subCategoryList.add(subCategory);
         }
+        subCategoryRep.saveAll(subCategoryList);
     }
 
-    public void removeSubCategory(int subCategoryId) {
-        SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
+    public void removeSubCategory(int subCategoryId) throws SubCategoryNotFoundException {
+        SubCategory subCategory = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
         List<Product> products = subCategory.getProducts();
         for (Product product : products){
             product.setSubCategory(null);
@@ -175,15 +179,15 @@ public class ProductService {
         subCategoryRep.delete(subCategory);
     }
 
-    public void removeProduct(int productId) {
-        Product product = productRep.getReferenceById(productId);
+    public void removeProduct(int productId) throws ProductNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         productRep.delete(product);
     }
 
     @Transactional
     public void editProduct(int productId, String name, String description, double price, int categoryId,
-                            int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) {
-        Product product = productRep.getReferenceById(productId);
+                            int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) throws ProductNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         if (name != null) product.setName(name);
         if (description != null) product.setDescription(description);
         if (price != 0){
@@ -201,7 +205,7 @@ public class ProductService {
             product.setSubCategory(subCategory);
         }
         if (materialIds != null) {
-            List<Material> materials = materialRep.findMaterialByIdList(materialIds);
+            List<Material> materials = materialRep.findMaterialByIdList(materialIds).orElseThrow(() -> new ProductNotFoundException("Material not found"));
             product.setMaterials(materials);
         }
         if (infos != null) {
@@ -218,8 +222,8 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public void addProductImages(int productId, List<byte[]> images) {
-        Product product = productRep.getReferenceById(productId);
+    public void addProductImages(int productId, List<byte[]> images) throws ProductNotFoundException {
+        Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         List<Image> productImages = product.getImages();
         for(byte[] image: images){
             Image newImage = new Image(image, product);
@@ -236,15 +240,15 @@ public class ProductService {
         }
     }
 
-    public void editMaterial(int materialId, String name, byte[] image) {
-        Material material = materialRep.getReferenceById(materialId);
+    public void editMaterial(int materialId, String name, byte[] image) throws MaterialNotFoundException {
+        Material material = materialRep.findById(materialId).orElseThrow(() -> new MaterialNotFoundException("Material not found"));
         if (name != null) material.setName(name);
         if (image != null) material.setImage(image);
         materialRep.save(material);
     }
 
-    public void removeMaterial(int materialId) {
-        Material material = materialRep.getReferenceById(materialId);
+    public void removeMaterial(int materialId) throws MaterialNotFoundException {
+        Material material = materialRep.findById(materialId).orElseThrow(() -> new MaterialNotFoundException("Material not found"));
         List<Product> products = material.getProducts();
         for (Product product : products){
             product.removeMaterial(material);

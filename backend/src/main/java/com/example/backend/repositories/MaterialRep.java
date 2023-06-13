@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MaterialRep extends JpaRepository<Material, Integer> {
     @Query(value = "SELECT m FROM Material m WHERE m.iD IN :idList")
-    List<Material> findMaterialByIdList(@Param("idList") Collection<Integer> idList);
+    Optional<List<Material>> findMaterialByIdList(@Param("idList") Collection<Integer> idList);
 }
