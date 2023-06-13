@@ -4,7 +4,7 @@
             name="button">
             -
         </v-btn>
-        <input class="quantity" type="text" name="name" :value="counter">
+        <input class="quantity" type="text" name="name" :value="counter"/>
         <v-btn color="primary" size="medium" class="btn btn--plus" @click="changeCounter('1')" type="button" name="button">
             +
         </v-btn>

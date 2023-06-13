@@ -13,9 +13,6 @@ import HeadingText from "../atoms/Typography/HeadingText.vue";
 export default {
     name: "TitleWithGoBack",
     props: {
-        goBackHandler: {
-            type: Function,
-        },
         title: {
             type: String,
             require: true,

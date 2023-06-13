@@ -23,11 +23,11 @@
 </template>
 
 <script lang="ts">
-import QuantityButton from '../atoms/Button/QuantityButton.vue';
+import QuantityButton from "../atoms/Button/QuantityButton.vue";
 import HeadingText from "../atoms/Typography/HeadingText.vue";
-import { Typography } from "../atoms/Typography/Typography";
-import PrimaryButton from '../atoms/Button/PrimaryButton.vue';
-import FullWidthButton from '../atoms/Button/FullWidthButton.vue';
+import PrimaryButton from "../atoms/Button/PrimaryButton.vue";
+import FullWidthButton from "../atoms/Button/FullWidthButton.vue";
+import { ProductUserProps } from "@/appTypes/ProductUserProps";
 
 export default {
     name: "ProductDesc",
@@ -44,7 +44,6 @@ export default {
         },
     },
     components: { 
-        Typography, 
         HeadingText, 
         QuantityButton, 
         PrimaryButton, 

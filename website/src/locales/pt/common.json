@@ -45,7 +45,9 @@
 
     "viewDetails": "Ver Detalhes +",
 
+    "confirm": "Confirmo",
     "addAdmin": "Adicionar Administrador",
+    "removeAdmin": "Remover Administrador",
     "admin": "Administrador",
     "allUsers": "Todos os Utilizadores",
     "allClients": "Todos os Clientes",
@@ -61,5 +63,7 @@
     "tech-info": "Informação técnica",
     "buy-now": "Comprar agora",
     "add-cart": "Adicionar ao carrinho",
-    "related-products": "Produtos relacionados"
+    "related-products": "Produtos relacionados",
+
+    "rm-admin-text": "Têm a certeza que pretende remover o Administrador?"
 }

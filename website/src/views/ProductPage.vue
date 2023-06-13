@@ -20,7 +20,7 @@ import Carousel from "@/components/molecules/Carousel.vue";
 import ProductInfo from "@/components/molecules/ProductInfo.vue";
 import ProductDesc from "@/components/molecules/ProductDesc.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
-import RelatedProducts from '@/components/organisms/RelatedProducts.vue';
+import RelatedProducts from "@/components/organisms/RelatedProducts.vue";
 
 export default {
     components: {

@@ -1,6 +1,6 @@
 <template>
   <div v-if="isAlert">
-    <SucessAlert title="A operacao foi realizada com sucesso" />
+    <SuccessAlert title="A operacao foi realizada com sucesso" />
     <ErrorAlert title="A operacao foi realizada com sucesso" />
     <WarningAlert title="A operacao foi realizada com sucesso" />
   </div>
@@ -58,7 +58,7 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleWithEditButton from "@/components/molecules/TitleWithEditButton.vue";
 import Modal from "@/components/organisms/Modal.vue";
 import SecondaryButton from "@/components/atoms/Button/SecondaryButton.vue";
-import SucessAlert from "@/components/atoms/Alert/SucessAlert.vue";
+import SuccessAlert from "@/components/atoms/Alert/SuccessAlert.vue";
 import ErrorAlert from "@/components/atoms/Alert/ErrorAlert.vue";
 import WarningAlert from "@/components/atoms/Alert/WarningAlert.vue";
 
@@ -89,7 +89,7 @@ export default {
     TitleWithEditButton,
     Modal,
     SecondaryButton,
-    SucessAlert,
+    SuccessAlert,
     ErrorAlert,
     WarningAlert,
   },

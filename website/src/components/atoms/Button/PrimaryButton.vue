@@ -1,5 +1,5 @@
 <template>
-    <v-btn type="submit" color="primary bg-primary" @click="handleClick" value={{value}}>
+    <v-btn type="submit" color="primary bg-primary elevation-1" @click="handleClick" value={{value}}>
         <ButtonText class="text-black">
             <slot />
         </ButtonText>

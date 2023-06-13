@@ -10,8 +10,8 @@
     </v-sheet>
 </template>
 
-<script>
-import ProductPreviewUserCard from './Card/ProductPreviewUserCard.vue'
+<script lang="ts">
+import ProductPreviewUserCard from "./Card/ProductPreviewUserCard.vue"
 
 export default {
     data: () => ({
