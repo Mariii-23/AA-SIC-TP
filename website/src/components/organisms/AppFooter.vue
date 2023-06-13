@@ -1,5 +1,6 @@
 <template>
-  <v-footer class="footer" color="secondary">
+<<<<<<< HEAD
+  <v-footer class="footer" color="secondary" elevation="5">
     <v-spacer />
     <v-col v-if="hasLocalization" class="column">
       <v-row>
@@ -24,6 +25,23 @@
       <v-row>{{ email }}</v-row>
     </v-col>
     <v-spacer />
+=======
+  <v-footer class="phone-viewport" color="secondary">
+    <v-col v-if="hasLocalization">
+      <v-row><HeadingText :size="6"> {{ $t("where") }} </HeadingText></v-row>
+      <v-row>{{ address }}</v-row>
+      <v-row>{{ post_code }}</v-row>
+    </v-col>
+    <v-col v-if="hasSchedule">
+      <v-row><HeadingText :size="6"> {{ $t("schedule")}}</HeadingText></v-row>
+      <v-row v-for="schedule in schedule_list">{{ schedule }}</v-row>
+    </v-col>
+    <v-col>
+      <v-row><HeadingText :size="6"> {{ $t("contact")}}</HeadingText></v-row>
+      <v-row>{{ phone_number }}</v-row>
+      <v-row>{{ email }}</v-row>
+    </v-col>
+>>>>>>> 579e826 ( logo e ajustes no login)
   </v-footer>
 </template>
 
@@ -75,12 +93,14 @@ export default {
   },
   components: { HeadingText },
 }
+<<<<<<< HEAD
 </script>
 
 <style scoped>
 .footer {
   display: flex;
   align-content: center;
+  padding: 20px;
 }
 
 @media screen and (max-width: 800px) {
@@ -97,3 +117,6 @@ export default {
   }
 }
 </style>
+=======
+</script>
+>>>>>>> 579e826 ( logo e ajustes no login)

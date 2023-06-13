@@ -41,7 +41,12 @@ const routes = [
         component: () => import("@/views/RecoverPassword.vue"),
       },
       {
-        path: "category/:id",
+        path: "product",
+        name: "ProductPage",
+        component: () => import("@/views/ProductPage.vue"),
+      },
+      {
+      path: "category/:id",
         name: "Category",
         component: () => import("@/views/Category.vue"),
       },

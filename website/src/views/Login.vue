@@ -9,6 +9,7 @@
           <form ref="form" @submit.prevent="login()">
             <div class="custom-flex">
               <div>
+<<<<<<< HEAD
                 <v-text-field v-model="username" name="email" label="Email" type="text" placeholder="Email" single-line
                   class="input-form rounded-lg" required bg-color="primary" />
                 <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
@@ -20,6 +21,23 @@
               <div class="signup-phrase">
                 <p>{{ $t("forgot-pw") }} </p>
                 <p class="link">{{ $t("recover-pw") }}</p>
+=======
+                <v-text-field v-model="username" name="username" label="Username" type="text" placeholder="username"
+                  class="input-form rounded-lg" required bg-color="primary"/>
+                <v-text-field v-model="password" name="password" label="Password" type="password" placeholder="password"
+                  required bg-color="primary"/>
+              </div>
+
+              <div class="button-grid">
+                <v-btn type="submit" color="primary" value="log in">{{ $t("recover-pw") }}</v-btn>
+                <div/>
+                <v-btn type="submit" color="primary" value="log in">{{ $t("login") }}</v-btn>
+              </div>
+
+              <div class="signup-phrase">
+                <p>{{ $t("dont-have-account") }}</p>
+                <p class="signup">{{ $t("register") }}</p>
+>>>>>>> 579e826 ( logo e ajustes no login)
               </div>
 
               <div class="custom-divider">
@@ -36,11 +54,17 @@
                 <PrimaryButton :handleClick="handleLoginWithGoogle">
                   {{ $t("continue-google") }}
                 </PrimaryButton>
+<<<<<<< HEAD
               </div>
 
               <div class="signup-phrase">
                 <p>{{ $t("dont-have-account") }}</p>
                 <p class="link">{{ $t("register") }}</p>
+=======
+                <FullWidthButton :handleClick="handleLoginWithGoogle">
+                  {{ $t("continue-microsoft") }}
+                </FullWidthButton>
+>>>>>>> 579e826 ( logo e ajustes no login)
               </div>
             </div>
 
