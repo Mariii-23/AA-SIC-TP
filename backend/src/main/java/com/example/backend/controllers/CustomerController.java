@@ -18,12 +18,16 @@ public class CustomerController {
     private UserService userService;
 
     @GetMapping("/{id}/favourites")
-    public List<FavouriteDTO> getFavourites(@PathVariable int id) {
+     public EnvelopeDTO<FavouriteDTO> getFavourites(@PathVariable int id, final @RequestBody PaginationDTO paginationDTO) {
         try {
-            return userService.getFavourites(id);
+            return userService.getFavourites(id, paginationDTO.getOffset(), paginationDTO.getNumItems());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
+
+    @GetMapping("/{id}/numberOfFavourites")
+    public int getNumberOfFavourites(@PathVariable int id) {
+        return userService.getNumberOfFavourites(id);
     }
 
     @GetMapping("/cart/{id}")

@@ -9,10 +9,12 @@ import com.example.backend.repositories.AdminRep;
 import com.example.backend.repositories.CustomerRep;
 import com.example.backend.repositories.ProductRep;
 import com.example.backend.repositories.UserRep;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -40,6 +42,9 @@ public class UserService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
+    @Autowired
+    private WebClient emailVerifier;
+
 
     public Admin addAdmin(Admin admin) {
         return adminRep.save(admin);
@@ -61,42 +66,48 @@ public class UserService {
         return new AdminDTO(admin);
     }
 
-    public List<AdminDTO> getAllAdmins() {
-        List<AdminDTO> result = new ArrayList<>();
-        List<Admin> admins = adminRep.findAll();
+    public EnvelopeDTO<AdminDTO> getAllAdmins(int offset, int numItems) {
+        List<AdminDTO> list = new ArrayList<>();
+        List<Admin> admins = adminRep.findAdminPagination(offset, numItems);
         admins.forEach(admin -> {
-            result.add(new AdminDTO(admin));
+            list.add(new AdminDTO(admin));
         });
-        return result;
+        boolean isLast = (offset + numItems) >= adminRep.count();
+        return new EnvelopeDTO<>(isLast, list);
     }
 
-    public List<CustomerDTO> getAllCustomers() {
-        List<CustomerDTO> result = new ArrayList<>();
-        List<Customer> customers = customerRep.findAll();
+    public EnvelopeDTO<CustomerDTO> getAllCustomers(int offset, int numItems) {
+        List<CustomerDTO> list = new ArrayList<>();
+        List<Customer> customers = customerRep.findCustomerPagination(offset, numItems);
         customers.forEach(customer -> {
-            result.add(new CustomerDTO(customer));
+            list.add(new CustomerDTO(customer));
         });
-        return result;
+        boolean isLast = (offset + numItems) >= customerRep.count();
+        return new EnvelopeDTO<>(isLast, list);
     }
 
     public void addAdminDTO(AdminDTO adminDTO){
         Admin admin = new Admin(adminDTO.getEmail(),
                                 passwordEncoder.encode(adminDTO.getPassword()),
-                                adminDTO.getName()
-                );
-        addAdmin(admin);
+                                adminDTO.getName());
+        boolean valid = true; /*emailVerifier
+                .post()
+                .bodyValue("email=" + admin.getEmail())
+                .retrieve()
+                .bodyToMono(JsonNode.class)
+                .map(jsonNode -> jsonNode.get("valid").asBoolean())
+                .block();*/
+        if(valid) addAdmin(admin);
     }
 
-    public List<FavouriteDTO> getFavourites(int id) throws UserNotFoundException {
-        Customer customer = customerRep.findById(id).orElse(null);
-        if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
-        }
-        List<FavouriteDTO> result = new ArrayList<>();
-        customer.getFavourites().forEach(product -> {
-            result.add(new FavouriteDTO(product.getName(), product.getPrice()));
+    public EnvelopeDTO<FavouriteDTO> getFavourites(int id, int offset, int numItems) {
+        List<Product> products = productRep.findFavouritesPagination(id, offset, numItems);
+        List<FavouriteDTO> list = new ArrayList<>();
+        products.forEach(product -> {
+            list.add(new FavouriteDTO(product.getName(),product.getPrice()));
         });
-        return result;
+        boolean isLast = (offset + numItems) >= customerRep.getNumberOfFavourites(id);
+        return new EnvelopeDTO<>(isLast, list);
     }
 
     public ShoppingCartDTO getShoppingCart(int id) throws UserNotFoundException {
@@ -240,5 +251,17 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public int getNumberOfCustomers() {
+        return customerRep.getNumberOfCustomers();
+    }
+
+    public int getNumberOfAdmins() {
+        return adminRep.getNumberOfAdmins();
+    }
+
+    public int getNumberOfFavourites(int id) {
+        return customerRep.findById(id).orElse(null).getFavourites().size();
     }
 }

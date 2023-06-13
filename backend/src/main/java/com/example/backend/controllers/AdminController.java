@@ -4,8 +4,8 @@ import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.AdminDTO;
 import com.example.backend.dto.ChangePasswordDTO;
 import com.example.backend.dto.CustomerDTO;
+import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +15,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+
+
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
     @Resource(name = "userService")
     private UserService userService;
-    @Autowired
-    private WebClient emailVerifier;
 
     @GetMapping("/customer/{id}")
     public CustomerDTO getCustomerbyId(@PathVariable int id) {
@@ -33,8 +34,13 @@ public class AdminController {
     }
 
     @GetMapping("/customer/all")
-    public List<CustomerDTO> getAllCustumers() {
-        return userService.getAllCustomers();
+    public EnvelopeDTO<CustomerDTO> getAllCustomers(final @RequestBody PaginationDTO paginationDTO) {
+        return userService.getAllCustomers(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    }
+
+    @GetMapping("/numberOfCustomers")
+    public int getNumberOfCustomers() {
+        return userService.getNumberOfCustomers();
     }
 
     @GetMapping("/{id}")
@@ -47,21 +53,19 @@ public class AdminController {
     }
 
     @GetMapping("/all")
-    public List<AdminDTO> getAllAdmins() {
-        return userService.getAllAdmins();
+    public EnvelopeDTO<AdminDTO> getAllAdmins(final @RequestBody PaginationDTO paginationDTO) {
+        return userService.getAllAdmins(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    }
+
+    @GetMapping("/numberOfAdmins")
+    public int getNumberOfAdmins() {
+        return userService.getNumberOfAdmins();
     }
 
 
     @PostMapping("/add")
     public void addAdmin(final @RequestBody AdminDTO admin) {
-        boolean valid = emailVerifier
-                .post()
-                .bodyValue("email=" + admin.getEmail())
-                .retrieve()
-                .bodyToMono(JsonNode.class)
-                .map(jsonNode -> jsonNode.get("valid").asBoolean())
-                .block();
-        if (valid) userService.addAdminDTO(admin);
+        userService.addAdminDTO(admin);
     }
 
     @DeleteMapping("/remove/{id}")
