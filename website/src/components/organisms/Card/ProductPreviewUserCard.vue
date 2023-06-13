@@ -29,7 +29,7 @@
 import { ProductUserProps } from "@/appTypes/ProductUserProps";
 
 export default {
-  name: "ProductPreviewAdminCard",
+  name: "ProductPreviewUserCard",
   props: {
     product: {
       type: Object as () => ProductUserProps,

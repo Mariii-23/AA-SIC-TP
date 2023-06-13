@@ -6,7 +6,6 @@
     "schedule": "Horário",
     "contact": "Contactos",
 
-<<<<<<< HEAD
     "english": "Inglês",
     "portuguese": "Português",
 
@@ -16,15 +15,10 @@
     "addProduct": "Adicionar Produto",
 
     "recover-pw": "Recuperar palavra-passe",
-=======
-
-    "recover-pw": "Recuperar Palavra-passe",
->>>>>>> 579e826 ( logo e ajustes no login)
     "login": "Iniciar sessão",
     "continue-google": "Continuar com Google",
     "continue-microsoft": "Continuar com conta Microsoft",
     "dont-have-account": "Ainda não tem conta?",
-<<<<<<< HEAD
     "register": "Criar conta",
     "or": "OU",
     "password": "Palavra-passe",
@@ -53,8 +47,4 @@
     "buy-now": "Comprar agora",
     "add-cart": "Adicionar ao carrinho",
     "related-products": "Produtos relacionados"
-=======
-    "register": "Registe-se",
-    "or": "OU"
->>>>>>> 579e826 ( logo e ajustes no login)
 }

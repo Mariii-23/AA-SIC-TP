@@ -6,7 +6,6 @@
     "schedule": "Schedule",
     "contact": "Contacts",
 
-<<<<<<< HEAD
     "english": "English",
     "portuguese": "Portuguese",
 
@@ -14,8 +13,6 @@
     "close": "Close",
 
     "addProduct": "Add Product",
-=======
->>>>>>> 579e826 ( logo e ajustes no login)
 
     "recover-pw": "Recover Password",
     "login": "Log in",
@@ -23,7 +20,6 @@
     "continue-microsoft": "Continue with Microsoft account",
     "dont-have-account": "Don't have an account?",
     "register": "Register",
-<<<<<<< HEAD
     "or": "OR",
     "password": "Password",
     "forgot-pw": "Forgot your password?",
@@ -51,7 +47,4 @@
     "buy-now": "Buy Now",
     "add-cart": "Add to Cart",
     "related-products": "Related products"
-=======
-    "or": "OR"
->>>>>>> 579e826 ( logo e ajustes no login)
 }
