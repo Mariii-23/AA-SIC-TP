@@ -28,13 +28,13 @@ public class AuthenticateService {
     private final WebClient emailVerifier;
 
     public AuthenticationResponse register(CustomerDTO request) throws Exception {
-        boolean valid = emailVerifier
+        boolean valid = true;/*emailVerifier
                             .post()
                             .bodyValue("email=" + request.getEmail())
                             .retrieve()
                             .bodyToMono(JsonNode.class)
                             .map(jsonNode -> jsonNode.get("valid").asBoolean())
-                            .block();
+                            .block();*/
         if (valid) {
             ShoppingCart shoppingCart = new ShoppingCart();
             Customer customer = new Customer(request.getBirthday(),
