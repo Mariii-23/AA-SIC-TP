@@ -144,11 +144,16 @@ public class Product {
 		this.reviews.add(review);
 	}
 
+
 	public List<Customer> getCustomers() {
 		return customers;
 	}
 
 	public void setCustomers(List<Customer> customers) {
 		this.customers = customers;
+  }
+  
+	public void removeMaterial(Material material) {
+		this.materials.remove(material);
 	}
 }

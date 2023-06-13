@@ -124,7 +124,7 @@ public class ProductController {
         return productService.getProductById(productId);
     }
 
-    @GetMapping("all//categories")
+    @GetMapping("all/categories")
     public List<CategoryDTO> getAllCategories() {
         return productService.getAllCategories();
     }

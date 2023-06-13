@@ -247,8 +247,9 @@ public class ProductService {
         Material material = materialRep.getReferenceById(materialId);
         List<Product> products = material.getProducts();
         for (Product product : products){
-            product.getMaterials().remove(material);
-            productRep.save(product);
+            product.removeMaterial(material);
+            if (product.getMaterials().size() == 0) productRep.delete(product);
+            else productRep.save(product);
         }
         materialRep.delete(material);
     }
