@@ -1,5 +1,6 @@
 package com.example.backend.services;
 
+import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.AuthenticationRequest;
 import com.example.backend.dto.AuthenticationResponse;
 import com.example.backend.dto.CustomerDTO;
@@ -37,6 +38,12 @@ public class AuthenticateService {
                             .block();*/
         if (valid) {
             ShoppingCart shoppingCart = new ShoppingCart();
+            if (customerRep.existsByEmail(request.getEmail())) {
+                throw new Exception("Email already registered");
+            }
+            if (customerRep.existsByNif(request.getNif())) {
+                throw new Exception("NIF already registered");
+            }
             Customer customer = new Customer(request.getBirthday(),
                     request.getNif(),
                     request.getAddress(),
@@ -44,7 +51,11 @@ public class AuthenticateService {
                     passwordEncoder.encode(request.getPassword()),
                     request.getName(),
                     shoppingCart);
-            customerRep.save(customer);
+            try {
+                customerRep.save(customer);
+            } catch (Exception e) {
+                throw e;
+            }
             String token = jwtService.generateToken(customer);
             return new AuthenticationResponse(token);
         } else {
@@ -52,12 +63,15 @@ public class AuthenticateService {
         }
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) throws UserNotFoundException {
         authenticationManager.authenticate((
                 new UsernamePasswordAuthenticationToken(request.getEmail(),
                 request.getPassword()
                 )));
-        User user = userRep.findByEmail(request.getEmail()).orElseThrow();
+        User user = userRep.findByEmail(request.getEmail()).orElse(null);
+        if (user == null) {
+            throw new UserNotFoundException("User with email " + request.getEmail() + " not found");
+        }
         String token = jwtService.generateToken(user);
         return new AuthenticationResponse(token);
     }
