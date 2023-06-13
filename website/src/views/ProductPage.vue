@@ -2,7 +2,7 @@
     <div class="product">
         <div class="left-side">
                 <Carousel class="carousel" />
-                <ProductInfo class="product-info"/>
+                <ProductInfo/>
         </div>
         <div class="product-desc">
             <ProductDesc />
@@ -11,7 +11,7 @@
 
     <div class="related-products">
         <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-        <RelatedProducts class="slide-sheet"/>
+        <RelatedProducts/>
     </div>
 </template>
 

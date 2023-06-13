@@ -43,7 +43,12 @@ export default {
             }),
         },
     },
-    components: { Typography, HeadingText, QuantityButton, PrimaryButton, FullWidthButton }
+    components: { 
+        Typography, 
+        HeadingText, 
+        QuantityButton, 
+        PrimaryButton, 
+        FullWidthButton }
 };
 </script>
 
@@ -68,10 +73,6 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center
-}
-
-.action {
-    margin-left: 10px;
 }
 
 .btn{

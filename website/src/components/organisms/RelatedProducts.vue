@@ -27,10 +27,4 @@ export default {
 .product {
     margin: 25px;
 }
-
-.slider > .v-slide-group__next.theme--light.v-icon
-{
-    color: rgb(234, 10, 10)!important;
-
-}
 </style>
