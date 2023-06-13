@@ -21,7 +21,9 @@ public class Company {
 
 	@Column(nullable = false)
 	private String address;
-	private String logoImage;
+
+	@Lob
+	private byte[] logoImage;
 
 	@Column(nullable = false)
 	private String postCode;
@@ -37,7 +39,7 @@ public class Company {
 
 	public Company() {}
 
-	public Company(String name, String email, String contact, String address, String logoImage, String postCode, String schedule) {
+	public Company(String name, String email, String contact, String address, byte[] logoImage, String postCode, String schedule) {
 		this.name = name;
 		this.email = email;
 		this.contact = contact;
@@ -72,11 +74,11 @@ public class Company {
 		this.address = address;
 	}
 
-	public String getLogoImage() {
+	public byte[] getLogoImage() {
 		return this.logoImage;
 	}
 
-	public void setLogoImage(String logoImage) {
+	public void setLogoImage(byte[] logoImage) {
 		this.logoImage = logoImage;
 	}
 

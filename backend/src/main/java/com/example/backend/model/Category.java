@@ -15,7 +15,8 @@ public class Category {
 	@Column(unique = true, nullable = false)
 	private String name;
 
-	private String image;
+	@Lob
+	private byte[] image;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<SubCategory> subCategories = new ArrayList<SubCategory>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
@@ -24,7 +25,7 @@ public class Category {
 	public Category() {
 	}
 
-	public Category(String name, String image) {
+	public Category(String name, byte[] image) {
 		this.name = name;
 		this.image = image;
 	}
@@ -41,11 +42,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return this.image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 

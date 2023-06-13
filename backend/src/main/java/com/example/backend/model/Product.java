@@ -2,8 +2,6 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +23,13 @@ public class Product {
 	private List<Material> materials = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private List<TechnicalInfo> infos = new ArrayList<TechnicalInfo>();
+	private List<TechnicalInfo> infos = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private List<Review> reviews = new ArrayList<Review>();
+	private List<Review> reviews = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private List<Image> images = new ArrayList<Image>();
+	private List<Image> images = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")

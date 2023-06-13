@@ -13,17 +13,23 @@ public class Customer extends User {
 
 	@Column
 	private Date birthday;
+
 	@Column(unique = true)
 	private String nif;
+
 	@Column
 	private String address;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
 	public List<Review> reviews  = new ArrayList<>();
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cart_id")
 	private ShoppingCart cart;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private List<Order> orders;
+
 	@ManyToMany
 	@JoinTable(
 			name = "customer_favourites",

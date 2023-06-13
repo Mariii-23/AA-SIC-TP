@@ -18,7 +18,6 @@ public class SocialNetwork {
 	@JoinColumn(name = "company_id", nullable = false)
 	private Company company;
 
-
 	public SocialNetwork() {
 
 	}

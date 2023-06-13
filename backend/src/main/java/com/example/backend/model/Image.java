@@ -9,8 +9,9 @@ public class Image {
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
 
+	@Lob
 	@Column(nullable = false)
-	private String path;
+	private byte[] image;
 
 	@ManyToOne
 	@JoinColumn(name = "product_id", nullable = false)
@@ -19,17 +20,18 @@ public class Image {
 	public Image() {
 
 	}
-	public Image(String path, Product product) {
-		this.path = path;
+
+	public Image(byte[] image, Product product) {
+		this.image = image;
 		this.product = product;
 	}
 
-	public String getPath() {
-		return path;
+	public byte[] getImage() {
+		return image;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public Product getProduct() {

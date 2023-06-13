@@ -11,7 +11,7 @@ public class SubCategory {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int iD;
     private String name;
-    private String image;
+    private byte[] image;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
@@ -21,7 +21,7 @@ public class SubCategory {
     public SubCategory() {
     }
 
-    public SubCategory(String name, String image, Category category) {
+    public SubCategory(String name, byte[] image, Category category) {
         this.name = name;
         this.image = image;
         this.category = category;
@@ -39,11 +39,11 @@ public class SubCategory {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
