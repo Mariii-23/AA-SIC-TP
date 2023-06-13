@@ -42,4 +42,14 @@ public class CustomerController {
     public void deleteFavourite(final @RequestBody AddRemoveFavouriteDTO favourite) {
         userService.deleteFavourite(favourite.getCostumerId(), favourite.getProductId());
     }
+
+    @PostMapping("/password/recover/{customer_id}")
+    public String recoverPassword(final @PathVariable int customer_id) {
+        return userService.recoverPassword(customer_id);
+    }
+
+    @PostMapping("/password/recover/confirm/{customer_id}")
+    public boolean confirmRecoverPassword(final @PathVariable int customer_id, final @RequestBody ChangePasswordDTO changePasswordDTO) {
+        return userService.confirmRecoverPassword(customer_id, changePasswordDTO.getToken(), changePasswordDTO.getNewPassword());
+    }
 }

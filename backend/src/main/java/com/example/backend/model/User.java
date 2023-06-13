@@ -31,6 +31,8 @@ public class User implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	private String passwordToken;
+
 	public User() {
 	}
 
@@ -102,5 +104,13 @@ public class User implements UserDetails {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getPasswordToken() {
+		return passwordToken;
+	}
+
+	public void setPasswordToken(String passwordToken) {
+		this.passwordToken = passwordToken;
 	}
 }

@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.dto.AdminDTO;
+import com.example.backend.dto.ChangePasswordDTO;
 import com.example.backend.dto.CustomerDTO;
 import com.example.backend.services.UserService;
 import jakarta.annotation.Resource;
@@ -47,5 +48,15 @@ public class AdminController {
     @PostMapping("/edit/{admin_id}")
     public void editAdmin(final @PathVariable int admin_id, final @RequestBody AdminDTO adminDTO) {
         userService.editAdmin(admin_id, adminDTO);
+    }
+
+    @PostMapping("/password/recover/{admin_id}")
+    public String recoverPassword(final @PathVariable int admin_id) {
+        return userService.recoverPassword(admin_id);
+    }
+
+    @PostMapping("/password/recover/confirm/{admin_id}")
+    public boolean confirmRecoverPassword(final @PathVariable int admin_id, final @RequestBody ChangePasswordDTO changePasswordDTO) {
+        return userService.confirmRecoverPassword(admin_id, changePasswordDTO.getToken(), changePasswordDTO.getNewPassword());
     }
 }

@@ -1,6 +1,5 @@
 package com.example.backend.event;
 
-import com.example.backend.model.Customer;
 import com.example.backend.model.User;
 import org.springframework.context.ApplicationEvent;
 

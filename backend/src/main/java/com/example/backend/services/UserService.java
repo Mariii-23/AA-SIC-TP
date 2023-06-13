@@ -1,16 +1,20 @@
 package com.example.backend.services;
 
 import com.example.backend.dto.*;
+import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
 import com.example.backend.repositories.AdminRep;
 import com.example.backend.repositories.CustomerRep;
 import com.example.backend.repositories.ProductRep;
 import com.example.backend.repositories.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service("userService")
@@ -18,19 +22,22 @@ public class UserService {
 
     @Autowired
     private UserRep userRep;
+
     @Autowired
     private CustomerRep customerRep;
+
     @Autowired
     private AdminRep adminRep;
+
     @Autowired
     private ProductRep productRep;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
-    public Customer addCustomer(Customer customer) {
-        return customerRep.save(customer);
-    }
 
     public Admin addAdmin(Admin admin) {
         return adminRep.save(admin);
@@ -64,28 +71,12 @@ public class UserService {
         return result;
     }
 
-    public void addCustomerDTO(CustomerDTO costumerDTO){
-        ShoppingCart cart = new ShoppingCart();
-        Customer customer = new Customer(costumerDTO.getBirthday(),
-                                         costumerDTO.getNif(),
-                                         costumerDTO.getAddress(),
-                                         costumerDTO.getEmail(),
-                                         costumerDTO.getPassword(),
-                                         costumerDTO.getName(),
-                                         cart);
-        addCustomer(customer);
-    }
-
     public void addAdminDTO(AdminDTO adminDTO){
         Admin admin = new Admin(adminDTO.getEmail(),
                                 passwordEncoder.encode(adminDTO.getPassword()),
                                 adminDTO.getName()
                 );
         addAdmin(admin);
-    }
-
-    public boolean logout(String token) {
-        return true;
     }
 
     public List<FavouriteDTO> getFavourites(int id) {
@@ -160,5 +151,33 @@ public class UserService {
         if (adminDTO.getPassword() != null) admin.setPassword(adminDTO.getPassword());
         if (adminDTO.getName() != null) admin.setName(adminDTO.getName());
         adminRep.save(admin);
+    }
+
+    public String recoverPassword(int userId) {
+        SecureRandom secureRandom = new SecureRandom();
+        Base64.Encoder encoder = Base64.getUrlEncoder();
+        byte[] randomBytes = new byte[24];
+        secureRandom.nextBytes(randomBytes);
+        String token = encoder.encodeToString(randomBytes);
+
+        String subject = "Password Recovery";
+        String message = "Use this token to recover your password: " + token;
+        User user = userRep.findById(userId).orElse(null);
+        user.setPasswordToken(token);
+        userRep.save(user);
+
+        applicationEventPublisher.publishEvent(new EmailEvent(this, user, subject, message));
+        return token;
+    }
+
+    public boolean confirmRecoverPassword(int userId, String token, String newPassword) {
+        User user = userRep.findById(userId).orElse(null);
+        if (user.getPasswordToken().equals(token)) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setPasswordToken(null);
+            userRep.save(user);
+            return true;
+        }
+        return false;
     }
 }
