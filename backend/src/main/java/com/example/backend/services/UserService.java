@@ -5,16 +5,11 @@ import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
-import com.example.backend.repositories.AdminRep;
-import com.example.backend.repositories.CustomerRep;
-import com.example.backend.repositories.ProductRep;
-import com.example.backend.repositories.UserRep;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -37,13 +32,13 @@ public class UserService {
     private ProductRep productRep;
 
     @Autowired
+    private OrderRep orderRep;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
-
-    @Autowired
-    private WebClient emailVerifier;
 
 
     public Admin addAdmin(Admin admin) {
@@ -53,7 +48,7 @@ public class UserService {
     public CustomerDTO getCustomerById(int id) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
         if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
+            throw new UserNotFoundException("Customer not found");
         }
         return new CustomerDTO(customer);
     }
@@ -100,20 +95,20 @@ public class UserService {
         if(valid) addAdmin(admin);
     }
 
-    public EnvelopeDTO<FavouriteDTO> getFavourites(int id, int offset, int numItems) {
+    public EnvelopeDTO<FavouriteDTO> getFavourites(int id, int offset, int numItems) throws UserNotFoundException {
         List<Product> products = productRep.findFavouritesPagination(id, offset, numItems);
         List<FavouriteDTO> list = new ArrayList<>();
         products.forEach(product -> {
             list.add(new FavouriteDTO(product.getName(),product.getPrice()));
         });
-        boolean isLast = (offset + numItems) >= customerRep.getNumberOfFavourites(id);
+        boolean isLast = (offset + numItems) >= getNumberOfFavourites(id);
         return new EnvelopeDTO<>(isLast, list);
     }
 
     public ShoppingCartDTO getShoppingCart(int id) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
         if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
+            throw new UserNotFoundException("Customer not found");
         }
         List<ItemDTO> itens = new ArrayList<>();
         customer.getCart().getItems().forEach(item -> {
@@ -125,28 +120,30 @@ public class UserService {
         return new ShoppingCartDTO(itens, customer.getCart().getTotalPrice());
     }
 
-    public List<OrderSimpleDTO> getOrders(int id) throws UserNotFoundException {
+    public EnvelopeDTO<OrderSimpleDTO> getOrders(int id, int offset, int numitems) throws UserNotFoundException {
         Customer customer = customerRep.findById(id).orElse(null);
         if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
+            throw new UserNotFoundException("Customer not found");
         }
-        List<OrderSimpleDTO> result = new ArrayList<>();
-        customer.getOrders().forEach(order -> {
+        List<OrderSimpleDTO> list = new ArrayList<>();
+        List<Order> orders = orderRep.findOrdersPagination(id, offset, numitems);
+        orders.forEach(order -> {
             List<ItemDTO> itens = new ArrayList<>();
             order.getItems().forEach(orderitem -> {
                 itens.add(new ItemDTO(orderitem.getProduct().getName(),
                                       orderitem.getPrice(),
                                       orderitem.getQuantity()));
             });
-            result.add(new OrderSimpleDTO(order));
+            list.add(new OrderSimpleDTO(order));
         });
-        return result;
+        boolean isLast = (offset + numitems) >= getNumberOfOrders(id);
+        return new EnvelopeDTO<>(isLast, list);
     }
 
-    public void addFavourite(int costumerId, int productId) throws UserNotFoundException, ProductNotFoundException {
-        Customer customer = customerRep.findById(costumerId).orElse(null);
+    public void addFavourite(int customerId, int productId) throws UserNotFoundException, ProductNotFoundException {
+        Customer customer = customerRep.findById(customerId).orElse(null);
         if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
+            throw new UserNotFoundException("Customer not found");
         }
         Product product = productRep.findById(productId).orElse(null);
         if (product == null) {
@@ -159,7 +156,7 @@ public class UserService {
     public void deleteFavourite(int costumerId, int productId) throws UserNotFoundException, ProductNotFoundException {
         Customer customer = customerRep.findById(costumerId).orElse(null);
         if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
+            throw new UserNotFoundException("Customer not found");
         }
         List<Product> favourites = customer.getFavourites();
         Product product = favourites.stream().filter(p -> p.getiD() == productId).findFirst().orElse(null);
@@ -181,7 +178,7 @@ public class UserService {
     public void editCustomer(int customer_id, CustomerDTO costumerDTO) throws Exception {
         Customer customer = customerRep.getReferenceById(customer_id);
         if (customer == null) {
-            throw new UserNotFoundException("Custumer not found");
+            throw new UserNotFoundException("Customer not found");
         }
         if (costumerDTO.getEmail() != null) {
             if (customerRep.existsByEmail(costumerDTO.getEmail())) {
@@ -261,7 +258,17 @@ public class UserService {
         return adminRep.getNumberOfAdmins();
     }
 
-    public int getNumberOfFavourites(int id) {
-        return customerRep.findById(id).orElse(null).getFavourites().size();
+    public int getNumberOfFavourites(int id) throws UserNotFoundException {
+        Customer c = customerRep.findById(id).orElse(null);
+        if (c == null) {
+            throw new UserNotFoundException("Customer not found");
+        } else return c.getFavourites().size();
+    }
+
+    public int getNumberOfOrders(int id) throws UserNotFoundException {
+        Customer c = customerRep.findById(id).orElse(null);
+        if (c == null) {
+            throw new UserNotFoundException("Customer not found");
+        } else return c.getOrders().size();
     }
 }

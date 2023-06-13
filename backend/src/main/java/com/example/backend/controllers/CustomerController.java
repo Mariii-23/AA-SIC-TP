@@ -1,6 +1,5 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.ProductNotFoundException;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
@@ -8,8 +7,6 @@ import jakarta.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -19,12 +16,20 @@ public class CustomerController {
 
     @GetMapping("/{id}/favourites")
      public EnvelopeDTO<FavouriteDTO> getFavourites(@PathVariable int id, final @RequestBody PaginationDTO paginationDTO) {
-        return userService.getFavourites(id, paginationDTO.getOffset(), paginationDTO.getNumItems());
+        try {
+            return userService.getFavourites(id, paginationDTO.getOffset(), paginationDTO.getNumItems());
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/{id}/numberOfFavourites")
     public int getNumberOfFavourites(@PathVariable int id) {
-        return userService.getNumberOfFavourites(id);
+        try {
+            return userService.getNumberOfFavourites(id);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/cart/{id}")
@@ -36,14 +41,24 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/orders/{id}")
-    public List<OrderSimpleDTO> getOrders(@PathVariable int id) {
+    @GetMapping("{id}/orders")
+    public EnvelopeDTO<OrderSimpleDTO> getOrders(@PathVariable int id, final @RequestBody PaginationDTO paginationDTO) {
         try {
-            return userService.getOrders(id);
+            return userService.getOrders(id, paginationDTO.getOffset(), paginationDTO.getNumItems());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @GetMapping("{id}/numberOfOrders")
+    public int getNumberOfOrders(@PathVariable int id) {
+        try {
+            return userService.getNumberOfOrders(id);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
 
     @PostMapping("/edit/{customer_id}")
     public void editCustomer(final @PathVariable int customer_id, final @RequestBody CustomerDTO costumerDTO) {
