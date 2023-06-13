@@ -8,6 +8,8 @@
 
   <heading-text>Heading</heading-text>
 
+  <UserExpansionPainels :users="users" :view-details-handler="ola"/>
+
   <div class="products">
     <!-- <ProductPreviewAdminCards :products="products" /> -->
     <ProductPreviewUserCards :products="products" />
@@ -24,7 +26,9 @@
           <div class="py-5" />
 
           <v-row class="d-flex align-center justify-center">
-            <v-col cols="auto"> <v-btn color="primary"> Primary </v-btn> </v-col>
+            <v-col cols="auto">
+              <v-btn color="primary"> Primary </v-btn>
+            </v-col>
             <v-col cols="auto">
               <v-btn color="secondary"> Secondary </v-btn>
             </v-col>
@@ -45,14 +49,17 @@
         </v-responsive>
       </v-container>
 
-
       <v-row class="d-flex align-center justify-center">
         <v-col cols="auto">
-          <v-switch inset color="info" v-model="darkMode" @change="toggleTheme()"
-            :label="`It's ${darkMode ? 'Dark' : 'Light'}!`" />
+          <v-switch
+            inset
+            color="info"
+            v-model="darkMode"
+            @change="toggleTheme()"
+            :label="`It's ${darkMode ? 'Dark' : 'Light'}!`"
+          />
         </v-col>
       </v-row>
-
 
       <div class="py-14" />
     </v-responsive>
@@ -64,12 +71,27 @@ import { ref } from "vue";
 import { useTheme } from "vuetify";
 import { Typography } from "./atoms/Typography/Typography";
 import HeadingText from "./atoms/Typography/HeadingText.vue";
-import ProductPreviewAdminCards from "./organisms/Cards/ProductPreviewAdminCards.vue";
 import ProductPreviewUserCards from "./organisms/Cards/ProductPreviewUserCards.vue";
+import UserExpansionPainels from "./molecules/expansionPainels/UserExpansionPainels.vue";
 
 const theme = useTheme();
 const darkMode = ref(false);
 
+const ola = (e: string) => {
+  console.log(e)
+}
+
+const user = {
+  name: "Maria",
+  email: "maria@hotmail.com",
+  address: "Rua da Marina, Edificiona Nao sei , ablalkb",
+  nif: "999888999",
+  id: 1234
+};
+let users = [];
+for (let i = 0; i < 8; i++) {
+  users.push(user);
+}
 
 const products = [
   {
@@ -117,11 +139,12 @@ const products = [
 ];
 
 const toggleTheme = () => {
-  theme.global.name.value = darkMode.value ? "customDarkTheme" : "customLightTheme";
+  theme.global.name.value = darkMode.value
+    ? "customDarkTheme"
+    : "customLightTheme";
   // Optional: Get value of current theme
   console.log(`Current theme is dark? ${theme.global.current.value.dark}`);
 };
-
 </script>
 
 <style scoped>
@@ -130,5 +153,19 @@ const toggleTheme = () => {
   gap: 50px;
 }
 
+.custom-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
 
+.rotate-arrow {
+  transition: transform 0.3s;
+  transform: rotate(180deg);
+}
+
+.custom-text {
+  margin-top: 10px;
+}
 </style>

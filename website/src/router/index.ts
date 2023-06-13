@@ -56,6 +56,18 @@ const routes = [
         name: "SubCategory",
         component: () => import("@/views/LayoutTry.vue"),
       },
+
+      //ADMINN
+      {
+        path: "admin/client/",
+        name: "Users",
+        component: () => import("@/views/admin/Clients.vue"),
+      },
+      {
+        path: "admin/",
+        name: "Admins",
+        component: () => import("@/views/admin/Admins.vue"),
+      },
     ],
   },
 ];

@@ -36,10 +36,25 @@
     "finish-register": "Concluir registo",
     "personal-data": "Por favor, preencha os seus dados pessoais para concluir o registo:",
     "dob": "Data de nascimento",
-    
+    "name": "Nome",
+    "email": "Email",
+    "user": "Utilizador",
 
     "search": "Pesquisar",
     "orders": "Encomendas",
+
+    "viewDetails": "Ver Detalhes +",
+
+    "addAdmin": "Adicionar Administrador",
+    "admin": "Administrador",
+    "allUsers": "Todos os Utilizadores",
+    "allClients": "Todos os Clientes",
+    "client": "Cliente",
+    "allAdmins": "Todos os Administradores",
+    "clients": "Clientes",
+    "admins": "Administradores",
+    "company": "Empresa",
+    "profile": "Perfil",
 
 
     "product-details": "Detalhes do produto",

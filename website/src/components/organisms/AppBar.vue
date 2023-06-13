@@ -11,7 +11,7 @@
     <v-spacer />
 
     <div class="search-bar">
-      <SearchBar />
+      <SearchBar bg-color="secondary"/>
     </div>
 
     <v-spacer />

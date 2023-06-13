@@ -36,11 +36,25 @@
     "finish-register": "Finish Register",
     "personal-data": "Please fill in your personal data to finish the registration:",
     "dob": "Date of birth",
-
+    "name": "Name",
+    "email": "Email",
+    "user": "User",
 
     "search": "Search",
     "orders": "Orders",
 
+    "viewDetails": "View Details +",
+
+    "addAdmin": "Add Admin",
+    "admin": "Admin",
+    "allUsers": "All Users",
+    "allClients": "All Clients",
+    "allAdmins": "All Admins",
+    "clients": "Clients",
+    "client": "Client",
+    "admins": "Admins",
+    "company": "Company",
+    "profile": "Profile",
     
     "product-details": "Product Details",
     "tech-info": "Technical Information",

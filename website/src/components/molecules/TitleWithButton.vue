@@ -1,6 +1,6 @@
 <template>
   <div class="titleWithButton">
-    <HeadingText>{{ title }}</HeadingText>
+    <HeadingText :size="size">{{ title }}</HeadingText>
     <PrimaryButton :handleClick="buttonHandler">
       <ButtonText>
         {{ buttonText }}
@@ -17,6 +17,11 @@ import PrimaryButton from "../atoms/Button/PrimaryButton.vue";
 export default {
   name: "TitleWithButton",
   props: {
+    size: {
+      type: Number,
+      default: 4,
+      validator: (value: number) => [1, 2, 3, 4, 5, 6].includes(value),
+    },
     title: {
       type: String,
       require: true,
