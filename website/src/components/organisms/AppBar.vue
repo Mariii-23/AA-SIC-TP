@@ -10,6 +10,7 @@
 
     <v-spacer />
 
+<<<<<<< HEAD
     <div class="search-bar">
       <SearchBar />
     </div>
@@ -22,6 +23,13 @@
         <v-icon>mdi-account-circle-outline</v-icon>
       </v-btn>
       <BodyText class="navbar_text">
+=======
+    <div v-if="!loggedIn" class ="icon-w-text">
+      <v-btn to="/login" icon>
+        <v-icon>mdi-account-circle-outline</v-icon>
+      </v-btn>
+      <BodyText>
+>>>>>>> 579e826 ( logo e ajustes no login)
         {{ $t("navbar-login") }}
       </BodyText>
     </div>
