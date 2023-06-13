@@ -63,8 +63,9 @@ public class OrderService {
 
     public boolean setOrderState(int orderId, OrderState state){
         Order order = orderRep.getReferenceById(orderId);
+        String subject = "Order " + orderId + " state changed";
         String message = "Your order with id " + orderId + " is now " + state + ".";
-        applicationEventPublisher.publishEvent(new EmailEvent(this, order.getCustomer(), message));
+        applicationEventPublisher.publishEvent(new EmailEvent(this, order.getCustomer(), subject, message));
         if(order.getState() != state){
             order.setState(state);
             orderRep.save(order);

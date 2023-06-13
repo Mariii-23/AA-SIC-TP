@@ -187,8 +187,9 @@ public class ProductService {
         if (name != null) product.setName(name);
         if (description != null) product.setDescription(description);
         if (price != 0){
+            String subject = "Price change";
             String message = "The price from the product " + product.getName() + " of your favorites list has changed from " + product.getPrice() + " to " + price;
-            product.getCustomers().stream().forEach(customer -> applicationEventPublisher.publishEvent(new EmailEvent(this, customer, message)));
+            product.getCustomers().stream().forEach(customer -> applicationEventPublisher.publishEvent(new EmailEvent(this, customer, subject, message)));
             product.setPrice(price);
         }
         if (categoryId != 0) {

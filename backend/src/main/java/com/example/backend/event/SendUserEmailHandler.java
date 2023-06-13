@@ -12,6 +12,6 @@ public class SendUserEmailHandler {
 
     @EventListener
     public void handleSendEmail(final EmailEvent emailEvent) {
-        notificationService.sendNewPriceNotification(emailEvent.getCustomer(), emailEvent.getMessage());
+        notificationService.sendNotification(emailEvent.getUser(), emailEvent.getSubject(), emailEvent.getMessage());
     }
 }
