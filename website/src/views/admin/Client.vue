@@ -2,15 +2,11 @@
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('allClients')" :items="items" />
+        <TitleCardLinksButton :title="$t('client')" :items="items" />
       </template>
       <template v-slot:second>
-        <HeadingText>{{ $t("clients") }}</HeadingText>
-        <SearchBar bg-color="primary" />
-        <UserExpansionPainels
-          :users="users"
-          :view-details-handler="viewDetailsHandler"
-        />
+        <TitleGoBack :title="$t('allClients')"/>
+        <ClientCard :client="client" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
@@ -20,31 +16,28 @@ import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
-import SearchBar from "@/components/molecules/SearchBar.vue";
-import UserExpansionPainels from "@/components/molecules/expansionPainels/UserExpansionPainels.vue";
 import { UserInfoProps } from "@/appTypes/User";
+import { useRoute } from "vue-router";
+import ClientCard from "@/components/organisms/Card/ClientCard.vue";
+import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
 
 export default {
-  name: "ClientsAdminPage",
+  name: "ClientInfoAdminPage",
   data: () => ({
-    //TODO: ir buscar os direitos
     items: Array as () => LinkProps[],
-    users: Array as () => UserInfoProps[],
+    client: Object as () => UserInfoProps,
+    isModalOpen: false,
   }),
   mounted: function () {
-    const user = {
+    const route = useRoute();
+    //TODO: ir buscar os direitos
+    this.client = {
       name: "Maria",
       email: "maria@hotmail.com",
       address: "Rua da Marina, Edificiona Nao sei , ablalkb",
       nif: "999888999",
-      id: "1234",
+      id: route.params.id,
     } as UserInfoProps;
-    let users1: UserInfoProps[] = [];
-    for (let i = 0; i < 8; i++) {
-      users1.push(user);
-    }
-    this.users = users1;
 
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
@@ -53,20 +46,12 @@ export default {
       { href: "/admin/client", icon: "bullseye", text: "clients" },
     ];
   },
-  //TODO: handlers
-  methods: {
-    viewDetailsHandler(id: number) {
-      this.$router.push("/admin/client/" + id);
-      console.log(id);
-    },
-  },
   components: {
     TwoColumnsPanel,
     TitleCardLinksButton,
     SimpleBodyLayout,
-    HeadingText,
-    SearchBar,
-    UserExpansionPainels,
-  },
+    ClientCard,
+    TitleGoBack
+},
 };
 </script>

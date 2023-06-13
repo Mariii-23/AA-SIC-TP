@@ -18,7 +18,6 @@
       <template v-slot:second>
         <TitleWithButtonAndGoBack
           :title="$t('admins')"
-          :items="items"
           :button-text="$t('removeAdmin')"
           :button-handler="openModal"
         />
