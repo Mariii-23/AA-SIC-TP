@@ -1,5 +1,5 @@
 <template>
-  <v-card width="175" :id="product.id">
+  <CardLayout>
     <v-card-item>
       <div class="imgContainer">
         <v-img
@@ -18,15 +18,16 @@
         <v-icon>mdi-shopping-outline</v-icon>
       </v-btn>
       <v-btn icon class="action elevation-0" @click="favoriteIconHandler">
-        <v-icon v-if="product.favorite">mdi-heart</v-icon>
+        <v-icon v-if="product.favourite">mdi-heart</v-icon>
         <v-icon v-else>mdi-heart-outline</v-icon>
       </v-btn>
     </div>
-  </v-card>
+  </CardLayout>
 </template>
 
 <script lang="ts">
 import { ProductUserProps } from "@/appTypes/ProductUserProps";
+import CardLayout from "@/layouts/CardLayout.vue";
 
 export default {
   name: "ProductPreviewUserCard",
@@ -36,7 +37,7 @@ export default {
       default: () => ({
         name: "Product name",
         price: 12.99,
-        favorite: false,
+        favourite: false,
         href: "",
         id: "-1",
       }),
@@ -48,6 +49,7 @@ export default {
       type: Function,
     },
   },
+  components: { CardLayout },
 };
 </script>
 

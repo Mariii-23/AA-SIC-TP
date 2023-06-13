@@ -2,23 +2,28 @@
     <v-sheet  class="mx-auto" color="background">
         <v-slide-group v-model="model" class="slider pa-4" selected-class="bg-success" show-arrows>
             <v-slide-group-item 
-            v-for="n in 15" :key="n" 
-            v-slot="{ isSelected, toggle, selectedClass }">
-                <ProductPreviewUserCard class="product"/>
+            v-for="product in products"
+            :key="product.id">
+                <ProductPreviewAdminCard class="product"
+                :product="product" />
             </v-slide-group-item>
         </v-slide-group>
     </v-sheet>
 </template>
 
-<script>
-import ProductPreviewUserCard from './Card/ProductPreviewUserCard.vue'
+<script lang="ts">
+import ProductPreviewAdminCard from "./Card/ProductPreviewAdminCard.vue";
+import { ProductUserProps } from "@/appTypes/ProductUserProps";
 
 export default {
     data: () => ({
         model: null,
     }),
     components: {
-        ProductPreviewUserCard
+        ProductPreviewAdminCard
+    }, 
+    props: {
+        products: Array as () => ProductUserProps[],
     }
 }
 </script>

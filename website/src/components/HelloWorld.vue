@@ -130,5 +130,10 @@ const toggleTheme = () => {
   gap: 50px;
 }
 
+.product-info {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 </style>

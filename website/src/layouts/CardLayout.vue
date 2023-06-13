@@ -5,7 +5,5 @@
 </template>
 
 <style>
-.cardLayout {
-    padding: 10px;
-}
+
 </style>
