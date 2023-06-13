@@ -5,7 +5,10 @@
             v-for="product in products"
             :key="product.id">
                 <ProductPreviewUserCard class="product"
-                :product="product" />
+                :product="product"
+                :favoriteIconHandler="() => favouriteIconHandler && favouriteIconHandler(product.id)" 
+                :shoppingCartHandler="() => addToCartHandler && addToCartHandler(product.id)"
+                />
             </v-slide-group-item>
         </v-slide-group>
     </v-sheet>
@@ -24,6 +27,14 @@ export default {
     }, 
     props: {
         products: Array as () => ProductUserProps[],
+        favouriteIconHandler: {
+            type: Function,
+            require: true,
+        },
+        addToCartHandler: {
+            type: Function,
+            require: true,
+        },
     }
 }
 </script>

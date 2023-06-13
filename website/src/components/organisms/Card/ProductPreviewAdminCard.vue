@@ -17,7 +17,8 @@
       <v-btn icon class="action elevation-0" @click="deleteProductHandler">
         <v-icon>mdi-trash-can-outline</v-icon>
       </v-btn>
-      <v-btn icon class="action elevation-0" @click="editProductHandler">
+      <v-btn icon class="action elevation-0" 
+        @click="editProductHandler">
         <v-icon>mdi-pencil-outline</v-icon>
       </v-btn>
     </div>

@@ -2,16 +2,28 @@
     <div class="product">
         <div class="left-side">
                 <Carousel :images="productImages" class="carousel" />
-                <ProductInfo :info="productInfo"/>
+                <ProductInfo 
+                    :info="productInfo"
+                    :editProductInfoHandler="() => editProductInfoHandler && editProductInfoHandler(productDesc.id)"
+                />
         </div>
         <div class="product-desc">
-            <ProductDesc :product="productDesc" />
+            <ProductDesc 
+                :product="productDesc"
+                :materials="materials"
+                :addMaterialHandler="addMaterialHandler"
+                :deleteProductHandler="() => deleteProductHandler && deleteProductHandler(productDesc.id)"
+                :editProductDescHandler="() => editProductDescHandler && editProductDescHandler(productDesc.id)"
+            />
         </div>
     </div>
 
     <div class="related-products">
         <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-        <RelatedProducts :products="relatedProducts"/>
+        <RelatedProducts 
+        :products="relatedProducts"
+        :editProductHandler="editProductHandler"
+        :deleteProductHandler="deleteProductHandler"/>
     </div>
 </template>
 
@@ -21,7 +33,7 @@ import ProductInfo from "@/components/molecules/ProductInfoAdmin.vue";
 import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
-import { ProductInformation, ProductImages} from "@/appTypes/Product";
+import { ProductInformation, ProductImages, Materials} from "@/appTypes/Product";
 
 export default {
     props: {
@@ -29,14 +41,40 @@ export default {
         //productDesc: Object as () => ProductDescriptionUser,
         productInfo: Object as () => ProductInformation,
         productImages: Object as () => ProductImages,
+        materials: {
+            type: Array as () => Materials[],
+            require: true,
+        },
+
+        //HANDLERS
+        deleteProductHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductDescHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductInfoHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductHandler: {
+            type: Function,
+            require: true,
+        },
+        addMaterialHandler: {
+            type: Function,
+            require: true,
+        },
 
     },
     components: {
-    Carousel,
-    ProductInfo,
-    ProductDesc,
-    HeadingText,
-    RelatedProducts
+        Carousel,
+        ProductInfo,
+        ProductDesc,
+        HeadingText,
+        RelatedProducts
     },
     data() {
         return {
@@ -129,6 +167,7 @@ export default {
 
     .product-desc {
         width: 100%;
+        margin-top: 50px;
     }
 
     .left-side {

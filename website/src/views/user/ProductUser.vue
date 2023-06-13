@@ -5,13 +5,23 @@
                 <ProductInfo :info="productInfo"/>
         </div>
         <div class="product-desc">
-            <ProductDesc :product="productDesc" />
+            <ProductDesc 
+                :product="productDesc" 
+                :materials="materials"
+                :addToCartHandler="() => addToCartHandler && addToCartHandler(productDesc.id)"
+                :buyNowHandler="() => buyNowHandler && buyNowHandler(productDesc.id)"
+                :favouriteIconHandler="() => favouriteIconHandler && favouriteIconHandler(productDesc.id)"
+            />
         </div>
     </div>
 
     <div class="related-products">
         <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-        <RelatedProducts :products="relatedProducts"/>
+        <RelatedProducts 
+            :products="relatedProducts"
+            :favouriteIconHandler="favouriteIconHandler"
+            :addToCartHandler="addToCartHandler"
+        />
     </div>
 </template>
 
@@ -22,6 +32,7 @@ import ProductDesc from "@/components/molecules/ProductDescUser.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsUser.vue";
 import { ProductInformation, ProductImages} from "@/appTypes/Product";
+import { Materials } from "@/appTypes/Product";
 
 export default {
     props: {
@@ -29,6 +40,24 @@ export default {
         //productDesc: Object as () => ProductDescriptionUser,
         productInfo: Object as () => ProductInformation,
         productImages: Object as () => ProductImages,
+        materials: {
+            type: Array as () => Materials[],
+            require: true,
+        },
+
+        //HANDLERS
+        addToCartHandler: {
+            type: Function,
+            require: true,
+        },
+        buyNowHandler: {
+            type: Function,
+            require: true,
+        },
+        favouriteIconHandler: {
+            type: Function,
+            require: true,
+        },
 
     },
     components: {
@@ -137,6 +166,7 @@ export default {
 
     .product-desc {
         width: 100%;
+        margin-top: 50px;
     }
 
     .left-side {

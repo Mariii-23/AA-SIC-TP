@@ -2,15 +2,18 @@
     <v-card color="secondary" class="card">
         <div class="header">
             <v-card-title>{{ product.name }}</v-card-title>
-            <v-btn icon class="elevation-0" color="secondary">
+            <v-btn icon class="elevation-0" color="secondary"
+                v-on:click="editProductDescHandler">
                 <v-icon size="30">mdi-pencil-outline</v-icon>
             </v-btn>
         </div>
         <div class="body">
             <HeadingText :size="6">{{ product.price }}€</HeadingText>
 
-        materiais
-        <FullWidthButton class="btn"> {{ $t("remove-product") }} </FullWidthButton>
+        <Material :materials="materials" :addMaterialHandler="addMaterialHandler"/>
+        <FullWidthButton class="btn" :handleClick="deleteProductHandler">
+             {{ $t("remove-product") }} 
+        </FullWidthButton>
 
         </div>
         
@@ -20,7 +23,8 @@
 <script lang="ts">
 import HeadingText from "../atoms/Typography/HeadingText.vue";
 import FullWidthButton from "../atoms/Button/FullWidthButton.vue";
-import { ProductDescriptionUser } from "@/appTypes/Product";
+import { ProductDescriptionUser, Materials } from "@/appTypes/Product";
+import Material from "../molecules/MaterialsAdmin.vue";
 
 export default {
     name: "ProductDesc",
@@ -34,10 +38,29 @@ export default {
                 id: "-1"
             }),
         },
+        materials: {
+            type: Array as () => Materials[],
+            require: true,
+        },
+        //HANDLERS
+        deleteProductHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductDescHandler: {
+            type: Function,
+            require: true,
+        },
+        addMaterialHandler: {
+            type: Function,
+            require: true,
+        },
     },
     components: { 
         HeadingText, 
-        FullWidthButton }
+        FullWidthButton,
+        Material
+    }
 };
 </script>
 

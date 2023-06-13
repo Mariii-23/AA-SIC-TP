@@ -7,7 +7,10 @@
       <v-tab class="right-tab">
         {{ $t('tech-info') }}
       </v-tab>
-        <v-btn size="large" color="secondary" class="elevation-0"><v-icon>mdi-pencil-outline</v-icon></v-btn>
+        <v-btn size="large" color="secondary" class="elevation-0"
+          v-on:click="editProductInfoHandler">
+          <v-icon>mdi-pencil-outline</v-icon>
+        </v-btn>
     </v-tabs>
 
     <v-window v-model="tab">
@@ -44,7 +47,11 @@ export default {
   props: {
     info: {
       type: Object as () => ProductInformation,
-    }
+    },
+    editProductInfoHandler: {
+      type: Function,
+      require: true,
+    },
   },
 }
 </script>

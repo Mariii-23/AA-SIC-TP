@@ -14,7 +14,7 @@
     </v-card-item>
 
     <div class="actions">
-      <v-btn icon class="action elevation-0" @click="shoppingCardHandler">
+      <v-btn icon class="action elevation-0" @click="shoppingCartHandler">
         <v-icon>mdi-shopping-outline</v-icon>
       </v-btn>
       <v-btn icon class="action elevation-0" @click="favoriteIconHandler">
@@ -42,7 +42,7 @@ export default {
         id: "-1",
       }),
     },
-    shoppingCardHandler: {
+    shoppingCartHandler: {
       type: Function,
     },
     favoriteIconHandler: {

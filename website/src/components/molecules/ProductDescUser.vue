@@ -2,7 +2,7 @@
     <v-card color="secondary" class="card">
         <div class="header">
             <v-card-title>{{ product.name }}</v-card-title>
-            <v-btn icon class="elevation-0" color="secondary">
+            <v-btn icon class="elevation-0" color="secondary" v-on:click="favouriteIconHandler">
                 <v-icon size="30" v-if="product.favourite">mdi-heart</v-icon>
                 <v-icon size="30" v-else>mdi-heart-outline</v-icon>
             </v-btn>
@@ -10,12 +10,13 @@
         <div class="body">
             <HeadingText :size="6">{{ product.price }}€</HeadingText>
 
-        materiais
+        <Material class="materials" :materials="materials"/>
+
         <div class="actions">
             <QuantityButton />
-            <PrimaryButton>{{ $t("buy-now") }} </PrimaryButton>
+            <PrimaryButton :handleClick="buyNowHandler">{{ $t("buy-now") }} </PrimaryButton>
         </div>
-        <FullWidthButton class="btn"> {{ $t("add-cart") }} </FullWidthButton>
+        <FullWidthButton class="btn" :handleClick="addToCartHandler"> {{ $t("add-cart") }} </FullWidthButton>
 
         </div>
         
@@ -28,6 +29,8 @@ import HeadingText from "../atoms/Typography/HeadingText.vue";
 import PrimaryButton from "../atoms/Button/PrimaryButton.vue";
 import FullWidthButton from "../atoms/Button/FullWidthButton.vue";
 import { ProductDescriptionUser } from "@/appTypes/Product";
+import Material from "../molecules/Materials.vue";
+import { Materials } from "@/appTypes/Product";
 
 export default {
     name: "ProductDesc",
@@ -41,12 +44,35 @@ export default {
                 id: "-1"
             }),
         },
+        materials: {
+            type: Array as () => Materials[],
+            require: true,
+        },
+        addToCartHandler: {
+            type: Function,
+            require: true,
+        },
+        buyNowHandler: {
+            type: Function,
+            require: true,
+        },
+        favouriteIconHandler: {
+            type: Function,
+            require: true,
+        },
     },
     components: { 
         HeadingText, 
         QuantityButton, 
         PrimaryButton, 
-        FullWidthButton }
+        FullWidthButton,
+        Material
+     },
+     methods: {
+        changeFavIcon() {
+            this.product.favourite = !this.product.favourite;
+        }
+     }
 };
 </script>
 
@@ -76,5 +102,9 @@ export default {
 .btn{
     margin-top: 10px;
     width: 100%;
+}
+.materials {
+    padding: 0;
+    margin-bottom: 10px;
 }
 </style>

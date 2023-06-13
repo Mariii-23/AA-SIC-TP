@@ -5,7 +5,9 @@
             v-for="product in products"
             :key="product.id">
                 <ProductPreviewAdminCard class="product"
-                :product="product" />
+                :product="product" 
+                :editProductHandler="() => editProductHandler && editProductHandler(product.id)"
+                :deleteProductHandler="() => deleteProductHandler && deleteProductHandler(product.id)"/>
             </v-slide-group-item>
         </v-slide-group>
     </v-sheet>
@@ -24,6 +26,14 @@ export default {
     }, 
     props: {
         products: Array as () => ProductUserProps[],
+        editProductHandler: {
+            type: Function,
+            require: true,
+        },
+        deleteProductHandler: {
+            type: Function,
+            require: true,
+        },
     }
 }
 </script>
