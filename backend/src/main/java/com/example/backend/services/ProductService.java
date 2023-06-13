@@ -229,9 +229,9 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public void removeProductImages(int productId, List<String> images) {
-        for(String image: images){
-            Image imageToRemove = imageRep.findByPath(image);
+    public void removeProductImages(int productId, List<byte[]> images) {
+        for(byte[] image: images){
+            Image imageToRemove = imageRep.findByImage(image);
             if (imageToRemove.getProduct().getiD() == productId) imageRep.delete(imageToRemove);
         }
     }

@@ -3,7 +3,7 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"path", "product_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"image", "product_id"}))
 public class Image {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)

@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @PostMapping("/edit/removeimages/{productId}")
-    public void removeProductImages(final @PathVariable int productId, final @RequestBody List<String> images) {
+    public void removeProductImages(final @PathVariable int productId, final @RequestBody List<byte[]> images) {
         productService.removeProductImages(productId, images);
     }
 
