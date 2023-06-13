@@ -7,13 +7,7 @@
   <Typography.Heading :size="2">Heading 2</Typography.Heading>
 
   <heading-text>Heading</heading-text>
-
-  <UserExpansionPainels :users="users" :view-details-handler="ola"/>
-
-  <div class="products">
-    <!-- <ProductPreviewAdminCards :products="products" /> -->
-    <ProductPreviewUserCards :products="products" />
-  </div>
+  <FilesInput />
 
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
@@ -71,72 +65,10 @@ import { ref } from "vue";
 import { useTheme } from "vuetify";
 import { Typography } from "./atoms/Typography/Typography";
 import HeadingText from "./atoms/Typography/HeadingText.vue";
-import ProductPreviewUserCards from "./organisms/Cards/ProductPreviewUserCards.vue";
-import UserExpansionPainels from "./molecules/expansionPainels/UserExpansionPainels.vue";
+import FilesInput from "./molecules/FilesInput.vue";
 
 const theme = useTheme();
 const darkMode = ref(false);
-
-const ola = (e: string) => {
-  console.log(e)
-}
-
-const user = {
-  name: "Maria",
-  email: "maria@hotmail.com",
-  address: "Rua da Marina, Edificiona Nao sei , ablalkb",
-  nif: "999888999",
-  id: 1234
-};
-let users = [];
-for (let i = 0; i < 8; i++) {
-  users.push(user);
-}
-
-const products = [
-  {
-    name: "Product name 1",
-    price: 1,
-    id: 1,
-    href: "http://diamond.mariii.xyz:8080/api/wall/pleasant-lake.jpg",
-  },
-  {
-    id: 1,
-    name: "Product name 2",
-    price: 2,
-    href: "http://diamond.mariii.xyz:8080/api/wall/workshop.jpg",
-  },
-  {
-    name: "Product name 3",
-    href: "http://diamond.mariii.xyz:8080/api/wall/workshop.jpg",
-    id: 1,
-    price: 3,
-  },
-  {
-    name: "Product name 4",
-    href: "http://diamond.mariii.xyz:8080/api/wall/workshop.jpg",
-    id: 1,
-    price: 4,
-  },
-  {
-    name: "Product name 4",
-    href: "http://diamond.mariii.xyz:8080/api/wall/workshop.jpg",
-    id: 1,
-    price: 4,
-  },
-  {
-    id: 1,
-    name: "Product name 2",
-    href: "http://diamond.mariii.xyz:8080/api/wall/workshop.jpg",
-    price: 2,
-  },
-  {
-    name: "Product name 3",
-    href: "http://diamond.mariii.xyz:8080/api/wall/workshop.jpg",
-    id: 1,
-    price: 3,
-  },
-];
 
 const toggleTheme = () => {
   theme.global.name.value = darkMode.value
