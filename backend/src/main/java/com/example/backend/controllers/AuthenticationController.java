@@ -20,7 +20,11 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody CustomerDTO request) {
-        return ResponseEntity.ok(authenticateService.register(request));
+        try {
+            return ResponseEntity.ok(authenticateService.register(request));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/login")
