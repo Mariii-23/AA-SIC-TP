@@ -92,13 +92,14 @@ public class UserService {
         if(valid) addAdmin(admin);
     }
 
-    public List<FavouriteDTO> getFavourites(int id) {
-        Customer customer = customerRep.findById(id).orElse(null);
-        List<FavouriteDTO> result = new ArrayList<>();
-        customer.getFavourites().forEach(product -> {
-            result.add(new FavouriteDTO(product.getName(), product.getPrice()));
+    public EnvelopeDTO<FavouriteDTO> getFavourites(int id, int offset, int numItems) {
+        List<Product> products = productRep.findFavouritesPagination(id, offset, numItems);
+        List<FavouriteDTO> list = new ArrayList<>();
+        products.forEach(product -> {
+            list.add(new FavouriteDTO(product.getName(),product.getPrice()));
         });
-        return result;
+        boolean isLast = (offset + numItems) >= customerRep.getNumberOfFavourites(id);
+        return new EnvelopeDTO<>(isLast, list);
     }
 
     public ShoppingCartDTO getShoppingCart(int id) {
@@ -200,5 +201,9 @@ public class UserService {
 
     public int getNumberOfAdmins() {
         return adminRep.getNumberOfAdmins();
+    }
+
+    public int getNumberOfFavourites(int id) {
+        return customerRep.findById(id).orElse(null).getFavourites().size();
     }
 }

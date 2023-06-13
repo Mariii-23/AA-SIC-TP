@@ -14,8 +14,13 @@ public class CustomerController {
     private UserService userService;
 
     @GetMapping("/{id}/favourites")
-    public List<FavouriteDTO> getFavourites(@PathVariable int id) {
-        return userService.getFavourites(id);
+    public EnvelopeDTO<FavouriteDTO> getFavourites(@PathVariable int id, final @RequestBody PaginationDTO paginationDTO) {
+        return userService.getFavourites(id, paginationDTO.getOffset(), paginationDTO.getNumItems());
+    }
+
+    @GetMapping("/{id}/numberOfFavourites")
+    public int getNumberOfFavourites(@PathVariable int id) {
+        return userService.getNumberOfFavourites(id);
     }
 
     @GetMapping("/cart/{id}")

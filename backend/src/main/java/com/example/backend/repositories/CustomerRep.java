@@ -17,4 +17,7 @@ public interface CustomerRep extends JpaRepository<Customer, Integer> {
 
     @Query(value = "SELECT COUNT(*) FROM user WHERE role='CUSTOMER'", nativeQuery = true)
     int getNumberOfCustomers();
+
+    @Query(value = "SELECT count(*) FROM customer_favourites WHERE customer_id = ?1", nativeQuery = true)
+    int getNumberOfFavourites(int customer_id);
 }
