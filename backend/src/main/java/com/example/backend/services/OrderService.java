@@ -126,7 +126,8 @@ public class OrderService {
         Product p = (Product) result[0];
         Material m = (Material) result[1];
         Item item = new Item(quantity, m, p, cart);
-        itemRep.save(item);
+        cart.addItem(item);
+        shoppingCartRep.save(cart);
     }
 
     public void setProductQuantity(int itemId, int quantity) throws ItemNotFoundException {

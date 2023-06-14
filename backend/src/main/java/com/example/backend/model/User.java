@@ -129,5 +129,10 @@ public class User implements UserDetails {
 
 	public void addToken(Token token) {
 		this.tokens.add(token);
+  }
+  
+	public int getiD() {
+		return iD;
 	}
+
 }

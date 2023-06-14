@@ -1,11 +1,13 @@
 package com.example.backend.database;
 
+import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
+import com.example.backend.services.InfoService;
+import com.example.backend.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,13 +23,7 @@ public class DBService{
     private CustomerRep customerRep;
 
     @Autowired
-    private AdminRep adminRep;
-
-    @Autowired
     private ProductRep productRep;
-
-    @Autowired
-    private OrderRep orderRep;
 
     @Autowired
     private MaterialRep materialRep;
@@ -41,6 +37,14 @@ public class DBService{
     @Autowired
     private ImageRep imageRep;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private CompanyRep companyRep;
+
+    @Autowired
+    private SocialNetworkRep socialNetworkRep;
 
     public void addUsers() {
         List<User> users = new ArrayList<>();
@@ -78,6 +82,7 @@ public class DBService{
         users.add(new Customer(new Date(1991, 10, 4), "246801357AE", "951 Cedar Street, Cityville", "customer31@example.com", "password31", "Liam Martinez", new ShoppingCart()));
         users.add(new Customer(new Date(1987, 12, 21), "135792468AF", "753 Birch Court, Townsville", "customer32@example.com", "password32", "Victoria Thompson", new ShoppingCart()));
 
+        users.add(new Admin("admin@admin.com", "password", "Admin"));
         users.add(new Admin("admin1@example.com", "adminpassword1", "Admin Smith"));
         users.add(new Admin("admin2@example.com", "adminpassword2", "Admin Johnson"));
         users.add(new Admin("admin3@example.com", "adminpassword3", "Admin Davis"));
@@ -179,7 +184,6 @@ public class DBService{
 
     public void addProducts() {
         List<Material> materials = materialRep.findAll();
-        List<Category> categories = categoryRep.findAll();
         List<SubCategory> subCategories = subCategoryRep.findAll();
         List<Product> products = new ArrayList<>();
 
@@ -533,7 +537,23 @@ public class DBService{
         productRep.saveAll(products);
     }
 
-    public void addOrders() {
+    public void addFavourites() {
+        List<Product> products = productRep.findAll();
+        List<Customer> customers = customerRep.findAll();
+        List<Customer> customersWithFavourites = new ArrayList<>();
+
+        Random random = new Random();
+
+        for (int i = 1; i <= 120; i++) {
+            Customer customer = customers.get(random.nextInt(customers.size())); // Randomly select a customer
+            Product product = products.get(random.nextInt(products.size())); // Randomly select a product
+            customer.addFavourite(product);
+            customersWithFavourites.add(customer);
+        }
+        customerRep.saveAll(customersWithFavourites);
+    }
+
+    /*public void addOrders() {
         List<Customer> customers = customerRep.findAll();
         List<Order> orders = new ArrayList<>();
 
@@ -561,7 +581,7 @@ public class DBService{
         }
 
         orderRep.saveAll(orders);
-    }
+    }*/
 
     public void addImages() {
         List<Product> products = productRep.findAll();
@@ -575,5 +595,63 @@ public class DBService{
         }
 
         imageRep.saveAll(images);
+    }
+
+    public void addItems() throws Exception {
+        List<Product> products = productRep.findAll();
+        List<Customer> customers = customerRep.findAll();
+        List<Item> items = new ArrayList<>();
+
+        Random random = new Random();
+
+        for (Customer customer : customers) {
+            for (int j = 0; j < 3 ;j++){
+                int quantity = random.nextInt(5) + 1; // Random quantity between 1 and 5
+                Product product = products.get(random.nextInt(products.size())); // Randomly select a product
+                Material material = product.getMaterials().get(random.nextInt(product.getMaterials().size())); // Randomly select a material
+                //items.add(new Item(quantity, material, product, customer.getCart()));
+                orderService.addProductToShoppingCart(customer.getiD(), product.getiD(), material.getiD(),quantity);
+            }
+        }
+
+        //
+    }
+
+    public void addOrders() throws UserNotFoundException {
+        List<Customer> customers = customerRep.findAll();
+        Random random = new Random();
+
+        int i = 0;
+        for(Customer c : customers){
+            if (i % 2 == 0) {
+                boolean storePickUp = random.nextBoolean();
+                String address = c.getAddress();
+                orderService.createOrder(c.getiD(), address, storePickUp);
+            }
+            i++;
+        }
+    }
+
+    public void addCompany() {
+        String schedule = "Monday - Friday\n" +
+                "9:00 AM - 12:30 PM | 2:00 PM - 7:00 PM\n" +
+                "Saturday\n" +
+                "CLOSED\n" +
+                "Sunday\n" +
+                "CLOSED\n";
+        Company company = new Company("Móveis Rodrigues","geral@rodrigues-moveis.pt","252 993 990",
+                "Rua do Carvalhal, nº 18, Vila Nova de Famalicão, Portugal",
+                "MoveisRodrigues".getBytes(),
+                "4770-847",
+                schedule);
+        companyRep.save(company);
+    }
+
+    public void addSocialNetworks() {
+        List<SocialNetwork> socialNetworks = new ArrayList<>();
+        Company c = companyRep.findAll().get(0);
+        socialNetworks.add(new SocialNetwork("Facebook", "https://www.facebook.com/MoveisRodrigues",c));
+        socialNetworks.add(new SocialNetwork("Instagram", "https://instagram.com/azevedorodriguesmoveis?igshid=NTc4MTIwNjQ2YQ==",c));
+        socialNetworkRep.saveAll(socialNetworks);
     }
 }
