@@ -8,10 +8,7 @@ import com.example.backend.services.AuthenticateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -40,7 +37,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Boolean> logout(){
-        return ResponseEntity.ok(authenticateService.logout());
+    public ResponseEntity<Boolean> logout(@RequestHeader("Authorization") String token) {
+        token = token.substring(7);
+        try {
+            return ResponseEntity.ok(authenticateService.logout(token));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }

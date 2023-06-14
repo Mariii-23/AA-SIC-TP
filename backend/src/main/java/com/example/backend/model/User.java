@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class User implements UserDetails {
 
 	private String passwordToken;
 
+	@OneToMany(mappedBy = "user")
+	private List<Token> tokens;
+
 	public User() {
 	}
 
@@ -40,6 +44,7 @@ public class User implements UserDetails {
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.tokens = new ArrayList<>();
 	}
 
 
@@ -114,11 +119,20 @@ public class User implements UserDetails {
 		this.passwordToken = passwordToken;
 	}
 
+	public List<Token> getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(List<Token> tokens) {
+		this.tokens = tokens;
+	}
+
+	public void addToken(Token token) {
+		this.tokens.add(token);
+  }
+  
 	public int getiD() {
 		return iD;
 	}
 
-	public void setiD(int iD) {
-		this.iD = iD;
-	}
 }
