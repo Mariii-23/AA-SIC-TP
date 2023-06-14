@@ -13,7 +13,11 @@ public class DBController {
 
     @PostMapping("/addUsers")
     public void addUsers() {
-        dbService.addUsers();
+        try {
+            dbService.addUsers();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addCompany")

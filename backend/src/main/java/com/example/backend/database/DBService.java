@@ -1,9 +1,14 @@
 package com.example.backend.database;
 
 import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.dto.AdminDTO;
+import com.example.backend.dto.CustomerDTO;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
+import com.example.backend.services.AuthenticateService;
+import com.example.backend.services.InfoService;
 import com.example.backend.services.OrderService;
+import com.example.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,11 @@ import java.util.Random;
 
 @Service("dbService")
 public class DBService{
+    @Autowired
+    private AuthenticateService authenticateService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private UserRep userRep;
@@ -51,52 +61,51 @@ public class DBService{
     public void addUsers() {
         List<User> users = new ArrayList<>();
 
-        users.add(new Customer(new Date(1990, 3, 15), "123456789A", "123 Main Street, Cityville", "customer1@example.com", "password1", "John Smith", new ShoppingCart()));
-        users.add(new Customer(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson", new ShoppingCart()));
-        users.add(new Customer(new Date(1992, 1, 9), "246813579C", "789 Oak Road, Villageton", "customer3@example.com", "password3", "Robert Davis", new ShoppingCart()));
-        users.add(new Customer(new Date(1988, 11, 26), "135792468D", "321 Pine Lane, Hamletown", "customer4@example.com", "password4", "Emily Wilson", new ShoppingCart()));
-        users.add(new Customer(new Date(1995, 5, 4), "864209753E", "654 Maple Drive, Boroughburg", "customer5@example.com", "password5", "Michael Thompson", new ShoppingCart()));
-        users.add(new Customer(new Date(1984, 2, 21), "579314682F", "987 Cedar Street, Villaville", "customer6@example.com", "password6", "Sarah Roberts", new ShoppingCart()));
-        users.add(new Customer(new Date(1991, 8, 10), "951623487G", "159 Birch Court, Townberg", "customer7@example.com", "password7", "David Lee", new ShoppingCart()));
-        users.add(new Customer(new Date(1987, 12, 3), "792468135H", "753 Oakwood Avenue, Hamletham", "customer8@example.com", "password8", "Jennifer Scott", new ShoppingCart()));
-        users.add(new Customer(new Date(1993, 6, 18), "246813579I", "357 Pine Lane, Cityton", "customer9@example.com", "password9", "Christopher Martin", new ShoppingCart()));
-        users.add(new Customer(new Date(1986, 9, 27), "468135792J", "951 Maple Drive, Villaburg", "customer10@example.com", "password10", "Amanda Turner", new ShoppingCart()));
-        users.add(new Customer(new Date(1994, 4, 12), "246801357K", "753 Cedar Street, Boroughville", "customer11@example.com", "password11", "Matthew Harris", new ShoppingCart()));
-        users.add(new Customer(new Date(1983, 10, 29), "135792468L", "357 Birch Court, Townham", "customer12@example.com", "password12", "Laura Clark", new ShoppingCart()));
-        users.add(new Customer(new Date(1990, 2, 7), "579314682M", "951 Oakwood Avenue, Citytown", "customer13@example.com", "password13", "Daniel Baker", new ShoppingCart()));
-        users.add(new Customer(new Date(1985, 7, 26), "468135792N", "753 Pine Lane, Villaville", "customer14@example.com", "password14", "Olivia Phillips", new ShoppingCart()));
-        users.add(new Customer(new Date(1992, 1, 3), "791364825O", "357 Maple Drive, Hamletown", "customer15@example.com", "password15", "James Cooper", new ShoppingCart()));
-        users.add(new Customer(new Date(1988, 11, 20), "579314682P", "951 Cedar Street, Cityville", "customer16@example.com", "password16", "Sophia Martinez", new ShoppingCart()));
-        users.add(new Customer(new Date(1995, 6, 8), "468135792Q", "753 Birch Court, Townsville", "customer17@example.com", "password17", "Ryan Thompson", new ShoppingCart()));
-        users.add(new Customer(new Date(1984, 3, 25), "791364825R", "357 Oakwood Avenue, Villageton", "customer18@example.com", "password18", "Emma Davis", new ShoppingCart()));
-        users.add(new Customer(new Date(1991, 9, 14), "135792468S", "951 Pine Lane, Hamletown", "customer19@example.com", "password19", "Alexander Wilson", new ShoppingCart()));
-        users.add(new Customer(new Date(1987, 12, 31), "579314682T", "753 Maple Drive, Boroughburg", "customer20@example.com", "password20", "Mia Johnson", new ShoppingCart()));
-        users.add(new Customer(new Date(1993, 7, 17), "468135792U", "357 Cedar Street, Villaville", "customer21@example.com", "password21", "William Roberts", new ShoppingCart()));
-        users.add(new Customer(new Date(1986, 10, 5), "791364825V", "951 Birch Court, Townberg", "customer22@example.com", "password22", "Grace Lee", new ShoppingCart()));
-        users.add(new Customer(new Date(1994, 5, 21), "135792468W", "753 Oakwood Avenue, Hamletham", "customer23@example.com", "password23", "Joseph Scott", new ShoppingCart()));
-        users.add(new Customer(new Date(1983, 11, 8), "579314682X", "357 Pine Lane, Cityton", "customer24@example.com", "password24", "Samantha Martin", new ShoppingCart()));
-        users.add(new Customer(new Date(1990, 3, 24), "468135792Y", "951 Maple Drive, Villaburg", "customer25@example.com", "password25", "Benjamin Turner", new ShoppingCart()));
-        users.add(new Customer(new Date(1985, 8, 12), "791364825Z", "753 Cedar Street, Boroughville", "customer26@example.com", "password26", "Natalie Harris", new ShoppingCart()));
-        users.add(new Customer(new Date(1992, 2, 28), "246801357AA", "357 Birch Court, Townham", "customer27@example.com", "password27", "Andrew Clark", new ShoppingCart()));
-        users.add(new Customer(new Date(1988, 12, 15), "135792468AB", "951 Oakwood Avenue, Citytown", "customer28@example.com", "password28", "Isabella Baker", new ShoppingCart()));
-        users.add(new Customer(new Date(1995, 7, 2), "579314682AC", "753 Pine Lane, Villaville", "customer29@example.com", "password29", "Ethan Phillips", new ShoppingCart()));
-        users.add(new Customer(new Date(1984, 4, 18), "468135792AD", "357 Maple Drive, Hamletown", "customer30@example.com", "password30", "Chloe Cooper", new ShoppingCart()));
-        users.add(new Customer(new Date(1991, 10, 4), "246801357AE", "951 Cedar Street, Cityville", "customer31@example.com", "password31", "Liam Martinez", new ShoppingCart()));
-        users.add(new Customer(new Date(1987, 12, 21), "135792468AF", "753 Birch Court, Townsville", "customer32@example.com", "password32", "Victoria Thompson", new ShoppingCart()));
+        authenticateService.register(new CustomerDTO(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson"));
+        authenticateService.register(new CustomerDTO(new Date(1992, 1, 9), "246813579C", "789 Oak Road, Villageton", "customer3@example.com", "password3", "Robert Davis"));
+        authenticateService.register(new CustomerDTO(new Date(1990, 3, 15), "123456789A", "123 Main Street, Cityville", "customer1@example.com", "password1", "John Smith"));
+        authenticateService.register(new CustomerDTO(new Date(1988, 11, 26), "135792468D", "321 Pine Lane, Hamletown", "customer4@example.com", "password4", "Emily Wilson"));
+        authenticateService.register(new CustomerDTO(new Date(1995, 5, 4), "864209753E", "654 Maple Drive, Boroughburg", "customer5@example.com", "password5", "Michael Thompson"));
+        authenticateService.register(new CustomerDTO(new Date(1984, 2, 21), "579314682F", "987 Cedar Street, Villaville", "customer6@example.com", "password6", "Sarah Roberts"));
+        authenticateService.register(new CustomerDTO(new Date(1991, 8, 10), "951623487G", "159 Birch Court, Townberg", "customer7@example.com", "password7", "David Lee"));
+        authenticateService.register(new CustomerDTO(new Date(1987, 12, 3), "792468135H", "753 Oakwood Avenue, Hamletham", "customer8@example.com", "password8", "Jennifer Scott"));
+        authenticateService.register(new CustomerDTO(new Date(1993, 6, 18), "246813579I", "357 Pine Lane, Cityton", "customer9@example.com", "password9", "Christopher Martin"));
+        authenticateService.register(new CustomerDTO(new Date(1986, 9, 27), "468135792J", "951 Maple Drive, Villaburg", "customer10@example.com", "password10", "Amanda Turner"));
+        authenticateService.register(new CustomerDTO(new Date(1994, 4, 12), "246801357K", "753 Cedar Street, Boroughville", "customer11@example.com", "password11", "Matthew Harris"));
+        authenticateService.register(new CustomerDTO(new Date(1983, 10, 29), "135792468L", "357 Birch Court, Townham", "customer12@example.com", "password12", "Laura Clark"));
+        authenticateService.register(new CustomerDTO(new Date(1990, 2, 7), "579314682M", "951 Oakwood Avenue, Citytown", "customer13@example.com", "password13", "Daniel Baker"));
+        authenticateService.register(new CustomerDTO(new Date(1985, 7, 26), "468135792N", "753 Pine Lane, Villaville", "customer14@example.com", "password14", "Olivia Phillips"));
+        authenticateService.register(new CustomerDTO(new Date(1992, 1, 3), "791364825O", "357 Maple Drive, Hamletown", "customer15@example.com", "password15", "James Cooper"));
+        authenticateService.register(new CustomerDTO(new Date(1988, 11, 20), "579314682P", "951 Cedar Street, Cityville", "customer16@example.com", "password16", "Sophia Martinez"));
+        authenticateService.register(new CustomerDTO(new Date(1995, 6, 8), "468135792Q", "753 Birch Court, Townsville", "customer17@example.com", "password17", "Ryan Thompson"));
+        authenticateService.register(new CustomerDTO(new Date(1984, 3, 25), "791364825R", "357 Oakwood Avenue, Villageton", "customer18@example.com", "password18", "Emma Davis"));
+        authenticateService.register(new CustomerDTO(new Date(1991, 9, 14), "135792468S", "951 Pine Lane, Hamletown", "customer19@example.com", "password19", "Alexander Wilson"));
+        authenticateService.register(new CustomerDTO(new Date(1987, 12, 31), "579314682T", "753 Maple Drive, Boroughburg", "customer20@example.com", "password20", "Mia Johnson"));
+        authenticateService.register(new CustomerDTO(new Date(1993, 7, 17), "468135792U", "357 Cedar Street, Villaville", "customer21@example.com", "password21", "William Roberts"));
+        authenticateService.register(new CustomerDTO(new Date(1986, 10, 5), "791364825V", "951 Birch Court, Townberg", "customer22@example.com", "password22", "Grace Lee"));
+        authenticateService.register(new CustomerDTO(new Date(1994, 5, 21), "135792468W", "753 Oakwood Avenue, Hamletham", "customer23@example.com", "password23", "Joseph Scott"));
+        authenticateService.register(new CustomerDTO(new Date(1983, 11, 8), "579314682X", "357 Pine Lane, Cityton", "customer24@example.com", "password24", "Samantha Martin"));
+        authenticateService.register(new CustomerDTO(new Date(1990, 3, 24), "468135792Y", "951 Maple Drive, Villaburg", "customer25@example.com", "password25", "Benjamin Turner"));
+        authenticateService.register(new CustomerDTO(new Date(1985, 8, 12), "791364825Z", "753 Cedar Street, Boroughville", "customer26@example.com", "password26", "Natalie Harris"));
+        authenticateService.register(new CustomerDTO(new Date(1992, 2, 28), "246801357AA", "357 Birch Court, Townham", "customer27@example.com", "password27", "Andrew Clark"));
+        authenticateService.register(new CustomerDTO(new Date(1988, 12, 15), "135792468AB", "951 Oakwood Avenue, Citytown", "customer28@example.com", "password28", "Isabella Baker"));
+        authenticateService.register(new CustomerDTO(new Date(1995, 7, 2), "579314682AC", "753 Pine Lane, Villaville", "customer29@example.com", "password29", "Ethan Phillips"));
+        authenticateService.register(new CustomerDTO(new Date(1984, 4, 18), "468135792AD", "357 Maple Drive, Hamletown", "customer30@example.com", "password30", "Chloe Cooper"));
+        authenticateService.register(new CustomerDTO(new Date(1991, 10, 4), "246801357AE", "951 Cedar Street, Cityville", "customer31@example.com", "password31", "Liam Martinez"));
+        authenticateService.register(new CustomerDTO(new Date(1987, 12, 21), "135792468AF", "753 Birch Court, Townsville", "customer32@example.com", "password32", "Victoria Thompson"));
 
-        users.add(new Admin("admin@admin.com", "password", "Admin"));
-        users.add(new Admin("admin1@example.com", "adminpassword1", "Admin Smith"));
-        users.add(new Admin("admin2@example.com", "adminpassword2", "Admin Johnson"));
-        users.add(new Admin("admin3@example.com", "adminpassword3", "Admin Davis"));
-        users.add(new Admin("admin4@example.com", "adminpassword4", "Admin Wilson"));
-        users.add(new Admin("admin5@example.com", "adminpassword5", "Admin Thompson"));
-        users.add(new Admin("admin6@example.com", "adminpassword6", "Admin Roberts"));
-        users.add(new Admin("admin7@example.com", "adminpassword7", "Admin Lee"));
-        users.add(new Admin("admin8@example.com", "adminpassword8", "Admin Scott"));
-        users.add(new Admin("admin9@example.com", "adminpassword9", "Admin Martin"));
-        users.add(new Admin("admin10@example.com", "adminpassword10", "Admin Turner"));
+        userService.addAdminDTO(new AdminDTO("admin@admin.com", "password", "Admin"));
+        userService.addAdminDTO(new AdminDTO("admin1@example.com", "adminpassword1", "Admin Smith"));
+        userService.addAdminDTO(new AdminDTO("admin2@example.com", "adminpassword2", "Admin Johnson"));
+        userService.addAdminDTO(new AdminDTO("admin3@example.com", "adminpassword3", "Admin Davis"));
+        userService.addAdminDTO(new AdminDTO("admin4@example.com", "adminpassword4", "Admin Wilson"));
+        userService.addAdminDTO(new AdminDTO("admin5@example.com", "adminpassword5", "Admin Thompson"));
+        userService.addAdminDTO(new AdminDTO("admin6@example.com", "adminpassword6", "Admin Roberts"));
+        userService.addAdminDTO(new AdminDTO("admin7@example.com", "adminpassword7", "Admin Lee"));
+        userService.addAdminDTO(new AdminDTO("admin8@example.com", "adminpassword8", "Admin Scott"));
+        userService.addAdminDTO(new AdminDTO("admin9@example.com", "adminpassword9", "Admin Martin"));
+        userService.addAdminDTO(new AdminDTO("admin10@example.com", "adminpassword10", "Admin Turner"));
 
-        userRep.saveAll(users);
     }
 
     public void addMaterials() {
@@ -593,9 +602,12 @@ public class DBService{
 
         Random random = new Random();
 
-        for (int i = 1; i <= 50; i++) {
+        int i = 1;
+        for(Product p : products) {
             String imageName = "image" + i + "Bytes";
-            images.add(new Image(imageName.getBytes(), products.get(random.nextInt(products.size()))));
+            images.add(new Image(imageName.getBytes(), p));
+            i++;
+
         }
 
         imageRep.saveAll(images);
