@@ -56,6 +56,7 @@ public class ProductService {
         }
 
         Product finalProduct = product;
+        if (images.size() == 0) throw new Exception("Product must have at least one image");
         List<Image> imageList = images.stream().map(image -> new Image(image, finalProduct)).toList();
         finalProduct.setImages(imageList);
         List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), finalProduct)).toList();
