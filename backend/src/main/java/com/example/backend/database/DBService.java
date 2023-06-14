@@ -58,7 +58,7 @@ public class DBService{
     @Autowired
     private OrderRep orderRep;
 
-    public void addUsers() {
+    public void addUsers() throws Exception {
         List<User> users = new ArrayList<>();
 
         authenticateService.register(new CustomerDTO(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson"));
