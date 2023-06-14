@@ -35,7 +35,7 @@ public class Customer extends User {
 			name = "customer_favourites",
 			joinColumns = @JoinColumn(name = "customer_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private List<Product> favourites;
+	private List<Product> favourites = new ArrayList<>();
 
 	public Customer() {
 		super();

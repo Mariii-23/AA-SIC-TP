@@ -113,4 +113,12 @@ public class User implements UserDetails {
 	public void setPasswordToken(String passwordToken) {
 		this.passwordToken = passwordToken;
 	}
+
+	public int getiD() {
+		return iD;
+	}
+
+	public void setiD(int iD) {
+		this.iD = iD;
+	}
 }

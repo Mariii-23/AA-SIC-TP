@@ -44,4 +44,7 @@ public class ShoppingCart {
 		return totalPrice;
 	}
 
+    public void addItem(Item item) {
+		items.add(item);
+    }
 }
