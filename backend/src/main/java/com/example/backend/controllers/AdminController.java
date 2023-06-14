@@ -27,8 +27,9 @@ public class AdminController {
     }
 
     @GetMapping("/customer/all")
-    public EnvelopeDTO<CustomerDTO> getAllCustomers(final @RequestBody PaginationDTO paginationDTO) {
-        return userService.getAllCustomers(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    public EnvelopeDTO<CustomerDTO> getAllCustomers(final @RequestParam int offset, final@RequestParam int numItems) {
+        //final @RequestBody PaginationDTO paginationDTO
+        return userService.getAllCustomers(offset, numItems);
     }
 
     @GetMapping("/numberOfCustomers")

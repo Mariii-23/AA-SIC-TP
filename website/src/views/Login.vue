@@ -9,17 +9,36 @@
           <form ref="form" @submit.prevent="login()">
             <div class="custom-flex">
               <div>
-                <v-text-field v-model="username" name="email" label="Email" type="text" placeholder="Email" single-line
-                  class="input-form rounded-lg" required bg-color="primary" />
-                <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-                  :placeholder="$t('password')" required bg-color="primary" single-line />
+                <v-text-field
+                  v-model="username"
+                  name="email"
+                  label="Email"
+                  type="text"
+                  placeholder="Email"
+                  single-line
+                  class="input-form rounded-lg"
+                  required
+                  bg-color="primary"
+                />
+                <v-text-field
+                  v-model="password"
+                  name="password"
+                  :label="$t('password')"
+                  type="password"
+                  :placeholder="$t('password')"
+                  required
+                  bg-color="primary"
+                  single-line
+                />
               </div>
 
-              <FullWidthButton :handleClick="handleLoginWithEmail"> {{ $t("login") }}</FullWidthButton>
+              <FullWidthButton> {{ $t("login") }}</FullWidthButton>
 
               <div class="signup-phrase">
-                <p>{{ $t("forgot-pw") }} </p>
-                <p class="link" @click="goToRecoverPw()">{{ $t("recover-pw") }}</p>
+                <p>{{ $t("forgot-pw") }}</p>
+                <p class="link" @click="goToRecoverPw()">
+                  {{ $t("recover-pw") }}
+                </p>
               </div>
 
               <div class="custom-divider">
@@ -43,7 +62,6 @@
                 <p class="link" @click="goToRegister()">{{ $t("register") }}</p>
               </div>
             </div>
-
           </form>
         </v-card-text>
       </v-card>
@@ -84,7 +102,7 @@
   grid-gap: 10px;
 }
 
-.button-grid>v-btn {
+.button-grid > v-btn {
   width: 100%;
 }
 
@@ -102,7 +120,6 @@
   }
 }
 
-
 .signup-phrase {
   display: flex;
   justify-content: center;
@@ -110,16 +127,17 @@
   gap: 4px;
 }
 
-.signup-phrase>.link {
+.signup-phrase > .link {
   color: blue;
 }
 </style>
 
-
- 
 <script lang="ts">
 import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
+import { useUserStore } from "@/store/userStore";
+
+const userStore = useUserStore();
 
 export default {
   name: "Login",
@@ -130,23 +148,25 @@ export default {
     };
   },
   methods: {
-    login() {
-      const { username } = this;
-      console.log(username + "logged in");
+    async login() {
+      await userStore.login(this.username, this.password);
+      if (userStore.isLoggedIn) {
+        this.$router.push("/admin")
+      }
     },
     handleLoginWithGoogle() {
       console.log("login with google");
     },
-    handleLoginWithEmail(){
+    handleLoginWithEmail() {
       console.log("login with email");
     },
     goToRegister() {
-      this.$router.push("/register")
+      this.$router.push("/register");
     },
     goToRecoverPw() {
-      this.$router.push("/recover-password")
-    }
+      this.$router.push("/recover-password");
+    },
   },
-  components: { PrimaryButton, FullWidthButton }
+  components: { PrimaryButton, FullWidthButton },
 };
 </script>

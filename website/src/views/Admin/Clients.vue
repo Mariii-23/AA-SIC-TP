@@ -24,6 +24,7 @@ import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import UserExpansionPanels from "@/components/molecules/expansionPanels/UserExpansionPanels.vue";
 import { UserInfoProps } from "@/appTypes/User";
+import { useCustomersStore } from "@/store/clientsStore";
 
 export default {
   name: "ClientsAdminPage",
@@ -32,19 +33,12 @@ export default {
     items: Array as () => LinkProps[],
     users: Array as () => UserInfoProps[],
   }),
-  mounted: function () {
-    const user = {
-      name: "Maria",
-      email: "maria@hotmail.com",
-      address: "Rua da Marina, Edificiona Nao sei , ablalkb",
-      nif: "999888999",
-      id: "1234",
-    } as UserInfoProps;
-    let users1: UserInfoProps[] = [];
-    for (let i = 0; i < 8; i++) {
-      users1.push(user);
-    }
-    this.users = users1;
+  mounted: async function () {
+    const customerStore = useCustomersStore();
+
+    await customerStore.getAllCustomers();
+
+    this.users = customerStore.customers;
 
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
@@ -52,6 +46,13 @@ export default {
       { href: "/admin", icon: "brightness-1", text: "admins" },
       { href: "/admin/client", icon: "bullseye", text: "clients" },
     ];
+
+    this.$watch(
+      () => ({ users: customerStore.customers }),
+      (newValues) => {
+        this.users = newValues.users;
+      }
+    );
   },
   //TODO: handlers
   methods: {

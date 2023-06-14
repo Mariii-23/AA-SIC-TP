@@ -19,7 +19,7 @@
 .first {
   position: sticky;
   top: 0;
-  height: 80vh;
+  height: 50vh;
 }
 
 .second {

@@ -6,6 +6,7 @@
 
 // Components
 import App from "./App.vue";
+import axios from "./plugins/axios/axios";
 // Composables
 import { createApp } from "vue";
 
@@ -22,5 +23,10 @@ registerPlugins(app);
 
 app.use(i18n);
 app.use(pinia);
+app.use(axios, {
+  baseUrl: "http://localhost:8080",
+});
 
 app.mount("#app");
+
+export { app };
