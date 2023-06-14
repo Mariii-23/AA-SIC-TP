@@ -3,10 +3,18 @@
         <v-slide-group v-model="model" selected-class="selected" mandatory show-arrows>
             <v-slide-group-item class="item" v-for="(material,index) in materials" :key="material.id"
                 v-slot="{ selectedClass }">
-                <Avatar :class="['ma-2', selectedClass]" class="avatar" 
+                <v-btn class="elevation-0 rounded-0" 
+                    color="primary"
+                >
+                  <v-tooltip
+                    activator="parent"
+                    location="top"
+                  >{{ material.name }}</v-tooltip>
+                  <Avatar :class="[, selectedClass]" class="avatar" 
                     :href="material.href" :size="20" 
                     @click="toggle(index, material.id)" 
                 />
+                </v-btn>
             </v-slide-group-item>
         </v-slide-group>
     </v-sheet>
@@ -52,5 +60,4 @@ export default {
     width: fit-content;
     border-radius: 5px;
 }
-
 </style>
