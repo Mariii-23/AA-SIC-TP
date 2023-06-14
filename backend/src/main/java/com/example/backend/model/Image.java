@@ -10,7 +10,7 @@ public class Image {
 	private int iD;
 
 	@Lob
-	@Column(nullable = false)
+	@Column(nullable = false, length = 20971520)
 	private byte[] image;
 
 	@ManyToOne
@@ -24,6 +24,14 @@ public class Image {
 	public Image(byte[] image, Product product) {
 		this.image = image;
 		this.product = product;
+	}
+
+	public int getiD() {
+		return iD;
+	}
+
+	public void setiD(int iD) {
+		this.iD = iD;
 	}
 
 	public byte[] getImage() {

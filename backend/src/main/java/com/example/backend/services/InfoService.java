@@ -1,6 +1,7 @@
 package com.example.backend.services;
 
 import com.example.backend.dto.CompanyDTO;
+import com.example.backend.dto.CreateCompanyDTO;
 import com.example.backend.dto.SocialNetworkDTO;
 import com.example.backend.model.Company;
 import com.example.backend.model.SocialNetwork;
@@ -29,7 +30,7 @@ public class InfoService {
         return new CompanyDTO(companies.get(0));
     }
 
-    public void addCompanyDTO(CompanyDTO companyDTO){
+    public void addCompanyDTO(CreateCompanyDTO companyDTO){
         if (Company.getInstance() == null) {
             Company company = new Company(companyDTO.getName(),
                     companyDTO.getEmail(),
@@ -76,7 +77,7 @@ public class InfoService {
         return result;
     }
 
-    public void editCompanyInfo(CompanyDTO companyDTO) {
+    public void editCompanyInfo(CreateCompanyDTO companyDTO) {
         Company company = companyRep.findAll().get(0);
         if (companyDTO.getName() != null) company.setName(companyDTO.getName());
         if (companyDTO.getEmail() != null) company.setEmail(companyDTO.getEmail());
@@ -86,5 +87,10 @@ public class InfoService {
         if (companyDTO.getPostCode() != null) company.setPostCode(companyDTO.getPostCode());
         if (companyDTO.getSchedule() != null) company.setSchedule(companyDTO.getSchedule());
         companyRep.save(company);
+    }
+
+    public byte[] getCompanyImage() {
+        Company company = companyRep.findAll().get(0);
+        return company.getLogoImage();
     }
 }

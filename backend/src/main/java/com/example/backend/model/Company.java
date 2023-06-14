@@ -23,6 +23,7 @@ public class Company {
 	private String address;
 
 	@Lob
+	@Column(length = 20971520)
 	private byte[] logoImage;
 
 	@Column(nullable = false)
