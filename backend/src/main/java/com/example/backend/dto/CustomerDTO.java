@@ -15,8 +15,8 @@ public class CustomerDTO extends UserDTO{
         this.nif = nif;
     }
 
-    public CustomerDTO(String email, String name, Date bitrhDate, String address, String nif) {
-        super(email, name);
+    public CustomerDTO(String email, String name, Date bitrhDate, String address, String nif, int id) {
+        super(email, name, id);
         this.bitrhDate = bitrhDate;
         this.address = address;
         this.nif = nif;
