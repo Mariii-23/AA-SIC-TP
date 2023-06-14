@@ -113,4 +113,6 @@ public class Customer extends User {
 	public void removeFavourite(Product product) {
 		this.favourites.remove(product);
 	}
+
+
 }

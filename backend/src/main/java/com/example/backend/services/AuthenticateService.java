@@ -6,8 +6,10 @@ import com.example.backend.dto.AuthenticationResponse;
 import com.example.backend.dto.CustomerDTO;
 import com.example.backend.model.Customer;
 import com.example.backend.model.ShoppingCart;
+import com.example.backend.model.Token;
 import com.example.backend.model.User;
 import com.example.backend.repositories.CustomerRep;
+import com.example.backend.repositories.TokenRep;
 import com.example.backend.repositories.UserRep;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class AuthenticateService {
     private final UserRep userRep;
     private final CustomerRep customerRep;
+    private final TokenRep tokenRep;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -51,12 +54,14 @@ public class AuthenticateService {
                     passwordEncoder.encode(request.getPassword()),
                     request.getName(),
                     shoppingCart);
+            String token = jwtService.generateToken(customer);
+            Token tokenObj = new Token(token, customer);
             try {
                 customerRep.save(customer);
+                tokenRep.save(tokenObj);
             } catch (Exception e) {
                 throw e;
             }
-            String token = jwtService.generateToken(customer);
             return new AuthenticationResponse(token);
         } else {
             throw new Exception("Email not valid");
@@ -73,10 +78,18 @@ public class AuthenticateService {
             throw new UserNotFoundException("User with email " + request.getEmail() + " not found");
         }
         String token = jwtService.generateToken(user);
+        Token tokenObj = new Token(token, user);
+        userRep.save(user);
+        tokenRep.save(tokenObj);
         return new AuthenticationResponse(token);
     }
 
-    public boolean logout() {
+    public boolean logout(String token) throws Exception {
+        Token tokenObj = tokenRep.findByToken(token).orElseThrow(() -> new Exception("Token not found"));
+        if (tokenObj == null) {
+            return false;
+        }
+        tokenRep.delete(tokenObj);
         return true;
     }
 }
