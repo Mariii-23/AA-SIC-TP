@@ -47,5 +47,6 @@
     "buy-now": "Buy Now",
     "add-cart": "Add to Cart",
     "related-products": "Related products",
-    "remove-product": "Remove product"
+    "remove-product": "Remove product",
+    "modal-remove-product": "Are you sure you want to remove the product"
 }

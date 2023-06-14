@@ -25,6 +25,17 @@
         :editProductHandler="editProductHandler"
         :deleteProductHandler="deleteProductHandler"/>
     </div>
+
+    <Modal 
+        :isOpen="true" 
+    >
+        <template v-slot:body-modal>
+            <BodyText>{{ $t("modal-remove-product") }} {{ productDesc.name }}?</BodyText>
+        </template>
+        <template v-slot:actions-modal>
+            
+        </template>
+    </Modal>
 </template>
 
 <script lang="ts">
@@ -32,8 +43,10 @@ import Carousel from "@/components/molecules/Carousel.vue";
 import ProductInfo from "@/components/molecules/ProductInfoAdmin.vue";
 import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
+import BodyText from "@/components/atoms/Typography/BodyText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
 import { ProductInformation, ProductImages, Materials} from "@/appTypes/Product";
+import Modal from "@/components/organisms/Modal.vue";
 
 export default {
     props: {
@@ -74,7 +87,9 @@ export default {
         ProductInfo,
         ProductDesc,
         HeadingText,
-        RelatedProducts
+        RelatedProducts,
+        Modal,
+        BodyText
     },
     data() {
         return {

@@ -27,7 +27,7 @@
   import ProductAdmin from "./admin/ProductAdmin.vue";
 
   //TODO: change this
-  const isAdmin = false;
+  const isAdmin = true;
 
   const images = [
   "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
