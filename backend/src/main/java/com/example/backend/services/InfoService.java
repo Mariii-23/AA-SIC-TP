@@ -24,18 +24,9 @@ public class InfoService {
         return companyRep.save(company);
     }
 
-    public CompanyDTO getCompanyById(int id) {
-        Company company = companyRep.findById(id).orElse(null);
-        return new CompanyDTO(company);
-    }
-
-    public List<CompanyDTO> getAllCompanies() {
-        List<CompanyDTO> result = new ArrayList<>();
+    public CompanyDTO getCompany() {
         List<Company> companies = companyRep.findAll();
-        companies.forEach(company -> {
-            result.add(new CompanyDTO(company));
-        });
-        return result;
+        return new CompanyDTO(companies.get(0));
     }
 
     public void addCompanyDTO(CompanyDTO companyDTO){
@@ -56,7 +47,7 @@ public class InfoService {
     }
 
     public void addSocialNetworkDTO(SocialNetworkDTO socialNetworkDTO){
-        Company company = companyRep.findById(socialNetworkDTO.getCompanyID()).orElse(null);
+        Company company = companyRep.findAll().get(0);
         SocialNetwork socialNetwork = new SocialNetwork(socialNetworkDTO.getName(),
                                                         socialNetworkDTO.getLink(),
                                                         company);
@@ -76,12 +67,24 @@ public class InfoService {
         return socialNetworkRep.findById(id).orElse(null);
     }
 
-    public List<SocialNetworkDTO> getSocialNetworksByCompanyId(int id) {
+    public List<SocialNetworkDTO> getSocialNetworksByCompany() {
         List<SocialNetworkDTO> result = new ArrayList<>();
-        Company company = companyRep.findById(id).orElse(null);
+        Company company = companyRep.findAll().get(0);
         company.getSocialNetworks().forEach(socialNetwork -> {
             result.add(new SocialNetworkDTO(socialNetwork));
         });
         return result;
+    }
+
+    public void editCompanyInfo(CompanyDTO companyDTO) {
+        Company company = companyRep.findAll().get(0);
+        if (companyDTO.getName() != null) company.setName(companyDTO.getName());
+        if (companyDTO.getEmail() != null) company.setEmail(companyDTO.getEmail());
+        if (companyDTO.getContact() != null) company.setContact(companyDTO.getContact());
+        if (companyDTO.getAddress() != null) company.setAddress(companyDTO.getAddress());
+        if (companyDTO.getLogoImage() != null) company.setLogoImage(companyDTO.getLogoImage());
+        if (companyDTO.getPostCode() != null) company.setPostCode(companyDTO.getPostCode());
+        if (companyDTO.getSchedule() != null) company.setSchedule(companyDTO.getSchedule());
+        companyRep.save(company);
     }
 }

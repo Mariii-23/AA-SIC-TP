@@ -13,19 +13,29 @@ public class Customer extends User {
 
 	@Column
 	private Date birthday;
+
 	@Column(unique = true)
 	private String nif;
+
 	@Column
 	private String address;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
 	public List<Review> reviews  = new ArrayList<>();
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cart_id")
 	private ShoppingCart cart;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private List<Order> orders;
+
 	@ManyToMany
-	private List<Product> favourites;
+	@JoinTable(
+			name = "customer_favourites",
+			joinColumns = @JoinColumn(name = "customer_id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private List<Product> favourites = new ArrayList<>();
 
 	public Customer() {
 		super();
@@ -103,4 +113,6 @@ public class Customer extends User {
 	public void removeFavourite(Product product) {
 		this.favourites.remove(product);
 	}
+
+
 }

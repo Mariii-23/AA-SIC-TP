@@ -14,11 +14,14 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int iD;
+
 	@Column(nullable = false)
 	private int quantity;
+
 	@ManyToOne
 	@JoinColumn(name = "material_id",nullable = false)
 	private Material material;
+
 	@ManyToOne
 	@JoinColumn(name = "product_id",nullable = false)
 	private Product product;

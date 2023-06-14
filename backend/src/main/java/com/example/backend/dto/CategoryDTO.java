@@ -5,13 +5,13 @@ import java.util.List;
 public class CategoryDTO {
     private int id;
     private String name;
-    private String image;
+    private byte[] image;
     private List<SubCategoryDTO> subCategories;
 
     public CategoryDTO() {
     }
 
-    public CategoryDTO(int id, String name, String image, List<SubCategoryDTO> subCategories) {
+    public CategoryDTO(int id, String name, byte[] image, List<SubCategoryDTO> subCategories) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -26,11 +26,11 @@ public class CategoryDTO {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

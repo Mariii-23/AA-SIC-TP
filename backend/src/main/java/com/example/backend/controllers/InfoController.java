@@ -16,19 +16,14 @@ public class InfoController {
     @Resource(name = "infoService")
     private InfoService infoService;
 
-    @GetMapping("/companyInfo/{id}")
-    public CompanyDTO getCompanyInfo(int id) {
-        return infoService.getCompanyById(id);
+    @GetMapping("all/companyInfo/get")
+    public CompanyDTO getCompanyInfo() {
+        return infoService.getCompany();
     }
 
-    @GetMapping("/companyInfo/all")
-    public List<CompanyDTO> getAllCompanies() {
-        return infoService.getAllCompanies();
-    }
-
-    @GetMapping("/companyInfo/{id}/socialNetworks")
-    public List<SocialNetworkDTO> getSocialNetworksByCompanyId(@PathVariable int id) {
-        return infoService.getSocialNetworksByCompanyId(id);
+    @GetMapping("/companyInfo/socialNetworks")
+    public List<SocialNetworkDTO> getSocialNetworksByCompany() {
+        return infoService.getSocialNetworksByCompany();
     }
 
     @PostMapping("/companyInfo")
@@ -49,5 +44,10 @@ public class InfoController {
     @PostMapping("/socialNetworks")
     public void addSocialNetwork(final @RequestBody SocialNetworkDTO socialNetwork) {
         infoService.addSocialNetworkDTO(socialNetwork);
+    }
+
+    @PostMapping("/companyInfo/edit")
+    public void editCompanyInfo(final @RequestBody CompanyDTO companyDTO) {
+        infoService.editCompanyInfo(companyDTO);
     }
 }

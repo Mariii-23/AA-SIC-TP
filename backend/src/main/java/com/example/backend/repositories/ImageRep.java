@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ImageRep extends JpaRepository<Image, Integer> {
 
-    Image findByPath(String path);
+    Image findByImage(byte[] image);
 }

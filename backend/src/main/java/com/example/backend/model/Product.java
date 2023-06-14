@@ -16,22 +16,31 @@ public class Product {
 
 	@Column(nullable = false)
 	private String name;
+
 	private String description;
 
 	@ManyToMany
 	private List<Material> materials = new ArrayList<>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private List<TechnicalInfo> infos = new ArrayList<TechnicalInfo>();
+	private List<TechnicalInfo> infos = new ArrayList<>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private List<Review> reviews = new ArrayList<Review>();
+	private List<Review> reviews = new ArrayList<>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private List<Image> images = new ArrayList<Image>();
+	private List<Image> images = new ArrayList<>();
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
 	private SubCategory subCategory;
+
+	@ManyToMany(mappedBy = "favourites")
+	private List<Customer> customers = new ArrayList<>();
 
 	public Product() {
 	}
@@ -131,5 +140,18 @@ public class Product {
 
 	public void addReview(Review review) {
 		this.reviews.add(review);
+	}
+
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+  }
+  
+	public void removeMaterial(Material material) {
+		this.materials.remove(material);
 	}
 }

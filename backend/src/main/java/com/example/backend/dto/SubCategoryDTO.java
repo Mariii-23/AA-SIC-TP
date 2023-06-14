@@ -3,12 +3,12 @@ package com.example.backend.dto;
 public class SubCategoryDTO {
     private int id;
     private String name;
-    private String image;
+    private byte[] image;
 
     public SubCategoryDTO() {
     }
 
-    public SubCategoryDTO(int id, String name, String image) {
+    public SubCategoryDTO(int id, String name, byte[] image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -22,11 +22,11 @@ public class SubCategoryDTO {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

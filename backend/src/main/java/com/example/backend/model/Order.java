@@ -25,7 +25,7 @@ public class Order {
 	@Column(nullable = false)
 	private double total;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-	private List<OrderItem> items = new ArrayList<OrderItem>();
+	private List<OrderItem> items = new ArrayList<>();
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
@@ -105,5 +105,9 @@ public class Order {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public int getiD() {
+		return iD;
 	}
 }

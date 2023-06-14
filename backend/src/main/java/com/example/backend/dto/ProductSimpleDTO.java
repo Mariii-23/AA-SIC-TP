@@ -3,7 +3,7 @@ package com.example.backend.dto;
 public class ProductSimpleDTO {
     private int id;
     private String name;
-    private String image;
+    private byte[] image;
     private double price;
 
     public ProductSimpleDTO() {
@@ -20,7 +20,7 @@ public class ProductSimpleDTO {
         this.price = price;
     }
 
-    public ProductSimpleDTO(int id, String name, double price, String image) {
+    public ProductSimpleDTO(int id, String name, double price, byte[] image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -43,11 +43,11 @@ public class ProductSimpleDTO {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

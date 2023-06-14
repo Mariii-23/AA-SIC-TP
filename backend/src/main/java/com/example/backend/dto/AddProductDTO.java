@@ -10,7 +10,7 @@ public class AddProductDTO {
     private int subCategoryId;
     private List<Integer> materialIds;
     private List<TechnicalInfoDTO> infos;
-    private List<String> images;
+    private List<byte[]> images;
 
     public AddProductDTO(){
 
@@ -64,11 +64,11 @@ public class AddProductDTO {
         this.infos = infos;
     }
 
-    public List<String> getImages() {
+    public List<byte[]> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<byte[]> images) {
         this.images = images;
     }
 
