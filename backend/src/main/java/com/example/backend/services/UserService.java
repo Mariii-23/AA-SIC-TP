@@ -81,7 +81,7 @@ public class UserService {
         return new EnvelopeDTO<>(isLast, list);
     }
 
-    public void addAdminDTO(AdminDTO adminDTO){
+    public void addAdminDTO(CreateAdminDTO adminDTO){
         Admin admin = new Admin(adminDTO.getEmail(),
                                 passwordEncoder.encode(adminDTO.getPassword()),
                                 adminDTO.getName());
@@ -155,7 +155,7 @@ public class UserService {
         adminRep.delete(admin);
     }
 
-    public void editCustomer(int customer_id, CustomerDTO costumerDTO) throws Exception {
+    public void editCustomer(int customer_id, CreateCustomerDTO costumerDTO) throws Exception {
         Customer customer = customerRep.getReferenceById(customer_id);
         if (customer == null) {
             throw new UserNotFoundException("Customer not found");
@@ -179,7 +179,7 @@ public class UserService {
         customerRep.save(customer);
     }
 
-    public void editAdmin(int adminId, AdminDTO adminDTO) throws Exception {
+    public void editAdmin(int adminId, CreateAdminDTO adminDTO) throws Exception {
         Admin admin = adminRep.findById(adminId).orElse(null);
         if (admin == null) {
             throw new UserNotFoundException("Admin not found");

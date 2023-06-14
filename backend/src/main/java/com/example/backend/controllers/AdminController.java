@@ -1,9 +1,8 @@
 package com.example.backend.controllers;
 
 import com.example.backend.exception.UserNotFoundException;
-import com.example.backend.dto.AdminDTO;
+import com.example.backend.dto.CreateAdminDTO;
 import com.example.backend.dto.ChangePasswordDTO;
-import com.example.backend.dto.CustomerDTO;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
 import jakarta.annotation.Resource;
@@ -58,7 +57,7 @@ public class AdminController {
 
 
     @PostMapping("/add")
-    public void addAdmin(final @RequestBody AdminDTO admin) {
+    public void addAdmin(final @RequestBody CreateAdminDTO admin) {
         userService.addAdminDTO(admin);
     }
 
@@ -72,7 +71,7 @@ public class AdminController {
     }
 
     @PostMapping("/edit/{admin_id}")
-    public void editAdmin(final @PathVariable int admin_id, final @RequestBody AdminDTO adminDTO) {
+    public void editAdmin(final @PathVariable int admin_id, final @RequestBody CreateAdminDTO adminDTO) {
         try {
             userService.editAdmin(admin_id, adminDTO);
         } catch (Exception e) {

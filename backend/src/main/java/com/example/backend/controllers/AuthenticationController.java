@@ -3,7 +3,7 @@ package com.example.backend.controllers;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.AuthenticationRequest;
 import com.example.backend.dto.AuthenticationResponse;
-import com.example.backend.dto.CustomerDTO;
+import com.example.backend.dto.CreateCustomerDTO;
 import com.example.backend.services.AuthenticateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class AuthenticationController {
     private final AuthenticateService authenticateService;
 
     @PostMapping("/register")
-    public AuthenticationResponse register(@RequestBody CustomerDTO request) {
+    public AuthenticationResponse register(@RequestBody CreateCustomerDTO request) {
         try {
             return authenticateService.register(request);
         } catch (Exception e) {

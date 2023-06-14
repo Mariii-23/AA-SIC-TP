@@ -2,21 +2,24 @@ package com.example.backend.dto;
 
 import com.example.backend.model.User;
 
-public class UserDTO {
+public class CreateUserDTO {
     private String email;
+    private String password;
     private String name;
 
-    public UserDTO() {
+    public CreateUserDTO() {
 
     }
 
-    public UserDTO(String email, String name) {
+    public CreateUserDTO(String email, String password, String name) {
         this.email = email;
+        this.password = password;
         this.name = name;
     }
 
-    public UserDTO(User user){
+    public CreateUserDTO(User user){
         this.email = user.getEmail();
+        this.password = user.getPassword();
         this.name = user.getName();
     }
 
@@ -28,8 +31,16 @@ public class UserDTO {
         this.email = email;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {

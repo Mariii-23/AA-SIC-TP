@@ -42,7 +42,7 @@ public class CustomerController {
     }
 
     @PostMapping("/edit/{customer_id}")
-    public void editCustomer(final @PathVariable int customer_id, final @RequestBody CustomerDTO costumerDTO) {
+    public void editCustomer(final @PathVariable int customer_id, final @RequestBody CreateCustomerDTO costumerDTO) {
         try {
             userService.editCustomer(customer_id, costumerDTO);
         } catch (Exception e) {
