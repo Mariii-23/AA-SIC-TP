@@ -207,9 +207,14 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/category/numberOfCategories")
+    public int getNumberOfCategories() {
+        return productService.getNumberOfCategories();
+    }
+
     @GetMapping("all/categories")
-    public List<CategoryDTO> getAllCategories() {
-        return productService.getAllCategories();
+    public EnvelopeDTO<CategoryDTO> getAllCategories(@RequestBody PaginationDTO paginationDTO) {
+        return productService.getAllCategories(paginationDTO.getOffset(), paginationDTO.getNumItems());
     }
 
     @PostMapping("/review")

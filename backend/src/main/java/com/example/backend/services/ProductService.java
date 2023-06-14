@@ -126,14 +126,17 @@ public class ProductService {
                 product.getImages().stream().map(Image::getImage).toList());
     }
 
-    public List<CategoryDTO> getAllCategories(){
-        return categoryRep.findAll().stream()
+    public EnvelopeDTO<CategoryDTO> getAllCategories(int offset, int numItems){
+        List<Category> categories = categoryRep.findAllPagination(offset, numItems);
+        List<CategoryDTO> list = categories.stream()
                 .map(category -> new CategoryDTO(category.getiD(),
                         category.getName(),
                         category.getImage(),
                         category.getSubCategories().stream()
                         .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName(), subCategory.getImage())).toList()))
                 .toList();
+        boolean isLast = (offset + numItems) >= getNumberOfCategories();
+        return new EnvelopeDTO<>(isLast,list);
     }
 
     public void addReview(int customerId, int productId, int classification, String comment) throws ProductNotFoundException, UserNotFoundException {
@@ -268,5 +271,9 @@ public class ProductService {
     public int getNumberOfProductsBySubCategory(int subCategoryId) throws SubCategoryNotFoundException {
         SubCategory s = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
         return s.getProducts().size();
+    }
+
+    public int getNumberOfCategories() {
+        return (int) categoryRep.count();
     }
 }
