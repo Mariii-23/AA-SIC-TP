@@ -7,7 +7,6 @@
   <Typography.Heading :size="2">Heading 2</Typography.Heading>
 
   <heading-text>Heading</heading-text>
-  <FilesInput />
 
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
@@ -65,7 +64,6 @@ import { ref } from "vue";
 import { useTheme } from "vuetify";
 import { Typography } from "./atoms/Typography/Typography";
 import HeadingText from "./atoms/Typography/HeadingText.vue";
-import FilesInput from "./molecules/FilesInput.vue";
 
 const theme = useTheme();
 const darkMode = ref(false);

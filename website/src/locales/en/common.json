@@ -42,7 +42,7 @@
     "postal-code": "Postal code",
     "phoneNo": "Phone number",
 
-    
+
     "search": "Search",
     "orders": "Orders",
 
@@ -72,9 +72,14 @@
     "related-products": "Related products",
     "remove-product": "Remove product",
     "modal-remove-product": "Are you sure you want to remove the product",
+    "remove-material": "Remove material",
+    "modal-remove-material": "Are you sure you want to remove the material",
+    "edit-material": "Edit material",
 
     "store": "Store",
     "categories": "Categories",
     "materials": "Materials",
-    "edit-materials": "Edit Materials"
+    "edit-materials": "Edit Materials",
+    "save-changes": "Save changes",
+    "add-social": "Add other social network"
 }

@@ -71,9 +71,14 @@
     "related-products": "Produtos relacionados",
     "remove-product": "Remover produto",
     "modal-remove-product": "Tem a certeza que quer remover o produto",
-
+    "remove-material": "Remover material",
+    "modal-remove-material": "Tem a certeza que quer remover o material",
+    "edit-material": "Editar material",
+    
     "store": "Loja",
     "categories": "Categorias",
     "materials": "Materiais",
-    "edit-materials": "Editar Materiais"
+    "edit-materials": "Editar Materiais",
+    "save-changes": "Guardar alterações",
+    "add-social": "Adicionar outra rede social"
 }
