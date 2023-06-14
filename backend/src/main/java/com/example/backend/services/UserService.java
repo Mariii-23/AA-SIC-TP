@@ -120,26 +120,6 @@ public class UserService {
         return new ShoppingCartDTO(itens, customer.getCart().getTotalPrice());
     }
 
-    public EnvelopeDTO<OrderSimpleDTO> getOrders(int id, int offset, int numitems) throws UserNotFoundException {
-        Customer customer = customerRep.findById(id).orElse(null);
-        if (customer == null) {
-            throw new UserNotFoundException("Customer not found");
-        }
-        List<OrderSimpleDTO> list = new ArrayList<>();
-        List<Order> orders = orderRep.findOrdersPagination(id, offset, numitems);
-        orders.forEach(order -> {
-            List<ItemDTO> itens = new ArrayList<>();
-            order.getItems().forEach(orderitem -> {
-                itens.add(new ItemDTO(orderitem.getProduct().getName(),
-                                      orderitem.getPrice(),
-                                      orderitem.getQuantity()));
-            });
-            list.add(new OrderSimpleDTO(order));
-        });
-        boolean isLast = (offset + numitems) >= getNumberOfOrders(id);
-        return new EnvelopeDTO<>(isLast, list);
-    }
-
     public void addFavourite(int customerId, int productId) throws UserNotFoundException, ProductNotFoundException {
         Customer customer = customerRep.findById(customerId).orElse(null);
         if (customer == null) {
@@ -263,12 +243,5 @@ public class UserService {
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
         } else return c.getFavourites().size();
-    }
-
-    public int getNumberOfOrders(int id) throws UserNotFoundException {
-        Customer c = customerRep.findById(id).orElse(null);
-        if (c == null) {
-            throw new UserNotFoundException("Customer not found");
-        } else return c.getOrders().size();
     }
 }

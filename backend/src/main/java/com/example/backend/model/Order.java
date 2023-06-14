@@ -106,4 +106,8 @@ public class Order {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public int getiD() {
+		return iD;
+	}
 }

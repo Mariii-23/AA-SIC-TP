@@ -70,6 +70,11 @@ public class DBController {
         dbService.addFavourites();
     }
 
+    @PostMapping("/addMoreOrders")
+    public void addMoreOrders() throws Exception {
+        dbService.addMoreOrders();
+    }
+
     @PostMapping("/all")
     public void addAll() throws Exception {
         dbService.addUsers();
@@ -83,6 +88,7 @@ public class DBController {
         dbService.addImages();
         dbService.addItems();
         dbService.addOrders();
+        dbService.addMoreOrders();
     }
 
 }

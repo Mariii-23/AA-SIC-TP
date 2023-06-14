@@ -37,9 +37,18 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/customer/numberOfOrders/{id}")
+    public int getNumberOfOrders(@PathVariable int id) {
+        try {
+            return orderService.getNumberOfOrders(id);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @GetMapping("/admin/orders")
-    public List<OrderSimpleDTO> getAllOrders(){
-        return orderService.getAllOrders();
+    public EnvelopeDTO<OrderSimpleDTO> getAllOrders(final @RequestBody PaginationDTO paginationDTO){
+        return orderService.getAllOrders(paginationDTO.getOffset(), paginationDTO.getNumItems());
     }
 
     @PostMapping("/admin/ready/{orderId}")

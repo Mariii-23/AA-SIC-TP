@@ -3,6 +3,7 @@ package com.example.backend.services;
 import com.example.backend.Exception.ItemNotFoundException;
 import com.example.backend.Exception.OrderNotFoundException;
 import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.dto.EnvelopeDTO;
 import com.example.backend.dto.OrderDetailedDTO;
 import com.example.backend.dto.OrderSimpleDTO;
 import com.example.backend.event.EmailEvent;
@@ -55,13 +56,14 @@ public class OrderService {
         return result;
     }
 
-    public List<OrderSimpleDTO> getAllOrders(){
-        List<Order> orders = orderRep.findAll();
-        List<OrderSimpleDTO> result = new ArrayList<>();
+    public EnvelopeDTO<OrderSimpleDTO> getAllOrders(int offset, int numItems){
+        List<Order> orders = orderRep.findOrdersPagination(offset, numItems);
+        List<OrderSimpleDTO> list = new ArrayList<>();
         orders.forEach(order -> {
-            result.add(new OrderSimpleDTO(order));
+            list.add(new OrderSimpleDTO(order));
         });
-        return result;
+        boolean isLast = (offset + numItems) < orderRep.count();
+        return new EnvelopeDTO<>(isLast, list);
     }
 
     public OrderDetailedDTO getOrder(int orderId) throws OrderNotFoundException {
@@ -88,7 +90,7 @@ public class OrderService {
         return false;
     }
 
-    public void createOrder(int customerId, String address, boolean storePickUp) throws UserNotFoundException {
+    public int createOrder(int customerId, String address, boolean storePickUp) throws UserNotFoundException {
         Customer c = customerRep.findById(customerId).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
@@ -109,6 +111,7 @@ public class OrderService {
         order.setTotal(total);
         order.setItems(orderItems);
         orderRep.save(order);
+        return order.getiD();
     }
 
     public void addProductToShoppingCart(int customerId, int productId, int materialId, int quantity) throws Exception {
@@ -147,5 +150,11 @@ public class OrderService {
         itemRep.delete(item);
     }
 
+    public int getNumberOfOrders(int id) throws UserNotFoundException {
+        Customer c = customerRep.findById(id).orElse(null);
+        if (c == null) {
+            throw new UserNotFoundException("Customer not found");
+        } else return c.getOrders().size();
+    }
 
 }
