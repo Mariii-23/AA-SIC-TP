@@ -1,6 +1,6 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
 import jakarta.annotation.Resource;

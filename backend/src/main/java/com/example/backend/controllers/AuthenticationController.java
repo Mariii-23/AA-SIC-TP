@@ -1,6 +1,6 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.AuthenticationRequest;
 import com.example.backend.dto.AuthenticationResponse;
 import com.example.backend.dto.CustomerDTO;

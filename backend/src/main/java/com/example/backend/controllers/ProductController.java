@@ -1,6 +1,6 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.*;
+import com.example.backend.exception.*;
 import com.example.backend.dto.*;
 import com.example.backend.services.ProductService;
 import jakarta.annotation.Resource;

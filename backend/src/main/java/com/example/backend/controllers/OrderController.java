@@ -1,9 +1,9 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.ItemNotFoundException;
-import com.example.backend.Exception.OrderAlreadyPayedException;
-import com.example.backend.Exception.OrderNotFoundException;
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.ItemNotFoundException;
+import com.example.backend.exception.OrderAlreadyPayedException;
+import com.example.backend.exception.OrderNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.model.OrderState;
 import com.example.backend.services.OrderService;

@@ -1,9 +1,9 @@
 package com.example.backend.services;
 
-import com.example.backend.Exception.ItemNotFoundException;
-import com.example.backend.Exception.OrderAlreadyPayedException;
-import com.example.backend.Exception.OrderNotFoundException;
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.ItemNotFoundException;
+import com.example.backend.exception.OrderAlreadyPayedException;
+import com.example.backend.exception.OrderNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.EnvelopeDTO;
 import com.example.backend.dto.OrderDetailedDTO;
 import com.example.backend.dto.OrderSimpleDTO;
@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service("orderService")

@@ -1,6 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.AuthenticationRequest;
 import com.example.backend.dto.AuthenticationResponse;
 import com.example.backend.dto.CustomerDTO;
@@ -11,9 +11,7 @@ import com.example.backend.model.User;
 import com.example.backend.repositories.CustomerRep;
 import com.example.backend.repositories.TokenRep;
 import com.example.backend.repositories.UserRep;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,7 +60,7 @@ public class AuthenticateService {
             } catch (Exception e) {
                 throw e;
             }
-            return new AuthenticationResponse(token);
+            return new AuthenticationResponse(token,customer.getEmail(),customer.getName(),customer.getiD());
         } else {
             throw new Exception("Email not valid");
         }

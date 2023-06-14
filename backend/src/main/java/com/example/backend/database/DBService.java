@@ -1,6 +1,6 @@
 package com.example.backend.database;
 
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.AdminDTO;
 import com.example.backend.dto.CustomerDTO;
 import com.example.backend.model.*;

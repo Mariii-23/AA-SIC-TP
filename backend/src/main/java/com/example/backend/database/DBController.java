@@ -1,6 +1,6 @@
 package com.example.backend.database;
 
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 

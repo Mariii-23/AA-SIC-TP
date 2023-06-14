@@ -1,4 +1,4 @@
-package com.example.backend.Exception;
+package com.example.backend.exception;
 
 public class OrderNotFoundException extends Exception{
     public OrderNotFoundException(String message) {

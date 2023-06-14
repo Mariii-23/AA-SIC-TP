@@ -1,6 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.Exception.*;
+import com.example.backend.exception.*;
 import com.example.backend.dto.*;
 import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
