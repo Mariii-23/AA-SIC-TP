@@ -21,7 +21,7 @@
 <script lang="ts">
 import BodyText from "@/components/atoms/Typography/BodyText.vue";
 import CancelConfirmButton from "@/components/molecules/CancelConfirmButtons.vue";
-import Modal from "@/components/organisms/Modal.vue";
+import Modal from "./Modal.vue";
 
 export default {
   name: "RemoveAdminModal",

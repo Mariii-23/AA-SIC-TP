@@ -9,7 +9,7 @@
 <script lang="ts">
 import { UserInfoProps } from "@/appTypes/User";
 import CardLayout from "@/layouts/CardLayout.vue";
-import ClientTable from "../table/ClientTable.vue";
+import ClientTable from "../Table/ClientTable.vue";
 
 export default {
   name: "ClientCard",

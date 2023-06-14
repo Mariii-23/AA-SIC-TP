@@ -35,7 +35,7 @@ import { UserInfoProps } from "@/appTypes/User";
 import TitleWithButtonAndGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
 import { useRoute } from "vue-router";
 import AdminCard from "@/components/organisms/Card/AdminCard.vue";
-import RemoveAdminModal from "@/components/organisms/modal/RemoveAdminModal.vue";
+import RemoveAdminModal from "@/components/organisms/Modal/RemoveAdminModal.vue";
 
 export default {
   name: "AdminAdminPage",

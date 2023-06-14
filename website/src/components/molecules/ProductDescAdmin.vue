@@ -10,7 +10,11 @@
         <div class="body">
             <HeadingText :size="6">{{ product.price }}€</HeadingText>
 
-        <Material class="materials" :materials="materials" :addMaterialHandler="addMaterialHandler"/>
+        <Material class="materials" 
+            :materials="materials" 
+            :addMaterialHandler="addMaterialHandler" 
+            :selectMaterialHandler="selectMaterialHandler"
+        />
         <FullWidthButton class="btn" :handleClick="deleteProductHandler">
              {{ $t("remove-product") }} 
         </FullWidthButton>
@@ -55,6 +59,10 @@ export default {
             type: Function,
             require: true,
         },
+        selectMaterialHandler: {
+            type: Function,
+            require: true,
+        }
     },
     components: { 
         HeadingText, 

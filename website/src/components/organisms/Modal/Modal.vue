@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import HeadingText from "../atoms/Typography/HeadingText.vue";
+import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 
 export default {
   name: "Modal",

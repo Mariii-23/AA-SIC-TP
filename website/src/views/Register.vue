@@ -42,7 +42,7 @@
 
                      <div class="login-phrase">
                         <p>{{ $t("have-account") }}</p>
-                        <p class="link">{{ $t("login") }}</p>
+                        <p class="link" @click="goToLogIn()">{{ $t("login") }}</p>
                      </div>
                   </div>
 
@@ -104,7 +104,6 @@
    }
 }
 
-
 .login-phrase {
    display: flex;
    justify-content: center;
@@ -132,24 +131,6 @@ export default {
          conf_password: "",
          address: "",
          nif: "",
-         items: [
-            {
-               label: "Personal",
-               to: "/"
-            },
-            {
-               label: "Seat",
-               to: "/seat",
-            },
-            {
-               label: "Payment",
-               to: "/payment",
-            },
-            {
-               label: "Confirmation",
-               to: "/confirmation",
-            }
-         ]
       }
    },
    methods: {
@@ -158,11 +139,16 @@ export default {
          console.log(email + "logged in");
       },
       handleSignupWithGoogle() {
-         console.log(+"hiihih");
+         console.log("register with google");
+         this.$router.push("/register-personal-data");
       },
       handleSignupWithEmail() {
-         console.log("hiihih");
+         console.log("register with email");
+         this.$router.push("/register-personal-data");
       },
+      goToLogIn() {
+         this.$router.push("/login");
+      }
    },
    components: { PrimaryButton, FullWidthButton }
 };

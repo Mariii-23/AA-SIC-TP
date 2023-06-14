@@ -11,7 +11,7 @@
 
     <ProductPreviewUserCards
       :products="products"
-      :shopping-card-handler="shoppingCardHandler"
+      :shopping-cart-handler="shoppingCartHandler"
       :favorite-icon-handler="favoriteIconHandler"
     />
 
@@ -57,7 +57,7 @@ export default {
       type: Function,
       require: true,
     },
-    shoppingCardHandler: {
+    shoppingCartHandler: {
       type: Function,
     },
     favoriteIconHandler: {

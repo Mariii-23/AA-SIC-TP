@@ -56,7 +56,7 @@ import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vu
 import TitleWithGoBack from "@/components/molecules/TitleGoBack.vue";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleWithEditButton from "@/components/molecules/TitleWithEditButton.vue";
-import Modal from "@/components/organisms/Modal.vue";
+import Modal from "@/components/organisms/Modal/Modal.vue";
 import SecondaryButton from "@/components/atoms/Button/SecondaryButton.vue";
 import SuccessAlert from "@/components/atoms/Alert/SuccessAlert.vue";
 import ErrorAlert from "@/components/atoms/Alert/ErrorAlert.vue";

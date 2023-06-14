@@ -19,7 +19,7 @@
 
               <div class="signup-phrase">
                 <p>{{ $t("forgot-pw") }} </p>
-                <p class="link">{{ $t("recover-pw") }}</p>
+                <p class="link" @click="goToRecoverPw()">{{ $t("recover-pw") }}</p>
               </div>
 
               <div class="custom-divider">
@@ -40,7 +40,7 @@
 
               <div class="signup-phrase">
                 <p>{{ $t("dont-have-account") }}</p>
-                <p class="link">{{ $t("register") }}</p>
+                <p class="link" @click="goToRegister()">{{ $t("register") }}</p>
               </div>
             </div>
 
@@ -135,10 +135,16 @@ export default {
       console.log(username + "logged in");
     },
     handleLoginWithGoogle() {
-      console.log(+"hiihih");
+      console.log("login with google");
     },
     handleLoginWithEmail(){
-      console.log("hiihih");
+      console.log("login with email");
+    },
+    goToRegister() {
+      this.$router.push("/register")
+    },
+    goToRecoverPw() {
+      this.$router.push("/recover-password")
     }
   },
   components: { PrimaryButton, FullWidthButton }

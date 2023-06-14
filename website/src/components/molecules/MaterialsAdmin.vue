@@ -1,6 +1,6 @@
 <template>
     <div class="materials">
-        <Material :materials="materials"/>
+        <Material :materials="materials" :selectMaterialHandler="selectMaterialHandler"/>
         <PrimaryButton :handleClick="addMaterialHandler" class="add_btn">+</PrimaryButton>
     </div>
 </template>
@@ -18,6 +18,10 @@ export default {
             require: true,
         },
         addMaterialHandler: {
+            type: Function,
+            require: true,
+        },
+        selectMaterialHandler: {
             type: Function,
             require: true,
         },

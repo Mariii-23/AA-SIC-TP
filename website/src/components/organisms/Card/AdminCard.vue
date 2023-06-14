@@ -9,7 +9,7 @@
 <script lang="ts">
 import { UserInfoProps } from "@/appTypes/User";
 import CardLayout from "@/layouts/CardLayout.vue";
-import AdminTable from "../table/AdminTable.vue";
+import AdminTable from "../Table/AdminTable.vue";
 
 export default {
   name: "AdminCard",

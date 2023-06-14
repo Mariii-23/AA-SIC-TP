@@ -12,7 +12,7 @@
       <template v-slot:second>
         <HeadingText>{{ $t("admins") }}</HeadingText>
         <SearchBar bg-color="primary" />
-        <AdminExpansionPainels
+        <AdminExpansionPanels
           :admins="admins"
           :view-details-handler="viewDetailsHandler"
         />
@@ -28,7 +28,7 @@ import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import { UserInfoProps } from "@/appTypes/User";
-import AdminExpansionPainels from "@/components/molecules/expansionPainels/AdminExpansionPainels.vue";
+import AdminExpansionPanels from "@/components/molecules/expansionPanels/AdminExpansionPanels.vue";
 
 export default {
   name: "AdminsAdminPage",
@@ -72,7 +72,7 @@ export default {
     SimpleBodyLayout,
     HeadingText,
     SearchBar,
-    AdminExpansionPainels,
+    AdminExpansionPanels,
   },
 };
 </script>

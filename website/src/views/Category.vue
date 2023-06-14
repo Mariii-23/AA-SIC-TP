@@ -6,7 +6,7 @@
     :links="links"
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
-    :shopping-card-handler="shoppingCardHandler"
+    :shopping-cart-handler="shoppingCartHandler"
     :favorite-icon-handler="favoriteIconHandler"
   />
 
@@ -24,14 +24,14 @@
 </template>
 
 <script lang="ts" setup>
-import CategoryUser from "./user/CategoryUser.vue";
+import CategoryUser from "./User/CategoryUser.vue";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import CategoryAdmin from "./admin/CategoryAdmin.vue";
+import CategoryAdmin from "./Admin/CategoryAdmin.vue";
 
 const route = useRoute();
 //TODO: change this
-const isAdmin = false;
+const isAdmin = true;
 const links = ref([]);
 
 //TODO: ir buscar ao backend
@@ -57,7 +57,7 @@ for (let i = 0; i < 20; i++) {
 
 //TODO:
 const onChangePagePagination = (number: string) => {
-  console.log(number);
+  console.log("page " + number);
 };
 
 //TODO:
@@ -72,20 +72,20 @@ const addProductHandler = () => {
 
 //TODO:
 const deleteProductHandler = (number: string) => {
-  console.log(number);
+  console.log("delete " + number);
 };
 
 //TODO:
 const editProductHandler = (productId: string) => {
-  console.log(productId);
+  console.log("edit " + productId);
 };
 
-const shoppingCardHandler = (productId: string) => {
-  console.log(productId);
+const shoppingCartHandler = (productId: string) => {
+  console.log("add to shopping cart" + productId);
 };
 
 const favoriteIconHandler = (productId: string) => {
-  console.log(productId);
+  console.log("favourite " + productId);
 };
 
 onMounted(() => {

@@ -18,16 +18,17 @@
   :editProductInfoHandler="editProductInfoHandler"
   :editProductHandler="editProductHandler"
   :addMaterialHandler="addMaterialHandler"
+  :selectMaterialHandler="selectMaterialHandler"
   />
 
 </template>
 
 <script lang="ts" setup>
-  import ProductUser from "./user/ProductUser.vue";
-  import ProductAdmin from "./admin/ProductAdmin.vue";
+  import ProductUser from "./User/ProductUser.vue";
+  import ProductAdmin from "./Admin/ProductAdmin.vue";
 
   //TODO: change this
-  const isAdmin = true;
+  const isAdmin = false;
 
   const images = [
   "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",

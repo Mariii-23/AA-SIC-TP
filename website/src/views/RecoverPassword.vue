@@ -6,13 +6,13 @@
           <v-toolbar-title>{{ $t("recover-pw") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <form ref="form" @submit.prevent="login()">
+          <form ref="form" @submit.prevent="sendCode()">
             <div class="custom-flex">
               <p>{{ $t("enter-email") }}</p>
               <div>
                 <v-text-field v-model="username" name="email" label="Email" type="text" placeholder="Email" single-line
                   class="input-form rounded-lg" required bg-color="primary" />
-                <FullWidthButton :handle-click="sendCode"> {{ $t("send-code") }}</FullWidthButton>
+                <FullWidthButton> {{ $t("send-code") }}</FullWidthButton>
               </div>
 
               <div class="custom-divider">
@@ -31,7 +31,7 @@
 
               <div class="signup-phrase">
                 <p>{{ $t("didnt-receive") }}</p>
-                <p class="link">{{ $t("resend") }}</p>
+                <p class="link" @click="sendCode()">{{ $t("resend") }}</p>
               </div>
 
             </div>

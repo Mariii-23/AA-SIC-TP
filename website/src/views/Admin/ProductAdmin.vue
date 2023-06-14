@@ -12,6 +12,7 @@
                 :product="productDesc"
                 :materials="materials"
                 :addMaterialHandler="addMaterialHandler"
+                :selectMaterialHandler="selectMaterialHandler"
                 :deleteProductHandler="openModal"
                 :editProductDescHandler="() => editProductDescHandler && editProductDescHandler(productDesc.id)"
             />
@@ -42,7 +43,7 @@ import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
 import { ProductInformation, ProductImages, Materials} from "@/appTypes/Product";
-import RemoveProductModal from "@/components/organisms/modal/RemoveProductModal.vue";
+import RemoveProductModal from "@/components/organisms/Modal/RemoveProductModal.vue";
 
 
 export default {
@@ -132,6 +133,10 @@ export default {
             type: Function,
             require: true,
         },
+        selectMaterialHandler: {
+            type: Function,
+            require: true
+        }
 
     },
     methods: {

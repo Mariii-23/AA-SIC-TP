@@ -1,10 +1,10 @@
 <template>
   <v-expansion-panels variant="popout">
-    <ExpansionPainelLayout v-for="user in admins" :key="user.id">
+    <ExpansionPanelLayout v-for="user in users" :key="user.id">
       <template v-slot:title>
         <TitleWithButton
           :size="5"
-          :title="`${$t('admin')} #${user.id}`"
+          :title="`${$t('client')} #${user.id}`"
           :button-text="$t('viewDetails')"
           :button-handler="
             () => viewDetailsHandler && viewDetailsHandler(user.id)
@@ -18,7 +18,7 @@
       <template v-slot:text>
         <UserTableInfo :user="user" />
       </template>
-    </ExpansionPainelLayout>
+    </ExpansionPanelLayout>
   </v-expansion-panels>
 </template>
 
@@ -32,14 +32,14 @@
 
 <script lang="ts">
 import { UserInfoProps } from "@/appTypes/User";
-import ExpansionPainelLayout from "./ExpansionPainelLayout.vue";
-import UserTableInfo from "./BodyExpansionPainel/UserTableInfo.vue";
+import ExpansionPanelLayout from "./ExpansionPanelLayout.vue";
+import UserTableInfo from "./BodyExpansionPanel/UserTableInfo.vue";
 import TitleWithButton from "../TitleWithButton.vue";
 
 export default {
-  name: "AdminExpansionPainels",
+  name: "UserExpansionPanels",
   props: {
-    admins: {
+    users: {
       type: Array as () => UserInfoProps[],
       require: true,
     },
@@ -48,7 +48,7 @@ export default {
     },
   },
   components: {
-    ExpansionPainelLayout,
+    ExpansionPanelLayout,
     UserTableInfo,
     TitleWithButton,
   },

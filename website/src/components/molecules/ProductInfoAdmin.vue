@@ -1,6 +1,6 @@
 <template>
   <v-card color="secondary">
-    <v-tabs v-model="tab" bg-color="transparent" color="black" grow>
+    <v-tabs v-model="tab" color="black" grow>
       <v-tab>
         {{ $t('product-details') }}
       </v-tab>
@@ -20,8 +20,8 @@
       </v-window-item>
 
       <v-window-item>
-        <v-card color="secondary" flat>
-          <v-table>
+        <v-card flat>
+          <v-table class="bg-secondary">
             <tbody>
               <tr v-for="item in info.technical" :key="item.name">
                 <td>{{ item.name }}</td>

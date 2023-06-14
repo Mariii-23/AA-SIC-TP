@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     handleSignup() {
-      console.log(+"signup");
+      console.log("finish register");
     },
   },
   components: { FullWidthButton },

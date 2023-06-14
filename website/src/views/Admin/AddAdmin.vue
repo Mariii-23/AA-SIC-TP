@@ -17,7 +17,7 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
-import AddAdminForm from "@/components/organisms/forms/AddAdminForm.vue";
+import AddAdminForm from "@/components/organisms/Forms/AddAdminForm.vue"
 
 export default {
   name: "AddAdminPage",
@@ -36,8 +36,7 @@ export default {
   //TODO: ir buscar os direitos
   methods: {
     addAdminHandler(email: string, password: string) {
-      console.log(email);
-      console.log(password);
+      console.log("add admin");
       //TODO: add handler
     },
   },

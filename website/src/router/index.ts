@@ -61,27 +61,27 @@ const routes = [
       {
         path: "addAdmin/",
         name: "Add Admin",
-        component: () => import("@/views/admin/AddAdmin.vue"),
+        component: () => import("@/views/Admin/AddAdmin.vue"),
       },
       {
         path: "admin/client/",
         name: "Users",
-        component: () => import("@/views/admin/Clients.vue"),
+        component: () => import("@/views/Admin/Clients.vue"),
       },
       {
         path: "admin/client/:id",
         name: "Client info",
-        component: () => import("@/views/admin/Client.vue"),
+        component: () => import("@/views/Admin/Client.vue"),
       },
       {
         path: "admin/",
         name: "Admins",
-        component: () => import("@/views/admin/Admins.vue"),
+        component: () => import("@/views/Admin/Admins.vue"),
       },
       {
         path: "admin/:id",
         name: "Admin info",
-        component: () => import("@/views/admin/Admin.vue"),
+        component: () => import("@/views/Admin/Admin.vue"),
       },
     ],
   },
