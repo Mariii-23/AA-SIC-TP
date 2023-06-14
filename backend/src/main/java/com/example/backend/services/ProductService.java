@@ -94,14 +94,14 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public List<ProductSimpleDTO> getProductsByCategory(int categoryId) throws CategoryNotFoundException {
-        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
-        List<Product> products = category.getProducts();
-        category.getSubCategories().forEach(
-                subCategory -> products.addAll(subCategory.getProducts()));
-        return products.stream()
+    public EnvelopeDTO<ProductSimpleDTO> getProductsByCategory(int categoryId, int offset, int numItems) throws CategoryNotFoundException {
+        categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+        List<Product> products = productRep.findByCategoryPagination(categoryId, offset, numItems);
+        List<ProductSimpleDTO> list = products.stream()
                 .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getImage()))
                 .toList();
+        boolean isLast = (offset + numItems) >= getNumberOfProductsByCategory(categoryId);
+        return new EnvelopeDTO<>(isLast,list);
     }
 
     public List<ProductSimpleDTO> getProductsBySubCategory(int subCategoryId) throws SubCategoryNotFoundException {
@@ -256,5 +256,10 @@ public class ProductService {
             else productRep.save(product);
         }
         materialRep.delete(material);
+    }
+
+    public int getNumberOfProductsByCategory(int categoryId) throws CategoryNotFoundException {
+        Category c = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+        return c.getProducts().size();
     }
 }

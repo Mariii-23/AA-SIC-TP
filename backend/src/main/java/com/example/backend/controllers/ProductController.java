@@ -162,10 +162,19 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all/category/{categoryId}")
-    public List<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId) {
+    @GetMapping("/category/numberOfProducts/{categoryId}")
+    public int getNumberOfProductsByCategory(final @PathVariable int categoryId) {
         try {
-            return productService.getProductsByCategory(categoryId);
+            return productService.getNumberOfProductsByCategory(categoryId);
+        } catch (CategoryNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("all/category/{categoryId}")
+    public EnvelopeDTO<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId, @RequestBody PaginationDTO paginationDTO) {
+        try {
+            return productService.getProductsByCategory(categoryId, paginationDTO.getOffset(), paginationDTO.getNumItems());
         } catch (CategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
