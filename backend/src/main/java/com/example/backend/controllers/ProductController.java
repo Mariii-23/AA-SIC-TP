@@ -1,6 +1,6 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.*;
+import com.example.backend.exception.*;
 import com.example.backend.dto.*;
 import com.example.backend.services.ProductService;
 import jakarta.annotation.Resource;
@@ -162,19 +162,37 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all/category/{categoryId}")
-    public List<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId) {
+    @GetMapping("/category/numberOfProducts/{categoryId}")
+    public int getNumberOfProductsByCategory(final @PathVariable int categoryId) {
         try {
-            return productService.getProductsByCategory(categoryId);
+            return productService.getNumberOfProductsByCategory(categoryId);
         } catch (CategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
-    @GetMapping("all/subcategory/{subCategoryId}")
-    public List<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId) {
+    @GetMapping("all/category/{categoryId}")
+    public EnvelopeDTO<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId, @RequestBody PaginationDTO paginationDTO) {
         try {
-            return productService.getProductsBySubCategory(subCategoryId);
+            return productService.getProductsByCategory(categoryId, paginationDTO.getOffset(), paginationDTO.getNumItems());
+        } catch (CategoryNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/subcategory/numberOfProducts/{subCategoryId}")
+    public int getNumberOfProductsBySubCategory(final @PathVariable int subCategoryId) {
+        try {
+            return productService.getNumberOfProductsBySubCategory(subCategoryId);
+        } catch (SubCategoryNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("all/subcategory/{subCategoryId}")
+    public EnvelopeDTO<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId, @RequestBody PaginationDTO paginationDTO) {
+        try {
+            return productService.getProductsBySubCategory(subCategoryId, paginationDTO.getOffset(), paginationDTO.getNumItems());
         } catch (SubCategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -189,9 +207,14 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/category/numberOfCategories")
+    public int getNumberOfCategories() {
+        return productService.getNumberOfCategories();
+    }
+
     @GetMapping("all/categories")
-    public List<CategoryDTO> getAllCategories() {
-        return productService.getAllCategories();
+    public EnvelopeDTO<CategoryDTO> getAllCategories(@RequestBody PaginationDTO paginationDTO) {
+        return productService.getAllCategories(paginationDTO.getOffset(), paginationDTO.getNumItems());
     }
 
     @PostMapping("/review")

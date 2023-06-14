@@ -1,4 +1,4 @@
-package com.example.backend.Exception;
+package com.example.backend.exception;
 
 public class CategoryNotFoundException extends Exception{
     public CategoryNotFoundException(String message) {

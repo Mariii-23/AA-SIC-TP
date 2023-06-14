@@ -1,7 +1,7 @@
 package com.example.backend.services;
 
-import com.example.backend.Exception.ProductNotFoundException;
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.ProductNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;

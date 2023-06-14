@@ -1,8 +1,9 @@
 package com.example.backend.services;
 
-import com.example.backend.Exception.ItemNotFoundException;
-import com.example.backend.Exception.OrderNotFoundException;
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.ItemNotFoundException;
+import com.example.backend.exception.OrderAlreadyPayedException;
+import com.example.backend.exception.OrderNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.EnvelopeDTO;
 import com.example.backend.dto.OrderDetailedDTO;
 import com.example.backend.dto.OrderSimpleDTO;
@@ -13,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service("orderService")
@@ -42,18 +41,19 @@ public class OrderService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public List<OrderSimpleDTO> getOrdersOfCostumer(int costumerId) throws UserNotFoundException {
+    public EnvelopeDTO<OrderSimpleDTO> getOrdersOfCostumer(int costumerId, int offset, int numItems) throws UserNotFoundException {
         List<Order> orders;
         try {
-            orders = orderRep.findByCustomer_iD(costumerId);
+            orders = orderRep.findCustomerOrdersPagination(costumerId, offset, numItems);
         } catch (Exception e) {
             throw new UserNotFoundException("Customer not found");
         }
-        List<OrderSimpleDTO> result = new ArrayList<>();
+        List<OrderSimpleDTO> list = new ArrayList<>();
         orders.forEach(order -> {
-            result.add(new OrderSimpleDTO(order));
+            list.add(new OrderSimpleDTO(order));
         });
-        return result;
+        boolean isLast = (offset + numItems) >= getNumberOfCustomerOrders(costumerId);
+        return new EnvelopeDTO<>(isLast, list);
     }
 
     public EnvelopeDTO<OrderSimpleDTO> getAllOrders(int offset, int numItems){
@@ -62,7 +62,7 @@ public class OrderService {
         orders.forEach(order -> {
             list.add(new OrderSimpleDTO(order));
         });
-        boolean isLast = (offset + numItems) < orderRep.count();
+        boolean isLast = (offset + numItems) >= orderRep.count();
         return new EnvelopeDTO<>(isLast, list);
     }
 
@@ -150,11 +150,23 @@ public class OrderService {
         itemRep.delete(item);
     }
 
-    public int getNumberOfOrders(int id) throws UserNotFoundException {
+    public int getNumberOfCustomerOrders(int id) throws UserNotFoundException {
         Customer c = customerRep.findById(id).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
         } else return c.getOrders().size();
     }
 
+    public int getNumberOfOrders() {
+        return (int) orderRep.count();
+    }
+
+    public boolean payOrder(int orderId) throws OrderNotFoundException, OrderAlreadyPayedException {
+        Order order = orderRep.findById(orderId).orElse(null);
+        if (order == null) throw new OrderNotFoundException("Order not found");
+        if (order.getState() != OrderState.PENDING) throw new OrderAlreadyPayedException("Order already payed");
+        order.setState(OrderState.READY);
+        orderRep.save(order);
+        return true;
+    }
 }
