@@ -3,7 +3,6 @@ package com.example.backend.database;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
-import com.example.backend.services.InfoService;
 import com.example.backend.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +44,9 @@ public class DBService{
 
     @Autowired
     private SocialNetworkRep socialNetworkRep;
+
+    @Autowired
+    private OrderRep orderRep;
 
     public void addUsers() {
         List<User> users = new ArrayList<>();
@@ -553,13 +555,13 @@ public class DBService{
         customerRep.saveAll(customersWithFavourites);
     }
 
-    /*public void addOrders() {
+   /* public void addMoreOrders() {
         List<Customer> customers = customerRep.findAll();
         List<Order> orders = new ArrayList<>();
 
         Random random = new Random();
 
-        for (int i = 1; i <= 50; i++) {
+        for (int i = 1; i <= 100; i++) {
             LocalDate currentDate = LocalDate.now();
             LocalDate orderDate = currentDate.minusDays(i); // Subtracting days to simulate different order dates
 
@@ -576,7 +578,9 @@ public class DBService{
 
             Customer customer = customers.get(random.nextInt(customers.size())); // Randomly select a customer
 
-            Order order = new Order(orderDate, customer.getAddress(), storePickUp, state, customer);
+            Order order;
+            if (storePickUp) order = new Order(orderDate, "Store", storePickUp, state, customer);
+            else order = new Order(orderDate, customer.getAddress(), storePickUp, state, customer);
             orders.add(order);
         }
 
@@ -600,16 +604,14 @@ public class DBService{
     public void addItems() throws Exception {
         List<Product> products = productRep.findAll();
         List<Customer> customers = customerRep.findAll();
-        List<Item> items = new ArrayList<>();
 
         Random random = new Random();
 
         for (Customer customer : customers) {
-            for (int j = 0; j < 3 ;j++){
+            for (int j = 0; j < 5 ;j++){
                 int quantity = random.nextInt(5) + 1; // Random quantity between 1 and 5
                 Product product = products.get(random.nextInt(products.size())); // Randomly select a product
                 Material material = product.getMaterials().get(random.nextInt(product.getMaterials().size())); // Randomly select a material
-                //items.add(new Item(quantity, material, product, customer.getCart()));
                 orderService.addProductToShoppingCart(customer.getiD(), product.getiD(), material.getiD(),quantity);
             }
         }
@@ -629,6 +631,27 @@ public class DBService{
                 orderService.createOrder(c.getiD(), address, storePickUp);
             }
             i++;
+        }
+    }
+
+    public void addMoreOrders() throws Exception {
+        List<Customer> customers = customerRep.findAll();
+        List<Product> products = productRep.findAll();
+
+        Random random = new Random();
+
+        for(int i = 0; i < 2; i++){
+            Customer c = customers.get(random.nextInt(customers.size()));
+            for (int j = 0; j < 30; j++){
+                boolean storePickUp = random.nextBoolean();
+                String address = c.getAddress();
+                Product p = products.get(random.nextInt(products.size()));
+                Material m = p.getMaterials().get(random.nextInt(p.getMaterials().size()));
+                orderService.addProductToShoppingCart(c.getiD(), p.getiD(), m.getiD(), 1);
+                int order_id = orderService.createOrder(c.getiD(), address, storePickUp);
+                if(j % 2 == 0) orderService.setOrderState(order_id, OrderState.READY);
+                else orderService.setOrderState(order_id, OrderState.DONE);
+            }
         }
     }
 

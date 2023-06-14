@@ -88,7 +88,7 @@ public class OrderService {
         return false;
     }
 
-    public void createOrder(int customerId, String address, boolean storePickUp) throws UserNotFoundException {
+    public int createOrder(int customerId, String address, boolean storePickUp) throws UserNotFoundException {
         Customer c = customerRep.findById(customerId).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
@@ -109,6 +109,7 @@ public class OrderService {
         order.setTotal(total);
         order.setItems(orderItems);
         orderRep.save(order);
+        return order.getiD();
     }
 
     public void addProductToShoppingCart(int customerId, int productId, int materialId, int quantity) throws Exception {
@@ -147,5 +148,11 @@ public class OrderService {
         itemRep.delete(item);
     }
 
+    public int getNumberOfOrders(int id) throws UserNotFoundException {
+        Customer c = customerRep.findById(id).orElse(null);
+        if (c == null) {
+            throw new UserNotFoundException("Customer not found");
+        } else return c.getOrders().size();
+    }
 
 }

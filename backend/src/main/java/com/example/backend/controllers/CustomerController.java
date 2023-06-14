@@ -41,25 +41,6 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("{id}/orders")
-    public EnvelopeDTO<OrderSimpleDTO> getOrders(@PathVariable int id, final @RequestBody PaginationDTO paginationDTO) {
-        try {
-            return userService.getOrders(id, paginationDTO.getOffset(), paginationDTO.getNumItems());
-        } catch (UserNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-    @GetMapping("{id}/numberOfOrders")
-    public int getNumberOfOrders(@PathVariable int id) {
-        try {
-            return userService.getNumberOfOrders(id);
-        } catch (UserNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-
     @PostMapping("/edit/{customer_id}")
     public void editCustomer(final @PathVariable int customer_id, final @RequestBody CustomerDTO costumerDTO) {
         try {
