@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -20,9 +18,9 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/customer/orders/{costumerId}")
-    public List<OrderSimpleDTO> getOrders(@PathVariable int costumerId){
+    public EnvelopeDTO<OrderSimpleDTO> getOrders(@PathVariable int costumerId, final @RequestBody PaginationDTO paginationDTO){
         try {
-            return orderService.getOrdersOfCostumer(costumerId);
+            return orderService.getOrdersOfCostumer(costumerId, paginationDTO.getOffset(), paginationDTO.getNumItems());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -38,9 +36,9 @@ public class OrderController {
     }
 
     @GetMapping("/customer/numberOfOrders/{id}")
-    public int getNumberOfOrders(@PathVariable int id) {
+    public int getNumberOfCustomerOrders(@PathVariable int id) {
         try {
-            return orderService.getNumberOfOrders(id);
+            return orderService.getNumberOfCustomerOrders(id);
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -49,6 +47,11 @@ public class OrderController {
     @GetMapping("/admin/orders")
     public EnvelopeDTO<OrderSimpleDTO> getAllOrders(final @RequestBody PaginationDTO paginationDTO){
         return orderService.getAllOrders(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    }
+
+    @GetMapping("/admin/numberOfOrders")
+    public int getNumberOfOrders() {
+        return orderService.getNumberOfOrders();
     }
 
     @PostMapping("/admin/ready/{orderId}")

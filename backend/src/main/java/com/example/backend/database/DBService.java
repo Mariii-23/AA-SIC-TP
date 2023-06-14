@@ -6,7 +6,6 @@ import com.example.backend.dto.CustomerDTO;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import com.example.backend.services.AuthenticateService;
-import com.example.backend.services.InfoService;
 import com.example.backend.services.OrderService;
 import com.example.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ public class DBService{
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserRep userRep;
 
     @Autowired
     private CustomerRep customerRep;
@@ -55,11 +51,8 @@ public class DBService{
     @Autowired
     private SocialNetworkRep socialNetworkRep;
 
-    @Autowired
-    private OrderRep orderRep;
 
     public void addUsers() throws Exception {
-        List<User> users = new ArrayList<>();
 
         authenticateService.register(new CustomerDTO(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson"));
         authenticateService.register(new CustomerDTO(new Date(1992, 1, 9), "246813579C", "789 Oak Road, Villageton", "customer3@example.com", "password3", "Robert Davis"));
@@ -564,50 +557,16 @@ public class DBService{
         customerRep.saveAll(customersWithFavourites);
     }
 
-   /* public void addMoreOrders() {
-        List<Customer> customers = customerRep.findAll();
-        List<Order> orders = new ArrayList<>();
-
-        Random random = new Random();
-
-        for (int i = 1; i <= 100; i++) {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate orderDate = currentDate.minusDays(i); // Subtracting days to simulate different order dates
-
-            boolean storePickUp = i % 2 == 0; // Alternating between store pick-up and delivery
-            OrderState state;
-
-            if (i % 3 == 0) {
-                state = OrderState.READY;
-            } else if (i % 3 == 1) {
-                state = OrderState.DONE;
-            } else {
-                state = OrderState.PENDING;
-            }
-
-            Customer customer = customers.get(random.nextInt(customers.size())); // Randomly select a customer
-
-            Order order;
-            if (storePickUp) order = new Order(orderDate, "Store", storePickUp, state, customer);
-            else order = new Order(orderDate, customer.getAddress(), storePickUp, state, customer);
-            orders.add(order);
-        }
-
-        orderRep.saveAll(orders);
-    }*/
-
     public void addImages() {
         List<Product> products = productRep.findAll();
         List<Image> images = new ArrayList<>();
 
-        Random random = new Random();
 
         int i = 1;
         for(Product p : products) {
             String imageName = "image" + i + "Bytes";
             images.add(new Image(imageName.getBytes(), p));
             i++;
-
         }
 
         imageRep.saveAll(images);

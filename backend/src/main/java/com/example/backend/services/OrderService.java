@@ -42,18 +42,19 @@ public class OrderService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public List<OrderSimpleDTO> getOrdersOfCostumer(int costumerId) throws UserNotFoundException {
+    public EnvelopeDTO<OrderSimpleDTO> getOrdersOfCostumer(int costumerId, int offset, int numItems) throws UserNotFoundException {
         List<Order> orders;
         try {
-            orders = orderRep.findByCustomer_iD(costumerId);
+            orders = orderRep.findCustomerOrdersPagination(costumerId, offset, numItems);
         } catch (Exception e) {
             throw new UserNotFoundException("Customer not found");
         }
-        List<OrderSimpleDTO> result = new ArrayList<>();
+        List<OrderSimpleDTO> list = new ArrayList<>();
         orders.forEach(order -> {
-            result.add(new OrderSimpleDTO(order));
+            list.add(new OrderSimpleDTO(order));
         });
-        return result;
+        boolean isLast = (offset + numItems) >= getNumberOfCustomerOrders(costumerId);
+        return new EnvelopeDTO<>(isLast, list);
     }
 
     public EnvelopeDTO<OrderSimpleDTO> getAllOrders(int offset, int numItems){
@@ -62,7 +63,7 @@ public class OrderService {
         orders.forEach(order -> {
             list.add(new OrderSimpleDTO(order));
         });
-        boolean isLast = (offset + numItems) < orderRep.count();
+        boolean isLast = (offset + numItems) >= orderRep.count();
         return new EnvelopeDTO<>(isLast, list);
     }
 
@@ -150,11 +151,14 @@ public class OrderService {
         itemRep.delete(item);
     }
 
-    public int getNumberOfOrders(int id) throws UserNotFoundException {
+    public int getNumberOfCustomerOrders(int id) throws UserNotFoundException {
         Customer c = customerRep.findById(id).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
         } else return c.getOrders().size();
     }
 
+    public int getNumberOfOrders() {
+        return (int) orderRep.count();
+    }
 }
