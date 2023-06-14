@@ -14,5 +14,10 @@ public interface OrderRep extends JpaRepository<Order, Integer> {
             "WHERE customer_id = ?1 " +
             "ORDER BY id ASC " +
             "LIMIT ?3 OFFSET ?2", nativeQuery = true)
-    List<Order> findOrdersPagination(int id, int offset, int numitems);
+    List<Order> findCustomerOrdersPagination(int id, int offset, int numitems);
+
+    @Query(value = "SELECT * FROM _order " +
+            "ORDER BY id ASC " +
+            "LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Order> findOrdersPagination(int offset, int numitems);
 }

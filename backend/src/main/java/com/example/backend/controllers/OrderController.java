@@ -47,8 +47,8 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders")
-    public List<OrderSimpleDTO> getAllOrders(){
-        return orderService.getAllOrders();
+    public EnvelopeDTO<OrderSimpleDTO> getAllOrders(final @RequestBody PaginationDTO paginationDTO){
+        return orderService.getAllOrders(paginationDTO.getOffset(), paginationDTO.getNumItems());
     }
 
     @PostMapping("/admin/ready/{orderId}")
