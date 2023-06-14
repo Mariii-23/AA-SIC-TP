@@ -1,18 +1,19 @@
 <template>
-    <v-carousel show-arrows="hover">
-  <v-carousel-item
-    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    cover
-  />
-
-  <v-carousel-item
-    src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
-    cover
-  />
-
-  <v-carousel-item
-    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-    cover
-  />
-</v-carousel>
+  <v-carousel show-arrows="hover">
+    <v-carousel-item
+      v-for="(image,i) in images"
+      :key="i"
+      :src="image"
+      cover
+    />
+  </v-carousel>
 </template>
+<script lang="ts">
+import { ProductImages} from "@/appTypes/Product";
+
+export default {
+    props: {
+        images: Object as () => ProductImages,
+    },
+  }
+</script>

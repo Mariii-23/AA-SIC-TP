@@ -80,24 +80,5 @@ const toggleTheme = () => {
 </script>
 
 <style scoped>
-.products {
-  margin: 10%;
-  gap: 50px;
-}
 
-.custom-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.rotate-arrow {
-  transition: transform 0.3s;
-  transform: rotate(180deg);
-}
-
-.custom-text {
-  margin-top: 10px;
-}
 </style>

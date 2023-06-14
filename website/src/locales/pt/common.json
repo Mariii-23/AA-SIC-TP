@@ -64,6 +64,10 @@
     "buy-now": "Comprar agora",
     "add-cart": "Adicionar ao carrinho",
     "related-products": "Produtos relacionados",
+    "remove-product": "Remover produto",
+    "modal-remove-product": "Tem a certeza que quer remover o produto",
+
 
     "rm-admin-text": "Têm a certeza que pretende remover o Administrador?"
+
 }
