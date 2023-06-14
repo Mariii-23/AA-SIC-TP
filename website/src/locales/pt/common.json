@@ -57,7 +57,8 @@
     "admins": "Administradores",
     "company": "Empresa",
     "profile": "Perfil",
-
+    "rm-admin-text": "Têm a certeza que pretende remover o Administrador?",
+    "cancel": "Cancelar",
 
     "product-details": "Detalhes do produto",
     "tech-info": "Informação técnica",
@@ -65,9 +66,5 @@
     "add-cart": "Adicionar ao carrinho",
     "related-products": "Produtos relacionados",
     "remove-product": "Remover produto",
-    "modal-remove-product": "Tem a certeza que quer remover o produto",
-
-
-    "rm-admin-text": "Têm a certeza que pretende remover o Administrador?"
-
+    "modal-remove-product": "Tem a certeza que quer remover o produto"
 }

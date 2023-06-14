@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import BodyText from "@/components/atoms/Typography/BodyText.vue";
-import CancelConfirmButton from "@/components/molecules/CancelConfirmButton.vue";
+import CancelConfirmButton from "@/components/molecules/CancelConfirmButtons.vue";
 import Modal from "@/components/organisms/Modal.vue";
 
 export default {

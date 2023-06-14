@@ -79,7 +79,7 @@
 
   //TODO:
   const deleteProductHandler = (productId: string) => {
-    console.log("remove product " + productId);
+    console.log("delete product " + productId);
   };
 
   //ESTES TRÊS FAZEM O MESMO?

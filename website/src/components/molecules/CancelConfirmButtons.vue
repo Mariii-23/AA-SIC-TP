@@ -14,7 +14,7 @@ import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import SecondaryButton from "@/components/atoms/Button/SecondaryButton.vue";
 
 export default {
-  name: "RemoveAdminModal",
+  name: "CancelConfirmButtons",
   props: {
     cancelHandler: {
       type: Function,

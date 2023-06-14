@@ -12,7 +12,7 @@
                 :product="productDesc"
                 :materials="materials"
                 :addMaterialHandler="addMaterialHandler"
-                :deleteProductHandler="() => deleteProductHandler && deleteProductHandler(productDesc.id)"
+                :deleteProductHandler="openModal"
                 :editProductDescHandler="() => editProductDescHandler && editProductDescHandler(productDesc.id)"
             />
         </div>
@@ -26,16 +26,13 @@
         :deleteProductHandler="deleteProductHandler"/>
     </div>
 
-    <Modal 
-        :isOpen="true" 
-    >
-        <template v-slot:body-modal>
-            <BodyText>{{ $t("modal-remove-product") }} {{ productDesc.name }}?</BodyText>
-        </template>
-        <template v-slot:actions-modal>
-            
-        </template>
-    </Modal>
+    <RemoveProductModal
+    :product-name="productDesc.name"
+    :close-modal="closeModal"
+    :removeProductHandler="() => deleteProductHandler && deleteProductHandler(productDesc.id)"
+    v-model:isModalOpen="isModalOpen"
+    />
+
 </template>
 
 <script lang="ts">
@@ -43,56 +40,16 @@ import Carousel from "@/components/molecules/Carousel.vue";
 import ProductInfo from "@/components/molecules/ProductInfoAdmin.vue";
 import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
-import BodyText from "@/components/atoms/Typography/BodyText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
 import { ProductInformation, ProductImages, Materials} from "@/appTypes/Product";
-import Modal from "@/components/organisms/Modal.vue";
+import RemoveProductModal from "@/components/organisms/modal/RemoveProductModal.vue";
+
 
 export default {
-    props: {
-        //relatedProducts: Array as () => ProductUserProps[],
-        //productDesc: Object as () => ProductDescriptionUser,
-        productInfo: Object as () => ProductInformation,
-        productImages: Object as () => ProductImages,
-        materials: {
-            type: Array as () => Materials[],
-            require: true,
-        },
-
-        //HANDLERS
-        deleteProductHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductDescHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductInfoHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductHandler: {
-            type: Function,
-            require: true,
-        },
-        addMaterialHandler: {
-            type: Function,
-            require: true,
-        },
-
-    },
-    components: {
-        Carousel,
-        ProductInfo,
-        ProductDesc,
-        HeadingText,
-        RelatedProducts,
-        Modal,
-        BodyText
-    },
+    name:"ProductAdmin",
     data() {
         return {
+            isModalOpen: false,
             productDesc: {
                 name: "Product name",
                 id: "8",
@@ -143,6 +100,55 @@ export default {
                 }
             ]
             }
+    },
+    props: {
+        //relatedProducts: Array as () => ProductUserProps[],
+        //productDesc: Object as () => ProductDescriptionUser,
+        productInfo: Object as () => ProductInformation,
+        productImages: Object as () => ProductImages,
+        materials: {
+            type: Array as () => Materials[],
+            require: true,
+        },
+
+        //HANDLERS
+        deleteProductHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductDescHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductInfoHandler: {
+            type: Function,
+            require: true,
+        },
+        editProductHandler: {
+            type: Function,
+            require: true,
+        },
+        addMaterialHandler: {
+            type: Function,
+            require: true,
+        },
+
+    },
+    methods: {
+        openModal() {
+          this.isModalOpen = true;
+        },
+        closeModal() {
+          this.isModalOpen = false;
+        },
+    },
+    components: {
+        Carousel,
+        ProductInfo,
+        ProductDesc,
+        HeadingText,
+        RelatedProducts,
+        RemoveProductModal
     }
 };
 </script>
