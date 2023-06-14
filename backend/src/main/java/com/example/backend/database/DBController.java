@@ -4,6 +4,8 @@ import com.example.backend.exception.UserNotFoundException;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/db")
@@ -32,27 +34,47 @@ public class DBController {
 
     @PostMapping("/addMaterials")
     public void addMaterials() {
-        dbService.addMaterials();
+        try {
+            dbService.addMaterials();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addCategories")
     public void addCategories() {
-        dbService.addCategories();
+        try {
+            dbService.addCategories();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addSubcategories")
     public void addSubcategories() {
-        dbService.addSubcategories();
+        try {
+            dbService.addSubcategories();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addProducts")
     public void addProducts() {
-        dbService.addProducts();
+        try {
+            dbService.addProducts();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addImages")
     public void addImages() {
-        dbService.addImages();
+        try {
+            dbService.addImages();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addOrders")

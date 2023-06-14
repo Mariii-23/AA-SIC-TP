@@ -7,13 +7,13 @@ public class ProductDetailedDTO extends ProductSimpleDTO{
     List<MaterialDTO> materials;
     List<TechnicalInfoDTO> technicalInfo;
     List<ReviewDTO> reviews;
-    List<byte[]> images;
+    List<Integer> images;
 
     public ProductDetailedDTO() {
     }
 
     public ProductDetailedDTO(int id, String name, double price, String description, List<MaterialDTO> materials,
-                              List<TechnicalInfoDTO> technicalInfo, List<ReviewDTO> reviews, List<byte[]> images) {
+                              List<TechnicalInfoDTO> technicalInfo, List<ReviewDTO> reviews, List<Integer> images) {
         super(id, name, price);
         this.description = description;
         this.materials = materials;
@@ -45,11 +45,11 @@ public class ProductDetailedDTO extends ProductSimpleDTO{
         this.reviews = reviews;
     }
 
-    public List<byte[]> getImages() {
+    public List<Integer> getImages() {
         return images;
     }
 
-    public void setImages(List<byte[]> images) {
+    public void setImages(List<Integer> images) {
         this.images = images;
     }
 }

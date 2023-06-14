@@ -11,6 +11,9 @@ import com.example.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,92 +104,93 @@ public class DBService{
 
     }
 
-    public void addMaterials() {
+    public void addMaterials() throws IOException {
         List<Material> materials = new ArrayList<>();
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
 
-        materials.add(new Material("Oak Wood", "material".getBytes()));
-        materials.add(new Material("Mahogany", "material".getBytes()));
-        materials.add(new Material("Leather", "material1".getBytes()));
-        materials.add(new Material("Wicker", "material1".getBytes()));
-        materials.add(new Material("Velvet", "material1".getBytes()));
-        materials.add(new Material("Bamboo", "material1".getBytes()));
-        materials.add(new Material("Suede", "material1".getBytes()));
-        materials.add(new Material("Rattan", "material1".getBytes()));
-        materials.add(new Material("Microfiber", "material1".getBytes()));
-        materials.add(new Material("Linen", "material1".getBytes()));
-        materials.add(new Material("Cotton", "material1".getBytes()));
-        materials.add(new Material("Silk", "material1".getBytes()));
-        materials.add(new Material("Acrylic", "material1".getBytes()));
-        materials.add(new Material("Polyester", "material1".getBytes()));
-        materials.add(new Material("Metal", "material1".getBytes()));
-        materials.add(new Material("Glass", "material1".getBytes()));
-        materials.add(new Material("Marble", "material1".getBytes()));
-        materials.add(new Material("Granite", "material1".getBytes()));
-        materials.add(new Material("Cork", "material1".getBytes()));
-        materials.add(new Material("Plastic", "material1".getBytes()));
+        materials.add(new Material("Oak Wood", image1));
+        materials.add(new Material("Mahogany", image1));
+        materials.add(new Material("Leather", image1));
+        materials.add(new Material("Wicker", image1));
+        materials.add(new Material("Velvet", image1));
+        materials.add(new Material("Bamboo", image1));
+        materials.add(new Material("Suede", image1));
+        materials.add(new Material("Rattan", image1));
+        materials.add(new Material("Microfiber", image1));
+        materials.add(new Material("Linen", image1));
+        materials.add(new Material("Cotton", image1));
+        materials.add(new Material("Silk", image1));
+        materials.add(new Material("Acrylic", image1));
+        materials.add(new Material("Polyester", image1));
+        materials.add(new Material("Metal", image1));
+        materials.add(new Material("Glass", image1));
+        materials.add(new Material("Marble", image1));
+        materials.add(new Material("Granite", image1));
+        materials.add(new Material("Cork", image1));
+        materials.add(new Material("Plastic", image1));
 
         materialRep.saveAll(materials);
     }
 
-    public void addCategories() {
+    public void addCategories() throws IOException {
         List<Category> categories = new ArrayList<>();
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
+        byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
-        categories.add(new Category("Living Room", "livingRoomImageBytes".getBytes()));
-        categories.add(new Category("Bedroom", "bedroomImageBytes".getBytes()));
-        categories.add(new Category("Dining Room", "diningRoomImageBytes".getBytes()));
-        categories.add(new Category("Office", "officeImageBytes".getBytes()));
-        categories.add(new Category("Outdoor", "outdoorImageBytes".getBytes()));
-        categories.add(new Category("Kitchen", "kitchenImageBytes".getBytes()));
-        categories.add(new Category("Bathroom", "bathroomImageBytes".getBytes()));
-        categories.add(new Category("Kids", "kidsImageBytes".getBytes()));
-        categories.add(new Category("Entertainment", "entertainmentImageBytes".getBytes()));
-        categories.add(new Category("Storage", "storageImageBytes".getBytes()));
-        categories.add(new Category("Accent", "accentImageBytes".getBytes()));
-        categories.add(new Category("Workspace", "workspaceImageBytes".getBytes()));
-        categories.add(new Category("Entryway", "entrywayImageBytes".getBytes()));
-        categories.add(new Category("Garden", "gardenImageBytes".getBytes()));
-        categories.add(new Category("Nursery", "nurseryImageBytes".getBytes()));
-        categories.add(new Category("Patio", "patioImageBytes".getBytes()));
-        categories.add(new Category("Bar", "barImageBytes".getBytes()));
-        categories.add(new Category("Library", "libraryImageBytes".getBytes()));
-        categories.add(new Category("Playroom", "playroomImageBytes".getBytes()));
-        categories.add(new Category("Gym", "gymImageBytes".getBytes()));
+
+        categories.add(new Category("Living Room", image1));
+        categories.add(new Category("Bedroom", image1));
+        categories.add(new Category("Dining Room", image1));
+        categories.add(new Category("Office",image1));
+        categories.add(new Category("Outdoor", image1));
+        categories.add(new Category("Kitchen", image1));
+        categories.add(new Category("Bathroom", image2));
+        categories.add(new Category("Kids", image2));
+        categories.add(new Category("Entertainment", image2));
+        categories.add(new Category("Storage", image2));
+        categories.add(new Category("Accent", image2));
+        categories.add(new Category("Workspace", image2));
+        categories.add(new Category("Entryway", image2));
+        categories.add(new Category("Garden", image2));
+        categories.add(new Category("Nursery", image3));
+        categories.add(new Category("Patio", image3));
+        categories.add(new Category("Bar", image3));
+        categories.add(new Category("Library", image3));
+        categories.add(new Category("Playroom", image3));
+        categories.add(new Category("Gym", image3));
 
         categoryRep.saveAll(categories);
 
     }
 
-    public void addSubcategories() {
+    public void addSubcategories() throws IOException {
         List<Category> categories = categoryRep.findAll();
         int size = categories.size();
         List<SubCategory> subCategories = new ArrayList<>();
         Random random = new Random();
 
-        subCategories.add(new SubCategory("Sofas", "sofasImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Beds", "bedsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Dining Tables", "diningTablesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Desks", "desksImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Outdoor Sets", "outdoorSetsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Cabinets", "cabinetsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Toilets", "toiletsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Kids Beds", "kidsBedsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("TV Stands", "tvStandsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bookcases", "bookcasesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Chairs", "chairsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Mattresses", "mattressesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bar Tables", "barTablesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Office Chairs", "officeChairsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Outdoor Chairs", "outdoorChairsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Shelves", "shelvesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bathroom Vanities", "bathroomVanitiesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Kids Desks", "kidsDesksImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Media Cabinets", "mediaCabinetsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Storage Benches", "storageBenchesImageBytes".getBytes(), categories.get(random.nextInt(size))));
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
+        byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
+
+        subCategories.add(new SubCategory("Sofas", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Beds", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Dining Tables", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Desks", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Outdoor Sets", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Cabinets", image2, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Toilets", image2, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Kids Beds", image2, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Chairs", image3, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Tables", image3, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Bookcases", image3, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Office Chairs", image3, categories.get(random.nextInt(size))));
 
         subCategoryRep.saveAll(subCategories);
     }
 
-    public void addProducts() {
+    public void addProducts() throws IOException {
         List<Material> materials = materialRep.findAll();
         List<SubCategory> subCategories = subCategoryRep.findAll();
         List<Product> products = new ArrayList<>();
@@ -199,7 +203,7 @@ public class DBService{
         SubCategory s1 = subCategories.get(random.nextInt(0,subcategories_size));
         List<Material> m1 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m1.add(materials.get(random.nextInt(0,materials_size)));
-        products.add(new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", materials.subList(0, 2), s1.getCategory(), s1));
+        products.add((new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", materials.subList(0, 2), s1.getCategory(), s1)));
 
         SubCategory s2 = subCategories.get(random.nextInt(subCategories.size()));
         List<Material> m2 = new ArrayList<>();
@@ -557,15 +561,24 @@ public class DBService{
         customerRep.saveAll(customersWithFavourites);
     }
 
-    public void addImages() {
+    public void addImages() throws IOException {
         List<Product> products = productRep.findAll();
         List<Image> images = new ArrayList<>();
+
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
+        byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
 
         int i = 1;
         for(Product p : products) {
-            String imageName = "image" + i + "Bytes";
-            images.add(new Image(imageName.getBytes(), p));
+            if (i % 3 == 0) {
+                images.add(new Image(image1, p));
+            } else if (i % 3 == 1) {
+                images.add(new Image(image2, p));
+            } else {
+                images.add(new Image(image3, p));
+            }
             i++;
         }
 

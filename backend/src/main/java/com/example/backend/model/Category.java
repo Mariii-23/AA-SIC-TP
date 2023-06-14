@@ -16,6 +16,7 @@ public class Category {
 	private String name;
 
 	@Lob
+	@Column(length = 20971520)
 	private byte[] image;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<SubCategory> subCategories = new ArrayList<SubCategory>();
