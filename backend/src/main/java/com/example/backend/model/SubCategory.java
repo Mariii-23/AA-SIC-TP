@@ -11,6 +11,8 @@ public class SubCategory {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int iD;
     private String name;
+    @Lob
+    @Column(length = 20971520)
     private byte[] image;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

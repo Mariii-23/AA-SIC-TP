@@ -3,15 +3,13 @@ package com.example.backend.dto;
 public class MaterialDTO {
     private int id;
     private String name;
-    private byte[] image;
 
     public MaterialDTO() {
     }
 
-    public MaterialDTO(int id, String name, byte[] image) {
+    public MaterialDTO(int id, String name) {
         this.id = id;
         this.name = name;
-        this.image = image;
     }
 
     public int getId() {
@@ -30,11 +28,4 @@ public class MaterialDTO {
         this.name = name;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 }

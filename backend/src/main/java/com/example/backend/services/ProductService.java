@@ -99,7 +99,7 @@ public class ProductService {
         categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         List<Product> products = productRep.findByCategoryPagination(categoryId, offset, numItems);
         List<ProductSimpleDTO> list = products.stream()
-                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getImage()))
+                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getiD()))
                 .toList();
         boolean isLast = (offset + numItems) >= getNumberOfProductsByCategory(categoryId);
         return new EnvelopeDTO<>(isLast,list);
@@ -109,7 +109,7 @@ public class ProductService {
         subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
         List<Product> products = productRep.findBySubcategoryPagination(subCategoryId, offset, numItems);
         List<ProductSimpleDTO> list = products.stream()
-                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getImage()))
+                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getiD()))
                 .toList();
         boolean isLast = (offset + numItems) >= getNumberOfProductsBySubCategory(subCategoryId);
         return new EnvelopeDTO<>(isLast,list);
@@ -121,10 +121,10 @@ public class ProductService {
                 product.getName(),
                 product.getPrice(),
                 product.getDescription(),
-                product.getMaterials().stream().map(material -> new MaterialDTO(material.getID(), material.getName(), material.getImage())).toList(),
+                product.getMaterials().stream().map(material -> new MaterialDTO(material.getID(), material.getName())).toList(),
                 product.getInfos().stream().map(info -> new TechnicalInfoDTO(info.getName(), info.getDescription())).toList(),
                 product.getReviews().stream().map(review -> new ReviewDTO(review.getClassification(), review.getComment(), review.getAuthor().getName())).toList(),
-                product.getImages().stream().map(Image::getImage).toList());
+                product.getImages().stream().map(Image::getiD).toList());
     }
 
     public EnvelopeDTO<CategoryDTO> getAllCategories(int offset, int numItems){
@@ -132,9 +132,8 @@ public class ProductService {
         List<CategoryDTO> list = categories.stream()
                 .map(category -> new CategoryDTO(category.getiD(),
                         category.getName(),
-                        category.getImage(),
                         category.getSubCategories().stream()
-                        .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName(), subCategory.getImage())).toList()))
+                        .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName())).toList()))
                 .toList();
         boolean isLast = (offset + numItems) >= getNumberOfCategories();
         return new EnvelopeDTO<>(isLast,list);
@@ -276,5 +275,27 @@ public class ProductService {
 
     public int getNumberOfCategories() {
         return (int) categoryRep.count();
+    }
+
+    public byte[] getProductImage(int productId, int itemId) throws Exception {
+        Image image = imageRep.findById(itemId).orElseThrow(() -> new Exception("Image not found"));
+        if (image.getProduct().getiD() == productId) return image.getImage();
+        else throw new Exception("Image not found");
+
+    }
+
+    public byte[] getCategoryImage(int categoryId) throws Exception {
+        Category category = categoryRep.findById(categoryId).orElseThrow(() -> new Exception("Category not found"));
+        return category.getImage();
+    }
+
+    public byte[] getSubCategoryImage(int subCategoryId) throws Exception {
+        SubCategory subCategory = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new Exception("SubCategory not found"));
+        return subCategory.getImage();
+    }
+
+    public byte[] getMaterialImage(int materialId) throws Exception {
+        Material material = materialRep.findById(materialId).orElseThrow(() -> new Exception("Material not found"));
+        return material.getImage();
     }
 }
