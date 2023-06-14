@@ -8,6 +8,9 @@ public class AdminDTO extends UserDTO {
         super();
     }
 
+    public AdminDTO(String email, String password, String name) {
+        super(email, password, name);
+    }
     public AdminDTO(Admin admin){
         super(admin);
     }

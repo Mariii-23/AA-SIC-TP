@@ -16,7 +16,7 @@ public class InfoController {
     @Resource(name = "infoService")
     private InfoService infoService;
 
-    @GetMapping("/companyInfo/get")
+    @GetMapping("all/companyInfo/get")
     public CompanyDTO getCompanyInfo() {
         return infoService.getCompany();
     }

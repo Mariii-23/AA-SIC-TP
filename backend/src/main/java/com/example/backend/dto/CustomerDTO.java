@@ -1,6 +1,7 @@
 package com.example.backend.dto;
 
 import com.example.backend.model.Customer;
+import com.example.backend.model.ShoppingCart;
 
 import java.util.Date;
 
@@ -14,6 +15,13 @@ public class CustomerDTO extends UserDTO{
     }
 
     public CustomerDTO(Date birthday, String nif, String address) {
+        this.birthday = birthday;
+        this.nif = nif;
+        this.address = address;
+    }
+
+    public CustomerDTO(Date birthday, String nif, String address, String email, String password, String name) {
+        super(email, password, name);
         this.birthday = birthday;
         this.nif = nif;
         this.address = address;
