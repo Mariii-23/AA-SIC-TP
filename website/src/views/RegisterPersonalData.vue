@@ -21,8 +21,16 @@
                   single-line
                 />
                 <v-text-field
+                  v-model="postalCode"
+                  :label="$t('postal-code')"
+                  type="input"
+                  :placeholder="$t('postal-code')"
+                  required
+                  bg-color="primary"
+                  single-line
+                />
+                <v-text-field
                   v-model="nif"
-                  name="password"
                   :label="$t('nif')"
                   type="input"
                   :placeholder="$t('nif')"
@@ -117,6 +125,7 @@ export default {
       address: "",
       nif: "",
       dob: null,
+      postalCode: ""
     };
   },
   methods: {

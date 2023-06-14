@@ -2,7 +2,9 @@
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('allClients')" :items="items" />
+        <TitleCardLinksButton :title="$t('allClients')" :items="items"
+        :button-text="$t('addAdmin')"
+          :button-handler="addAdminHandler" />
       </template>
       <template v-slot:second>
         <HeadingText>{{ $t("clients") }}</HeadingText>
@@ -48,7 +50,6 @@ export default {
 
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
-      { href: "/admin/company", icon: "brightness-1", text: "company" },
       { href: "/admin", icon: "brightness-1", text: "admins" },
       { href: "/admin/client", icon: "bullseye", text: "clients" },
     ];
@@ -58,6 +59,9 @@ export default {
     viewDetailsHandler(id: number) {
       this.$router.push("/admin/client/" + id);
       console.log(id);
+    },
+    addAdminHandler() {
+      this.$router.push("/addAdmin/");
     },
   },
   components: {

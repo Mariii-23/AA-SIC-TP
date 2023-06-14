@@ -82,7 +82,22 @@ const routes = [
         path: "admin/:id",
         name: "Admin info",
         component: () => import("@/views/Admin/Admin.vue"),
+      }, 
+      {
+        path: "admin/profile",
+        name: "Admin profile",
+        component: () => import("@/views/Admin/AdminProfile.vue"),
       },
+      {
+        path: "materials",
+        name: "Materials",
+        component: () => import("@/views/Admin/StoreMaterials.vue"),
+      },
+      {
+        path: "company",
+        name: "Company",
+        component: () => import("@/views/Admin/Company.vue"),
+      }
     ],
   },
 ];

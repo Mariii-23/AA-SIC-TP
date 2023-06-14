@@ -2,10 +2,12 @@
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('addAdmin')" :items="items" />
+        <TitleCardLinksButton :title="$t('allUsers')" :items="items"
+        :button-text="$t('addAdmin')"
+          :button-handler="addAdminHandler" />
       </template>
       <template v-slot:second>
-        <TitleGoBack :title="$t('admins')" :items="items" />
+        <TitleGoBack :title="$t('addAdmin')" :items="items" />
         <AddAdminForm :register-admin="addAdminHandler" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
@@ -28,7 +30,6 @@ export default {
   mounted: function () {
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
-      { href: "/admin/company", icon: "brightness-1", text: "company" },
       { href: "/admin", icon: "bullseye", text: "admins" },
       { href: "/admin/client", icon: "brightness-1", text: "clients" },
     ];

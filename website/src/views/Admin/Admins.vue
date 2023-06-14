@@ -3,7 +3,7 @@
     <TwoColumnsPanel>
       <template v-slot:first>
         <TitleCardLinksButton
-          :title="$t('allAdmins')"
+          :title="$t('allUsers')"
           :items="items"
           :button-text="$t('addAdmin')"
           :button-handler="addAdminHandler"
@@ -53,7 +53,6 @@ export default {
 
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
-      { href: "/admin/company", icon: "brightness-1", text: "company" },
       { href: "/admin", icon: "bullseye", text: "admins" },
       { href: "/admin/client", icon: "brightness-1", text: "clients" },
     ];

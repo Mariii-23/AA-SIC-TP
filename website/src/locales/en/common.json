@@ -39,7 +39,10 @@
     "name": "Name",
     "email": "Email",
     "user": "User",
+    "postal-code": "Postal code",
+    "phoneNo": "Phone number",
 
+    
     "search": "Search",
     "orders": "Orders",
 
@@ -56,9 +59,11 @@
     "client": "Client",
     "admins": "Admins",
     "company": "Company",
-    "profile": "Profile",
+    "profile": "My profile",
     "rm-admin-text": "Are you sure you want to remove the user?",
     "cancel": "Cancel",
+    "edit-profile": "Edit profile",
+    "edit-company-info": "Edit company information",
     
     "product-details": "Product Details",
     "tech-info": "Technical Information",
@@ -66,5 +71,10 @@
     "add-cart": "Add to Cart",
     "related-products": "Related products",
     "remove-product": "Remove product",
-    "modal-remove-product": "Are you sure you want to remove the product"
+    "modal-remove-product": "Are you sure you want to remove the product",
+
+    "store": "Store",
+    "categories": "Categories",
+    "materials": "Materials",
+    "edit-materials": "Edit Materials"
 }

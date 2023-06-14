@@ -39,6 +39,8 @@
     "name": "Nome",
     "email": "Email",
     "user": "Utilizador",
+    "postal-code": "Código postal",
+    "phoneNo": "Número de telemóvel",
 
     "search": "Pesquisar",
     "orders": "Encomendas",
@@ -49,16 +51,18 @@
     "addAdmin": "Adicionar Administrador",
     "removeAdmin": "Remover Administrador",
     "admin": "Administrador",
-    "allUsers": "Todos os Utilizadores",
+    "allUsers": "Todos os utilizadores",
     "allClients": "Todos os Clientes",
     "client": "Cliente",
     "allAdmins": "Todos os Administradores",
     "clients": "Clientes",
     "admins": "Administradores",
     "company": "Empresa",
-    "profile": "Perfil",
+    "profile": "O meu perfil",
     "rm-admin-text": "Têm a certeza que pretende remover o Administrador?",
     "cancel": "Cancelar",
+    "edit-profile": "Editar perfil",
+    "edit-company-info": "Editar informação da empresa",
 
     "product-details": "Detalhes do produto",
     "tech-info": "Informação técnica",
@@ -66,5 +70,10 @@
     "add-cart": "Adicionar ao carrinho",
     "related-products": "Produtos relacionados",
     "remove-product": "Remover produto",
-    "modal-remove-product": "Tem a certeza que quer remover o produto"
+    "modal-remove-product": "Tem a certeza que quer remover o produto",
+
+    "store": "Loja",
+    "categories": "Categorias",
+    "materials": "Materiais",
+    "edit-materials": "Editar Materiais"
 }
