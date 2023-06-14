@@ -180,10 +180,19 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all/subcategory/{subCategoryId}")
-    public List<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId) {
+    @GetMapping("/subcategory/numberOfProducts/{subCategoryId}")
+    public int getNumberOfProductsBySubCategory(final @PathVariable int subCategoryId) {
         try {
-            return productService.getProductsBySubCategory(subCategoryId);
+            return productService.getNumberOfProductsBySubCategory(subCategoryId);
+        } catch (SubCategoryNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("all/subcategory/{subCategoryId}")
+    public EnvelopeDTO<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId, @RequestBody PaginationDTO paginationDTO) {
+        try {
+            return productService.getProductsBySubCategory(subCategoryId, paginationDTO.getOffset(), paginationDTO.getNumItems());
         } catch (SubCategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

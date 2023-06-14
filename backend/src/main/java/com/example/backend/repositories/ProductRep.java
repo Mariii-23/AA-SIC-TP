@@ -22,4 +22,9 @@ public interface ProductRep extends JpaRepository<Product, Integer> {
             "ORDER BY id ASC" +
             " LIMIT ?3 OFFSET ?2", nativeQuery = true)
     List<Product> findByCategoryPagination(int categoryId, int offset, int numItems);
+
+    @Query(value = "SELECT * FROM product WHERE subcategory_id=?1 " +
+            "ORDER BY id ASC" +
+            " LIMIT ?3 OFFSET ?2", nativeQuery = true)
+    List<Product> findBySubcategoryPagination(int subCategoryId, int offset, int numItems);
 }
