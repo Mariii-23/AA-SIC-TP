@@ -60,7 +60,7 @@ public class AuthenticateService {
             } catch (Exception e) {
                 throw e;
             }
-            return new AuthenticationResponse(token,customer.getEmail(),customer.getName(),customer.getiD());
+            return new AuthenticationResponse(token,customer.getEmail(),customer.getName(),customer.getiD(),customer.getRole().toString());
         } else {
             throw new Exception("Email not valid");
         }
@@ -79,7 +79,7 @@ public class AuthenticateService {
         Token tokenObj = new Token(token, user);
         userRep.save(user);
         tokenRep.save(tokenObj);
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(token,user.getEmail(),user.getName(),user.getiD(),user.getRole().toString());
     }
 
     public boolean logout(String token) throws Exception {

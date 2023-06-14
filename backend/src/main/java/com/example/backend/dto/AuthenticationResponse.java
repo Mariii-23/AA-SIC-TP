@@ -9,6 +9,8 @@ public class AuthenticationResponse {
 
     private Integer iD;
 
+    private String role;
+
     public AuthenticationResponse() {
     }
 
@@ -16,11 +18,12 @@ public class AuthenticationResponse {
         this.token = token;
     }
 
-    public AuthenticationResponse(String token, String email, String name, int iD) {
+    public AuthenticationResponse(String token, String email, String name, int iD, String role) {
         this.token = token;
         this.email = email;
         this.name = name;
         this.iD = iD;
+        this.role = role;
     }
 
     public String getToken() {
@@ -53,5 +56,13 @@ public class AuthenticationResponse {
 
     public void setiD(int iD) {
         this.iD = iD;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
