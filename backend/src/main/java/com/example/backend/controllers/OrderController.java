@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.Exception.ItemNotFoundException;
+import com.example.backend.Exception.OrderAlreadyPayedException;
 import com.example.backend.Exception.OrderNotFoundException;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.*;
@@ -111,6 +112,13 @@ public class OrderController {
         }
     }
 
-
+    @PostMapping("/payment/{orderId}")
+    public boolean payOrder(@PathVariable int orderId){
+        try {
+            return orderService.payOrder(orderId);
+        } catch (OrderNotFoundException | OrderAlreadyPayedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 
 }

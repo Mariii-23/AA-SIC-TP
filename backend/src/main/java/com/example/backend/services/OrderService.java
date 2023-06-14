@@ -1,6 +1,7 @@
 package com.example.backend.services;
 
 import com.example.backend.Exception.ItemNotFoundException;
+import com.example.backend.Exception.OrderAlreadyPayedException;
 import com.example.backend.Exception.OrderNotFoundException;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.dto.EnvelopeDTO;
@@ -160,5 +161,14 @@ public class OrderService {
 
     public int getNumberOfOrders() {
         return (int) orderRep.count();
+    }
+
+    public boolean payOrder(int orderId) throws OrderNotFoundException, OrderAlreadyPayedException {
+        Order order = orderRep.findById(orderId).orElse(null);
+        if (order == null) throw new OrderNotFoundException("Order not found");
+        if (order.getState() != OrderState.PENDING) throw new OrderAlreadyPayedException("Order already payed");
+        order.setState(OrderState.READY);
+        orderRep.save(order);
+        return true;
     }
 }
