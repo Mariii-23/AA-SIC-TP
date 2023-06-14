@@ -5,17 +5,25 @@ const url = "/api/v1/auth";
 
 const login = async (email: string, password: string) => {
   try {
-    const req = await app.config.globalProperties.$axios.post(`${url}/login`, {
+    const axios = app.config.globalProperties.$axios;
+    const req = await axios.post(`${url}/login`, {
       email,
       password,
     });
 
+    const token = req.data.token;
+
+    //axios.defaults.headers.common["Authorization"] = token
+    //  ? `Bearer ${token}`
+    //  : "";
+
+    axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
+
     return {
       success: true,
-      data: req.data ,
+      data: req.data,
     };
   } catch (error) {
-    console.log(error)
     return {
       success: false,
       data: "forbidden",
@@ -37,7 +45,7 @@ const authentication: Authentication = {
     return await login(username, password);
   },
   logout: () => {
-    // app.config.globalProperties.$axios.updateToken("");
+    //TODO: Remover token
   },
   //   register: async (username: string, password: string) => {
   //     await register(username, password);

@@ -26,7 +26,7 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 2%;
+  gap: 10px;
 }
 
 @media (max-width: 800px) {

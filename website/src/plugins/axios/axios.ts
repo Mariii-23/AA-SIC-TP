@@ -10,13 +10,6 @@ interface AxiosOptions {
 
 let axiosInstance: AxiosInstance;
 
-// Função para atualizar o token no axios
-export const updateToken = (token: string) => {
-  axiosInstance.defaults.headers.common["Authorization"] = token
-    ? `Bearer ${token}`
-    : "";
-};
-
 export default {
   install: (app: App, options: AxiosOptions) => {
     axiosInstance = axios.create({
@@ -28,7 +21,6 @@ export default {
 
     app.config.globalProperties.$axios = axiosInstance;
   },
-
   authentication,
   admins,
 };
