@@ -102,6 +102,11 @@ const routes = [
         path: "company/edit",
         name: "CompanyEdit",
         component: () => import("@/views/Admin/EditCompany.vue"),
+      },
+      {
+        path: "categories",
+        name: "Categories",
+        component: () => import("@/views/Admin/StoreCategories.vue"),
       }
     ],
   },

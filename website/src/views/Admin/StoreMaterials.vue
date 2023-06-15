@@ -1,15 +1,20 @@
 <template>
-  <EditMaterialModal :materialName="material" :isModalOpen="isModalEditOpen" :closeModal="closeModal" />
-  <RemoveMaterialModal/>
+  <ConfirmationModal
+    :title="$t('rmv-material')"
+    :text="$t('rmv-material-text') + ' ' + material + '? '"
+    :confirmHandler="removeMaterialHandler"
+    :closeModal="closeModal"
+    :isModalOpen="isModalOpen"
+  />
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
         <TitleCardLinksButton :title="$t('store')" :items="items" />
       </template>
       <template v-slot:second>
-        <TitleWithButton :title="$t('materials')" :buttonText="$t('edit-materials')"
-          :buttonHandler="editMaterialsHandler" />
-        <MaterialsTable :materials="materials" :editItem="editMaterialHandler" />
+        <TitleWithButton :title="$t('materials')" :buttonText="$t('add-material')"
+          :buttonHandler="addMaterialHandler" />
+        <ItemsTable :items="materials" :editItem="editMaterialHandler" :deleteItem="openModal" />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -21,17 +26,17 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Materials } from "@/appTypes/Product";
-import MaterialsTable from "@/components/organisms/Table/MaterialsTable.vue";
+import ItemsTable from "@/components/organisms/Table/ItemsTable.vue";
 import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
-import RemoveMaterialModal from "@/components/organisms/Modal/RemoveMaterialModal.vue";
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
   name: "Materials",
   data: () => ({
     items: Array as () => LinkProps[],
-    isModalEditOpen: false,
+    isModalOpen: false,
     materials: Array as () => Materials[],
-    material: String
+    material: ""
   }),
   mounted: function () {
     this.items = [
@@ -60,28 +65,33 @@ export default {
   },
   //TODO: ir buscar os direitos
   methods: {
-    editMaterialsHandler() {
-      console.log("edit materials")
+    addMaterialHandler() {
+      console.log("add material")
     },
-    editMaterialHandler(productname: String) {
-      this.isModalEditOpen = true;
-      this.material = productname;
-    },
-    removeMaterialHandler(productname: String) {
-      this.isModalEditOpen = true;
+    openModal(productname: String) {
+      this.isModalOpen = true;
       this.material = productname;
     },
     closeModal() {
-      this.isModalEditOpen = false;
+      this.isModalOpen = false;
+    },
+    removeMaterialHandler() {
+      console.log("remove material " + this.material)
+    },
+    saveChangesHandler(productname: String) {
+      console.log("save changes " + productname)
+    },
+    editMaterialHandler (productname: String) {
+      console.log("edit material " + productname)
     }
   },
   components: {
     TwoColumnsPanel,
     TitleCardLinksButton,
     SimpleBodyLayout,
-    MaterialsTable,
+    ItemsTable,
     TitleWithButton,
-    RemoveMaterialModal
+    ConfirmationModal
   },
 };
 </script>

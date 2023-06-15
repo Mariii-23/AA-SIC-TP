@@ -2,17 +2,17 @@
     <Modal
       :is-open="isModalOpen"
       :close-modal="closeModal"
-      :title="$t('edit-material')"
+      :title="title"
     >
       <template v-slot:body-modal>
         <BodyText>
-          {{ $t("modal-remove-material") }} {{ materialName }}?
+          {{ text }}
         </BodyText>
       </template>
       <template v-slot:actions-modal>
         <CancelConfirmButton
           :cancel-handler="closeModal"
-          :confirm-handler="removeMaterialHandler"
+          :confirm-handler="confirmHandler"
         />
       </template>
     </Modal>
@@ -24,13 +24,17 @@
   import Modal from "./Modal.vue";
   
   export default {
-    name: "EditMaterialModal",
+    name: "ConfirmationModal",
     props: {
-        materialName: {
+        title: {
             type: String,
             required: true,
         },
-      removeMaterialHandler: {
+        text: {
+            type: String,
+            required: true,
+        },
+      confirmHandler: {
         type: Function,
       },
       closeModal: {

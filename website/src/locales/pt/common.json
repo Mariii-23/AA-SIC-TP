@@ -73,8 +73,12 @@
     "modal-remove-product": "Tem a certeza que quer remover o produto",
     "remove-material": "Remover material",
     "modal-remove-material": "Tem a certeza que quer remover o material",
+    "add-material": "Adicionar material",
     "edit-material": "Editar material",
-    
+    "add-category": "Adicionar categoria",
+    "rmv-category": "Remover categoria",
+    "rmv-category-text": "Tem a certeza que quer remover a categoria",
+
     "store": "Loja",
     "categories": "Categorias",
     "materials": "Materiais",

@@ -8,7 +8,7 @@
           <TitleWithButton
               :title="$t('company')"
               :buttonText="$t('edit-company-info')"
-              :buttonHandler="editMaterialsHandler"
+              :buttonHandler="editCompanyHandler"
             />
           <CompanyTable :company="company"/>
 
@@ -59,8 +59,8 @@
     },
     //TODO: ir buscar os direitos
     methods: {
-      editMaterialsHandler() {
-        console.log("edit materials")
+      editCompanyHandler() {
+        this.$router.push("/company/edit")
       }
     },
     components: {

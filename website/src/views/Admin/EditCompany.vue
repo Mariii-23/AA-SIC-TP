@@ -5,8 +5,9 @@
                 <TitleCardLinksButton :title="$t('store')" :items="items" />
             </template>
             <template v-slot:second>
-                <HeadingText>{{ $t("company") }}</HeadingText>
-                <form ref="form" @submit.prevent="saveChanges()">
+                <TitleWithButton :title="$t('company')" :buttonText="$t('save-changes')"
+                    :buttonHandler="saveChanges" />
+                <form ref="form">
                     <div class="custom-flex">
                         <v-row>
                             <v-col cols="4">
@@ -112,7 +113,7 @@
                             </v-col>
                         </v-row>
                         <PrimaryButton :handleClick="addSocialNetwork" class="btn">{{ $t("add-social") }}</PrimaryButton>
-                        <FullWidthButton> {{ $t("save-changes") }}</FullWidthButton>
+                        <FullWidthButton :handle-click="saveChanges"> {{ $t("save-changes") }}</FullWidthButton>
                     </div>
                 </form>
             </template>
@@ -127,10 +128,10 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Company } from "@/appTypes/Company";
-import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import BodyText from "@/components/atoms/Typography/BodyText.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
+import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
 
 export default {
     name: "EditCompany",
@@ -177,10 +178,10 @@ export default {
         TwoColumnsPanel,
         TitleCardLinksButton,
         SimpleBodyLayout,
-        HeadingText,
         BodyText,
         FullWidthButton,
-        PrimaryButton
+        PrimaryButton,
+        TitleWithButton
     },
 };
 </script>
