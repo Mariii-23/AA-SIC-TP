@@ -43,10 +43,19 @@
     "user": "User",
     "postal-code": "Postal code",
     "phoneNo": "Phone number",
+    "my-data": "My personal data",
 
 
     "search": "Search",
     "orders": "Orders",
+    "order": "Order",
+    "date-text": "Request made at",
+    "total": "Total",
+    "article": "Article",
+    "quantity": "Quantity",
+    "price": "Price",
+    "order-details": "Order Details",
+
 
     "viewDetails": "View Details +",
 
@@ -86,7 +95,13 @@
     "store": "Store",
     "categories": "Categories",
     "materials": "Materials",
+    "material": "Material",
     "edit-materials": "Edit Materials",
     "save-changes": "Save changes",
-    "add-social": "Add other social network"
+    "add-social": "Add other social network",
+
+
+    "pending": "Pending",
+    "ready": "Ready",
+    "done": "Done"
 }

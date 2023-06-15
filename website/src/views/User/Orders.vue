@@ -10,19 +10,17 @@
       <TwoColumnsPanel>
         <template v-slot:first>
           <TitleCardLinksButton
-            :title="$t('hello') + ', ' + user.name + '!'"
+            :title="$t('hello') + ', ' + userName + '!'"
             :items="items"
             :button-text="$t('logout')"
             :button-handler="openModal"
           />
         </template>
         <template v-slot:second>
-          <TitleWithButton
-            :title="$t('profile')"
-            :button-text="$t('edit-profile')"
-            :button-handler="editProfile"
+          <HeadingText> {{ $t("my-orders") }} </HeadingText> 
+          <OrderExpansionPanels :orders="orders"
+            :view-details-handler="viewDetailsHandler"
           />
-          <ClientCard :client="user" />
         </template> </TwoColumnsPanel
     ></SimpleBodyLayout>
   </template>
@@ -32,34 +30,46 @@
   import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
   import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
   import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-  import { UserInfoProps } from "@/appTypes/User";
   import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
   import { useRoute } from "vue-router";
   import ClientCard from "@/components/organisms/Card/ClientCard.vue";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
-  
+import HeadingText from "@/components/atoms/Typography/HeadingText.vue";  
+import OrderExpansionPanels from "@/components/molecules/expansionPanels/OrderExpansionPanel.vue";
+import { Order } from "@/appTypes/Order";
+
   export default {
-    name: "UserProfile",
+    name: "Orders",
     //TODO: ir buscar os direitos
     data: () => ({
       items: Array as () => LinkProps[],
-      user: Object as () => UserInfoProps,
+      orders: Array as () => Order[],
+      userName: "",
       isModalOpen: false
     }),
     mounted: function () {
       const route = useRoute();
       //TODO: ir buscar o admin consoante o id dado
-      this.user = {
-        name: "Maria",
-        email: "maria@hotmail.com",
-        address: "Rua da Marina, Edificiona Nao sei , ablalkb",
-        nif: "999888999",
-        id: route.params.id,
-      } as UserInfoProps;
+      this.orders = [
+        {
+            id: 1,
+            date: "2021-05-05",
+            total: 100,
+            state: "pending",
+            orderItems: [
+                {
+                    name: "Cadeira",
+                    quantity: 2,
+                    price: 50
+                }
+            ]
+        }
+      ];
+      this.userName = "Maria";
   
       this.items = [
-        { href: "/user/profile", icon: "bullseye", text: "profile" },
-        { href: "/user/orders", icon: "brightness-1", text: "my-orders" },
+        { href: "/user/profile", icon: "brightness-1", text: "profile" },
+        { href: "/user/orders", icon: "bullseye", text: "my-orders" },
       ];
     },
     //TODO: ir buscar os direitos
@@ -76,6 +86,9 @@ import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vu
       openModal() {
         this.isModalOpen = true;
       },
+      viewDetailsHandler(productId: number) {
+        this.$router.push("/user/orders/" + productId);
+      },
 
     },
     components: {
@@ -84,7 +97,9 @@ import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vu
       SimpleBodyLayout,
       TitleWithButton,
       ClientCard,
-      ConfirmationModal
+      ConfirmationModal,
+      HeadingText,
+      OrderExpansionPanels
     },
   };
   </script>

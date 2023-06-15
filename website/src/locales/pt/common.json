@@ -43,9 +43,17 @@
     "user": "Utilizador",
     "postal-code": "Código postal",
     "phoneNo": "Número de telemóvel",
+    "my-data": "Os meus dados pessoais",
 
     "search": "Pesquisar",
     "orders": "Encomendas",
+    "order": "Encomenda",
+    "date-text": "Pedido feito a",
+    "total": "Total",
+    "article": "Artigo",
+    "quantity": "Quantidade",
+    "price": "Preço",
+    "order-details": "Detalhes da encomenda",
 
     "viewDetails": "Ver Detalhes +",
 
@@ -87,5 +95,10 @@
     "materials": "Materiais",
     "edit-materials": "Editar Materiais",
     "save-changes": "Guardar alterações",
-    "add-social": "Adicionar outra rede social"
+    "add-social": "Adicionar outra rede social",
+
+
+    "pending": "Pendente",
+    "ready": "Pronto",
+    "done": "Entregue"
 }

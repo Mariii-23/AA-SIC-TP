@@ -126,7 +126,7 @@ export default {
 
         this.items = [
             { href: "/user/profile", icon: "bullseye", text: "profile" },
-            { href: "/user/profile", icon: "brightness-1", text: "my-orders" },
+            { href: "/user/orders", icon: "brightness-1", text: "my-orders" },
         ];
     },
     //TODO: ir buscar os direitos
