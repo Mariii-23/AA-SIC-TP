@@ -99,9 +99,19 @@
     "edit-materials": "Edit Materials",
     "save-changes": "Save changes",
     "add-social": "Add other social network",
+    "images": "Images",
 
 
     "pending": "Pending",
     "ready": "Ready",
-    "done": "Done"
+    "done": "Done",
+
+    "name-price": "Define name and price",
+    "add-images": "Add images",
+    "add-description": "Add description",
+    "description": "Description",
+    "next-step": "Next step",
+    "field": "Field",
+    "value": "Value",
+    "finish-add-product": "Finish adding product"
 }

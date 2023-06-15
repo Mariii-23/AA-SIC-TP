@@ -109,6 +109,11 @@ const routes = [
         name: "ProfileEdit",
         component: () => import("@/views/Admin/EditProfile.vue"),
       },
+      {
+        path: "add-product/",
+        name: "AddProduct",
+        component: () => import("@/views/Admin/AddProduct.vue"),
+      },
 
       //USER
       {

@@ -3,8 +3,9 @@
     multiple
     chips
     accept="image/*"
-    label="File input"
+    :label="label"
     @change="handleFileSelection"
+    class="bg-primary"
   />
 </template>
 
@@ -14,6 +15,12 @@ export default {
   data: () => ({
     files: [],
   }),
+  props: {
+    label: {
+      type: String,
+      default: "File input",
+    },
+  },
   methods: {
     handleFileSelection(event) {
       this.files = event.target.files;

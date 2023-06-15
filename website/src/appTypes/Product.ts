@@ -34,3 +34,11 @@ export interface Item {
     name: string,
     href: string
 }
+
+export interface Product {
+    name: String,
+    price: number,
+    images: ProductImages,
+    info: ProductInformation,
+    materials: number[]
+}

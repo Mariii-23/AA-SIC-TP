@@ -96,9 +96,18 @@
     "edit-materials": "Editar Materiais",
     "save-changes": "Guardar alterações",
     "add-social": "Adicionar outra rede social",
+    "images": "Imagens",
 
 
     "pending": "Pendente",
     "ready": "Pronto",
-    "done": "Entregue"
+    "done": "Entregue",
+
+    "name-price": "Definir nome e preço",
+    "add-images": "Adicionar Imagens",
+    "add-description": "Adicionar descrição",
+    "next-step": "Próximo passo",
+    "field": "Campo",
+    "value": "Valor",
+    "finish-add-product": "Concluir adição de produto"
 }
