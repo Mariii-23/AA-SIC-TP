@@ -3,12 +3,22 @@
       :title="$t('rmv-category')" 
       :text="$t('rmv-category-text') + ' ' + category + '?'" 
       :confirmHandler="removeCategoryHandler" 
-      :closeModal="closeModal" 
-      :isModalOpen="isModalOpen"/>
+      :closeModal="closeRemoveModal" 
+      :isModalOpen="isRemoveModalOpen"/>
+
+      <ConfirmationModal
+    :title="$t('logout')"
+    :text="$t('logout-text')"
+    :confirmHandler="logoutHandler"
+    :closeModal="closeLogoutModal"
+    :isModalOpen="isLogoutModalOpen"
+  />
     <SimpleBodyLayout>
       <TwoColumnsPanel>
         <template v-slot:first>
-          <TitleCardLinksButton :title="$t('store')" :items="items" />
+          <TitleCardLinksButton :title="$t('store')" :items="items" 
+          :button-text="$t('logout')"
+            :button-handler="openLogoutModal"/>
         </template>
         <template v-slot:second>
           <TitleWithButton
@@ -16,7 +26,7 @@
               :buttonText="$t('add-category')"
               :buttonHandler="addCategoryHandler"
             />
-          <ItemsTable :items="categories" :deleteItem="openModal"/>
+          <ItemsTable :items="categories" :deleteItem="openRemoveModal"/>
         </template> </TwoColumnsPanel
     ></SimpleBodyLayout>
   </template>
@@ -32,18 +42,19 @@
   import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
   export default {
-    name: "Materials",
+    name: "StoreCategories",
     data: () => ({
       items: Array as () => LinkProps[],
-      isModalOpen: false,
+      isRemoveModalOpen: false,
+      isLogoutModalOpen: false,
       categories: Array as () => Materials[],
       category: ""
     }),
     mounted: function () {
       this.items = [
-        { href: "/company", icon: "brightness-1", text: "company" },
-        { href: "/categories", icon: "bullseye", text: "categories" },
-        { href: "/materials", icon: "brightness-1", text: "materials" },
+        { href: "/admin/company", icon: "brightness-1", text: "company" },
+        { href: "/admin/categories", icon: "bullseye", text: "categories" },
+        { href: "/admin/materials", icon: "brightness-1", text: "materials" },
       ];
       this.categories = [
     {
@@ -72,13 +83,22 @@
       addCategoryHandler() {
         console.log("add category")
       },
-      closeModal() {
-        this.isModalOpen = false;
+      closeRemoveModal() {
+        this.isRemoveModalOpen = false;
       },
-      openModal(categoryname: string){
+      openRemoveModal(categoryname: string){
         this.category = categoryname;
-        this.isModalOpen = true;
+        this.isRemoveModalOpen = true;
       },
+      openLogoutModal() {
+        this.isLogoutModalOpen = true;
+      },
+      closeLogoutModal() {
+        this.isLogoutModalOpen = false;
+      },
+      logoutHandler() {
+        console.log("logout")
+      }
     },
     components: {
       TwoColumnsPanel,

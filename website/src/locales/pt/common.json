@@ -16,6 +16,8 @@
 
     "recover-pw": "Recuperar palavra-passe",
     "login": "Iniciar sessão",
+    "logout": "Terminar sessão",
+    "logout-text": "Tem a certeza que pretende terminar sessão?",
     "continue-google": "Continuar com Google",
     "continue-microsoft": "Continuar com conta Microsoft",
     "dont-have-account": "Ainda não tem conta?",

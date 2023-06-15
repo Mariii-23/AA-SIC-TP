@@ -1,20 +1,28 @@
 <template>
-  <ConfirmationModal
-    :title="$t('rmv-material')"
-    :text="$t('rmv-material-text') + ' ' + material + '? '"
-    :confirmHandler="removeMaterialHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
+  <ConfirmationModal 
+      :title="$t('rmv-material')" 
+      :text="$t('rmv-material-text') + ' ' + material + '?'" 
+      :confirmHandler="removeMaterialHandler" 
+      :closeModal="closeRemoveModal" 
+      :isModalOpen="isRemoveModalOpen"/>
+
+      <ConfirmationModal
+    :title="$t('logout')"
+    :text="$t('logout-text')"
+    :confirmHandler="logoutHandler"
+    :closeModal="closeLogoutModal"
+    :isModalOpen="isLogoutModalOpen"
   />
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('store')" :items="items" />
+        <TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
+            :button-handler="openLogoutModal"/>
       </template>
       <template v-slot:second>
         <TitleWithButton :title="$t('materials')" :buttonText="$t('add-material')"
           :buttonHandler="addMaterialHandler" />
-        <ItemsTable :items="materials" :editItem="editMaterialHandler" :deleteItem="openModal" />
+        <ItemsTable :items="materials" :editItem="editMaterialHandler" :deleteItem="openRemoveModal" />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -34,15 +42,16 @@ export default {
   name: "Materials",
   data: () => ({
     items: Array as () => LinkProps[],
-    isModalOpen: false,
+    isRemoveModalOpen: false,
+    isLogoutModalOpen: false,
     materials: Array as () => Materials[],
     material: ""
   }),
   mounted: function () {
     this.items = [
-      { href: "/company", icon: "brightness-1", text: "company" },
-      { href: "/categories", icon: "brightness-1", text: "categories" },
-      { href: "/materials", icon: "bullseye", text: "materials" },
+      { href: "/admin/company", icon: "brightness-1", text: "company" },
+      { href: "/admin/categories", icon: "brightness-1", text: "categories" },
+      { href: "/admin/materials", icon: "bullseye", text: "materials" },
     ];
     this.materials = [
       {
@@ -68,13 +77,22 @@ export default {
     addMaterialHandler() {
       console.log("add material")
     },
-    openModal(productname: String) {
-      this.isModalOpen = true;
-      this.material = productname;
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
+    closeRemoveModal() {
+        this.isRemoveModalOpen = false;
+      },
+      openRemoveModal(materialname: string){
+        this.material = materialname;
+        this.isRemoveModalOpen = true;
+      },
+      openLogoutModal() {
+        this.isLogoutModalOpen = true;
+      },
+      closeLogoutModal() {
+        this.isLogoutModalOpen = false;
+      },
+      logoutHandler() {
+        console.log("logout")
+      },
     removeMaterialHandler() {
       console.log("remove material " + this.material)
     },

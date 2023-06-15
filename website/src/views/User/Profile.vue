@@ -35,14 +35,16 @@
     //TODO: ir buscar os direitos
     data: () => ({
       items: Array as () => LinkProps[],
-      admin: Object as () => UserInfoProps,
+      user: Object as () => UserInfoProps,
     }),
     mounted: function () {
       const route = useRoute();
       //TODO: ir buscar o admin consoante o id dado
-      this.admin = {
+      this.user = {
         name: "Maria",
         email: "maria@hotmail.com",
+        address: "Rua da Marina, Edificiona Nao sei , ablalkb",
+        nif: "999888999",
         id: route.params.id,
       } as UserInfoProps;
   

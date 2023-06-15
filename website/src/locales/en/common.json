@@ -16,6 +16,8 @@
 
     "recover-pw": "Recover Password",
     "login": "Log in",
+    "logout": "Log out",
+    "logout-text": "Are you sure you want to log out?",
     "continue-google": "Continue with Google",
     "continue-microsoft": "Continue with Microsoft account",
     "dont-have-account": "Don't have an account?",

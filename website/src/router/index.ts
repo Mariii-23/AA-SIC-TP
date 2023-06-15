@@ -59,7 +59,7 @@ const routes = [
 
       //ADMINN
       {
-        path: "addAdmin/",
+        path: "admin/add-admin/",
         name: "Add Admin",
         component: () => import("@/views/Admin/AddAdmin.vue"),
       },
@@ -89,29 +89,36 @@ const routes = [
         component: () => import("@/views/Admin/AdminProfile.vue"),
       },
       {
-        path: "materials",
+        path: "admin/materials",
         name: "Materials",
         component: () => import("@/views/Admin/StoreMaterials.vue"),
       },
       {
-        path: "company",
+        path: "admin/company",
         name: "Company",
         component: () => import("@/views/Admin/Company.vue"),
       },
       {
-        path: "company/edit",
+        path: "admin/company/edit",
         name: "CompanyEdit",
         component: () => import("@/views/Admin/EditCompany.vue"),
       },
       {
-        path: "categories",
+        path: "/admin/categories",
         name: "Categories",
         component: () => import("@/views/Admin/StoreCategories.vue"),
       },
       {
-        path: "/profile/edit",
+        path: "admin/profile/edit",
         name: "ProfileEdit",
         component: () => import("@/views/Admin/EditProfile.vue"),
+      },
+
+      //USER
+      {
+        path: "user/profile",
+        name: "User profile",
+        component: () => import("@/views/User/Profile.vue"),
       },
     ],
   },
