@@ -32,7 +32,7 @@ export default {
   }),
   methods: {
     addAdminHandler() {
-        this.$router.push("/addAdmin/");
+        this.$router.push("/admin/add-admin/");
       },
   },
   mounted: function () {

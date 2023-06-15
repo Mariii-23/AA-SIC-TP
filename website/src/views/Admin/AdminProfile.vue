@@ -55,7 +55,7 @@
     //TODO: ir buscar os direitos
     methods: {
       addAdminHandler() {
-        this.$router.push("admin/add-admin/");
+        this.$router.push("/admin/add-admin/");
       },
       editProfile() {
         this.$router.push("/admin/profile/edit");

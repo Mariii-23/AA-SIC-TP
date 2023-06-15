@@ -31,9 +31,7 @@
                   single-line
                 />
               </div>
-
-              <FullWidthButton> {{ $t("login") }}</FullWidthButton>
-
+              
               <div class="signup-phrase">
                 <p>{{ $t("forgot-pw") }}</p>
                 <p class="link" @click="goToRecoverPw()">
@@ -41,7 +39,10 @@
                 </p>
               </div>
 
-              <div class="custom-divider">
+              <FullWidthButton> {{ $t("login") }}</FullWidthButton>
+
+
+              <!--<div class="custom-divider">
                 <div class="line" />
                 <div class="text">
                   <p>
@@ -56,7 +57,7 @@
                   {{ $t("continue-google") }}
                 </PrimaryButton>
               </div>
-
+              -->
               <div class="signup-phrase">
                 <p>{{ $t("dont-have-account") }}</p>
                 <p class="link" @click="goToRegister()">{{ $t("register") }}</p>

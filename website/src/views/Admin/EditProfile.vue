@@ -89,7 +89,7 @@
     //TODO: ir buscar os direitos
     methods: {
       addAdminHandler() {
-        this.$router.push("/addAdmin/");
+        this.$router.push("/admin/add-admin/");
       },
       saveChanges() {
         console.log("save changes");

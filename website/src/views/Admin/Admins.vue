@@ -63,7 +63,7 @@ export default {
       this.$router.push("/admin/" + id);
     },
     addAdminHandler() {
-      this.$router.push("/addAdmin/");
+      this.$router.push("/admin/add-admin/");
     },
   },
   components: {

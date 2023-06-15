@@ -69,7 +69,7 @@ export default {
       console.log("remove admin");
     },
     addAdminHandler() {
-      this.$router.push("/addAdmin/");
+      this.$router.push("/admin/add-admin/");
     },
     openModal() {
       this.isModalOpen = true;

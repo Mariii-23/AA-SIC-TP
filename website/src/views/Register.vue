@@ -10,6 +10,16 @@
             <div class="custom-flex">
               <div>
                 <v-text-field
+                  v-model="name"
+                  name="name"
+                  :label="$t('name')"
+                  type="input"
+                  :placeholder="$t('name')"
+                  required
+                  bg-color="primary"
+                  single-line
+                />
+                <v-text-field
                   v-model="email"
                   name="email"
                   label="Email"
@@ -40,16 +50,6 @@
                   bg-color="primary"
                   single-line
                 />
-                <v-text-field
-                  v-model="name"
-                  name="name"
-                  :label="$t('name')"
-                  type="input"
-                  :placeholder="$t('name')"
-                  required
-                  bg-color="primary"
-                  single-line
-                />
 
                 <v-text-field
                   v-model="address"
@@ -71,7 +71,7 @@
                   bg-color="primary"
                   single-line
                 />
-                <v-text-field type="date" :label="$t('dob')" />
+                <v-text-field class="bg-secondary" type="date" :label="$t('dob')" />
               </div>
 
               <FullWidthButton> {{ $t("register") }}</FullWidthButton>
