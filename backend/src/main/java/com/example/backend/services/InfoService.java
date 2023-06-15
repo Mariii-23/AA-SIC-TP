@@ -8,6 +8,7 @@ import com.example.backend.model.Company;
 import com.example.backend.model.SocialNetwork;
 import com.example.backend.repositories.CompanyRep;
 import com.example.backend.repositories.SocialNetworkRep;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,7 +92,7 @@ public class InfoService {
         List<SocialNetwork> socialNetworks = new ArrayList<>();
         editSocialNetworkDTO.getSocialNetworks().forEach(socialNetworkDTO ->
                 socialNetworks.add(new SocialNetwork(socialNetworkDTO.getName(),socialNetworkDTO.getLink(),company)));
-        company.setSocialNetworks(socialNetworks);
-        companyRep.save(company);
+        socialNetworkRep.deleteAll();
+        socialNetworkRep.saveAll(socialNetworks);
     }
 }

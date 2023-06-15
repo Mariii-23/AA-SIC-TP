@@ -52,4 +52,12 @@ public class ProductDetailedDTO extends ProductSimpleDTO{
     public void setImages(List<Integer> images) {
         this.images = images;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -56,7 +56,7 @@ public class ProductController {
                     editProductDTO.getSubCategoryId(),
                     editProductDTO.getMaterialIds(),
                     editProductDTO.getInfos());
-        } catch (ProductNotFoundException e) {
+        } catch (ProductNotFoundException | CategoryNotFoundException | SubCategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
