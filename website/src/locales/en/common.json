@@ -1,5 +1,5 @@
 {
-    "hello": "Hello World",
+    "hello": "Hello",
     "welcome": "Welcome ",
     "navbar-login": "Hii! Log in or Sign up!",
     "where": "Where to find us",
@@ -66,6 +66,7 @@
     "cancel": "Cancel",
     "edit-profile": "Edit profile",
     "edit-company-info": "Edit company information",
+    "my-orders": "My orders",
     
     "product-details": "Product Details",
     "tech-info": "Technical Information",

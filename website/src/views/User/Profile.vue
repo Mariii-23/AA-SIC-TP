@@ -1,12 +1,19 @@
 <template>
+    <ConfirmationModal
+    :title="$t('logout')"
+    :text="$t('logout-text')"
+    :confirmHandler="logoutHandler"
+    :closeModal="closeModal"
+    :isModalOpen="isModalOpen"
+  />
     <SimpleBodyLayout>
       <TwoColumnsPanel>
         <template v-slot:first>
           <TitleCardLinksButton
-            :title="$t('allUsers')"
+            :title="$t('hello') + ', ' + user.name + '!'"
             :items="items"
-            :button-text="$t('addAdmin')"
-            :button-handler="addAdminHandler"
+            :button-text="$t('logout')"
+            :button-handler="openModal"
           />
         </template>
         <template v-slot:second>
@@ -15,7 +22,7 @@
             :button-text="$t('edit-profile')"
             :button-handler="editProfile"
           />
-          <AdminCard :admin="admin" />
+          <ClientCard :client="user" />
         </template> </TwoColumnsPanel
     ></SimpleBodyLayout>
   </template>
@@ -28,14 +35,16 @@
   import { UserInfoProps } from "@/appTypes/User";
   import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
   import { useRoute } from "vue-router";
-  import AdminCard from "@/components/organisms/Card/AdminCard.vue";
+  import ClientCard from "@/components/organisms/Card/ClientCard.vue";
+import ConfirmationModal from '@/components/organisms/Modal/ConfirmationModal.vue';
   
   export default {
-    name: "AdminProfile",
+    name: "UserProfile",
     //TODO: ir buscar os direitos
     data: () => ({
       items: Array as () => LinkProps[],
       user: Object as () => UserInfoProps,
+      isModalOpen: false
     }),
     mounted: function () {
       const route = useRoute();
@@ -49,19 +58,24 @@
       } as UserInfoProps;
   
       this.items = [
-        { href: "/admin/profile", icon: "bullseye", text: "profile" },
-        { href: "/admin", icon: "brightness-1", text: "admins" },
-        { href: "/admin/client", icon: "brightness-1", text: "clients" },
+        { href: "/user/profile", icon: "bullseye", text: "profile" },
+        { href: "/user/profile", icon: "brightness-1", text: "my-orders" },
       ];
     },
     //TODO: ir buscar os direitos
     methods: {
-      addAdminHandler() {
-        this.$router.push("admin/add-admin/");
+      logoutHandler() {
+        console.log("logout");
       },
       editProfile() {
-        this.$router.push("/admin/profile/edit");
-      }
+        this.$router.push("/user/profile/edit");
+      },
+      closeModal() {
+        this.isModalOpen = false;
+      },
+      openModal() {
+        this.isModalOpen = true;
+      },
 
     },
     components: {
@@ -69,7 +83,8 @@
       TitleCardLinksButton,
       SimpleBodyLayout,
       TitleWithButton,
-      AdminCard,
+      ClientCard,
+      ConfirmationModal
     },
   };
   </script>
