@@ -53,13 +53,13 @@ export default {
     if (categoriesStore.categories.length == 0) {
       await categoriesStore.getAllCategories();
       categoriesStore.categories.forEach((categorie) => {
-          this.list.push({
-            title: categorie.name,
-            value: categorie.name,
-            prependIcon: "",
-          });
+        this.list.push({
+          title: categorie.name,
+          value: categorie.name,
+          prependIcon: "",
         });
-    console.log(categoriesStore.categories)
+      });
+      console.log(categoriesStore.categories);
     }
 
     //FIXME: add prependIcon
@@ -71,7 +71,7 @@ export default {
     this.$watch(
       () => ({ categories: categoriesStore.categories }),
       (newValues) => {
-        this.categories = newValues.categories ;
+        this.categories = newValues.categories;
         let categoriesItens: DrawerItem[] = [];
         newValues.categories.forEach((categorie) => {
           categoriesItens.push({

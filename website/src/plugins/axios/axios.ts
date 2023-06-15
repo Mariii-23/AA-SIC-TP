@@ -3,6 +3,7 @@ import { App } from "vue";
 import authentication from "./authentication";
 import admins from "./admins";
 import categories from "./categories";
+import company from "./company";
 
 interface AxiosOptions {
   baseUrl?: string;
@@ -25,4 +26,5 @@ export default {
   categories,
   authentication,
   admins,
+  company,
 };

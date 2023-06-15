@@ -41,7 +41,6 @@
 <script lang="ts">
 import { UserInfoProps } from "@/appTypes/User";
 import TitleWithButton from "../TitleWithButton.vue";
-import CardLayout from "@/layouts/CardLayout.vue";
 
 export default {
   name: "AdminExpansionPanels",

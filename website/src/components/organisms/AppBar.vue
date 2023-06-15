@@ -44,15 +44,21 @@
     </v-btn>
 
     <!--FOR ADMINS-->
-    <v-btn v-if="loggedIn && user_type == 'ADMIN'">
-      <BodyText id="orders-text">{{ $t("orders") }}</BodyText>
-    </v-btn>
+    <div @click="goTo('/admin/orders')">
+      <v-btn v-if="loggedIn && user_type == 'ADMIN'">
+        <BodyText id="orders-text">{{ $t("orders") }}</BodyText>
+      </v-btn>
+    </div>
+    <div @click="goTo('/admin')">
     <v-btn icon v-if="loggedIn && user_type == 'ADMIN'">
       <v-icon>mdi-account-group-outline</v-icon>
     </v-btn>
+    </div>
+    <div @click="goTo('/admin/company')">
     <v-btn icon v-if="loggedIn && user_type == 'ADMIN'">
       <v-icon>mdi-store-edit-outline</v-icon>
     </v-btn>
+    </div>
 
     <LanguageSwitcher class="lang-switcher" />
   </v-app-bar>
@@ -115,6 +121,9 @@ export default {
     },
   },
   methods: {
+    goTo(path: string) {
+      this.$router.push(path);
+    },
     logout() {
       this.loggedIn = false;
       this.user_type = "";

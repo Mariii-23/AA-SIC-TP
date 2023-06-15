@@ -151,7 +151,11 @@ export default {
     async login() {
       await userStore.login(this.username, this.password);
       if (userStore.isLoggedIn) {
-        this.$router.push("/admin")
+        if (userStore.role == "ADMIN")
+          this.$router.push("/admin")
+        else {
+          this.$router.push("/user/profile")
+        }
       }
     },
     handleLoginWithGoogle() {

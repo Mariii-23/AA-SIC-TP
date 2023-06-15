@@ -7,6 +7,9 @@ export const useAdminsStore = defineStore("admins", {
     admins: [],
   }),
   actions: {
+    getCustomerById(id: string) {
+      return this.customers.find((c) => c.id == id) ;
+    },
     async getAllCustomers() {
       const r = await axios.admins.getAllCustomers(0, 100000);
       if (r.success) {
@@ -23,7 +26,7 @@ export const useAdminsStore = defineStore("admins", {
     async removeAdmin(id: string) {
       const r = await axios.admins.removeAdmin(id);
       if (r.success) {
-        this.admins = this.admins.filter((e) => e.id != id) 
+        this.admins = this.admins.filter((e) => e.id != id);
       }
       return r.success;
     },
@@ -33,7 +36,14 @@ export const useAdminsStore = defineStore("admins", {
       if (r.success) {
         this.admins.push(r.data);
       }
-      return r.success
+      return r.success;
+    },
+    async editAdmin(id: string, email: string, name: string) {
+      const r = await axios.admins.updateAdmin(id, email, name);
+      if (r.success) {
+        this.getAllAdmins();
+      }
+      return r.success;
     },
   },
 });

@@ -47,5 +47,9 @@ export const useUserStore = defineStore("user", {
         this.role = r.data.role;
       }
     },
+    async update(name: string, email: string) {
+      this.email = email;
+      this.name = name;
+    },
   },
 });

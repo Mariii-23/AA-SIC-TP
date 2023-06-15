@@ -11,6 +11,25 @@ export interface LoginResponse {
   role: string;
 }
 
+export interface CompanyInfoResponse {
+  name: string;
+  email: string;
+  contact: string;
+  address: string;
+  postCode: string;
+  schedule: string;
+}
+export interface SocialNetWorkResponse {
+  name: string;
+  link: string;
+}
+
+export interface AddAdminResponse {
+  iD: string;
+  email: string;
+  name: string;
+}
+
 export interface AddAdminResponse {
   iD: string;
   email: string;
