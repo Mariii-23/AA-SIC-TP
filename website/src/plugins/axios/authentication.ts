@@ -1,4 +1,8 @@
-import { LoginResponse, Response } from "@/appTypes/AxiosTypes";
+import {
+  LoginResponse,
+  RegisterResponse,
+  Response,
+} from "@/appTypes/AxiosTypes";
 import { app } from "@/main";
 
 const url = "/api/v1/auth";
@@ -13,9 +17,40 @@ const login = async (email: string, password: string) => {
 
     const token = req.data.token;
 
-    //axios.defaults.headers.common["Authorization"] = token
-    //  ? `Bearer ${token}`
-    //  : "";
+    axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
+
+    return {
+      success: true,
+      data: req.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: "forbidden",
+    };
+  }
+};
+
+const register = async (
+  email: string,
+  password: string,
+  name: string,
+  birthday: Date,
+  nif: string,
+  address: string
+) => {
+  try {
+    const axios = app.config.globalProperties.$axios;
+    const req = await axios.post(`${url}/register`, {
+      email,
+      password,
+      name,
+      birthday,
+      nif,
+      address,
+    });
+
+    const token = req.data.token;
 
     axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
 
@@ -37,6 +72,14 @@ export interface Authentication {
     password: string
   ) => Promise<Response<LoginResponse>>;
   logout: () => void;
+  register: (
+    email: string,
+    password: string,
+    name: string,
+    birthday: Date,
+    nif: string,
+    address: string
+  ) => Promise<Response<RegisterResponse>>;
   //   register: (username: string, password: string) => Promise<void>;
 }
 
@@ -46,6 +89,16 @@ const authentication: Authentication = {
   },
   logout: () => {
     //TODO: Remover token
+  },
+  register: async (
+    email: string,
+    password: string,
+    name: string,
+    birthday: Date,
+    nif: string,
+    address: string
+  ) => {
+    return await register(email, password, name, birthday, nif, address);
   },
   //   register: async (username: string, password: string) => {
   //     await register(username, password);

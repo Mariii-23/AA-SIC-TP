@@ -29,6 +29,7 @@ import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import { UserInfoProps } from "@/appTypes/User";
 import AdminExpansionPanels from "@/components/molecules/expansionPanels/AdminExpansionPanels.vue";
+import { useAdminsStore } from "@/store/adminsStore";
 
 export default {
   name: "AdminsAdminPage",
@@ -37,19 +38,12 @@ export default {
     items: Array as () => LinkProps[],
     admins: Array as () => UserInfoProps[],
   }),
-  mounted: function () {
-    const admin = {
-      name: "Maria",
-      email: "maria@hotmail.com",
-      address: "Rua da Marina, Edificiona Nao sei , ablalkb",
-      nif: "999888999",
-      id: "1234",
-    } as UserInfoProps;
-    let users1: UserInfoProps[] = [];
-    for (let i = 0; i < 8; i++) {
-      users1.push(admin);
-    }
-    this.admins = users1;
+  mounted: async function () {
+    const adminStore = useAdminsStore();
+
+    await adminStore.getAllAdmins();
+
+    this.admins = adminStore.admins;
 
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
@@ -57,6 +51,13 @@ export default {
       { href: "/admin", icon: "bullseye", text: "admins" },
       { href: "/admin/client", icon: "brightness-1", text: "clients" },
     ];
+
+    this.$watch(
+      () => ({ admins: adminStore.admins }),
+      (newValues) => {
+        this.admins = newValues.admins;
+      }
+    );
   },
   methods: {
     viewDetailsHandler(id: string) {

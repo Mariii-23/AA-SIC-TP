@@ -24,7 +24,7 @@ import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import UserExpansionPanels from "@/components/molecules/expansionPanels/UserExpansionPanels.vue";
 import { UserInfoProps } from "@/appTypes/User";
-import { useCustomersStore } from "@/store/clientsStore";
+import { useAdminsStore } from "@/store/adminsStore";
 
 export default {
   name: "ClientsAdminPage",
@@ -34,11 +34,11 @@ export default {
     users: Array as () => UserInfoProps[],
   }),
   mounted: async function () {
-    const customerStore = useCustomersStore();
+    const adminStore = useAdminsStore();
 
-    await customerStore.getAllCustomers();
+    await adminStore.getAllCustomers();
 
-    this.users = customerStore.customers;
+    this.users = adminStore.customers;
 
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
@@ -48,7 +48,7 @@ export default {
     ];
 
     this.$watch(
-      () => ({ users: customerStore.customers }),
+      () => ({ users: adminStore.customers }),
       (newValues) => {
         this.users = newValues.users;
       }
