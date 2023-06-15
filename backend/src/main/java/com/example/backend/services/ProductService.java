@@ -48,8 +48,8 @@ public class ProductService {
         List<Material> materials = materialRep.findMaterialByIdList(materialIds).orElseThrow(() -> new Exception("Material not found"));
         Product product;
 
-        if (subCategoryId != 0 && subCategoryRep.findCategoryById(subCategoryId).getiD() == categoryId){
-            subCategory = subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
+        if (subCategoryId != 0){
+            subCategory = subCategoryRep.findByIdAndCategory_ID(subCategoryId, categoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
             product = new Product(price, name, description, materials, category, subCategory);
         } else {
             product = new Product(price, name, description, materials, category);
@@ -191,7 +191,7 @@ public class ProductService {
 
     @Transactional
     public void editProduct(int productId, String name, String description, double price, int categoryId,
-                            int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) throws ProductNotFoundException {
+                            int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) throws ProductNotFoundException, CategoryNotFoundException, SubCategoryNotFoundException {
         Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         if (name != null) product.setName(name);
         if (description != null) product.setDescription(description);
@@ -202,11 +202,11 @@ public class ProductService {
             product.setPrice(price);
         }
         if (categoryId != 0) {
-            Category category = categoryRep.getReferenceById(categoryId);
+            Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
             product.setCategory(category);
         }
         if (subCategoryId != 0) {
-            SubCategory subCategory = subCategoryRep.getReferenceById(subCategoryId);
+            SubCategory subCategory = subCategoryRep.findByIdAndCategory_ID(subCategoryId, categoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
             product.setSubCategory(subCategory);
         }
         if (materialIds != null) {
