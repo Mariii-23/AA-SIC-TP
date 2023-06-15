@@ -2,7 +2,7 @@
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('allClients')" :items="items"
+        <TitleCardLinksButton :title="$t('allUsers')" :items="items"
         :button-text="$t('addAdmin')"
           :button-handler="addAdminHandler" />
       </template>

@@ -73,7 +73,7 @@
     //TODO: ir buscar os direitos
     methods: {
       editCompanyHandler() {
-        this.$router.push("/company/edit")
+        this.$router.push("/admin/company/edit")
       },
       logoutHandler() {
         console.log("logout")

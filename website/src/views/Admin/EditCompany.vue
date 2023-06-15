@@ -1,8 +1,16 @@
 <template>
+    <ConfirmationModal
+    :title="$t('logout')"
+    :text="$t('logout-text')"
+    :confirmHandler="logoutHandler"
+    :closeModal="closeModal"
+    :isModalOpen="isModalOpen"
+  />
     <SimpleBodyLayout>
         <TwoColumnsPanel>
             <template v-slot:first>
-                <TitleCardLinksButton :title="$t('store')" :items="items" />
+                <TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
+            :button-handler="openModal"/>
             </template>
             <template v-slot:second>
                 <TitleWithButton :title="$t('company')" :buttonText="$t('save-changes')"
@@ -132,6 +140,7 @@ import BodyText from "@/components/atoms/Typography/BodyText.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
     name: "EditCompany",
@@ -142,9 +151,9 @@ export default {
     }),
     mounted: function () {
         this.items = [
-            { href: "/company", icon: "bullseye", text: "company" },
-            { href: "/categories", icon: "brightness-1", text: "categories" },
-            { href: "/materials", icon: "brightness-1", text: "materials" },
+            { href: "/admin/company", icon: "bullseye", text: "company" },
+            { href: "/admin/categories", icon: "brightness-1", text: "categories" },
+            { href: "/admin/materials", icon: "brightness-1", text: "materials" },
         ];
         this.company = {
             name: "Móveis Rodrigues",
@@ -172,7 +181,16 @@ export default {
         },
         addSocialNetwork()  {
             console.log("add social network")
-        }
+        },
+        logoutHandler() {
+        console.log("logout")
+      },
+      closeModal() {
+        this.isModalOpen = false;
+      },
+      openModal() {
+        this.isModalOpen = true;
+      }
     },
     components: {
         TwoColumnsPanel,
@@ -181,6 +199,7 @@ export default {
         BodyText,
         FullWidthButton,
         PrimaryButton,
+        ConfirmationModal,
         TitleWithButton
     },
 };
