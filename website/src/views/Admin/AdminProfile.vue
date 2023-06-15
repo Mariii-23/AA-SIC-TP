@@ -29,6 +29,9 @@
   import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
   import { useRoute } from "vue-router";
   import AdminCard from "@/components/organisms/Card/AdminCard.vue";
+import { useUserStore } from "@/store/userStore";
+
+  const adminStore = useUserStore();
   
   export default {
     name: "AdminProfile",
@@ -38,12 +41,10 @@
       admin: Object as () => UserInfoProps,
     }),
     mounted: function () {
-      const route = useRoute();
-      //TODO: ir buscar o admin consoante o id dado
       this.admin = {
-        name: "Maria",
-        email: "maria@hotmail.com",
-        id: route.params.id,
+        name: adminStore.name,
+        email:adminStore.email,
+        id: adminStore.id,
       } as UserInfoProps;
   
       this.items = [

@@ -24,6 +24,14 @@ public class CategoryDTO {
         this.name = name;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public List<SubCategoryDTO> getSubCategories() {
         return subCategories;
     }

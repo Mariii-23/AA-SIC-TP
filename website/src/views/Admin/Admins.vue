@@ -1,4 +1,12 @@
 <template>
+  <ConfirmationModal
+    :title="$t('removeAdmin')"
+    :text="$t('rm-admin-text')"
+    :confirmHandler="removeAdminHandler"
+    :closeModal="closeModal"
+    v-bind:is-modal-open="isModalOpen"
+  />
+
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
@@ -14,7 +22,7 @@
         <SearchBar bg-color="primary" />
         <AdminExpansionPanels
           :admins="admins"
-          :view-details-handler="viewDetailsHandler"
+          :remove-admin-handler="openModal"
         />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
@@ -30,17 +38,19 @@ import SearchBar from "@/components/molecules/SearchBar.vue";
 import { UserInfoProps } from "@/appTypes/User";
 import AdminExpansionPanels from "@/components/molecules/expansionPanels/AdminExpansionPanels.vue";
 import { useAdminsStore } from "@/store/adminsStore";
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+const adminStore = useAdminsStore();
 
 export default {
   name: "AdminsAdminPage",
   //TODO: ir buscar os direitos
   data: () => ({
+    idAdmin: "",
     items: Array as () => LinkProps[],
     admins: Array as () => UserInfoProps[],
+    isModalOpen: false,
   }),
   mounted: async function () {
-    const adminStore = useAdminsStore();
-
     await adminStore.getAllAdmins();
 
     this.admins = adminStore.admins;
@@ -59,11 +69,23 @@ export default {
     );
   },
   methods: {
-    viewDetailsHandler(id: string) {
-      this.$router.push("/admin/" + id);
+    async removeAdminHandler() {
+      if (await adminStore.removeAdmin(this.idAdmin)) {
+        this.closeModal();
+        //TODO: avisar do successo
+      }
+      //TODO: tratar do errro
     },
     addAdminHandler() {
       this.$router.push("/admin/add-admin/");
+    },
+    openModal(id: string) {
+      this.idAdmin = id;
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.idAdmin = "";
+      this.isModalOpen = false;
     },
   },
   components: {
@@ -73,6 +95,7 @@ export default {
     HeadingText,
     SearchBar,
     AdminExpansionPanels,
+    ConfirmationModal,
   },
 };
 </script>

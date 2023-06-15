@@ -11,9 +11,9 @@
       <TitleWithButton
         :size="5"
         :title="`${$t('admin')} #${user.id}`"
-        :button-text="$t('viewDetails')"
+        :button-text="$t('removeAdmin')"
         :button-handler="
-          () => viewDetailsHandler && viewDetailsHandler(user.id)
+          () => removeAdminHandler && removeAdminHandler(user.id)
         "
       />
       <div class="user-title-info-wrapper">
@@ -41,7 +41,6 @@
 <script lang="ts">
 import { UserInfoProps } from "@/appTypes/User";
 import TitleWithButton from "../TitleWithButton.vue";
-import CardLayout from "@/layouts/CardLayout.vue";
 
 export default {
   name: "AdminExpansionPanels",
@@ -50,7 +49,7 @@ export default {
       type: Array as () => UserInfoProps[],
       require: true,
     },
-    viewDetailsHandler: {
+    removeAdminHandler: {
       type: Function,
     },
   },

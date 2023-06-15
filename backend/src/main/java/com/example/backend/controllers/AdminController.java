@@ -59,8 +59,8 @@ public class AdminController {
 
 
     @PostMapping("/add")
-    public void addAdmin(final @RequestBody CreateAdminDTO admin) {
-        userService.addAdminDTO(admin);
+    public AdminDTO addAdmin(final @RequestBody CreateAdminDTO admin) {
+        return userService.addAdminDTO(admin);
     }
 
     @DeleteMapping("/remove/{id}")

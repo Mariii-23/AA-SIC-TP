@@ -20,6 +20,14 @@
             :placeholder="$t('password')"
             required
           />
+          <v-text-field
+            v-model="name"
+            name="name"
+            :label="$t('name')"
+            type="text"
+            :placeholder="$t('name')"
+            required
+          />
         </div>
 
         <FullWidthButton> {{ $t("addAdmin") }}</FullWidthButton>
@@ -38,6 +46,7 @@ export default {
     return {
       email: "",
       password: "",
+      name: "",
     };
   },
   props: {
@@ -47,7 +56,7 @@ export default {
   },
   methods: {
     addUserHandler() {
-      this.registerAdmin && this.registerAdmin(this.email, this.password);
+      this.registerAdmin && this.registerAdmin(this.email, this.password, this.name);
     },
   },
   components: { FullWidthButton, CardLayout },

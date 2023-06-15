@@ -28,7 +28,10 @@
 </template>
 
 <script lang="ts">
+import { useCompanyStore } from "@/store/companyStore";
 import HeadingText from "../atoms/Typography/HeadingText.vue";
+const companyStore = useCompanyStore();
+
 export default {
   name: "AppFooter",
   data: () => ({
@@ -41,20 +44,23 @@ export default {
     email: null,
     social_media_list: [],
   }),
-  mounted: function () {
-    // TODO: Get info
+  mounted: async function () {
+    if (companyStore.companyInfo.name == "") {
+      await companyStore.getInfo();
+    }
+
     const localization = {
-      address: "Rua do Carvalhal",
-      post_code: "4800-000",
+      address: companyStore.companyInfo.address,
+      post_code: companyStore.companyInfo.postCode,
     };
 
     const schedule = {
-      schedule_list: ["Seg-Sex", "9h00 - 12h30 | 14h00 - 18h00"],
+      schedule_list: [companyStore.companyInfo.schedule],
     };
 
     const contact = {
-      phone_number: "253 000 000",
-      email: "email@email.com",
+      phone_number: companyStore.companyInfo.contact,
+      email: companyStore.companyInfo.email
     };
 
     if (localization !== false) {

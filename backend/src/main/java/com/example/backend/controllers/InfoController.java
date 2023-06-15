@@ -22,12 +22,12 @@ public class InfoController {
     @Resource(name = "infoService")
     private InfoService infoService;
 
-    @GetMapping("all/companyInfo")
+    @GetMapping("/all/companyInfo")
     public CompanyDTO getCompanyInfo() {
         return infoService.getCompany();
     }
 
-    @GetMapping(value = "all/companyImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/all/companyImage", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<org.springframework.core.io.Resource> logoImage() {
         try {
             return ResponseEntity.ok()
@@ -39,11 +39,6 @@ public class InfoController {
     }
 
 
-    @GetMapping("/companyInfo/socialNetworks")
-    public List<SocialNetworkDTO> getSocialNetworksByCompany() {
-        return infoService.getSocialNetworksByCompany();
-    }
-
     @PostMapping("/companyInfo")
     public void addCompany(final @RequestBody CreateCompanyDTO company) {
         infoService.addCompanyDTO(company);
@@ -54,7 +49,7 @@ public class InfoController {
         return infoService.getSocialNetworkById(id);
     }
 
-    @GetMapping("/socialNetworks/all")
+    @GetMapping("/all/socialNetworks")
     public List<SocialNetworkDTO> getAllSocialNetworks() {
         return infoService.getAllSocialNetworks();
     }

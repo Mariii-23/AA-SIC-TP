@@ -134,7 +134,6 @@
 </style>
 
 <script lang="ts">
-import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import { useUserStore } from "@/store/userStore";
 
@@ -152,7 +151,11 @@ export default {
     async login() {
       await userStore.login(this.username, this.password);
       if (userStore.isLoggedIn) {
-        this.$router.push("/admin")
+        if (userStore.role == "ADMIN")
+          this.$router.push("/admin")
+        else {
+          this.$router.push("/user/profile")
+        }
       }
     },
     handleLoginWithGoogle() {
@@ -168,6 +171,6 @@ export default {
       this.$router.push("/recover-password");
     },
   },
-  components: { PrimaryButton, FullWidthButton },
+  components: { FullWidthButton },
 };
 </script>
