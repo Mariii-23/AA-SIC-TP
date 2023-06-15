@@ -3,6 +3,8 @@ package com.example.backend.dto;
 import com.example.backend.model.User;
 
 public class UserDTO {
+
+    private int iD;
     private String email;
     private String name;
 
@@ -10,12 +12,14 @@ public class UserDTO {
 
     }
 
-    public UserDTO(String email, String name) {
+    public UserDTO(String email, String name, int iD) {
+        this.iD = iD;
         this.email = email;
         this.name = name;
     }
 
     public UserDTO(User user){
+        this.iD = user.getiD();
         this.email = user.getEmail();
         this.name = user.getName();
     }
@@ -29,10 +33,18 @@ public class UserDTO {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getiD() {
+        return iD;
+    }
+
+    public void setiD(int iD) {
+        this.iD = iD;
     }
 }

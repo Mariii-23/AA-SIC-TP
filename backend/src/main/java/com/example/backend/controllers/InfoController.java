@@ -49,8 +49,8 @@ public class InfoController {
         infoService.addCompanyDTO(company);
     }
 
-    @GetMapping("/socialNetworks/{id}")
-    public SocialNetwork getSocialNetworkById(int id) {
+    @GetMapping("/socialNetworks")
+    public SocialNetwork getSocialNetworkById(final @RequestParam int id) {
         return infoService.getSocialNetworkById(id);
     }
 
