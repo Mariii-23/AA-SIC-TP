@@ -107,8 +107,13 @@
   width: 100%;
 }
 
-
-
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  margin: 3% auto auto auto;
+}
 
 @media (max-width: 600px) {
   .body {

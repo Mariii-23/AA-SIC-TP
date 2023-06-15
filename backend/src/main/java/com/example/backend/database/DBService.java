@@ -639,7 +639,9 @@ public class DBService{
         }
     }
 
-    public void addCompany() {
+    public void addCompany() throws IOException {
+        byte[] logo = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/logo.png"));
+
         String schedule = "Monday - Friday\n" +
                 "9:00 AM - 12:30 PM | 2:00 PM - 7:00 PM\n" +
                 "Saturday\n" +
@@ -648,7 +650,7 @@ public class DBService{
                 "CLOSED\n";
         Company company = new Company("Móveis Rodrigues","geral@rodrigues-moveis.pt","252 993 990",
                 "Rua do Carvalhal, nº 18, Vila Nova de Famalicão, Portugal",
-                "MoveisRodrigues".getBytes(),
+                logo,
                 "4770-847",
                 schedule);
         companyRep.save(company);

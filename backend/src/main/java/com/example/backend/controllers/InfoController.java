@@ -2,6 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.dto.CompanyDTO;
 import com.example.backend.dto.CreateCompanyDTO;
+import com.example.backend.dto.EditSocialNetworksDTO;
 import com.example.backend.dto.SocialNetworkDTO;
 import com.example.backend.model.SocialNetwork;
 import jakarta.annotation.Resource;
@@ -57,6 +58,11 @@ public class InfoController {
     @PostMapping("/socialNetworks")
     public void addSocialNetwork(final @RequestBody SocialNetworkDTO socialNetwork) {
         infoService.addSocialNetworkDTO(socialNetwork);
+    }
+
+    @PostMapping("/socialNetworks/edit")
+    public void editSocialNetworks(final @RequestBody EditSocialNetworksDTO editSocialNetworkDTO) {
+        infoService.editSocialNetworks(editSocialNetworkDTO);
     }
 
     @PostMapping("/companyInfo/edit")

@@ -7,7 +7,7 @@
         </tr>
         <tr>
           <td>{{ $t("postal-code") }}:</td>
-          <td>{{ company?.postalCode }}</td>
+          <td>{{ company?.postCode }}</td>
         </tr>
         <tr>
           <td>{{ $t("schedule") }}:</td>
@@ -15,16 +15,16 @@
         </tr>
         <tr>
           <td>{{ $t("phoneNo") }}:</td>
-          <td>{{ company?.phoneNo }}</td>
+          <td>{{ company?.contact }}</td>
         </tr>
         <tr>
           <td>{{ $t("email") }}:</td>
           <td>{{ company?.email }}</td>
         </tr>
-        <tr v-for="social_media in company?.socialMedia" :key="social_media.name">
+        <!-- <tr v-for="social_media in company?.socialMedia" :key="social_media.name">
           <td>{{ social_media.name }}:</td>
           <td>{{ social_media.link }}</td>
-        </tr>
+        </tr> -->
       </tbody>
     </v-table>
   </template>

@@ -26,7 +26,6 @@ app.use(pinia);
 app.use(axios, {
   baseUrl: "http://localhost:8080",
   token:""
-  
 });
 
 app.mount("#app");

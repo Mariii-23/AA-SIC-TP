@@ -24,7 +24,11 @@ public class DBController {
 
     @PostMapping("/addCompany")
     public void addCompany() {
-        dbService.addCompany();
+        try {
+            dbService.addCompany();
+        } catch (Exception e) {
+           throw new RuntimeException(e) ;
+        }
     }
 
     @PostMapping("/addSocialNetworks")

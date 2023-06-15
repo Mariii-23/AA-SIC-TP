@@ -1,10 +1,12 @@
-export interface Company {
+export interface CompanyInfo {
     name: string,
     address: string,
-    postalCode: string,
+    postCode: string,
     schedule: string,
-    phoneNo: string,
+    contact: string,
     email: string,
+}
+export interface Company extends CompanyInfo{
     socialMedia: SocialMedia[]
 }
 

@@ -2,6 +2,7 @@ package com.example.backend.services;
 
 import com.example.backend.dto.CompanyDTO;
 import com.example.backend.dto.CreateCompanyDTO;
+import com.example.backend.dto.EditSocialNetworksDTO;
 import com.example.backend.dto.SocialNetworkDTO;
 import com.example.backend.model.Company;
 import com.example.backend.model.SocialNetwork;
@@ -68,15 +69,6 @@ public class InfoService {
         return socialNetworkRep.findById(id).orElse(null);
     }
 
-    public List<SocialNetworkDTO> getSocialNetworksByCompany() {
-        List<SocialNetworkDTO> result = new ArrayList<>();
-        Company company = companyRep.findAll().get(0);
-        company.getSocialNetworks().forEach(socialNetwork -> {
-            result.add(new SocialNetworkDTO(socialNetwork));
-        });
-        return result;
-    }
-
     public void editCompanyInfo(CreateCompanyDTO companyDTO) {
         Company company = companyRep.findAll().get(0);
         if (companyDTO.getName() != null) company.setName(companyDTO.getName());
@@ -92,5 +84,14 @@ public class InfoService {
     public byte[] getCompanyImage() {
         Company company = companyRep.findAll().get(0);
         return company.getLogoImage();
+    }
+
+    public void editSocialNetworks(EditSocialNetworksDTO editSocialNetworkDTO) {
+        Company company = companyRep.findAll().get(0);
+        List<SocialNetwork> socialNetworks = new ArrayList<>();
+        editSocialNetworkDTO.getSocialNetworks().forEach(socialNetworkDTO ->
+                socialNetworks.add(new SocialNetwork(socialNetworkDTO.getName(),socialNetworkDTO.getLink(),company)));
+        company.setSocialNetworks(socialNetworks);
+        companyRep.save(company);
     }
 }

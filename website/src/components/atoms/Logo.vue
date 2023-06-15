@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-    <v-img :src="logo" />
+    <img :src="logo" alt="Logo" class="max-width" />
   </div>
 </template>
 
+<style>
+.max-width {
+  max-width: 100%;
+}
+</style>
+
 <script lang="ts">
-import logo from "@/assets/logo.png"
+import { useCompanyStore } from "@/store/companyStore";
+
+const companyStore = useCompanyStore();
 
 export default {
   data: function () {
-    return {
-      //FIXME: Get logo
-      logo: logo
+    let path = "";
+
+    if (companyStore.logo == "") {
+      path = companyStore.getLogoPath();
     }
-  }
-}
+
+    return {
+      logo: path,
+    };
+  },
+};
 </script>

@@ -13,7 +13,9 @@
       <v-row>
         <HeadingText :size="6"> {{ $t("schedule") }}</HeadingText>
       </v-row>
-      <v-row v-for="schedule in schedule_list" :key="schedule">{{ schedule }}</v-row>
+      <v-row v-for="schedule in schedule_list" :key="schedule">{{
+        schedule
+      }}</v-row>
     </v-col>
     <v-spacer />
     <v-col class="column">
@@ -60,7 +62,7 @@ export default {
 
     const contact = {
       phone_number: companyStore.companyInfo.contact,
-      email: companyStore.companyInfo.email
+      email: companyStore.companyInfo.email,
     };
 
     if (localization !== false) {
@@ -78,9 +80,21 @@ export default {
       this.phone_number = contact.phone_number;
       this.email = contact.email;
     }
+
+    this.$watch(
+      () => companyStore.companyInfo,
+      (newValues) => {
+        this.address = newValues.address;
+        this.post_code = newValues.postCode;
+        this.email = newValues.email;
+        this.hasSchedule = newValues.schedule != "";
+        this.schedule_list = [newValues.schedule];
+        this.phone_number = newValues.contact;
+      }
+    );
   },
   components: { HeadingText },
-}
+};
 </script>
 
 <style scoped>

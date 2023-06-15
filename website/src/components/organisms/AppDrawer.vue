@@ -39,9 +39,6 @@ export default {
 
     const drawer = computed(() => drawerStore.drawer);
     //FIXME: Remover - Assistir o valor do drawer e ver as suas mudanças
-    watch(drawer, (newDrawer) => {
-      console.log("Drawer mudou:", newDrawer);
-    });
     return {
       drawer,
       changeDrawer: drawerStore.changeDrawer,
