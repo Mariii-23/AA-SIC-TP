@@ -20,6 +20,9 @@ import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vu
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
 import AddAdminForm from "@/components/organisms/Forms/AddAdminForm.vue"
+import { useAdminsStore } from "@/store/adminsStore";
+
+const adminsStore = useAdminsStore();
 
 export default {
   name: "AddAdminPage",
@@ -34,11 +37,13 @@ export default {
       { href: "/admin/client", icon: "brightness-1", text: "clients" },
     ];
   },
-  //TODO: ir buscar os direitos
   methods: {
-    addAdminHandler(email: string, password: string) {
-      console.log("add admin");
-      //TODO: add handler
+    async addAdminHandler(email: string, password: string, name: string) {
+      const result = await adminsStore.addAdmin(email, password, name);
+      if (result) {
+        this.$router.push("/admin")
+      }
+      //TODO: ver o erro
     },
   },
   components: {

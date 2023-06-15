@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import { App } from "vue";
 import authentication from "./authentication";
 import admins from "./admins";
+import categories from "./categories";
 
 interface AxiosOptions {
   baseUrl?: string;
@@ -21,6 +22,7 @@ export default {
 
     app.config.globalProperties.$axios = axiosInstance;
   },
+  categories,
   authentication,
   admins,
 };

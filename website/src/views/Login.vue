@@ -134,7 +134,6 @@
 </style>
 
 <script lang="ts">
-import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import { useUserStore } from "@/store/userStore";
 
@@ -168,6 +167,6 @@ export default {
       this.$router.push("/recover-password");
     },
   },
-  components: { PrimaryButton, FullWidthButton },
+  components: { FullWidthButton },
 };
 </script>

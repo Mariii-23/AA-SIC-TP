@@ -41,8 +41,8 @@ public class UserService {
     private ApplicationEventPublisher applicationEventPublisher;
 
 
-    public Admin addAdmin(Admin admin) {
-        return adminRep.save(admin);
+    public AdminDTO addAdmin(Admin admin) {
+        return new AdminDTO(adminRep.save(admin));
     }
 
     public CustomerDTO getCustomerById(int id) throws UserNotFoundException {
@@ -81,7 +81,7 @@ public class UserService {
         return new EnvelopeDTO<>(isLast, list);
     }
 
-    public void addAdminDTO(CreateAdminDTO adminDTO){
+    public AdminDTO addAdminDTO(CreateAdminDTO adminDTO){
         Admin admin = new Admin(adminDTO.getEmail(),
                                 passwordEncoder.encode(adminDTO.getPassword()),
                                 adminDTO.getName());
@@ -92,7 +92,11 @@ public class UserService {
                 .bodyToMono(JsonNode.class)
                 .map(jsonNode -> jsonNode.get("valid").asBoolean())
                 .block();*/
-        if(valid) addAdmin(admin);
+        if(valid) {
+            return addAdmin(admin);
+        }
+
+        return null;
     }
 
     public EnvelopeDTO<FavouriteDTO> getFavourites(int id, int offset, int numItems) throws UserNotFoundException {

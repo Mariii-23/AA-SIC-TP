@@ -16,6 +16,7 @@ const login = async (email: string, password: string) => {
     });
 
     const token = req.data.token;
+    console.log(token)
 
     axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
 

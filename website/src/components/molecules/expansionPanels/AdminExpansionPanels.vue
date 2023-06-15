@@ -11,9 +11,9 @@
       <TitleWithButton
         :size="5"
         :title="`${$t('admin')} #${user.id}`"
-        :button-text="$t('viewDetails')"
+        :button-text="$t('removeAdmin')"
         :button-handler="
-          () => viewDetailsHandler && viewDetailsHandler(user.id)
+          () => removeAdminHandler && removeAdminHandler(user.id)
         "
       />
       <div class="user-title-info-wrapper">
@@ -50,7 +50,7 @@ export default {
       type: Array as () => UserInfoProps[],
       require: true,
     },
-    viewDetailsHandler: {
+    removeAdminHandler: {
       type: Function,
     },
   },
