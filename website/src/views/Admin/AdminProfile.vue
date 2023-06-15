@@ -43,8 +43,6 @@
       this.admin = {
         name: "Maria",
         email: "maria@hotmail.com",
-        address: "Rua da Marina, Edificiona Nao sei , ablalkb",
-        nif: "999888999",
         id: route.params.id,
       } as UserInfoProps;
   
@@ -60,7 +58,7 @@
         this.$router.push("/addAdmin/");
       },
       editProfile() {
-        console.log("edit profile")
+        this.$router.push("/profile/edit");
       }
 
     },

@@ -1,4 +1,12 @@
 <template>
+    <ConfirmationModal
+    :title="$t('remove-product')"
+    :text="$t('modal-remove-product') + ' ' + productDesc.name + '? '"
+    :confirmHandler="deleteProductHandler"
+    :closeModal="closeModal"
+    :isModalOpen="isModalOpen"
+    />
+
     <div class="product">
         <div class="left-side">
                 <Carousel :images="productImages" class="carousel" />
@@ -27,13 +35,6 @@
         :deleteProductHandler="deleteProductHandler"/>
     </div>
 
-    <RemoveProductModal
-    :product-name="productDesc.name"
-    :close-modal="closeModal"
-    :removeProductHandler="() => deleteProductHandler && deleteProductHandler(productDesc.id)"
-    v-model:isModalOpen="isModalOpen"
-    />
-
 </template>
 
 <script lang="ts">
@@ -43,8 +44,7 @@ import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
 import { ProductInformation, ProductImages, Materials} from "@/appTypes/Product";
-import RemoveProductModal from "@/components/organisms/Modal/RemoveProductModal.vue";
-
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
     name:"ProductAdmin",
@@ -153,7 +153,7 @@ export default {
         ProductDesc,
         HeadingText,
         RelatedProducts,
-        RemoveProductModal
+        ConfirmationModal
     }
 };
 </script>

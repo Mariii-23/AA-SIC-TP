@@ -1,10 +1,11 @@
 <template>
-  <RemoveAdminModal
-    :close-modal="closeModal"
-    :remove-admin-handler="removeAdminHandler"
-    v-model:is-modal-open="isModalOpen"
+  <ConfirmationModal 
+    :title="$t('removeAdmin')"
+    :text="$t('rm-admin-text')"
+    :confirmHandler="removeAdminHandler"
+    :closeModal="closeModal"
+    :isModalOpen="isModalOpen"
   />
-
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
@@ -35,7 +36,7 @@ import { UserInfoProps } from "@/appTypes/User";
 import TitleWithButtonAndGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
 import { useRoute } from "vue-router";
 import AdminCard from "@/components/organisms/Card/AdminCard.vue";
-import RemoveAdminModal from "@/components/organisms/Modal/RemoveAdminModal.vue";
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
   name: "AdminAdminPage",
@@ -83,7 +84,7 @@ export default {
     SimpleBodyLayout,
     TitleWithButtonAndGoBack,
     AdminCard,
-    RemoveAdminModal,
+    ConfirmationModal
   },
 };
 </script>

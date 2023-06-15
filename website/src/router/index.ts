@@ -107,7 +107,12 @@ const routes = [
         path: "categories",
         name: "Categories",
         component: () => import("@/views/Admin/StoreCategories.vue"),
-      }
+      },
+      {
+        path: "/profile/edit",
+        name: "ProfileEdit",
+        component: () => import("@/views/Admin/EditProfile.vue"),
+      },
     ],
   },
 ];

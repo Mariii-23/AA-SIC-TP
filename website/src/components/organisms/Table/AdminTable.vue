@@ -9,14 +9,6 @@
         <td>{{ $t("email") }}:</td>
         <td>{{ admin?.email }}</td>
       </tr>
-      <tr key="nif">
-        <td>{{ $t("nif") }}:</td>
-        <td>{{ admin?.nif }}</td>
-      </tr>
-      <tr key="address">
-        <td>{{ $t("address") }}:</td>
-        <td>{{ admin?.address }}</td>
-      </tr>
     </tbody>
   </v-table>
 </template>
