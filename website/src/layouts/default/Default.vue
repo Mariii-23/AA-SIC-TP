@@ -19,5 +19,5 @@ import DefaultFooter from "@/components/organisms/AppFooter.vue";
 import AppDrawer from "@/components/organisms/AppDrawer.vue";
 import { ref } from "vue";
 
-const notShowFooter = ref(["/login", "/register"]);
+const notShowFooter = ref(["/login", "/register", "/recover-password"]);
 </script>

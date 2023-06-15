@@ -25,6 +25,7 @@ const routes = [
         name: "Register",
         component: () => import("@/views/Register.vue"),
       },
+      //TODO : delete
       {
         path: "try",
         name: "Layout",
