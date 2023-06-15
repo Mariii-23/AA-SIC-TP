@@ -1,17 +1,19 @@
 package com.example.backend.database;
 
-import com.example.backend.Exception.UserNotFoundException;
-import com.example.backend.dto.AdminDTO;
-import com.example.backend.dto.CustomerDTO;
+import com.example.backend.exception.UserNotFoundException;
+import com.example.backend.dto.CreateAdminDTO;
+import com.example.backend.dto.CreateCustomerDTO;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import com.example.backend.services.AuthenticateService;
-import com.example.backend.services.InfoService;
 import com.example.backend.services.OrderService;
 import com.example.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,9 +26,6 @@ public class DBService{
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserRep userRep;
 
     @Autowired
     private CustomerRep customerRep;
@@ -55,145 +54,143 @@ public class DBService{
     @Autowired
     private SocialNetworkRep socialNetworkRep;
 
-    @Autowired
-    private OrderRep orderRep;
 
     public void addUsers() throws Exception {
-        List<User> users = new ArrayList<>();
 
-        authenticateService.register(new CustomerDTO(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson"));
-        authenticateService.register(new CustomerDTO(new Date(1992, 1, 9), "246813579C", "789 Oak Road, Villageton", "customer3@example.com", "password3", "Robert Davis"));
-        authenticateService.register(new CustomerDTO(new Date(1990, 3, 15), "123456789A", "123 Main Street, Cityville", "customer1@example.com", "password1", "John Smith"));
-        authenticateService.register(new CustomerDTO(new Date(1988, 11, 26), "135792468D", "321 Pine Lane, Hamletown", "customer4@example.com", "password4", "Emily Wilson"));
-        authenticateService.register(new CustomerDTO(new Date(1995, 5, 4), "864209753E", "654 Maple Drive, Boroughburg", "customer5@example.com", "password5", "Michael Thompson"));
-        authenticateService.register(new CustomerDTO(new Date(1984, 2, 21), "579314682F", "987 Cedar Street, Villaville", "customer6@example.com", "password6", "Sarah Roberts"));
-        authenticateService.register(new CustomerDTO(new Date(1991, 8, 10), "951623487G", "159 Birch Court, Townberg", "customer7@example.com", "password7", "David Lee"));
-        authenticateService.register(new CustomerDTO(new Date(1987, 12, 3), "792468135H", "753 Oakwood Avenue, Hamletham", "customer8@example.com", "password8", "Jennifer Scott"));
-        authenticateService.register(new CustomerDTO(new Date(1993, 6, 18), "246813579I", "357 Pine Lane, Cityton", "customer9@example.com", "password9", "Christopher Martin"));
-        authenticateService.register(new CustomerDTO(new Date(1986, 9, 27), "468135792J", "951 Maple Drive, Villaburg", "customer10@example.com", "password10", "Amanda Turner"));
-        authenticateService.register(new CustomerDTO(new Date(1994, 4, 12), "246801357K", "753 Cedar Street, Boroughville", "customer11@example.com", "password11", "Matthew Harris"));
-        authenticateService.register(new CustomerDTO(new Date(1983, 10, 29), "135792468L", "357 Birch Court, Townham", "customer12@example.com", "password12", "Laura Clark"));
-        authenticateService.register(new CustomerDTO(new Date(1990, 2, 7), "579314682M", "951 Oakwood Avenue, Citytown", "customer13@example.com", "password13", "Daniel Baker"));
-        authenticateService.register(new CustomerDTO(new Date(1985, 7, 26), "468135792N", "753 Pine Lane, Villaville", "customer14@example.com", "password14", "Olivia Phillips"));
-        authenticateService.register(new CustomerDTO(new Date(1992, 1, 3), "791364825O", "357 Maple Drive, Hamletown", "customer15@example.com", "password15", "James Cooper"));
-        authenticateService.register(new CustomerDTO(new Date(1988, 11, 20), "579314682P", "951 Cedar Street, Cityville", "customer16@example.com", "password16", "Sophia Martinez"));
-        authenticateService.register(new CustomerDTO(new Date(1995, 6, 8), "468135792Q", "753 Birch Court, Townsville", "customer17@example.com", "password17", "Ryan Thompson"));
-        authenticateService.register(new CustomerDTO(new Date(1984, 3, 25), "791364825R", "357 Oakwood Avenue, Villageton", "customer18@example.com", "password18", "Emma Davis"));
-        authenticateService.register(new CustomerDTO(new Date(1991, 9, 14), "135792468S", "951 Pine Lane, Hamletown", "customer19@example.com", "password19", "Alexander Wilson"));
-        authenticateService.register(new CustomerDTO(new Date(1987, 12, 31), "579314682T", "753 Maple Drive, Boroughburg", "customer20@example.com", "password20", "Mia Johnson"));
-        authenticateService.register(new CustomerDTO(new Date(1993, 7, 17), "468135792U", "357 Cedar Street, Villaville", "customer21@example.com", "password21", "William Roberts"));
-        authenticateService.register(new CustomerDTO(new Date(1986, 10, 5), "791364825V", "951 Birch Court, Townberg", "customer22@example.com", "password22", "Grace Lee"));
-        authenticateService.register(new CustomerDTO(new Date(1994, 5, 21), "135792468W", "753 Oakwood Avenue, Hamletham", "customer23@example.com", "password23", "Joseph Scott"));
-        authenticateService.register(new CustomerDTO(new Date(1983, 11, 8), "579314682X", "357 Pine Lane, Cityton", "customer24@example.com", "password24", "Samantha Martin"));
-        authenticateService.register(new CustomerDTO(new Date(1990, 3, 24), "468135792Y", "951 Maple Drive, Villaburg", "customer25@example.com", "password25", "Benjamin Turner"));
-        authenticateService.register(new CustomerDTO(new Date(1985, 8, 12), "791364825Z", "753 Cedar Street, Boroughville", "customer26@example.com", "password26", "Natalie Harris"));
-        authenticateService.register(new CustomerDTO(new Date(1992, 2, 28), "246801357AA", "357 Birch Court, Townham", "customer27@example.com", "password27", "Andrew Clark"));
-        authenticateService.register(new CustomerDTO(new Date(1988, 12, 15), "135792468AB", "951 Oakwood Avenue, Citytown", "customer28@example.com", "password28", "Isabella Baker"));
-        authenticateService.register(new CustomerDTO(new Date(1995, 7, 2), "579314682AC", "753 Pine Lane, Villaville", "customer29@example.com", "password29", "Ethan Phillips"));
-        authenticateService.register(new CustomerDTO(new Date(1984, 4, 18), "468135792AD", "357 Maple Drive, Hamletown", "customer30@example.com", "password30", "Chloe Cooper"));
-        authenticateService.register(new CustomerDTO(new Date(1991, 10, 4), "246801357AE", "951 Cedar Street, Cityville", "customer31@example.com", "password31", "Liam Martinez"));
-        authenticateService.register(new CustomerDTO(new Date(1987, 12, 21), "135792468AF", "753 Birch Court, Townsville", "customer32@example.com", "password32", "Victoria Thompson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1992, 1, 9), "246813579C", "789 Oak Road, Villageton", "customer3@example.com", "password3", "Robert Davis"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1990, 3, 15), "123456789A", "123 Main Street, Cityville", "customer1@example.com", "password1", "John Smith"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1988, 11, 26), "135792468D", "321 Pine Lane, Hamletown", "customer4@example.com", "password4", "Emily Wilson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1995, 5, 4), "864209753E", "654 Maple Drive, Boroughburg", "customer5@example.com", "password5", "Michael Thompson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1984, 2, 21), "579314682F", "987 Cedar Street, Villaville", "customer6@example.com", "password6", "Sarah Roberts"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1991, 8, 10), "951623487G", "159 Birch Court, Townberg", "customer7@example.com", "password7", "David Lee"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1987, 12, 3), "792468135H", "753 Oakwood Avenue, Hamletham", "customer8@example.com", "password8", "Jennifer Scott"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1993, 6, 18), "246813579I", "357 Pine Lane, Cityton", "customer9@example.com", "password9", "Christopher Martin"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1986, 9, 27), "468135792J", "951 Maple Drive, Villaburg", "customer10@example.com", "password10", "Amanda Turner"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1994, 4, 12), "246801357K", "753 Cedar Street, Boroughville", "customer11@example.com", "password11", "Matthew Harris"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1983, 10, 29), "135792468L", "357 Birch Court, Townham", "customer12@example.com", "password12", "Laura Clark"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1990, 2, 7), "579314682M", "951 Oakwood Avenue, Citytown", "customer13@example.com", "password13", "Daniel Baker"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1985, 7, 26), "468135792N", "753 Pine Lane, Villaville", "customer14@example.com", "password14", "Olivia Phillips"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1992, 1, 3), "791364825O", "357 Maple Drive, Hamletown", "customer15@example.com", "password15", "James Cooper"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1988, 11, 20), "579314682P", "951 Cedar Street, Cityville", "customer16@example.com", "password16", "Sophia Martinez"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1995, 6, 8), "468135792Q", "753 Birch Court, Townsville", "customer17@example.com", "password17", "Ryan Thompson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1984, 3, 25), "791364825R", "357 Oakwood Avenue, Villageton", "customer18@example.com", "password18", "Emma Davis"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1991, 9, 14), "135792468S", "951 Pine Lane, Hamletown", "customer19@example.com", "password19", "Alexander Wilson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1987, 12, 31), "579314682T", "753 Maple Drive, Boroughburg", "customer20@example.com", "password20", "Mia Johnson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1993, 7, 17), "468135792U", "357 Cedar Street, Villaville", "customer21@example.com", "password21", "William Roberts"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1986, 10, 5), "791364825V", "951 Birch Court, Townberg", "customer22@example.com", "password22", "Grace Lee"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1994, 5, 21), "135792468W", "753 Oakwood Avenue, Hamletham", "customer23@example.com", "password23", "Joseph Scott"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1983, 11, 8), "579314682X", "357 Pine Lane, Cityton", "customer24@example.com", "password24", "Samantha Martin"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1990, 3, 24), "468135792Y", "951 Maple Drive, Villaburg", "customer25@example.com", "password25", "Benjamin Turner"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1985, 8, 12), "791364825Z", "753 Cedar Street, Boroughville", "customer26@example.com", "password26", "Natalie Harris"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1992, 2, 28), "246801357AA", "357 Birch Court, Townham", "customer27@example.com", "password27", "Andrew Clark"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1988, 12, 15), "135792468AB", "951 Oakwood Avenue, Citytown", "customer28@example.com", "password28", "Isabella Baker"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1995, 7, 2), "579314682AC", "753 Pine Lane, Villaville", "customer29@example.com", "password29", "Ethan Phillips"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1984, 4, 18), "468135792AD", "357 Maple Drive, Hamletown", "customer30@example.com", "password30", "Chloe Cooper"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1991, 10, 4), "246801357AE", "951 Cedar Street, Cityville", "customer31@example.com", "password31", "Liam Martinez"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1987, 12, 21), "135792468AF", "753 Birch Court, Townsville", "customer32@example.com", "password32", "Victoria Thompson"));
 
-        userService.addAdminDTO(new AdminDTO("admin@admin.com", "password", "Admin"));
-        userService.addAdminDTO(new AdminDTO("admin1@example.com", "adminpassword1", "Admin Smith"));
-        userService.addAdminDTO(new AdminDTO("admin2@example.com", "adminpassword2", "Admin Johnson"));
-        userService.addAdminDTO(new AdminDTO("admin3@example.com", "adminpassword3", "Admin Davis"));
-        userService.addAdminDTO(new AdminDTO("admin4@example.com", "adminpassword4", "Admin Wilson"));
-        userService.addAdminDTO(new AdminDTO("admin5@example.com", "adminpassword5", "Admin Thompson"));
-        userService.addAdminDTO(new AdminDTO("admin6@example.com", "adminpassword6", "Admin Roberts"));
-        userService.addAdminDTO(new AdminDTO("admin7@example.com", "adminpassword7", "Admin Lee"));
-        userService.addAdminDTO(new AdminDTO("admin8@example.com", "adminpassword8", "Admin Scott"));
-        userService.addAdminDTO(new AdminDTO("admin9@example.com", "adminpassword9", "Admin Martin"));
-        userService.addAdminDTO(new AdminDTO("admin10@example.com", "adminpassword10", "Admin Turner"));
+        userService.addAdminDTO(new CreateAdminDTO("admin@admin.com", "password", "Admin"));
+        userService.addAdminDTO(new CreateAdminDTO("admin1@example.com", "adminpassword1", "Admin Smith"));
+        userService.addAdminDTO(new CreateAdminDTO("admin2@example.com", "adminpassword2", "Admin Johnson"));
+        userService.addAdminDTO(new CreateAdminDTO("admin3@example.com", "adminpassword3", "Admin Davis"));
+        userService.addAdminDTO(new CreateAdminDTO("admin4@example.com", "adminpassword4", "Admin Wilson"));
+        userService.addAdminDTO(new CreateAdminDTO("admin5@example.com", "adminpassword5", "Admin Thompson"));
+        userService.addAdminDTO(new CreateAdminDTO("admin6@example.com", "adminpassword6", "Admin Roberts"));
+        userService.addAdminDTO(new CreateAdminDTO("admin7@example.com", "adminpassword7", "Admin Lee"));
+        userService.addAdminDTO(new CreateAdminDTO("admin8@example.com", "adminpassword8", "Admin Scott"));
+        userService.addAdminDTO(new CreateAdminDTO("admin9@example.com", "adminpassword9", "Admin Martin"));
+        userService.addAdminDTO(new CreateAdminDTO("admin10@example.com", "adminpassword10", "Admin Turner"));
 
     }
 
-    public void addMaterials() {
+    public void addMaterials() throws IOException {
         List<Material> materials = new ArrayList<>();
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
 
-        materials.add(new Material("Oak Wood", "material".getBytes()));
-        materials.add(new Material("Mahogany", "material".getBytes()));
-        materials.add(new Material("Leather", "material1".getBytes()));
-        materials.add(new Material("Wicker", "material1".getBytes()));
-        materials.add(new Material("Velvet", "material1".getBytes()));
-        materials.add(new Material("Bamboo", "material1".getBytes()));
-        materials.add(new Material("Suede", "material1".getBytes()));
-        materials.add(new Material("Rattan", "material1".getBytes()));
-        materials.add(new Material("Microfiber", "material1".getBytes()));
-        materials.add(new Material("Linen", "material1".getBytes()));
-        materials.add(new Material("Cotton", "material1".getBytes()));
-        materials.add(new Material("Silk", "material1".getBytes()));
-        materials.add(new Material("Acrylic", "material1".getBytes()));
-        materials.add(new Material("Polyester", "material1".getBytes()));
-        materials.add(new Material("Metal", "material1".getBytes()));
-        materials.add(new Material("Glass", "material1".getBytes()));
-        materials.add(new Material("Marble", "material1".getBytes()));
-        materials.add(new Material("Granite", "material1".getBytes()));
-        materials.add(new Material("Cork", "material1".getBytes()));
-        materials.add(new Material("Plastic", "material1".getBytes()));
+        materials.add(new Material("Oak Wood", image1));
+        materials.add(new Material("Mahogany", image1));
+        materials.add(new Material("Leather", image1));
+        materials.add(new Material("Wicker", image1));
+        materials.add(new Material("Velvet", image1));
+        materials.add(new Material("Bamboo", image1));
+        materials.add(new Material("Suede", image1));
+        materials.add(new Material("Rattan", image1));
+        materials.add(new Material("Microfiber", image1));
+        materials.add(new Material("Linen", image1));
+        materials.add(new Material("Cotton", image1));
+        materials.add(new Material("Silk", image1));
+        materials.add(new Material("Acrylic", image1));
+        materials.add(new Material("Polyester", image1));
+        materials.add(new Material("Metal", image1));
+        materials.add(new Material("Glass", image1));
+        materials.add(new Material("Marble", image1));
+        materials.add(new Material("Granite", image1));
+        materials.add(new Material("Cork", image1));
+        materials.add(new Material("Plastic", image1));
 
         materialRep.saveAll(materials);
     }
 
-    public void addCategories() {
+    public void addCategories() throws IOException {
         List<Category> categories = new ArrayList<>();
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
+        byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
-        categories.add(new Category("Living Room", "livingRoomImageBytes".getBytes()));
-        categories.add(new Category("Bedroom", "bedroomImageBytes".getBytes()));
-        categories.add(new Category("Dining Room", "diningRoomImageBytes".getBytes()));
-        categories.add(new Category("Office", "officeImageBytes".getBytes()));
-        categories.add(new Category("Outdoor", "outdoorImageBytes".getBytes()));
-        categories.add(new Category("Kitchen", "kitchenImageBytes".getBytes()));
-        categories.add(new Category("Bathroom", "bathroomImageBytes".getBytes()));
-        categories.add(new Category("Kids", "kidsImageBytes".getBytes()));
-        categories.add(new Category("Entertainment", "entertainmentImageBytes".getBytes()));
-        categories.add(new Category("Storage", "storageImageBytes".getBytes()));
-        categories.add(new Category("Accent", "accentImageBytes".getBytes()));
-        categories.add(new Category("Workspace", "workspaceImageBytes".getBytes()));
-        categories.add(new Category("Entryway", "entrywayImageBytes".getBytes()));
-        categories.add(new Category("Garden", "gardenImageBytes".getBytes()));
-        categories.add(new Category("Nursery", "nurseryImageBytes".getBytes()));
-        categories.add(new Category("Patio", "patioImageBytes".getBytes()));
-        categories.add(new Category("Bar", "barImageBytes".getBytes()));
-        categories.add(new Category("Library", "libraryImageBytes".getBytes()));
-        categories.add(new Category("Playroom", "playroomImageBytes".getBytes()));
-        categories.add(new Category("Gym", "gymImageBytes".getBytes()));
+
+        categories.add(new Category("Living Room", image1));
+        categories.add(new Category("Bedroom", image1));
+        categories.add(new Category("Dining Room", image1));
+        categories.add(new Category("Office",image1));
+        categories.add(new Category("Outdoor", image1));
+        categories.add(new Category("Kitchen", image1));
+        categories.add(new Category("Bathroom", image2));
+        categories.add(new Category("Kids", image2));
+        categories.add(new Category("Entertainment", image2));
+        categories.add(new Category("Storage", image2));
+        categories.add(new Category("Accent", image2));
+        categories.add(new Category("Workspace", image2));
+        categories.add(new Category("Entryway", image2));
+        categories.add(new Category("Garden", image2));
+        categories.add(new Category("Nursery", image3));
+        categories.add(new Category("Patio", image3));
+        categories.add(new Category("Bar", image3));
+        categories.add(new Category("Library", image3));
+        categories.add(new Category("Playroom", image3));
+        categories.add(new Category("Gym", image3));
 
         categoryRep.saveAll(categories);
 
     }
 
-    public void addSubcategories() {
+    public void addSubcategories() throws IOException {
         List<Category> categories = categoryRep.findAll();
         int size = categories.size();
         List<SubCategory> subCategories = new ArrayList<>();
         Random random = new Random();
 
-        subCategories.add(new SubCategory("Sofas", "sofasImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Beds", "bedsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Dining Tables", "diningTablesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Desks", "desksImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Outdoor Sets", "outdoorSetsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Cabinets", "cabinetsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Toilets", "toiletsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Kids Beds", "kidsBedsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("TV Stands", "tvStandsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bookcases", "bookcasesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Chairs", "chairsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Mattresses", "mattressesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bar Tables", "barTablesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Office Chairs", "officeChairsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Outdoor Chairs", "outdoorChairsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Shelves", "shelvesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bathroom Vanities", "bathroomVanitiesImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Kids Desks", "kidsDesksImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Media Cabinets", "mediaCabinetsImageBytes".getBytes(), categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Storage Benches", "storageBenchesImageBytes".getBytes(), categories.get(random.nextInt(size))));
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
+        byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
+
+        subCategories.add(new SubCategory("Sofas", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Beds", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Dining Tables", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Desks", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Outdoor Sets", image1, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Cabinets", image2, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Toilets", image2, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Kids Beds", image2, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Chairs", image3, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Tables", image3, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Bookcases", image3, categories.get(random.nextInt(size))));
+        subCategories.add(new SubCategory("Office Chairs", image3, categories.get(random.nextInt(size))));
 
         subCategoryRep.saveAll(subCategories);
     }
 
-    public void addProducts() {
+    public void addProducts() throws IOException {
         List<Material> materials = materialRep.findAll();
         List<SubCategory> subCategories = subCategoryRep.findAll();
         List<Product> products = new ArrayList<>();
@@ -206,7 +203,7 @@ public class DBService{
         SubCategory s1 = subCategories.get(random.nextInt(0,subcategories_size));
         List<Material> m1 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m1.add(materials.get(random.nextInt(0,materials_size)));
-        products.add(new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", materials.subList(0, 2), s1.getCategory(), s1));
+        products.add((new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", materials.subList(0, 2), s1.getCategory(), s1)));
 
         SubCategory s2 = subCategories.get(random.nextInt(subCategories.size()));
         List<Material> m2 = new ArrayList<>();
@@ -564,50 +561,25 @@ public class DBService{
         customerRep.saveAll(customersWithFavourites);
     }
 
-   /* public void addMoreOrders() {
-        List<Customer> customers = customerRep.findAll();
-        List<Order> orders = new ArrayList<>();
-
-        Random random = new Random();
-
-        for (int i = 1; i <= 100; i++) {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate orderDate = currentDate.minusDays(i); // Subtracting days to simulate different order dates
-
-            boolean storePickUp = i % 2 == 0; // Alternating between store pick-up and delivery
-            OrderState state;
-
-            if (i % 3 == 0) {
-                state = OrderState.READY;
-            } else if (i % 3 == 1) {
-                state = OrderState.DONE;
-            } else {
-                state = OrderState.PENDING;
-            }
-
-            Customer customer = customers.get(random.nextInt(customers.size())); // Randomly select a customer
-
-            Order order;
-            if (storePickUp) order = new Order(orderDate, "Store", storePickUp, state, customer);
-            else order = new Order(orderDate, customer.getAddress(), storePickUp, state, customer);
-            orders.add(order);
-        }
-
-        orderRep.saveAll(orders);
-    }*/
-
-    public void addImages() {
+    public void addImages() throws IOException {
         List<Product> products = productRep.findAll();
         List<Image> images = new ArrayList<>();
 
-        Random random = new Random();
+        byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
+        byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
+
 
         int i = 1;
         for(Product p : products) {
-            String imageName = "image" + i + "Bytes";
-            images.add(new Image(imageName.getBytes(), p));
+            if (i % 3 == 0) {
+                images.add(new Image(image1, p));
+            } else if (i % 3 == 1) {
+                images.add(new Image(image2, p));
+            } else {
+                images.add(new Image(image3, p));
+            }
             i++;
-
         }
 
         imageRep.saveAll(images);

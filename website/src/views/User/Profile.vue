@@ -36,7 +36,7 @@
   import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
   import { useRoute } from "vue-router";
   import ClientCard from "@/components/organisms/Card/ClientCard.vue";
-import ConfirmationModal from '@/components/organisms/Modal/ConfirmationModal.vue';
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
   
   export default {
     name: "UserProfile",

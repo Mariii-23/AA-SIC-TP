@@ -1,8 +1,9 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.ItemNotFoundException;
-import com.example.backend.Exception.OrderNotFoundException;
-import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.exception.ItemNotFoundException;
+import com.example.backend.exception.OrderAlreadyPayedException;
+import com.example.backend.exception.OrderNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.model.OrderState;
 import com.example.backend.services.OrderService;
@@ -11,25 +12,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/order")
 public class OrderController {
     @Resource(name = "orderService")
     private OrderService orderService;
 
-    @GetMapping("/customer/orders/{costumerId}")
-    public List<OrderSimpleDTO> getOrders(@PathVariable int costumerId){
+    @GetMapping("/customer/orders")
+    public EnvelopeDTO<OrderSimpleDTO> getOrders(final @RequestParam int costumerId, final @RequestParam int offset, final @RequestParam int numItems){
         try {
-            return orderService.getOrdersOfCostumer(costumerId);
+            return orderService.getOrdersOfCostumer(costumerId, offset, numItems);
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
-    @GetMapping("/customer/order/{orderId}")
-    public OrderDetailedDTO getOrder(@PathVariable int orderId){
+    @GetMapping("/customer/order")
+    public OrderDetailedDTO getOrder(final @RequestParam int orderId){
         try {
             return orderService.getOrder(orderId);
         } catch (OrderNotFoundException e) {
@@ -37,18 +36,23 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/customer/numberOfOrders/{id}")
-    public int getNumberOfOrders(@PathVariable int id) {
+    @GetMapping("/customer/numberOfOrders")
+    public int getNumberOfCustomerOrders(final @RequestParam int id) {
         try {
-            return orderService.getNumberOfOrders(id);
+            return orderService.getNumberOfCustomerOrders(id);
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
     @GetMapping("/admin/orders")
-    public EnvelopeDTO<OrderSimpleDTO> getAllOrders(final @RequestBody PaginationDTO paginationDTO){
-        return orderService.getAllOrders(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    public EnvelopeDTO<OrderSimpleDTO> getAllOrders(final @RequestParam int offset, final @RequestParam int numItems){
+        return orderService.getAllOrders(offset, numItems);
+    }
+
+    @GetMapping("/admin/numberOfOrders")
+    public int getNumberOfOrders() {
+        return orderService.getNumberOfOrders();
     }
 
     @PostMapping("/admin/ready/{orderId}")
@@ -108,6 +112,13 @@ public class OrderController {
         }
     }
 
-
+    @PostMapping("/payment/{orderId}")
+    public boolean payOrder(@PathVariable int orderId){
+        try {
+            return orderService.payOrder(orderId);
+        } catch (OrderNotFoundException | OrderAlreadyPayedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 
 }

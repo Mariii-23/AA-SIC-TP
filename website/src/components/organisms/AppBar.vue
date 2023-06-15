@@ -11,7 +11,7 @@
     <v-spacer />
 
     <div class="search-bar">
-      <SearchBar bg-color="secondary"/>
+      <SearchBar bg-color="secondary" />
     </div>
 
     <v-spacer />
@@ -26,34 +26,33 @@
       </BodyText>
     </div>
 
-    <div v-if="loggedIn && user_type === 'customer'" class="icon-w-text">
+    <div v-if="loggedIn && user_type === 'CUSTOMER'" class="icon-w-text">
       <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
-      <BodyText class="navbar_text"> {{ $t("welcome") }} {{ truncatedUsername }} </BodyText>
+      <BodyText class="navbar_text">
+        {{ $t("welcome") }} {{ truncatedUsername }}
+      </BodyText>
     </div>
 
-    <v-btn icon v-if="loggedIn && user_type == 'customer'">
+    <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'">
       <v-icon>mdi-shopping-outline</v-icon>
     </v-btn>
 
-    <v-btn icon v-if="loggedIn && user_type == 'customer'">
+    <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'">
       <v-icon>mdi-heart-outline</v-icon>
     </v-btn>
 
-
     <!--FOR ADMINS-->
-    <v-btn v-if="loggedIn && user_type == 'admin'">
+    <v-btn v-if="loggedIn && user_type == 'ADMIN'">
       <BodyText id="orders-text">{{ $t("orders") }}</BodyText>
     </v-btn>
-    <v-btn icon v-if="loggedIn && user_type == 'admin'">
+    <v-btn icon v-if="loggedIn && user_type == 'ADMIN'">
       <v-icon>mdi-account-group-outline</v-icon>
     </v-btn>
-    <v-btn icon v-if="loggedIn && user_type == 'admin'">
+    <v-btn icon v-if="loggedIn && user_type == 'ADMIN'">
       <v-icon>mdi-store-edit-outline</v-icon>
     </v-btn>
-
-
 
     <LanguageSwitcher class="lang-switcher" />
   </v-app-bar>
@@ -65,6 +64,7 @@ import BodyText from "../atoms/Typography/BodyText.vue";
 import { usedrawerStore } from "@/store/drawerStore";
 import LanguageSwitcher from "@/components/molecules/LanguageSwitcher.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
+import { useUserStore } from "@/store/userStore";
 
 export default {
   name: "AppBar",
@@ -72,7 +72,7 @@ export default {
     loggedIn: false,
     user_type: "",
     username: "",
-    user: -1,
+    id: "",
   }),
   setup() {
     const drawerStore = usedrawerStore();
@@ -83,20 +83,28 @@ export default {
     };
   },
   mounted: function () {
-    // TODO: Get user
-    const user = {
-      role: "customer",
-      //role: "admin",
-      username: "Jacinto Alberto",
-      id: 12,
-    };
+    const userStore = useUserStore();
 
-    if (user !== false) {
-      this.user_type = user.role;
-      this.username = user.username;
-      this.user = user.id;
-      this.loggedIn = true;
-    }
+    this.loggedIn = userStore.isLoggedIn;
+    this.user_type = userStore.role;
+    this.username = userStore.name;
+    this.id = userStore.id;
+
+    // Use o watch para observar as mudanças no userStore
+    this.$watch(
+      () => ({
+        isLoggedIn: userStore.isLoggedIn,
+        role: userStore.role,
+        name: userStore.name,
+        id: userStore.id,
+      }),
+      (newValues) => {
+        this.loggedIn = newValues.isLoggedIn;
+        this.user_type = newValues.role;
+        this.username = newValues.name;
+        this.id = newValues.id;
+      }
+    );
   },
   computed: {
     truncatedUsername() {
@@ -111,15 +119,13 @@ export default {
       this.loggedIn = false;
       this.user_type = "";
       this.username = "";
-      this.user = -1;
+      this.id = "";
       this.$router.push("/");
     },
   },
   components: { Logo, BodyText, LanguageSwitcher, SearchBar },
 };
 </script>
-
-
 
 <style>
 .icon-w-text {

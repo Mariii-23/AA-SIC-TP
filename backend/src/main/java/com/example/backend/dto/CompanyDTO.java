@@ -9,16 +9,17 @@ public class CompanyDTO {
     private String email;
     private String contact;
     private String address;
-    private byte[] logoImage;
     private String postCode;
     private String schedule;
 
-    public CompanyDTO(String name, String email, String contact, String address, byte[] logoImage, String postCode, String schedule) {
+    public CompanyDTO() {
+    }
+
+    public CompanyDTO(String name, String email, String contact, String address, String postCode, String schedule) {
         this.name = name;
         this.email = email;
         this.contact = contact;
         this.address = address;
-        this.logoImage = logoImage;
         this.postCode = postCode;
         this.schedule = schedule;
     }
@@ -28,7 +29,6 @@ public class CompanyDTO {
         this.email = company.getEmail();
         this.contact = company.getContact();
         this.address = company.getAddress();
-        this.logoImage = company.getLogoImage();
         this.postCode = company.getPostCode();
         this.schedule = company.getSchedule();
     }
@@ -55,14 +55,6 @@ public class CompanyDTO {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public byte[] getLogoImage() {
-        return this.logoImage;
-    }
-
-    public void setLogoImage(byte[] logoImage) {
-        this.logoImage = logoImage;
     }
 
     public String getPostCode() {

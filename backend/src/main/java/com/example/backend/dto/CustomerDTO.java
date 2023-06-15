@@ -1,56 +1,55 @@
 package com.example.backend.dto;
 
 import com.example.backend.model.Customer;
-import com.example.backend.model.ShoppingCart;
 
 import java.util.Date;
 
 public class CustomerDTO extends UserDTO{
-
-    private Date birthday;
-    private String nif;
+    private Date bitrhDate;
     private String address;
-    public CustomerDTO() {
-        super();
-    }
+    private String nif;
 
-    public CustomerDTO(Date birthday, String nif, String address) {
-        this.birthday = birthday;
-        this.nif = nif;
+    public CustomerDTO(Date bitrhDate, String address, String nif) {
+        this.bitrhDate = bitrhDate;
         this.address = address;
-    }
-
-    public CustomerDTO(Date birthday, String nif, String address, String email, String password, String name) {
-        super(email, password, name);
-        this.birthday = birthday;
         this.nif = nif;
-        this.address = address;
     }
 
-    public CustomerDTO(Customer customer){
+    public CustomerDTO(String email, String name, Date bitrhDate, String address, String nif, int id) {
+        super(email, name, id);
+        this.bitrhDate = bitrhDate;
+        this.address = address;
+        this.nif = nif;
+    }
+
+    public CustomerDTO(Customer customer) {
         super(customer);
-        this.birthday = customer.getBirthday();
-        this.nif = customer.getNif();
+        this.bitrhDate = customer.getBirthday();
         this.address = customer.getAddress();
+        this.nif = customer.getNif();
     }
 
-    public Date getBirthday() {
-        return this.birthday;
+    public Date getBitrhDate() {
+        return bitrhDate;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBitrhDate(Date bitrhDate) {
+        this.bitrhDate = bitrhDate;
     }
-    public String getNif() {
-        return this.nif;
-    }
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
+
     public String getAddress() {
-        return this.address;
+        return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 }

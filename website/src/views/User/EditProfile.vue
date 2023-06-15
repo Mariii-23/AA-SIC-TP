@@ -100,12 +100,10 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { UserInfoProps } from "@/appTypes/User";
-import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
 import { useRoute } from "vue-router";
-import ClientCard from "@/components/organisms/Card/ClientCard.vue";
 import TitleWithButtonGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
-import ConfirmationModal from '@/components/organisms/Modal/ConfirmationModal.vue';
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
     name: "UserProfile",
@@ -155,9 +153,7 @@ export default {
         TwoColumnsPanel,
         TitleCardLinksButton,
         SimpleBodyLayout,
-        TitleWithButton,
         TitleWithButtonGoBack,
-        ClientCard,
         FullWidthButton,
         ConfirmationModal
     },

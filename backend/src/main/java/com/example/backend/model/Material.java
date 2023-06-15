@@ -14,6 +14,7 @@ public class Material {
 	private String name;
 
 	@Lob
+	@Column(length = 20971520)
 	private byte[] image;
 
 	@ManyToMany(mappedBy = "materials")

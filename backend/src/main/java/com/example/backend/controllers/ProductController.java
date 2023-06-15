@@ -1,10 +1,13 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.*;
+import com.example.backend.exception.*;
 import com.example.backend.dto.*;
 import com.example.backend.services.ProductService;
 import jakarta.annotation.Resource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -125,7 +128,7 @@ public class ProductController {
     }
 
     @PostMapping("/material/edit/{materialId}")
-    public void editMaterial(final @PathVariable int materialId, final @RequestBody MaterialDTO materialDTO) {
+    public void editMaterial(final @PathVariable int materialId, final @RequestBody EditMaterialDTO materialDTO) {
         try {
             productService.editMaterial(materialId, materialDTO.getName(), materialDTO.getImage());
         } catch (MaterialNotFoundException e) {
@@ -162,26 +165,44 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all/category/{categoryId}")
-    public List<ProductSimpleDTO> getProductsByCategory(@PathVariable int categoryId) {
+    @GetMapping("/category/numberOfProducts")
+    public int getNumberOfProductsByCategory(final @RequestParam int categoryId) {
         try {
-            return productService.getProductsByCategory(categoryId);
+            return productService.getNumberOfProductsByCategory(categoryId);
         } catch (CategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
-    @GetMapping("all/subcategory/{subCategoryId}")
-    public List<ProductSimpleDTO> getProductsBySubCategory(@PathVariable int subCategoryId) {
+    @GetMapping("all/category")
+    public EnvelopeDTO<ProductSimpleDTO> getProductsByCategory(final @RequestParam int categoryId, final @RequestParam int offset, final @RequestParam int numItems) {
         try {
-            return productService.getProductsBySubCategory(subCategoryId);
+            return productService.getProductsByCategory(categoryId, offset, numItems);
+        } catch (CategoryNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/subcategory/numberOfProducts")
+    public int getNumberOfProductsBySubCategory(final @RequestParam int subCategoryId) {
+        try {
+            return productService.getNumberOfProductsBySubCategory(subCategoryId);
         } catch (SubCategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
-    @GetMapping("all/{productId}")
-    public ProductDetailedDTO getProductById(@PathVariable int productId) {
+    @GetMapping("all/subcategory")
+    public EnvelopeDTO<ProductSimpleDTO> getProductsBySubCategory(final @RequestParam int subCategoryId, final @RequestParam int offset, final @RequestParam int numItems) {
+        try {
+            return productService.getProductsBySubCategory(subCategoryId, offset, numItems);
+        } catch (SubCategoryNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("all")
+    public ProductDetailedDTO getProductById(final @RequestParam int productId) {
         try {
             return productService.getProductById(productId);
         } catch (ProductNotFoundException e) {
@@ -189,9 +210,58 @@ public class ProductController {
         }
     }
 
+    @GetMapping(value = "all/productImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<org.springframework.core.io.Resource> productImage(final @RequestParam int productId, final @RequestParam int imageId) {
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new ByteArrayResource(productService.getProductImage(productId, imageId)));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "all/categoryImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<org.springframework.core.io.Resource> categoryImage(final @RequestParam int categoryId) {
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new ByteArrayResource(productService.getCategoryImage(categoryId)));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "all/subcategoryImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<org.springframework.core.io.Resource> subcategoryImage(final @RequestParam int subCategoryId) {
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new ByteArrayResource(productService.getSubCategoryImage(subCategoryId)));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "all/materialImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<org.springframework.core.io.Resource> materialImage(final @RequestParam int materialId) {
+        try {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new ByteArrayResource(productService.getMaterialImage(materialId)));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/category/numberOfCategories")
+    public int getNumberOfCategories() {
+        return productService.getNumberOfCategories();
+    }
+
     @GetMapping("all/categories")
-    public List<CategoryDTO> getAllCategories() {
-        return productService.getAllCategories();
+    public EnvelopeDTO<CategoryDTO> getAllCategories(final @RequestParam int offset, final @RequestParam int numItems) {
+        return productService.getAllCategories(offset, numItems);
     }
 
     @PostMapping("/review")

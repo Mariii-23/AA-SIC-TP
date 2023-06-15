@@ -1,9 +1,8 @@
 package com.example.backend.controllers;
 
-import com.example.backend.Exception.UserNotFoundException;
-import com.example.backend.dto.AdminDTO;
+import com.example.backend.exception.UserNotFoundException;
+import com.example.backend.dto.CreateAdminDTO;
 import com.example.backend.dto.ChangePasswordDTO;
-import com.example.backend.dto.CustomerDTO;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
 import jakarta.annotation.Resource;
@@ -18,8 +17,8 @@ public class AdminController {
     @Resource(name = "userService")
     private UserService userService;
 
-    @GetMapping("/customer/{id}")
-    public CustomerDTO getCustomerbyId(@PathVariable int id) {
+    @GetMapping("/customer")
+    public CustomerDTO getCustomerbyId(final @RequestParam int id) {
         try {
             return userService.getCustomerById(id);
         } catch (Exception e) {
@@ -28,8 +27,9 @@ public class AdminController {
     }
 
     @GetMapping("/customer/all")
-    public EnvelopeDTO<CustomerDTO> getAllCustomers(final @RequestBody PaginationDTO paginationDTO) {
-        return userService.getAllCustomers(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    public EnvelopeDTO<CustomerDTO> getAllCustomers(final @RequestParam int offset, final@RequestParam int numItems) {
+        //final @RequestBody PaginationDTO paginationDTO
+        return userService.getAllCustomers(offset, numItems);
     }
 
     @GetMapping("/numberOfCustomers")
@@ -37,8 +37,8 @@ public class AdminController {
         return userService.getNumberOfCustomers();
     }
 
-    @GetMapping("/{id}")
-    public AdminDTO getAdminbyId(@PathVariable int id) {
+    @GetMapping("")
+    public AdminDTO getAdminById(final @RequestParam int id) {
         try {
             return userService.getAdminById(id);
         } catch (UserNotFoundException e) {
@@ -47,8 +47,9 @@ public class AdminController {
     }
 
     @GetMapping("/all")
-    public EnvelopeDTO<AdminDTO> getAllAdmins(final @RequestBody PaginationDTO paginationDTO) {
-        return userService.getAllAdmins(paginationDTO.getOffset(), paginationDTO.getNumItems());
+    public EnvelopeDTO<AdminDTO> getAllAdmins(final @RequestParam int offset, final@RequestParam int numItems) {
+        //final @RequestBody PaginationDTO paginationDTO
+        return userService.getAllAdmins(offset, numItems);
     }
 
     @GetMapping("/numberOfAdmins")
@@ -58,7 +59,7 @@ public class AdminController {
 
 
     @PostMapping("/add")
-    public void addAdmin(final @RequestBody AdminDTO admin) {
+    public void addAdmin(final @RequestBody CreateAdminDTO admin) {
         userService.addAdminDTO(admin);
     }
 
@@ -72,7 +73,7 @@ public class AdminController {
     }
 
     @PostMapping("/edit/{admin_id}")
-    public void editAdmin(final @PathVariable int admin_id, final @RequestBody AdminDTO adminDTO) {
+    public void editAdmin(final @PathVariable int admin_id, final @RequestBody CreateAdminDTO adminDTO) {
         try {
             userService.editAdmin(admin_id, adminDTO);
         } catch (Exception e) {
