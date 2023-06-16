@@ -1,9 +1,9 @@
 package com.example.backend.controllers;
 
 import com.example.backend.exception.UserNotFoundException;
-import com.example.backend.dto.AuthenticationRequest;
-import com.example.backend.dto.AuthenticationResponse;
-import com.example.backend.dto.CreateCustomerDTO;
+import com.example.backend.dto.userDTOs.AuthenticationRequest;
+import com.example.backend.dto.userDTOs.AuthenticationResponse;
+import com.example.backend.dto.userDTOs.CreateCustomerDTO;
 import com.example.backend.services.AuthenticateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

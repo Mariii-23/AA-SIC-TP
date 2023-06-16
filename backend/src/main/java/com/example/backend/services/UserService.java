@@ -1,5 +1,8 @@
 package com.example.backend.services;
 
+import com.example.backend.dto.orderDTOs.ItemDTO;
+import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
+import com.example.backend.dto.userDTOs.*;
 import com.example.backend.exception.ProductNotFoundException;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;

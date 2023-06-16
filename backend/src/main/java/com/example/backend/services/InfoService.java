@@ -1,14 +1,13 @@
 package com.example.backend.services;
 
-import com.example.backend.dto.CompanyDTO;
-import com.example.backend.dto.CreateCompanyDTO;
-import com.example.backend.dto.EditSocialNetworksDTO;
-import com.example.backend.dto.SocialNetworkDTO;
+import com.example.backend.dto.infoDTOs.CompanyDTO;
+import com.example.backend.dto.infoDTOs.CreateCompanyDTO;
+import com.example.backend.dto.infoDTOs.EditSocialNetworksDTO;
+import com.example.backend.dto.infoDTOs.SocialNetworkDTO;
 import com.example.backend.model.Company;
 import com.example.backend.model.SocialNetwork;
 import com.example.backend.repositories.CompanyRep;
 import com.example.backend.repositories.SocialNetworkRep;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

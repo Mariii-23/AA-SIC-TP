@@ -1,5 +1,6 @@
 package com.example.backend.controllers;
 
+import com.example.backend.dto.productDTOs.*;
 import com.example.backend.exception.*;
 import com.example.backend.dto.*;
 import com.example.backend.services.ProductService;

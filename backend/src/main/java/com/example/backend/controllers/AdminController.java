@@ -1,8 +1,10 @@
 package com.example.backend.controllers;
 
+import com.example.backend.dto.userDTOs.AdminDTO;
+import com.example.backend.dto.userDTOs.CustomerDTO;
 import com.example.backend.exception.UserNotFoundException;
-import com.example.backend.dto.CreateAdminDTO;
-import com.example.backend.dto.ChangePasswordDTO;
+import com.example.backend.dto.userDTOs.CreateAdminDTO;
+import com.example.backend.dto.userDTOs.ChangePasswordDTO;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
 import jakarta.annotation.Resource;

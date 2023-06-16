@@ -1,8 +1,8 @@
 package com.example.backend.database;
 
 import com.example.backend.exception.UserNotFoundException;
-import com.example.backend.dto.CreateAdminDTO;
-import com.example.backend.dto.CreateCustomerDTO;
+import com.example.backend.dto.userDTOs.CreateAdminDTO;
+import com.example.backend.dto.userDTOs.CreateCustomerDTO;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import com.example.backend.services.AuthenticateService;

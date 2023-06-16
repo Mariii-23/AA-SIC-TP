@@ -1,9 +1,9 @@
 package com.example.backend.controllers;
 
-import com.example.backend.dto.CompanyDTO;
-import com.example.backend.dto.CreateCompanyDTO;
-import com.example.backend.dto.EditSocialNetworksDTO;
-import com.example.backend.dto.SocialNetworkDTO;
+import com.example.backend.dto.infoDTOs.CompanyDTO;
+import com.example.backend.dto.infoDTOs.CreateCompanyDTO;
+import com.example.backend.dto.infoDTOs.EditSocialNetworksDTO;
+import com.example.backend.dto.infoDTOs.SocialNetworkDTO;
 import com.example.backend.model.SocialNetwork;
 import jakarta.annotation.Resource;
 import org.springframework.core.io.ByteArrayResource;

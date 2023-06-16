@@ -1,5 +1,10 @@
 package com.example.backend.controllers;
 
+import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
+import com.example.backend.dto.userDTOs.AddRemoveFavouriteDTO;
+import com.example.backend.dto.userDTOs.ChangePasswordDTO;
+import com.example.backend.dto.userDTOs.CreateCustomerDTO;
+import com.example.backend.dto.userDTOs.FavouriteDTO;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
