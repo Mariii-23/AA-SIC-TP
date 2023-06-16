@@ -126,8 +126,7 @@ public class ProductController {
     @PostMapping("/material/add")
     public void addMaterial(final @RequestBody AddMaterialDTO addMaterialDTO) {
         try {
-            byte[] image = addMaterialDTO.getImage().getBytes();
-            productService.addMaterial(addMaterialDTO.getName(), image);
+            productService.addMaterial(addMaterialDTO.getName(), addMaterialDTO.getImage());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
