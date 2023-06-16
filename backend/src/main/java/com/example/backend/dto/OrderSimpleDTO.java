@@ -11,15 +11,18 @@ public class OrderSimpleDTO {
     private double total;
     private OrderState state;
 
+    private int customer_id;
+
 
     public OrderSimpleDTO() {
     }
 
-    public OrderSimpleDTO(int order_id, LocalDate date, double total, OrderState state) {
+    public OrderSimpleDTO(int order_id, LocalDate date, double total, OrderState state, int customer_id) {
         this.id = order_id;
         this.date = date;
         this.total = total;
         this.state = state;
+        this.customer_id = customer_id;
     }
 
     public OrderSimpleDTO(Order order){
@@ -27,6 +30,7 @@ public class OrderSimpleDTO {
         this.date = order.getDate();
         this.total = order.getTotal();
         this.state = order.getState();
+        this.customer_id = order.getCustomer().getiD();
     }
 
 
@@ -60,5 +64,13 @@ public class OrderSimpleDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 }

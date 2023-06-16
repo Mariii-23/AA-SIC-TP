@@ -50,6 +50,21 @@ public class OrderController {
         return orderService.getAllOrders(offset, numItems);
     }
 
+    @GetMapping("/admin/orders/pending")
+    public EnvelopeDTO<OrderSimpleDTO> getPendingOrders(final @RequestParam int offset, final @RequestParam int numItems){
+        return orderService.getPendingOrders(offset, numItems);
+    }
+
+    @GetMapping("/admin/orders/ready")
+    public EnvelopeDTO<OrderSimpleDTO> getReadyOrders(final @RequestParam int offset, final @RequestParam int numItems){
+        return orderService.getReadyOrders(offset, numItems);
+    }
+
+    @GetMapping("/admin/orders/done")
+    public EnvelopeDTO<OrderSimpleDTO> getDoneOrders(final @RequestParam int offset, final @RequestParam int numItems){
+        return orderService.getDoneOrders(offset, numItems);
+    }
+
     @GetMapping("/admin/numberOfOrders")
     public int getNumberOfOrders() {
         return orderService.getNumberOfOrders();
@@ -112,7 +127,7 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/payment/{orderId}")
+    @PostMapping("admin/payment/{orderId}")
     public boolean payOrder(@PathVariable int orderId){
         try {
             return orderService.payOrder(orderId);
