@@ -1,8 +1,10 @@
 package com.example.backend.dto.productDTOs;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class AddMaterialDTO {
     private String name;
-    private byte[] image;
+    private MultipartFile image;
 
     public AddMaterialDTO() {
     }
@@ -15,11 +17,11 @@ public class AddMaterialDTO {
         this.name = name;
     }
 
-    public byte[] getImage() {
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 }

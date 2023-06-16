@@ -125,7 +125,12 @@ public class ProductController {
 
     @PostMapping("/material/add")
     public void addMaterial(final @RequestBody AddMaterialDTO addMaterialDTO) {
-        productService.addMaterial(addMaterialDTO.getName(), addMaterialDTO.getImage());
+        try {
+            byte[] image = addMaterialDTO.getImage().getBytes();
+            productService.addMaterial(addMaterialDTO.getName(), image);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @PostMapping("/material/edit/{materialId}")
