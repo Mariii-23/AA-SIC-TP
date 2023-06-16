@@ -1,43 +1,4 @@
 <template>
-  <ConfirmationModal
-    :title="$t('logout')"
-    :text="$t('logout-text')"
-    :confirmHandler="logoutHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-  />
-  <SimpleBodyLayout>
-    <TwoColumnsPanel>
-      <template v-slot:first>
-        <TitleCardLinksButton
-          :title="$t('store')"
-          :items="items"
-          :button-text="$t('logout')"
-          :button-handler="openModal"
-        />
-      </template>
-      <template v-slot:second>
-        <TitleWithButton
-          :title="$t('company')"
-          :buttonText="$t('edit-company-info')"
-          :buttonHandler="editCompanyHandler"
-        />
-        <CompanyTable :company="company" />
-
-        <TitleWithButton
-          size="6"
-          v-if="isEdit"
-          :title="$t('networkLinks')"
-          :button-handler="saveNetworkHandler"
-          :button-text="$t('save')"
-        />
-        <TitleWithEditButton
-          :size="6"
-          v-if="!isEdit"
-          :title="$t('networkLinks')"
-          :edit-handler="editHandler"
-        />
-
         <CompanyNetworkLinks v-if="!isEdit" :company="company" />
 
         <div v-if="isEdit">
@@ -68,9 +29,6 @@
             {{ $t("cancel") }}
           </FullWidthButton>
         </div>
-      </template>
-    </TwoColumnsPanel></SimpleBodyLayout
-  >
 </template>
 
 <style>
@@ -82,16 +40,9 @@
 
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
-import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
-import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Company } from "@/appTypes/Company";
-import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
-import CompanyTable from "@/components/organisms/Table/CompanyTable.vue";
-import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import { useCompanyStore } from "@/store/companyStore";
 import CompanyNetworkLinks from "@/components/organisms/Table/CompanyNetworkLinksTable.vue";
-import TitleWithEditButton from "@/components/molecules/TitleWithEditButton.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import { SocialNetWorkResponse } from "@/appTypes/AxiosTypes";
 const companyStore = useCompanyStore();
@@ -228,14 +179,7 @@ export default {
     },
   },
   components: {
-    TwoColumnsPanel,
-    TitleCardLinksButton,
-    SimpleBodyLayout,
-    TitleWithButton,
-    CompanyTable,
-    ConfirmationModal,
     CompanyNetworkLinks,
-    TitleWithEditButton,
     FullWidthButton,
   },
 };

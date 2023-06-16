@@ -1,6 +1,11 @@
 export interface Response<T> {
-  success: boolean;
+  success: number;
   data: T | string;
+}
+
+export interface MaterialResponse {
+  name: string;
+  id: string;
 }
 
 export interface LoginResponse {

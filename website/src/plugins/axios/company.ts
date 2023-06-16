@@ -5,6 +5,7 @@ import {
 } from "@/appTypes/AxiosTypes";
 import { CompanyInfo, SocialMedia } from "@/appTypes/Company";
 import { app } from "@/main";
+import { handleResponse } from "./axios";
 
 const url = "/info";
 
@@ -15,20 +16,13 @@ const updateInfo = async (company: CompanyInfo) => {
       company
     );
 
-    if (req.status == 200) {
-      return {
-        success: true,
-        data: company,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+    return handleResponse(req, (_) => {
+      return company;
+    }) 
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };
@@ -41,21 +35,13 @@ const updateNetworkLinks = async (socialNetworks: SocialMedia[]) => {
         socialNetworks,
       }
     );
-
-    if (req.status == 200) {
-      return {
-        success: true,
-        data: socialNetworks,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+    return handleResponse(req, (_) => {
+      return socialNetworks;
+    }) 
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };
@@ -66,20 +52,13 @@ const getInfo = async () => {
       `${url}/all/companyInfo`
     );
 
-    if (req.status == 200) {
-      return {
-        success: true,
-        data: req.data,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+    return handleResponse(req, (data) => {
+      return data;
+    }) 
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };
@@ -90,20 +69,13 @@ const getSocialNetwork = async () => {
       `${url}/all/socialNetworks`
     );
 
-    if (req.status == 200) {
-      return {
-        success: true,
-        data: req.data,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+    return handleResponse(req, (data) => {
+      return data;
+    }) 
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };

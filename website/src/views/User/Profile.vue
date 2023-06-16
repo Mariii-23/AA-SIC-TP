@@ -42,7 +42,7 @@ import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vu
     name: "UserProfile",
     //TODO: ir buscar os direitos
     data: () => ({
-      items: Array as () => LinkProps[],
+      items: [] as LinkProps[],
       user: Object as () => UserInfoProps,
       isModalOpen: false
     }),

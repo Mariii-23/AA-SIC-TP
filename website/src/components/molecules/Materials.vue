@@ -22,7 +22,7 @@
 
 
 <script lang="ts">
-import { Materials } from "@/appTypes/Product";
+import { Material } from "@/appTypes/Product";
 import Avatar from "@/components/atoms/AvatarVue.vue";
 
 export default {
@@ -32,7 +32,7 @@ export default {
     }),
     props: {
         materials: {
-            type: Array as () => Materials[],
+            type: Array as () => Material[],
             require: true,
         },
         selectMaterialHandler: {

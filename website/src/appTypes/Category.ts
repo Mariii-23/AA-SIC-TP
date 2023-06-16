@@ -1,7 +1,6 @@
 export interface SubCategoryProps {
     name: string,
     id: string,
-    imgHref: string,
 }
 
 export type CategoryAvatarProps = SubCategoryProps ;

@@ -87,7 +87,7 @@ export default {
   name: "AdminAdminPage",
   //TODO: ir buscar os direitos
   data: () => ({
-    items: Array as () => LinkProps[],
+    items: [] as LinkProps[],
     name: "",
     email: "",
     id: "",
@@ -109,7 +109,7 @@ export default {
     },
     async saveChanges() {
       const r = await adminStore.editAdmin(this.id, this.email, this.name);
-      if (r) {
+      if ( r == 200) {
         console.log("save changes");
       }
     },

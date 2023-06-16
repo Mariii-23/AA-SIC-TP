@@ -175,7 +175,7 @@ const companyStore = useCompanyStore();
 export default {
   name: "EditCompany",
   data: () => ({
-    items: Array as () => LinkProps[],
+    items: [] as LinkProps[],
     isModalOpen: false,
     company: {
       name: "",
@@ -213,15 +213,11 @@ export default {
       }
     );
   },
-  //TODO: ir buscar os direitos
   methods: {
-    async saveChanges(
-    ) {
-        await companyStore.updateInfo(this.company);
+    async saveChanges() {
+      await companyStore.updateInfo(this.company);
     },
-    addSocialNetwork() {
-      console.log("add social network");
-    },
+  //TODO: ir buscar os direitos
     logoutHandler() {
       console.log("logout");
     },

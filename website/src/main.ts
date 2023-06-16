@@ -21,11 +21,13 @@ const app = createApp(App);
 
 registerPlugins(app);
 
+export const baseUrl = "http://localhost:8080";
+
 app.use(i18n);
 app.use(pinia);
 app.use(axios, {
-  baseUrl: "http://localhost:8080",
-  token:""
+  baseUrl,
+  token: "",
 });
 
 app.mount("#app");

@@ -24,7 +24,7 @@
                 <tbody>
                     <tr v-for="item in order.orderItems" :key="item.name">
                         <td class="product">
-                            <v-img max-height="50px" max-width="50px" class="mr-2" :src="item.img"></v-img>
+                            <v-img max-height="50px" max-width="50px" class="mr-2" :src="item.img"/>
                             {{ item.name }}
                         </td>
                         <td>

@@ -5,6 +5,8 @@ import {
 } from "@/appTypes/AxiosTypes";
 import { app } from "@/main";
 
+import { handleResponse } from "./axios";
+
 const url = "/api/v1/auth";
 
 const login = async (email: string, password: string) => {
@@ -15,22 +17,15 @@ const login = async (email: string, password: string) => {
       password,
     });
 
-    if (req.status == 200) {
-      const token = req.data.token;
+    return handleResponse(req, (data) => {
+      const token = data.token;
       axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
-      return {
-        success: true,
-        data: req.data,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+      return data;
+    });
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };
@@ -53,22 +48,16 @@ const register = async (
       nif,
       address,
     });
-    if (req.status == 200) {
+
+    return handleResponse(req, (data) => {
       const token = req.data.token;
       axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
-      return {
-        success: true,
-        data: req.data,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+      return data;
+    });
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };

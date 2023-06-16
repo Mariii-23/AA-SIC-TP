@@ -6,3 +6,18 @@ export interface UserInfoProps {
     nif: string,
     address: string,
 }
+
+export interface AdminInfoProps {
+    id: string;
+    email: string;
+    name: string;
+}
+
+export interface CustomerInfoProps {
+    id: string;
+    email: string;
+    name: string;
+    birthday: Date;
+    nif: string;
+    address: string;
+}

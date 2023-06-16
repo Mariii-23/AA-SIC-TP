@@ -1,5 +1,6 @@
 import { GetAllCategoriesResponse, Response } from "@/appTypes/AxiosTypes";
 import { app } from "@/main";
+import { handleResponse } from "./axios";
 
 const url = "/product";
 
@@ -15,20 +16,13 @@ const getAllCategories = async (offset: number, numItems: number) => {
       }
     );
 
-    if (req.status == 200) {
-      return {
-        success: true,
-        data: req.data.data,
-      };
-    }
-    return {
-      success: req.status,
-      data: req.statusText,
-    };
+    return handleResponse(req, (data: GetAllCategoriesResponse) => {
+      return data.data;
+    }) 
   } catch (error) {
     return {
-      success: false,
-      data: "forbidden",
+      success: error.request.status,
+      data: error.request.statusText,
     };
   }
 };

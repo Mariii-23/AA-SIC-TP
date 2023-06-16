@@ -124,18 +124,18 @@ public class ProductController {
     }
 
     @PostMapping("/material/add")
-    public void addMaterial(final @RequestBody AddMaterialDTO addMaterialDTO) {
+    public MaterialDTO addMaterial(final @RequestBody AddMaterialDTO addMaterialDTO) {
         try {
-            productService.addMaterial(addMaterialDTO.getName(), addMaterialDTO.getImage());
+            return productService.addMaterial(addMaterialDTO.getName(), addMaterialDTO.getImage());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
     @PostMapping("/material/edit")
-    public void editMaterial(final @RequestBody EditMaterialDTO materialDTO) {
+    public MaterialDTO editMaterial(final @RequestBody EditMaterialDTO materialDTO) {
         try {
-            productService.editMaterial(materialDTO.getId(), materialDTO.getName(), materialDTO.getImage());
+            return productService.editMaterial(materialDTO.getId(), materialDTO.getName(), materialDTO.getImage());
         } catch (MaterialNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

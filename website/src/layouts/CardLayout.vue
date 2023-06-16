@@ -6,4 +6,8 @@
 
 <style>
 
+.expanded {
+    width: 400px;
+}
+
 </style>

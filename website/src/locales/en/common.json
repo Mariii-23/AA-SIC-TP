@@ -45,7 +45,6 @@
     "phoneNo": "Phone number",
     "my-data": "My personal data",
 
-
     "search": "Search",
     "orders": "Orders",
     "order": "Order",
@@ -55,7 +54,6 @@
     "quantity": "Quantity",
     "price": "Price",
     "order-details": "Order Details",
-
 
     "viewDetails": "View Details +",
 
@@ -86,6 +84,10 @@
     "modal-remove-product": "Are you sure you want to remove the product",
     "rmv-material": "Remove material",
     "rmv-material-text": "Are you sure you want to remove the material",
+    "rmv-material-success": "Material delete with success",
+    "rmv-material-error": "Error deleting material",
+    "update-material-success": "Material updated with success",
+    "update-material-fail": "Error updating material",
     "add-material": "Add material",
     "edit-material": "Edit material",
     "add-category": "Add category",
@@ -116,5 +118,8 @@
     "next-step": "Next step",
     "field": "Field",
     "value": "Value",
-    "finish-add-product": "Finish adding product"
+    "finish-add-product": "Finish adding product",
+    "save": "Save",
+    "photoLink": "Link",
+    "title": "Title"
 }

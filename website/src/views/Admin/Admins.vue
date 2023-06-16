@@ -35,7 +35,7 @@ import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vu
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
-import { UserInfoProps } from "@/appTypes/User";
+import { AdminInfoProps } from "@/appTypes/User";
 import AdminExpansionPanels from "@/components/molecules/expansionPanels/AdminExpansionPanels.vue";
 import { useAdminsStore } from "@/store/adminsStore";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
@@ -45,11 +45,10 @@ const notificationStore = useNotificationStore();
 
 export default {
   name: "AdminsAdminPage",
-  //TODO: ir buscar os direitos
   data: () => ({
     idAdmin: "",
-    items: Array as () => LinkProps[],
-    admins: Array as () => UserInfoProps[],
+    items: [] as LinkProps[],
+    admins: [] as AdminInfoProps[],
     isModalOpen: false,
   }),
   mounted: async function () {

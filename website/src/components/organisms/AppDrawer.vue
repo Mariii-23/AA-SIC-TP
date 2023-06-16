@@ -25,14 +25,15 @@
 <script lang="ts">
 import { usedrawerStore } from "@/store/drawerStore";
 import { useCategoriesStore } from "@/store/categoriesStore";
-import { computed, watch } from "vue";
+import { computed } from "vue";
 import { DrawerItem } from "@/appTypes/DrawerItem";
+import { CategoryProps } from "@/appTypes/Category";
 
 export default {
   name: "AppDrawer",
   data: () => ({
     list: [] as DrawerItem[],
-    categories: [],
+    categories: [] as CategoryProps[],
   }),
   setup() {
     const drawerStore = usedrawerStore();
@@ -68,6 +69,8 @@ export default {
     this.$watch(
       () => ({ categories: categoriesStore.categories }),
       (newValues) => {
+
+        //TODO: falta por a imagem
         this.categories = newValues.categories;
         let categoriesItens: DrawerItem[] = [];
         newValues.categories.forEach((categorie) => {

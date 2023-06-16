@@ -2,7 +2,7 @@ export interface ProductDescriptionAdmin {
     name: string,
     id: string,
     price: number,
-    materiais: Materials[],
+    materiais: Material[],
 }
 
 export interface ProductDescriptionUser extends ProductDescriptionAdmin {
@@ -23,7 +23,7 @@ export interface ProductImages {
     images: string[]
 }
 
-export interface Materials {
+export interface Material {
     id: string,
     name: string,
     href: string,

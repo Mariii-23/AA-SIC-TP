@@ -44,7 +44,7 @@
   export default {
     name: "StoreCategories",
     data: () => ({
-      items: Array as () => LinkProps[],
+      items: [] as LinkProps[],
       isRemoveModalOpen: false,
       isLogoutModalOpen: false,
       categories: Array as () => Materials[],

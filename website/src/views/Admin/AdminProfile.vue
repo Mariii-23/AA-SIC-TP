@@ -37,7 +37,7 @@ import { useUserStore } from "@/store/userStore";
     name: "AdminProfile",
     //TODO: ir buscar os direitos
     data: () => ({
-      items: Array as () => LinkProps[],
+      items: [] as LinkProps[],
       admin: Object as () => UserInfoProps,
     }),
     mounted: function () {

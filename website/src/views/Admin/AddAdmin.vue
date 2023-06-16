@@ -32,7 +32,7 @@ const notificationStore = useNotificationStore();
 export default {
   name: "AddAdminPage",
   data: () => ({
-    items: Array as () => LinkProps[],
+    items: [] as LinkProps[],
     isModalOpen: false,
   }),
   mounted: function () {

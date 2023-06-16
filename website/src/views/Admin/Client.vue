@@ -21,7 +21,7 @@ import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-import { UserInfoProps } from "@/appTypes/User";
+import { CustomerInfoProps } from "@/appTypes/User";
 import { useRoute } from "vue-router";
 import ClientCard from "@/components/organisms/Card/ClientCard.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
@@ -32,8 +32,8 @@ const adminUser = useAdminsStore();
 export default {
   name: "ClientInfoAdminPage",
   data: () => ({
-    items: Array as () => LinkProps[],
-    client: Object as () => UserInfoProps,
+    items: [] as LinkProps[],
+    client: {} as CustomerInfoProps,
     isModalOpen: false,
   }),
   methods: {
@@ -43,17 +43,17 @@ export default {
   },
   mounted: function () {
     const route = useRoute();
-    const id = route.params.id;
-    //TODO: ir buscar os direitos
+    const id = route.params.id.toString();
     const customer = adminUser.getCustomerById(id);
     if (customer) {
       this.client = {
+        birthday: customer.birthday,
         name: customer.name,
         email: customer.email,
         address: customer.address,
         nif: customer.nif,
         id: id,
-      } as UserInfoProps;
+      } as CustomerInfoProps;
     }
 
     this.items = [

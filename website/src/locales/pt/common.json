@@ -81,9 +81,13 @@
     "add-cart": "Adicionar ao carrinho",
     "related-products": "Produtos relacionados",
     "remove-product": "Remover produto",
-    "modal-remove-product": "Tem a certeza que quer remover o produto",
-    "remove-material": "Remover material",
-    "modal-remove-material": "Tem a certeza que quer remover o material",
+    "modal-remove-product": "Temma certeza que quer remover o produto",
+    "rmv-material": "Remover material",
+    "rmv-material-text": "Tem a certeza que quer remover o material",
+    "rmv-material-success": "Material eliminado com sucesso",
+    "rmv-material-error": "Erro ao eliminar o material",
+    "update-material-success": "Material atualizado com sucesso",
+    "update-material-fail": "Erro ao atualizar o material",
     "add-material": "Adicionar material",
     "edit-material": "Editar material",
     "add-category": "Adicionar categoria",
@@ -93,6 +97,7 @@
     "store": "Loja",
     "categories": "Categorias",
     "materials": "Materiais",
+    "material": "Material",
     "edit-materials": "Editar Materiais",
     "save-changes": "Guardar alterações",
 
@@ -109,8 +114,12 @@
     "name-price": "Definir nome e preço",
     "add-images": "Adicionar Imagens",
     "add-description": "Adicionar descrição",
+    "description": "Descrição",
     "next-step": "Próximo passo",
     "field": "Campo",
     "value": "Valor",
-    "finish-add-product": "Concluir adição de produto"
+    "finish-add-product": "Concluir adição de produto",
+    "save": "Salvar",
+    "photoLink": "link",
+    "title": "Título"
 }

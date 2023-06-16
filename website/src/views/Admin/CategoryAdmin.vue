@@ -8,7 +8,7 @@
     />
 
     <CategoriesAvatar
-      :categories="category && category.subCategories"
+      :categories="category && category.subcategories"
       :click-handler="handleOnClickAvatar"
       :size="100"
     />
@@ -43,27 +43,21 @@ export default {
   props: {
     products: {
       type: Array as () => ProductAdminProps[],
-      require: true,
     },
     links: {
       type: Array as () => LinkProps[],
-      require: true,
     },
     category: {
       type: Object as () => CategoryProps,
-      require: true,
     },
     handlePageChange: {
       type: Function,
-      require: true,
     },
     handleOnClickAvatar: {
       type: Function,
-      require: true,
     },
     addProductHandler: {
       type: Function,
-      require: true,
     },
     deleteProductHandler: {
       type: Function,

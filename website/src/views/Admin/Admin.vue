@@ -42,8 +42,8 @@ export default {
   name: "AdminAdminPage",
   //TODO: ir buscar os direitos
   data: () => ({
-    items: Array as () => LinkProps[],
-    admin: Object as () => UserInfoProps,
+    items: [] as LinkProps[],
+    admin: {} as UserInfoProps,
     isModalOpen: false,
   }),
   mounted: function () {

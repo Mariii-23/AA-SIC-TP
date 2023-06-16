@@ -31,13 +31,11 @@ import { useAdminsStore } from "@/store/adminsStore";
 export default {
   name: "ClientsAdminPage",
   data: () => ({
-    //TODO: ir buscar os direitos
-    items: Array as () => LinkProps[],
-    users: Array as () => UserInfoProps[],
+    items: [] as LinkProps[],
+    users: [] as UserInfoProps[],
   }),
   mounted: async function () {
     const adminStore = useAdminsStore();
-
     await adminStore.getAllCustomers();
 
     this.users = adminStore.customers;
@@ -55,11 +53,9 @@ export default {
       }
     );
   },
-  //TODO: handlers
   methods: {
     viewDetailsHandler(id: number) {
       this.$router.push("/admin/client/" + id);
-      console.log(id);
     },
     addAdminHandler() {
       this.$router.push("/admin/add-admin/");

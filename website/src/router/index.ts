@@ -74,11 +74,6 @@ const routes = [
         name: "Admins",
         component: () => import("@/views/Admin/Admins.vue"),
       },
-      // {
-      //   path: "admin/:id",
-      //   name: "Admin info",
-      //   component: () => import("@/views/Admin/Admin.vue"),
-      // }, 
       {
         path: "admin/profile",
         name: "Admin profile",
@@ -88,6 +83,11 @@ const routes = [
         path: "admin/materials",
         name: "Materials",
         component: () => import("@/views/Admin/StoreMaterials.vue"),
+      },
+      {
+        path: "admin/materials/add",
+        name: "Add Materials",
+        component: () => import("@/views/Admin/AddMaterial.vue"),
       },
       {
         path: "admin/company",

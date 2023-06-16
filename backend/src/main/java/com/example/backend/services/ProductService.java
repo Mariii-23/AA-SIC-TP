@@ -77,9 +77,9 @@ public class ProductService {
     }
 
 
-    public void addMaterial(String name, byte[] image){
+    public MaterialDTO addMaterial(String name, byte[] image){
         Material material = new Material(name, image);
-        materialRep.save(material);
+        return new MaterialDTO(materialRep.save(material));
     }
 
     public void addProductToCategory(int productId, int categoryId) throws ProductNotFoundException, CategoryNotFoundException {
@@ -265,11 +265,11 @@ public class ProductService {
         }
     }
 
-    public void editMaterial(int materialId, String name, byte[] image) throws MaterialNotFoundException {
+    public MaterialDTO editMaterial(int materialId, String name, byte[] image) throws MaterialNotFoundException {
         Material material = materialRep.findById(materialId).orElseThrow(() -> new MaterialNotFoundException("Material not found"));
         if (name != null) material.setName(name);
         if (image != null) material.setImage(image);
-        materialRep.save(material);
+        return new MaterialDTO(materialRep.save(material));
     }
 
     public void removeMaterial(int materialId) throws MaterialNotFoundException {

@@ -34,7 +34,7 @@ import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vu
 export default {
     name: "OrderDetails",
     data: () => ({
-        items: Array as () => LinkProps[],
+        items: [] as LinkProps[],
         userName: "",
         order: Object as () => Order,
         isModalOpen: false,

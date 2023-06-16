@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
+import { useNotificationStore } from "./notificationStore";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -11,15 +12,31 @@ export const useUserStore = defineStore("user", {
     role: "",
   }),
   actions: {
+    async logout() {
+      this.isLoggedIn = false;
+      this.token = "";
+      this.email = "";
+      this.name = "";
+      this.id = "";
+      this.role = "";
+      await axios.authentication.logout();
+    },
     async login(username: string, password: string) {
       const r = await axios.authentication.login(username, password);
-      if (r.success) {
+      console.log(r);
+      if (r.success == 200 && typeof r.data !== "string") {
+        console.log("hum");
         this.isLoggedIn = true;
         this.token = r.data.token;
         this.email = r.data.email;
         this.name = r.data.name;
         this.id = r.data.iD;
         this.role = r.data.role;
+      } else if (r.success == 401) {
+        console.log("aqui");
+        await axios.authentication.logout();
+        const notificationStore = useNotificationStore();
+        notificationStore.openErrorAlert("tokenInvalid");
       }
     },
     async register(
@@ -38,7 +55,7 @@ export const useUserStore = defineStore("user", {
         nif,
         address
       );
-      if (r.success) {
+      if (r.success == 200 && typeof r.data !== "string") {
         this.isLoggedIn = true;
         this.token = r.data.token;
         this.email = r.data.email;

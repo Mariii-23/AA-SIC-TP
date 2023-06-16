@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
 import { CompanyInfo, SocialMedia } from "@/appTypes/Company";
+import { SocialNetWorkResponse } from "@/appTypes/AxiosTypes";
 
 export const useCompanyStore = defineStore("company", {
   state: () => ({
@@ -12,7 +13,7 @@ export const useCompanyStore = defineStore("company", {
       postCode: "",
       schedule: "",
     },
-    socialNetworks: [],
+    socialNetworks: [] as SocialNetWorkResponse[],
     logo: "",
   }),
   actions: {
@@ -21,7 +22,7 @@ export const useCompanyStore = defineStore("company", {
     },
     async getInfo() {
       const r = await axios.company.getInfo();
-      if (r.success) {
+      if (r.success && typeof r.data !== "string") {
         this.companyInfo = {
           name: r.data.name,
           email: r.data.email,
@@ -34,13 +35,13 @@ export const useCompanyStore = defineStore("company", {
 
       const r2 = await axios.company.getSocialNetwork();
 
-      if (r2.success) {
+      if (r2.success && typeof r2.data !== "string") {
         this.socialNetworks = r2.data;
       }
     },
     async updateNetworkLinks(networkLinks: SocialMedia[]) {
       const r = await axios.company.updateNetworkLinks(networkLinks);
-      if (r.success) {
+      if (r.success && typeof r.data !== "string") {
         this.socialNetworks = r.data;
       }
       return r.success;
@@ -48,7 +49,7 @@ export const useCompanyStore = defineStore("company", {
     async updateInfo(company: CompanyInfo) {
       const r = await axios.company.updateInfo(company);
 
-      if (r.success) {
+      if (r.success && typeof r.data !== "string") {
         this.companyInfo = r.data;
       }
     },

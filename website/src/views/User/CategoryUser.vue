@@ -42,7 +42,7 @@ export default {
       require: true,
     },
     links: {
-      type: Array as () => LinkProps[],
+      type: [] as LinkProps[],
       require: true,
     },
     category: {
