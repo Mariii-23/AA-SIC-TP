@@ -57,12 +57,19 @@ public class OrderService {
     }
 
     public EnvelopeDTO<OrderSimpleDTO> getAllOrders(int offset, int numItems){
-        List<Order> orders = orderRep.findOrdersPagination(offset, numItems);
+        List<Order> orders = orderRep.findOrdersPagination(offset, numItems + 1);
+        boolean isLast;
+        if(orders.size() == numItems + 1){
+            isLast = false;
+            orders.remove(orders.size() - 1);
+        } else {
+            isLast = true;
+        }
+
         List<OrderSimpleDTO> list = new ArrayList<>();
         orders.forEach(order -> {
             list.add(new OrderSimpleDTO(order));
         });
-        boolean isLast = (offset + numItems) >= orderRep.count();
         return new EnvelopeDTO<>(isLast, list);
     }
 

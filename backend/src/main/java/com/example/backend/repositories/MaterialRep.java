@@ -14,4 +14,9 @@ import java.util.Optional;
 public interface MaterialRep extends JpaRepository<Material, Integer> {
     @Query(value = "SELECT m FROM Material m WHERE m.iD IN :idList")
     Optional<List<Material>> findMaterialByIdList(@Param("idList") Collection<Integer> idList);
+
+    @Query(value = "SELECT * FROM material " +
+            "ORDER BY id ASC " +
+            "LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Material> findAllPagination(int offset, int numItems);
 }

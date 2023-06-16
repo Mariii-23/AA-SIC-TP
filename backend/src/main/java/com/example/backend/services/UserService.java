@@ -66,21 +66,33 @@ public class UserService {
 
     public EnvelopeDTO<AdminDTO> getAllAdmins(int offset, int numItems) {
         List<AdminDTO> list = new ArrayList<>();
-        List<Admin> admins = adminRep.findAdminPagination(offset, numItems);
+        List<Admin> admins = adminRep.findAdminPagination(offset, numItems + 1);
+        boolean isLast;
+        if (admins.size() == numItems + 1) {
+            admins.remove(admins.size() - 1);
+            isLast = false;
+        } else {
+            isLast = true;
+        }
         admins.forEach(admin -> {
             list.add(new AdminDTO(admin));
         });
-        boolean isLast = (offset + numItems) >= adminRep.count();
         return new EnvelopeDTO<>(isLast, list);
     }
 
     public EnvelopeDTO<CustomerDTO> getAllCustomers(int offset, int numItems) {
         List<CustomerDTO> list = new ArrayList<>();
-        List<Customer> customers = customerRep.findCustomerPagination(offset, numItems);
+        List<Customer> customers = customerRep.findCustomerPagination(offset, numItems + 1);
+        boolean isLast;
+        if (customers.size() == numItems + 1) {
+            customers.remove(customers.size() - 1);
+            isLast = false;
+        } else {
+            isLast = true;
+        }
         customers.forEach(customer -> {
             list.add(new CustomerDTO(customer));
         });
-        boolean isLast = (offset + numItems) >= customerRep.count();
         return new EnvelopeDTO<>(isLast, list);
     }
 
