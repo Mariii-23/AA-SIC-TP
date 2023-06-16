@@ -265,7 +265,7 @@ public class ProductController {
         return productService.getAllCategories(offset, numItems);
     }
 
-    @GetMapping("/product/allMaterials")
+    @GetMapping("/allMaterials")
     public EnvelopeDTO<MaterialDTO> getAllMaterials(final @RequestParam int offset, final @RequestParam int numItems) {
         return productService.getAllMaterials(offset, numItems);
     }

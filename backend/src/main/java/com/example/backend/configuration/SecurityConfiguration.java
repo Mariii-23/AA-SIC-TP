@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**", "product/all/**", "info/all/**", "/db/**").permitAll()
                         .requestMatchers("/error").anonymous()
+                        .requestMatchers("/product/review").hasAuthority("CUSTOMER")
                         .requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER", "ADMIN")
                         .requestMatchers("/order/customer/**").hasAnyAuthority("CUSTOMER", "ADMIN")
                         .requestMatchers("/product/customer/**").hasAnyAuthority("CUSTOMER", "ADMIN")
