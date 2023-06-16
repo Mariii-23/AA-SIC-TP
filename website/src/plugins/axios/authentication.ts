@@ -15,14 +15,17 @@ const login = async (email: string, password: string) => {
       password,
     });
 
-    const token = req.data.token;
-    console.log(token)
-
-    axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
-
+    if (req.status == 200) {
+      const token = req.data.token;
+      axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
+      return {
+        success: true,
+        data: req.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -50,14 +53,17 @@ const register = async (
       nif,
       address,
     });
-
-    const token = req.data.token;
-
-    axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
-
+    if (req.status == 200) {
+      const token = req.data.token;
+      axios.defaults.headers.Authorization = token ? `Bearer ${token}` : "";
+      return {
+        success: true,
+        data: req.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -81,7 +87,6 @@ export interface Authentication {
     nif: string,
     address: string
   ) => Promise<Response<RegisterResponse>>;
-  //   register: (username: string, password: string) => Promise<void>;
 }
 
 const authentication: Authentication = {
@@ -89,7 +94,8 @@ const authentication: Authentication = {
     return await login(username, password);
   },
   logout: () => {
-    //TODO: Remover token
+    const axios = app.config.globalProperties.$axios;
+    axios.defaults.headers.Authorization = "";
   },
   register: async (
     email: string,
@@ -101,9 +107,6 @@ const authentication: Authentication = {
   ) => {
     return await register(email, password, name, birthday, nif, address);
   },
-  //   register: async (username: string, password: string) => {
-  //     await register(username, password);
-  //   },
 };
 
 export default authentication;

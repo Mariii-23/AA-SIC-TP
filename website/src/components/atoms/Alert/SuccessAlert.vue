@@ -7,6 +7,7 @@
     closable
     close-label="Close Alert"
     class="small-alert"
+    :on-click:close="onClose"
   >
     <template v-slot:title>
       <div class="small-title">{{ title }}</div>
@@ -25,6 +26,9 @@ export default {
       type: String,
       require: true,
     },
+    onClose: {
+      type: Function
+    }
   },
 };
 </script>

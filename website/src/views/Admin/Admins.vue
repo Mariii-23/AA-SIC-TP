@@ -39,7 +39,9 @@ import { UserInfoProps } from "@/appTypes/User";
 import AdminExpansionPanels from "@/components/molecules/expansionPanels/AdminExpansionPanels.vue";
 import { useAdminsStore } from "@/store/adminsStore";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+import { useNotificationStore } from "@/store/notificationStore";
 const adminStore = useAdminsStore();
+const notificationStore = useNotificationStore();
 
 export default {
   name: "AdminsAdminPage",
@@ -72,9 +74,10 @@ export default {
     async removeAdminHandler() {
       if (await adminStore.removeAdmin(this.idAdmin)) {
         this.closeModal();
-        //TODO: avisar do successo
+        notificationStore.openSuccessAlert("removeAdminSuccesss");
+      } else {
+        notificationStore.openErrorAlert("removeAdminError");
       }
-      //TODO: tratar do errro
     },
     addAdminHandler() {
       this.$router.push("/admin/add-admin/");

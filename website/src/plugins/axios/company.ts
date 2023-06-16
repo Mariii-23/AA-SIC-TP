@@ -10,14 +10,20 @@ const url = "/info";
 
 const updateInfo = async (company: CompanyInfo) => {
   try {
-    await app.config.globalProperties.$axios.post(
+    const req = await app.config.globalProperties.$axios.post(
       `${url}/companyInfo/edit`,
       company
     );
 
+    if (req.status == 200) {
+      return {
+        success: true,
+        data: company,
+      };
+    }
     return {
-      success: true,
-      data: company,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -29,16 +35,22 @@ const updateInfo = async (company: CompanyInfo) => {
 
 const updateNetworkLinks = async (socialNetworks: SocialMedia[]) => {
   try {
-    await app.config.globalProperties.$axios.post(
+    const req = await app.config.globalProperties.$axios.post(
       `${url}/socialNetworks/edit`,
       {
         socialNetworks,
       }
     );
 
+    if (req.status == 200) {
+      return {
+        success: true,
+        data: socialNetworks,
+      };
+    }
     return {
-      success: true,
-      data: socialNetworks,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -54,9 +66,15 @@ const getInfo = async () => {
       `${url}/all/companyInfo`
     );
 
+    if (req.status == 200) {
+      return {
+        success: true,
+        data: req.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -72,9 +90,15 @@ const getSocialNetwork = async () => {
       `${url}/all/socialNetworks`
     );
 
+    if (req.status == 200) {
+      return {
+        success: true,
+        data: req.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -102,6 +126,7 @@ const company: CompanyAxios = {
     return await getSocialNetwork();
   },
   getLogoLink: () => {
+    //FIXME:
     return "http://localhost:8080/info/all/companyImage";
   },
   updateInfo: async (company: CompanyInfo) => {

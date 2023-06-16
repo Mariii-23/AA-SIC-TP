@@ -2,9 +2,12 @@
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('allUsers')" :items="items"
-        :button-text="$t('addAdmin')"
-          :button-handler="addAdminHandler" />
+        <TitleCardLinksButton
+          :title="$t('allUsers')"
+          :items="items"
+          :button-text="$t('addAdmin')"
+          :button-handler="addAdminHandler"
+        />
       </template>
       <template v-slot:second>
         <TitleGoBack :title="$t('addAdmin')" :items="items" />
@@ -19,10 +22,12 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
-import AddAdminForm from "@/components/organisms/Forms/AddAdminForm.vue"
+import AddAdminForm from "@/components/organisms/Forms/AddAdminForm.vue";
 import { useAdminsStore } from "@/store/adminsStore";
+import { useNotificationStore } from "@/store/notificationStore";
 
 const adminsStore = useAdminsStore();
+const notificationStore = useNotificationStore();
 
 export default {
   name: "AddAdminPage",
@@ -41,9 +46,11 @@ export default {
     async addAdminHandler(email: string, password: string, name: string) {
       const result = await adminsStore.addAdmin(email, password, name);
       if (result) {
-        this.$router.push("/admin")
+        this.$router.push("/admin");
+        notificationStore.openSuccessAlert("addAdminSuccess");
+      } else {
+        notificationStore.openErrorAlert("addAdminError");
       }
-      //TODO: ver o erro
     },
   },
   components: {

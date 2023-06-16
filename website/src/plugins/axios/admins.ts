@@ -17,20 +17,27 @@ const getAllAdmins = async (offset: number, numItems: number) => {
       },
     });
 
-    req.data.data.forEach((element) => {
-      element.id = element.iD;
-    });
+    if (req.status == 200) {
+      req.data.data.forEach((element) => {
+        element.id = element.iD;
+      });
 
-    return {
-      success: true,
-      data: req.data.data,
-    };
-  } catch (error) {
-    console.log("erro :", error);
-    console.log(app.config.globalProperties.$axios.defaults.headers);
+      return {
+        success: true,
+        status: 200,
+        data: req.data.data,
+      };
+    }
     return {
       success: false,
-      data: "forbidden",
+      status: req.status,
+      data: req.statusText,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: "cors",
+      status: 500,
     };
   }
 };
@@ -47,17 +54,23 @@ const getAllCustomers = async (offset: number, numItems: number) => {
       }
     );
 
-    req.data.data.forEach((element) => {
-      element.id = element.iD;
-    });
+    if (req.status == 200) {
+      req.data.data.forEach((element) => {
+        element.id = element.iD;
+      });
 
+      return {
+        success: true,
+        status: 200,
+        data: req.data.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data.data,
+      success: false,
+      status: req.status,
+      data: req.statusText,
     };
   } catch (error) {
-    console.log("erro :", error);
-    console.log(app.config.globalProperties.$axios.defaults.headers);
     return {
       success: false,
       data: "forbidden",
@@ -73,11 +86,19 @@ const addAdmin = async (email: string, password: string, name: string) => {
       password,
     });
 
-    req.data.id = req.data.iD;
+    if (req.status == 200) {
+      req.data.id = req.data.iD;
 
+      return {
+        success: true,
+        status: 200,
+        data: req.data.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data,
+      success: false,
+      status: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     console.log("erro :", error);
@@ -91,11 +112,20 @@ const addAdmin = async (email: string, password: string, name: string) => {
 
 const removeAdmin = async (id: string) => {
   try {
-    await app.config.globalProperties.$axios.delete(`${url}/remove/${id}`);
+    const req = await app.config.globalProperties.$axios.delete(`${url}/remove/${id}`);
 
+    if (req.status == 200) {
+
+      return {
+        success: true,
+        status: 200,
+        data: "",
+      };
+    }
     return {
-      success: true,
-      data: "",
+      success: false,
+      status: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
@@ -107,19 +137,25 @@ const removeAdmin = async (id: string) => {
 
 const editAdmin = async (id: string, email: string, name: string) => {
   try {
-    await app.config.globalProperties.$axios.post(`${url}/edit/${id}`, {
+    const req = await app.config.globalProperties.$axios.post(`${url}/edit/${id}`, {
       email,
       name,
       password: null,
     });
 
+    if (req.status == 200) {
+      return {
+        success: true,
+        status: 200,
+        data: "",
+      };
+    }
     return {
-      success: true,
-      data: "",
+      success: false,
+      status: req.status,
+      data: req.statusText,
     };
   } catch (error) {
-    console.log("erro :", error);
-    console.log(app.config.globalProperties.$axios.defaults.headers);
     return {
       success: false,
       data: "forbidden",

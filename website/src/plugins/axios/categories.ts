@@ -15,9 +15,15 @@ const getAllCategories = async (offset: number, numItems: number) => {
       }
     );
 
+    if (req.status == 200) {
+      return {
+        success: true,
+        data: req.data.data,
+      };
+    }
     return {
-      success: true,
-      data: req.data.data,
+      success: req.status,
+      data: req.statusText,
     };
   } catch (error) {
     return {
