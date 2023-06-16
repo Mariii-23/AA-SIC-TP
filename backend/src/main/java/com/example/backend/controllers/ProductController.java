@@ -264,6 +264,11 @@ public class ProductController {
         return productService.getAllCategories(offset, numItems);
     }
 
+    @GetMapping("/product/allMaterials")
+    public EnvelopeDTO<MaterialDTO> getAllMaterials(final @RequestParam int offset, final @RequestParam int numItems) {
+        return productService.getAllMaterials(offset, numItems);
+    }
+
     @PostMapping("/review")
     public void addReview(final @RequestBody AddReviewDTO addReviewDTO) {
         try {

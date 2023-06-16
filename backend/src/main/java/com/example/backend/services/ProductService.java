@@ -128,14 +128,33 @@ public class ProductService {
     }
 
     public EnvelopeDTO<CategoryDTO> getAllCategories(int offset, int numItems){
-        List<Category> categories = categoryRep.findAllPagination(offset, numItems);
+        List<Category> categories = categoryRep.findAllPagination(offset, numItems + 1);
+        boolean isLast;
+        if (categories.size() == numItems + 1) {
+            categories.remove(categories.size() - 1);
+            isLast = false;
+        }
+        else isLast = true;
         List<CategoryDTO> list = categories.stream()
                 .map(category -> new CategoryDTO(category.getiD(),
                         category.getName(),
                         category.getSubCategories().stream()
                         .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName())).toList()))
                 .toList();
-        boolean isLast = (offset + numItems) >= getNumberOfCategories();
+        return new EnvelopeDTO<>(isLast,list);
+    }
+
+    public EnvelopeDTO<MaterialDTO> getAllMaterials(int offset, int numItems) {
+        List<Material> materials = materialRep.findAllPagination(offset, numItems + 1);
+        boolean isLast;
+        if (materials.size() == numItems + 1) {
+            materials.remove(materials.size() - 1);
+            isLast = false;
+        }
+        else isLast = true;
+        List<MaterialDTO> list = materials.stream()
+                .map(material -> new MaterialDTO(material.getID(), material.getName()))
+                .toList();
         return new EnvelopeDTO<>(isLast,list);
     }
 
