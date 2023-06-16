@@ -132,10 +132,10 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/material/edit/{materialId}")
-    public void editMaterial(final @PathVariable int materialId, final @RequestBody EditMaterialDTO materialDTO) {
+    @PostMapping("/material/edit")
+    public void editMaterial(final @RequestBody EditMaterialDTO materialDTO) {
         try {
-            productService.editMaterial(materialId, materialDTO.getName(), materialDTO.getImage());
+            productService.editMaterial(materialDTO.getId(), materialDTO.getName(), materialDTO.getImage());
         } catch (MaterialNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
