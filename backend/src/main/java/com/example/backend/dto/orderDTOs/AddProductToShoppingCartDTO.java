@@ -1,7 +1,7 @@
 package com.example.backend.dto.orderDTOs;
 
 public class AddProductToShoppingCartDTO {
-    private int costumerId;
+    private int customerId;
     private int productId;
     private int materialId;
     private int quantity;
@@ -10,12 +10,12 @@ public class AddProductToShoppingCartDTO {
 
     }
 
-    public int getCostumerId() {
-        return costumerId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCostumerId(int costumerId) {
-        this.costumerId = costumerId;
+    public void setCustomerId(int costumerId) {
+        this.customerId = costumerId;
     }
 
     public int getProductId() {

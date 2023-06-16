@@ -101,7 +101,7 @@ public class OrderController {
     @PostMapping("/customer/shoppingCart/product")
     public void addProductToShoppingCart(final @RequestBody AddProductToShoppingCartDTO product){
         try {
-            orderService.addProductToShoppingCart(product.getCostumerId(),
+            orderService.addProductToShoppingCart(product.getCustomerId(),
                                                   product.getProductId(),
                                                   product.getMaterialId(),
                                                   product.getQuantity());
