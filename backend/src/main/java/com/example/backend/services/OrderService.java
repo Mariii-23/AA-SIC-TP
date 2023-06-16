@@ -169,4 +169,34 @@ public class OrderService {
         orderRep.save(order);
         return true;
     }
+
+    public EnvelopeDTO<OrderSimpleDTO> getPendingOrders(int offset, int numItems) {
+        List<Order> orders = orderRep.findPendingOrdersPagination(offset, numItems);
+        List<OrderSimpleDTO> list = new ArrayList<>();
+        orders.forEach(order -> {
+            list.add(new OrderSimpleDTO(order));
+        });
+        boolean isLast = (offset + numItems) >= orderRep.countOrdersByState(OrderState.PENDING.ordinal());
+        return new EnvelopeDTO<>(isLast, list);
+    }
+
+    public EnvelopeDTO<OrderSimpleDTO> getReadyOrders(int offset, int numItems) {
+        List<Order> orders = orderRep.findReadyOrdersPagination(offset, numItems);
+        List<OrderSimpleDTO> list = new ArrayList<>();
+        orders.forEach(order -> {
+            list.add(new OrderSimpleDTO(order));
+        });
+        boolean isLast = (offset + numItems) >= orderRep.countOrdersByState(OrderState.READY.ordinal());
+        return new EnvelopeDTO<>(isLast, list);
+    }
+
+    public EnvelopeDTO<OrderSimpleDTO> getDoneOrders(int offset, int numItems) {
+        List<Order> orders = orderRep.findDoneOrdersPagination(offset, numItems);
+        List<OrderSimpleDTO> list = new ArrayList<>();
+        orders.forEach(order -> {
+            list.add(new OrderSimpleDTO(order));
+        });
+        boolean isLast = (offset + numItems) >= orderRep.countOrdersByState(OrderState.DONE.ordinal());
+        return new EnvelopeDTO<>(isLast, list);
+    }
 }

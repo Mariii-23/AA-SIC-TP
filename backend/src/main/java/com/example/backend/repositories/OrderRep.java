@@ -20,4 +20,26 @@ public interface OrderRep extends JpaRepository<Order, Integer> {
             "ORDER BY id ASC " +
             "LIMIT ?2 OFFSET ?1", nativeQuery = true)
     List<Order> findOrdersPagination(int offset, int numitems);
+
+    @Query(value = "SELECT * FROM _order " +
+            "WHERE state=0 " +
+            "ORDER BY id ASC " +
+            "LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Order> findPendingOrdersPagination(int offset, int numItems);
+
+    @Query(value = "SELECT * FROM _order " +
+            "WHERE state=1 " +
+            "ORDER BY id ASC " +
+            "LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Order> findReadyOrdersPagination(int offset, int numItems);
+
+    @Query(value = "SELECT * FROM _order " +
+            "WHERE state=2 " +
+            "ORDER BY id ASC " +
+            "LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Order> findDoneOrdersPagination(int offset, int numItems);
+
+    @Query(value = "SELECT COUNT(*) FROM _order " +
+            "WHERE state = ?1", nativeQuery = true)
+    int countOrdersByState(int state);
 }
