@@ -174,18 +174,27 @@ public class DBService{
         byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
         byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
-        subCategories.add(new SubCategory("Sofas", image1, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Beds", image1, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Dining Tables", image1, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Desks", image1, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Outdoor Sets", image1, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Cabinets", image2, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Toilets", image2, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Kids Beds", image2, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Chairs", image3, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Tables", image3, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Bookcases", image3, categories.get(random.nextInt(size))));
-        subCategories.add(new SubCategory("Office Chairs", image3, categories.get(random.nextInt(size))));
+
+        subCategories.add(new SubCategory("Sofas", image1, categories.get(0)));
+        subCategories.add(new SubCategory("Beds", image1, categories.get(1)));
+        subCategories.add(new SubCategory("Dining Tables", image1, categories.get( 2)));
+        subCategories.add(new SubCategory("Desks", image1, categories.get(3)));
+        subCategories.add(new SubCategory("Outdoor Sets", image1, categories.get( 4)));
+        subCategories.add(new SubCategory("Cabinets", image2, categories.get( 5)));
+        subCategories.add(new SubCategory("Toilets", image2, categories.get( 6)));
+        subCategories.add(new SubCategory("Kids Beds", image2, categories.get( 7)));
+        subCategories.add(new SubCategory("Chairs", image3, categories.get( 8)));
+        subCategories.add(new SubCategory("Tables", image3, categories.get(9)));
+        subCategories.add(new SubCategory("Bookcases", image3, categories.get(10)));
+        subCategories.add(new SubCategory("Office Chairs", image3, categories.get(11)));
+        subCategories.add(new SubCategory("Benches", image3, categories.get(12)));
+        subCategories.add(new SubCategory("Garden Sets", image3, categories.get(13)));
+        subCategories.add(new SubCategory("Cribs", image3, categories.get(14)));
+        subCategories.add(new SubCategory("Patio Sets", image3, categories.get(15)));
+        subCategories.add(new SubCategory("Bar Stools", image3, categories.get(16)));
+        subCategories.add(new SubCategory("Bookshelves", image3, categories.get(17)));
+        subCategories.add(new SubCategory("Play Tables", image3, categories.get(18)));
+        subCategories.add(new SubCategory("Treadmills", image3, categories.get(19)));
 
         subCategoryRep.saveAll(subCategories);
     }
@@ -200,346 +209,105 @@ public class DBService{
 
         Random random = new Random();
 
-        SubCategory s1 = subCategories.get(random.nextInt(0,subcategories_size));
+        SubCategory s1 = subCategories.get(0);
         List<Material> m1 = new ArrayList<>();
-        for(int i = 0; i < 2; i++) m1.add(materials.get(random.nextInt(0,materials_size)));
-        products.add((new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", materials.subList(0, 2), s1.getCategory(), s1)));
+        for(int i = 0; i < 2; i++) m1.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", m1, s1.getCategory(), s1)));
 
-        SubCategory s2 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s2 = subCategories.get(1);
         List<Material> m2 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m2.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(499.99, "Platform Bed", "Modern platform bed with sleek design.", m2, s2.getCategory(), s2));
+        for(int i = 0; i < 2; i++) m2.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(499.99, "Wooden Bed", "Stylish and comfortable wooden bed.", m2, s2.getCategory(), s2)));
 
-        SubCategory s3 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s3 = subCategories.get(2);
         List<Material> m3 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m3.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Dining Table", "Elegant dining table for family gatherings.", m3, s3.getCategory(), s3));
+        for(int i = 0; i < 2; i++) m3.add(materials.get(random.nextInt(materials_size)));
+            products.add((new Product(299.99, "Wooden Dining Table", "Stylish and comfortable wooden dining table.", m3, s3.getCategory(), s3)));
 
-        SubCategory s4 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s4 = subCategories.get(3);
         List<Material> m4 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m4.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "Writing Desk", "Compact writing desk for home office.", m4, s4.getCategory(), s4));
+        for(int i = 0; i < 2; i++) m4.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(199.99, "Wooden Desk", "Stylish and comfortable wooden desk.", m4, s4.getCategory(), s4)));
 
-        SubCategory s5 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s5 = subCategories.get(4);
         List<Material> m5 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m5.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(599.99, "Outdoor Dining Set", "Durable outdoor dining set for backyard parties.", m5, s5.getCategory(), s5));
+        for(int i = 0; i < 2; i++) m5.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Outdoor Set", "Stylish and comfortable wooden outdoor set.", m5, s5.getCategory(), s5)));
 
-        SubCategory s6 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s6 = subCategories.get(5);
         List<Material> m6 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m6.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(249.99, "Storage Cabinet", "Versatile storage cabinet for organizing items.", m6, s6.getCategory(), s6));
+        for(int i = 0; i < 2; i++) m6.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Cabinet", "Stylish and comfortable wooden cabinet.", m6, s6.getCategory(), s6)));
 
-        SubCategory s7 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s7 = subCategories.get(6);
         List<Material> m7 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m7.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(149.99, "Toilet Bowl", "Modern toilet bowl with efficient flush.", m7, s7.getCategory(), s7));
+        for(int i = 0; i < 2; i++) m7.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Toilet", "Stylish and comfortable wooden toilet.", m7, s7.getCategory(), s7)));
 
-        SubCategory s8 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s8 = subCategories.get(7);
         List<Material> m8 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m8.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(399.99, "TV Stand", "Sleek TV stand with ample storage space.", m8, s8.getCategory(), s8));
+        for(int i = 0; i < 2; i++) m8.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Kids Bed", "Stylish and comfortable wooden kids bed.", m8, s8.getCategory(), s8)));
 
-        SubCategory s9 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s9 = subCategories.get(8);
         List<Material> m9 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m9.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(179.99, "Bookcase", "Stylish bookcase for showcasing your collection.", m9, s9.getCategory(), s9));
+        for(int i = 0; i < 2; i++) m9.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Chair", "Stylish and comfortable wooden chair.", m9, s9.getCategory(), s9)));
 
-        SubCategory s11 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s10 = subCategories.get(9);
+        List<Material> m10 = new ArrayList<>();
+        for(int i = 0; i < 2; i++) m10.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Coffee Table", "Stylish and comfortable wooden coffee table.", m10, s10.getCategory(), s10)));
+
+        SubCategory s11 = subCategories.get(10);
         List<Material> m11 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m11.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "Accent Chair", "Eye-catching accent chair for adding flair to any room.", m11, s11.getCategory(), s11));
+        for(int i = 0; i < 2; i++) m11.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Bookshelf", "Stylish and comfortable wooden bookshelf.", m11, s11.getCategory(), s11)));
 
-        SubCategory s12 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s12 = subCategories.get(11);
         List<Material> m12 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m12.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(799.99, "Memory Foam Mattress", "Luxurious memory foam mattress for a good night's sleep.", m12, s12.getCategory(), s12));
+        for(int i = 0; i < 2; i++) m12.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Wardrobe", "Stylish and comfortable wooden wardrobe.", m12, s12.getCategory(), s12)));
 
-        SubCategory s13 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s13 = subCategories.get(12);
         List<Material> m13 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m13.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(249.99, "Bar Table", "Compact bar table for entertaining guests.", m13, s13.getCategory(), s13));
+        for(int i = 0; i < 2; i++) m13.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Stool", "Stylish and comfortable wooden stool.", m13, s13.getCategory(), s13)));
 
-        SubCategory s14 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s14 = subCategories.get(13);
         List<Material> m14 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m14.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(149.99, "Mesh Office Chair", "Comfortable office chair with breathable mesh back.", m14, s14.getCategory(), s14));
+        for(int i = 0; i < 2; i++) m14.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Sofa", "Stylish and comfortable wooden sofa.", m14, s14.getCategory(), s14)));
 
-        SubCategory s15 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s15 = subCategories.get(14);
         List<Material> m15 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m15.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Outdoor Lounge Chair", "Relaxing outdoor lounge chair for sunbathing.", m15, s15.getCategory(), s15));
+        for(int i = 0; i < 2; i++) m15.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Bed", "Stylish and comfortable wooden bed.", m15, s15.getCategory(), s15)));
 
-        SubCategory s16 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s16 = subCategories.get(15);
         List<Material> m16 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m16.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "Floating Shelf", "Stylish floating shelf for displaying decorative items.", m16, s16.getCategory(), s16));
+        for(int i = 0; i < 2; i++) m16.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Dining Table", "Stylish and comfortable wooden dining table.", m16, s16.getCategory(), s16)));
 
-        SubCategory s17 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s17 = subCategories.get(16);
         List<Material> m17 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m17.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(149.99, "Bathroom Vanity", "Elegant bathroom vanity for a sophisticated look.", m17, s17.getCategory(), s17));
+        for(int i = 0; i < 2; i++) m17.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Dining Chair", "Stylish and comfortable wooden dining chair.", m17, s17.getCategory(), s17)));
 
-        SubCategory s18 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s18 = subCategories.get(17);
         List<Material> m18 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m18.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(349.99, "Study Desk", "Spacious study desk with built-in storage.", m18, s18.getCategory(), s18));
+        for(int i = 0; i < 2; i++) m18.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Dining Bench", "Stylish and comfortable wooden dining bench.", m18, s18.getCategory(), s18)));
 
-        SubCategory s19 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s19 = subCategories.get(18);
         List<Material> m19 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m19.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(179.99, "Shoe Rack", "Convenient shoe rack for keeping your footwear organized.", m19, s19.getCategory(), s19));
+        for(int i = 0; i < 2; i++) m19.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden Sideboard", "Stylish and comfortable wooden sideboard.", m19, s19.getCategory(), s19)));
 
-        SubCategory s20 = subCategories.get(random.nextInt(subCategories.size()));
+        SubCategory s20 = subCategories.get(19);
         List<Material> m20 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m20.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Lounge Sofa", "Comfortable lounge sofa for relaxation.", m20, s20.getCategory(), s20));
-
-        SubCategory s21 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m21 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m21.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(249.99, "Bar Stool", "Sleek and modern bar stool for elevated seating.", m21, s21.getCategory(), s21));
-
-        SubCategory s22 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m22 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m22.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(399.99, "Sectional Sofa", "Versatile and spacious sectional sofa for lounging.", m22, s22.getCategory(), s22));
-
-        SubCategory s23 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m23 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m23.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(179.99, "Coffee Table", "Elegant coffee table for serving and storage.", m23, s23.getCategory(), s23));
-
-        SubCategory s24 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m24 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m24.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(599.99, "Recliner Chair", "Plush and comfortable recliner chair for ultimate relaxation.", m24, s24.getCategory(), s24));
-
-        SubCategory s25 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m25 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m25.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(349.99, "Dresser", "Stylish dresser with ample storage space for clothes.", m25, s25.getCategory(), s25));
-
-        SubCategory s26 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m26 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m26.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "Side Table", "Compact and functional side table for placing essentials.", m26, s26.getCategory(), s26));
-
-        SubCategory s27 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m27 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m27.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(449.99, "Console Table", "Sleek console table for hallway or living room decor.", m27, s27.getCategory(), s27));
-
-        SubCategory s28 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m28 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m28.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Armchair", "Comfortable and stylish armchair for relaxation.", m28, s28.getCategory(), s28));
-
-        SubCategory s29 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m29 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m29.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(549.99, "Bed Frame", "Sturdy bed frame for a restful night's sleep.", m29, s29.getCategory(), s29));
-
-        SubCategory s30 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m30 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m30.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(179.99, "Accent Cabinet", "Chic accent cabinet for storage and display.", m30, s30.getCategory(), s30));
-
-        SubCategory s31 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m31 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m31.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Bar Cabinet", "Elegant bar cabinet for storing your favorite drinks.", m31, s31.getCategory(), s31));
-
-        SubCategory s32 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m32 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m32.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(499.99, "Chaise Lounge", "Luxurious chaise lounge for relaxation and comfort.", m32, s32.getCategory(), s32));
-
-        SubCategory s33 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m33 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m33.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "TV Console", "Sleek and functional TV console for entertainment setup.", m33, s33.getCategory(), s33));
-
-        SubCategory s34 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m34 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m34.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(399.99, "Nightstand", "Compact nightstand with storage for bedside essentials.", m34, s34.getCategory(), s34));
-
-        SubCategory s35 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m35 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m35.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(599.99, "Sectional Sleeper Sofa", "Versatile sectional sofa that converts into a bed.", m35, s35.getCategory(), s35));
-
-        SubCategory s36 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m36 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m36.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(249.99, "Ottoman", "Stylish ottoman for resting your feet or extra seating.", m36, s36.getCategory(), s36));
-
-        SubCategory s37 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m37 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m37.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(149.99, "Console Cabinet", "Elegant console cabinet for hallway or living room.", m37, s37.getCategory(), s37));
-
-        SubCategory s38 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m38 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m38.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(349.99, "Vanity Desk", "Chic vanity desk for getting ready in style.", m38, s38.getCategory(), s38));
-
-        SubCategory s39 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m39 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m39.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "Accent Mirror", "Eye-catching accent mirror for adding depth to your space.", m39, s39.getCategory(), s39));
-
-        SubCategory s40 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m40 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m40.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(179.99, "Entryway Bench", "Functional entryway bench with storage compartments.", m40, s40.getCategory(), s40));
-
-        SubCategory s41 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m41 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m41.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Bookshelf", "Versatile bookshelf for organizing your book collection.", m41, s41.getCategory(), s41));
-
-        SubCategory s42 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m42 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m42.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(399.99, "Dining Table", "Elegant dining table for hosting family and friends.", m42, s42.getCategory(), s42));
-
-        SubCategory s43 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m43 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m43.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(149.99, "Desk Chair", "Comfortable desk chair for productive work sessions.", m43, s43.getCategory(), s43));
-
-        SubCategory s44 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m44 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m44.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(599.99, "Sleeper Sofa", "Convertible sleeper sofa for overnight guests.", m44, s44.getCategory(), s44));
-
-        SubCategory s45 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m45 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m45.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(249.99, "Sideboard", "Stylish sideboard for storing dining essentials.", m45, s45.getCategory(), s45));
-
-        SubCategory s46 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m46 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m46.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(199.99, "Bean Bag Chair", "Casual and comfortable bean bag chair for lounging.", m46, s46.getCategory(), s46));
-
-        SubCategory s47 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m47 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m47.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(349.99, "Chest of Drawers", "Functional chest of drawers for clothing storage.", m47, s47.getCategory(), s47));
-
-        SubCategory s48 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m48 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m48.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(399.99, "Armless Chair", "Sleek armless chair for modern seating arrangements.", m48, s48.getCategory(), s48));
-
-        SubCategory s49 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m49 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m49.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(299.99, "Folding Table", "Versatile folding table for indoor and outdoor use.", m49, s49.getCategory(), s49));
-
-        SubCategory s50 = subCategories.get(random.nextInt(subCategories.size()));
-        List<Material> m50 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            m50.add(materials.get(random.nextInt(materials.size())));
-        }
-        products.add(new Product(179.99, "Shelving Unit", "Functional shelving unit for displaying decor and storage.", m50, s50.getCategory(), s50));
+        for(int i = 0; i < 2; i++) m20.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(99.99, "Wooden TV Stand", "Stylish and comfortable wooden TV stand.", m20, s20.getCategory(), s20)));
 
 
         productRep.saveAll(products);
@@ -611,7 +379,9 @@ public class DBService{
         for(Customer c : customers){
             if (i % 2 == 0) {
                 boolean storePickUp = random.nextBoolean();
-                String address = c.getAddress();
+                String address;
+                if (storePickUp) address = null;
+                else address = c.getAddress();
                 orderService.createOrder(c.getiD(), address, storePickUp);
             }
             i++;

@@ -92,7 +92,7 @@ public class OrderController {
     @PostMapping("/customer/create")
     public void createOrder(final @RequestBody CreateOrderDTO order){
         try {
-            orderService.createOrder(order.getCostumerId(), order.getAddress(), order.isStorePickUp());
+            orderService.createOrder(order.getCustomerId(), order.getAddress(), order.isStorePickUp());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

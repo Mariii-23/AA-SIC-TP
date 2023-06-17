@@ -1,7 +1,7 @@
 package com.example.backend.dto.orderDTOs;
 
 public class CreateOrderDTO {
-    private int costumerId;
+    private int customerId;
     private String address;
     private boolean storePickUp;
 
@@ -9,12 +9,12 @@ public class CreateOrderDTO {
 
     }
 
-    public int getCostumerId() {
-        return costumerId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCostumerId(int costumerId) {
-        this.costumerId = costumerId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getAddress() {
