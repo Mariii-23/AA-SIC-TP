@@ -96,6 +96,7 @@ public class ProductService {
         productRep.save(product);
     }
 
+    @Transactional
     public EnvelopeDTO<ProductSimpleDTO> getProductsByCategory(int categoryId, int offset, int numItems) throws CategoryNotFoundException {
         categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         List<Product> products = productRep.findByCategoryPagination(categoryId, offset, numItems);
@@ -128,6 +129,7 @@ public class ProductService {
                 product.getImages().stream().map(Image::getiD).toList());
     }
 
+    @Transactional
     public EnvelopeDTO<CategoryDTO> getAllCategories(int offset, int numItems){
         List<Category> categories = categoryRep.findAllPagination(offset, numItems + 1);
         boolean isLast;

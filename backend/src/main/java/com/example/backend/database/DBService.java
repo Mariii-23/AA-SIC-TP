@@ -57,9 +57,9 @@ public class DBService{
 
     public void addUsers() throws Exception {
 
+        authenticateService.register(new CreateCustomerDTO(new Date(1990, 3, 15), "123456789A", "123 Main Street, Cityville", "customer1@example.com", "password1", "John Smith"));
         authenticateService.register(new CreateCustomerDTO(new Date(1985, 7, 2), "987654321B", "456 Elm Avenue, Townsville", "customer2@example.com", "password2", "Jane Johnson"));
         authenticateService.register(new CreateCustomerDTO(new Date(1992, 1, 9), "246813579C", "789 Oak Road, Villageton", "customer3@example.com", "password3", "Robert Davis"));
-        authenticateService.register(new CreateCustomerDTO(new Date(1990, 3, 15), "123456789A", "123 Main Street, Cityville", "customer1@example.com", "password1", "John Smith"));
         authenticateService.register(new CreateCustomerDTO(new Date(1988, 11, 26), "135792468D", "321 Pine Lane, Hamletown", "customer4@example.com", "password4", "Emily Wilson"));
         authenticateService.register(new CreateCustomerDTO(new Date(1995, 5, 4), "864209753E", "654 Maple Drive, Boroughburg", "customer5@example.com", "password5", "Michael Thompson"));
         authenticateService.register(new CreateCustomerDTO(new Date(1984, 2, 21), "579314682F", "987 Cedar Street, Villaville", "customer6@example.com", "password6", "Sarah Roberts"));
@@ -89,6 +89,18 @@ public class DBService{
         authenticateService.register(new CreateCustomerDTO(new Date(1984, 4, 18), "468135792AD", "357 Maple Drive, Hamletown", "customer30@example.com", "password30", "Chloe Cooper"));
         authenticateService.register(new CreateCustomerDTO(new Date(1991, 10, 4), "246801357AE", "951 Cedar Street, Cityville", "customer31@example.com", "password31", "Liam Martinez"));
         authenticateService.register(new CreateCustomerDTO(new Date(1987, 12, 21), "135792468AF", "753 Birch Court, Townsville", "customer32@example.com", "password32", "Victoria Thompson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1993, 8, 7), "579314682AG", "357 Oakwood Avenue, Villageton", "customer33@example.com", "password33", "Noah Davis"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1986, 11, 25), "468135792AH", "951 Pine Lane, Hamletown", "customer34@example.com", "password34", "Elizabeth Wilson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1994, 6, 12), "246801357AI", "753 Maple Drive, Boroughburg", "customer35@example.com", "password35", "Jacob Johnson"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1983, 12, 29), "135792468AJ", "357 Cedar Street, Villaville", "customer36@example.com", "password36", "Ava Roberts"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1990, 4, 15), "579314682AK", "951 Birch Court, Townberg", "customer37@example.com", "password37", "Michael Lee"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1985, 9, 1), "468135792AL", "753 Oakwood Avenue, Hamletham", "customer38@example.com", "password38", "Emily Scott"));
+        authenticateService.register(new CreateCustomerDTO(new Date(1992, 2, 17), "791364825AM", "357 Pine Lane, Cityton", "customer39@example.com", "password39", "Matthew Martin"));
+
+        for(int i = 0; i < 500; i++){
+            authenticateService.register(new CreateCustomerDTO(new Date(1995, 6, 8), String.valueOf(111111111 + i), "753 Birch Court, Townsville", "customer" + (40 + i) + "@example.com", "password" + (40 + i), "Ryan Thompson"));
+        }
+
 
         userService.addAdminDTO(new CreateAdminDTO("admin@admin.com", "password", "Admin"));
         userService.addAdminDTO(new CreateAdminDTO("admin1@example.com", "adminpassword1", "Admin Smith"));
