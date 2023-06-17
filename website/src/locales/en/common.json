@@ -86,6 +86,8 @@
     "rmv-material-text": "Are you sure you want to remove the material",
     "rmv-material-success": "Material delete with success",
     "rmv-material-error": "Error deleting material",
+    "add-material-success": "Material added with success",
+    "add-material-error": "Error adding material",
     "update-material-success": "Material updated with success",
     "update-material-fail": "Error updating material",
     "add-material": "Add material",

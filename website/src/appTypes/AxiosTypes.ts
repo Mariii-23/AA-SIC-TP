@@ -55,7 +55,7 @@ export interface CategoryResponse {
   subCategories: {
     id: string;
     name: string;
-  };
+  }[];
 }
 
 export interface GetAllCategoriesResponse {

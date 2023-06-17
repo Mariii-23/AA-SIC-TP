@@ -61,6 +61,7 @@
       </v-btn>
 
       <v-btn
+        icon
         @click="removeMaterialHandler"
         class="action bg-secondary elevation-0"
       >
@@ -75,11 +76,6 @@ import { Material } from "@/appTypes/Product";
 import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import CardLayout from "@/layouts/CardLayout.vue";
-import { useMaterialStore } from "@/store/materialsStore";
-import { useNotificationStore } from "@/store/notificationStore";
-
-const materialStore = useMaterialStore();
-const notifications = useNotificationStore();
 
 export default {
   name: "MaterialCard",
@@ -103,6 +99,9 @@ export default {
       } as Material,
     },
     removeMaterialHandler: {
+      type: Function,
+    },
+    updateMaterialHandler: {
       type: Function,
     },
   },
@@ -144,16 +143,12 @@ export default {
       this.editHandler();
     },
     async updateMaterial() {
-      const r = await materialStore.updateMaterial(
-        this.material.id,
-        this.textField.value2,
-        this.photo
-      );
-      if ( r == 200) {
-        notifications.openSuccessAlert(this.$t("update-material-success"));
-      } else {
-        notifications.openErrorAlert(this.$t("update-material-error"));
-      }
+      this.updateMaterialHandler &&
+        this.updateMaterialHandler(
+          this.material.id,
+          this.textField.value2,
+          this.photo
+        );
       this.editHandler();
     },
   },

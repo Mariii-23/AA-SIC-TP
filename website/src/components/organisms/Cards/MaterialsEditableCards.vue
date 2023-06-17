@@ -5,6 +5,7 @@
       :key="material.id"
       :material="material"
       :remove-material-handler="() => removeMaterialHandler && removeMaterialHandler(material.id)"
+      :update-material-handler="updateMaterialHandler"
     />
   </CardsEditableLayout>
 </template>
@@ -22,14 +23,13 @@ export default {
   props: {
     items: {
       type: Array as () => Material[],
-      require: true,
     },
     removeMaterialHandler: {
       type: Function,
     },
-  },
-  mounted: function () {
-    console.log(this.items);
+    updateMaterialHandler: {
+      type: Function,
+    },
   },
 };
 </script>

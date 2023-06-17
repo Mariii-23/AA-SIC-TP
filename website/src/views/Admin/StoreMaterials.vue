@@ -19,8 +19,9 @@
           :buttonHandler="addMaterialHandler"
         />
         <MaterialsEditableCards
-          :items="materials"
+          v-bind:items="materials"
           :remove-material-handler="openRemoveModal"
+          :update-material-handler="updateMaterialHandler"
         />
       </template>
     </TwoColumnsPanel>
@@ -90,6 +91,18 @@ export default {
         notifications.openErrorAlert(this.$t("rmv-material-error"));
       }
       this.closeRemoveModal();
+    },
+    async updateMaterialHandler(
+      materialId: string,
+      name: string,
+      photo: string
+    ) {
+      const r = await materialsStore.updateMaterial(materialId, name, photo);
+      if (r == 200) {
+        notifications.openSuccessAlert(this.$t("update-material-success"));
+      } else {
+        notifications.openErrorAlert(this.$t("update-material-error"));
+      }
     },
   },
   components: {

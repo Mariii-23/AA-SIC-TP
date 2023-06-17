@@ -11,7 +11,6 @@ export const useMaterialStore = defineStore("materials", {
   actions: {
     async getAllMaterials() {
       const r = await axios.materials.getAllMaterials(0, 100000);
-      console.log(r);
       if (r.success == 200) {
         this.materials = [];
         if (typeof r.data !== "string") {
@@ -34,7 +33,7 @@ export const useMaterialStore = defineStore("materials", {
           this.materials.push({
             id: r.data.id,
             name: r.data.name,
-            href: `${baseUrl}/all/materialImage?materialId=${r.data.id}`,
+            href: `${baseUrl}/product/all/materialImage?materialId=${r.data.id}`,
           });
         }
       }
@@ -44,15 +43,20 @@ export const useMaterialStore = defineStore("materials", {
       const r = await axios.materials.updateMaterial(id, name, image);
       if (r.success == 200) {
         if (typeof r.data !== "string") {
-          const m = this.materials.findIndex((e) => {
-            e.id == id;
-          });
+          const newMaterials: Material[] = [];
 
-          this.materials[m] = {
-            name: r.data.name,
-            id: id,
-            href: `${baseUrl}/product/all/materialImage?materialId=${id}`,
-          };
+          this.materials.forEach((material) => {
+            if (material.id === id) {
+              newMaterials.push({
+                name: r.data.name,
+                id: id,
+                href: `${baseUrl}/product/all/materialImage?materialId=${id}`,
+              });
+            } else {
+              newMaterials.push(material);
+            }
+          });
+          this.materials = newMaterials;
         }
       }
       return r.success;

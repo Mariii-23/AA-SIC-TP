@@ -23,9 +23,7 @@ export const useUserStore = defineStore("user", {
     },
     async login(username: string, password: string) {
       const r = await axios.authentication.login(username, password);
-      console.log(r);
       if (r.success == 200 && typeof r.data !== "string") {
-        console.log("hum");
         this.isLoggedIn = true;
         this.token = r.data.token;
         this.email = r.data.email;

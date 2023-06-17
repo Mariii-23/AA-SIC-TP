@@ -86,6 +86,8 @@
     "rmv-material-text": "Tem a certeza que quer remover o material",
     "rmv-material-success": "Material eliminado com sucesso",
     "rmv-material-error": "Erro ao eliminar o material",
+    "add-material-success": "Material adicionado com sucesso",
+    "add-material-error": "Material adicionado com sucesso",
     "update-material-success": "Material atualizado com sucesso",
     "update-material-fail": "Erro ao atualizar o material",
     "add-material": "Adicionar material",

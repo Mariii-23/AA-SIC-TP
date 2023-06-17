@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
-import { CategoryResponse } from "@/appTypes/AxiosTypes";
+import { Category } from "@/appTypes/Product";
 
 export const useCategoriesStore = defineStore("categories", {
   state: () => ({
-    categories: [] as CategoryResponse[],
+    categories: [] as Category[],
   }),
   actions: {
     async getAllCategories() {

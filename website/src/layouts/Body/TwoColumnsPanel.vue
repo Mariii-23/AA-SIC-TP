@@ -26,6 +26,7 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding: 2px;
   gap: 10px;
 }
 
