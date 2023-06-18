@@ -35,9 +35,9 @@ export default {
     mounted: async function () {
 
         this.items = [
-            { href: "/orders/pending", icon: "brightness-1", text: "pending" },
-            { href: "/orders/ready", icon: "bullseye", text: "ready" },
-            { href: "/orders/done", icon: "brightness-1", text: "done" },
+            { href: "/admin/orders/pending", icon: "brightness-1", text: "pending" },
+            { href: "/admin/orders/ready", icon: "bullseye", text: "ready" },
+            { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
         ];
 
         this.order = {
@@ -68,7 +68,7 @@ export default {
     //TODO: handlers
     methods: {
         changeToDone(id: number) {
-            this.$router.push(`/orders/done/${id}`);
+            this.$router.push("admin/orders/done/${id}");
         }
     },
     components: {

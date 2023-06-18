@@ -38,9 +38,9 @@ export default {
     mounted: async function () {
 
         this.items = [
-            { href: "/orders/pending", icon: "bullseye", text: "pending" },
-            { href: "/orders/ready", icon: "brightness-1", text: "ready" },
-            { href: "/orders/done", icon: "brightness-1", text: "done" },
+            { href: "/admin/orders/pending", icon: "bullseye", text: "pending" },
+            { href: "/admin/orders/ready", icon: "brightness-1", text: "ready" },
+            { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
         ];
 
         this.orders = [
@@ -90,10 +90,10 @@ export default {
     //TODO: handlers
     methods: {
         viewDetailsHandler(id: number) {
-            this.$router.push("/orders/pending/" + id)
+            this.$router.push("/admin/orders/pending/" + id)
         },
         changeToReady(id: number) {
-            this.$router.push("/orders/ready/" + id)
+            this.$router.push("/admin/orders/ready/" + id)
         }
     },
     components: {

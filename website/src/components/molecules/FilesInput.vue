@@ -5,7 +5,8 @@
     accept="image/*"
     :label="label"
     @change="handleFileSelection"
-    class="bg-primary"
+    bg-color="primary"
+    :rules="imageRules" 
   />
 </template>
 
@@ -14,6 +15,13 @@ export default {
   name: "FilesInput",
   data: () => ({
     files: [],
+    imageRules:  [
+        value => {
+          if (!value) return true
+
+          return this.$t('img-required')
+        },
+      ],
   }),
   props: {
     label: {

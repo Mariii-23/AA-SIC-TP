@@ -1,5 +1,5 @@
 <template>
-  <Breadcrumbs :links="links" />
+  <Breadcrumbs :links="links" class="elevation-2"/>
   <SimpleBodyLayout>
     <TitleWithButton
       :button-text="$t('addProduct')"
@@ -42,10 +42,10 @@ export default {
   name: "CategoryAdminPage",
   props: {
     products: {
-      type: Array as () => ProductAdminProps[],
+      type: [] as ProductAdminProps[],
     },
     links: {
-      type: Array as () => LinkProps[],
+      type: [] as LinkProps[],
     },
     category: {
       type: Object as () => CategoryProps,

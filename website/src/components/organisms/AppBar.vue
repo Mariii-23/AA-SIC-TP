@@ -51,7 +51,7 @@
     </v-btn>
 
     <!--FOR ADMINS-->
-    <div @click="goTo('/admin/orders')">
+    <div @click="goTo('/admin/orders/pending')">
       <v-btn v-if="loggedIn && user_type == 'ADMIN'">
         <BodyText id="orders-text">{{ $t("orders") }}</BodyText>
       </v-btn>

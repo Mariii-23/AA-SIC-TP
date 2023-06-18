@@ -5,7 +5,7 @@
         <TitleCardLinksButton :title="$t('store')" :items="items" />
       </template>
       <template v-slot:second>
-        <TitleGoBack :title="$t('addMaterial')" :items="items" />
+        <TitleGoBack :title="$t('add-material')" :items="items" />
         <AddMaterialForm :register-material="addMaterialHandler" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>

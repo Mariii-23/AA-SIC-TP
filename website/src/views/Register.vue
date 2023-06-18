@@ -6,8 +6,7 @@
           <v-toolbar-title>{{ $t("register") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <form ref="form" @submit.prevent="registerHandler()">
-            <div class="custom-flex">
+          <v-form fastfail class="custom-flex" ref="form" @submit.prevent="registerHandler()">
               <div>
                 <v-text-field
                   v-model="name"
@@ -18,6 +17,8 @@
                   required
                   bg-color="primary"
                   single-line
+                  :rules="nameRules"
+                  class="input-form"
                 />
                 <v-text-field
                   v-model="email"
@@ -29,6 +30,7 @@
                   class="input-form rounded-lg"
                   required
                   bg-color="primary"
+                  :rules="emailRules"
                 />
                 <v-text-field
                   v-model="password"
@@ -39,6 +41,8 @@
                   required
                   bg-color="primary"
                   single-line
+                  :rules="passwordRules"
+                  class="input-form"
                 />
                 <v-text-field
                   v-model="conf_password"
@@ -49,6 +53,8 @@
                   required
                   bg-color="primary"
                   single-line
+                  :rules="confirmPasswordRules"
+                  class="input-form"
                 />
 
                 <v-text-field
@@ -60,6 +66,8 @@
                   required
                   bg-color="primary"
                   single-line
+                  :rules="addressRules"
+                  class="input-form"
                 />
                 <v-text-field
                   v-model="nif"
@@ -70,8 +78,11 @@
                   required
                   bg-color="primary"
                   single-line
+                  :rules="nifRules"
+                  class="input-form"
                 />
-                <v-text-field class="bg-secondary" type="date" :label="$t('dob')" />
+                <v-text-field bg-color="primary" type="date" :label="$t('dob')"
+                :rules="dobRules" />
               </div>
 
               <FullWidthButton> {{ $t("register") }}</FullWidthButton>
@@ -96,8 +107,7 @@
                 <p>{{ $t("have-account") }}</p>
                 <p class="link" @click="goToLogIn()">{{ $t("login") }}</p>
               </div>
-            </div>
-          </form>
+          </v-form>
         </v-card-text>
       </v-card>
     </v-container>
@@ -115,6 +125,7 @@
   gap: 20px;
 }
 
+/*
 .custom-divider {
   display: flex;
   align-items: center;
@@ -129,16 +140,10 @@
 
 .custom-divider .text {
   margin: 0 10px;
-}
+}*/
 
-.button-grid {
-  display: grid;
-  grid-template-columns: 48% auto 48%;
-  grid-gap: 10px;
-}
-
-.button-grid > v-btn {
-  width: 100%;
+.input-form {
+  margin-bottom: 10px;
 }
 
 .body {
@@ -178,12 +183,66 @@ export default {
   data() {
     return {
       email: "",
+      emailRules : [
+        value => {
+          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+
+          return this.$t('invalid-email')
+        },
+      ],
       password: "",
+      passwordRules: [
+        value => {
+          if (value?.length >= 8) return true
+
+          return this.$t('password-length')
+        },
+       //value => {
+       //   if verificar password return true
+//
+       //   return this.$t('incorrect-login')
+       // }
+      ],
       conf_password: "",
+      confirmPasswordRules: [
+        value => {
+          if (value === this.password) return true
+
+          return this.$t('password-match')
+        },
+      ],
       address: "",
+      addressRules: [
+        value => {
+          if (value?.length >= 8) return true
+
+          return this.$t('invalid-address')
+        },
+      ],
       nif: "",
+      nifRules: [
+        value => {
+          if (value?.length === 9 && /[0-9-]+/.test(value)) return true
+
+          return this.$t('invalid-nif')
+        },
+      ],
       name: "",
+      nameRules: [
+        value => {
+          if (value?.length >= 3 && /[^0-9]/.test(value)) return true
+
+          return this.$t('invalid-name')
+        },
+      ],
       date: null,
+      dobRules: [
+        value => {
+          if (value?.date_between("06/18/1990","06/18/2004")) return true
+
+          return this.$t('invalid-date')
+        },
+      ],
     };
   },
   methods: {

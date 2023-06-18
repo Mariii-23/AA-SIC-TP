@@ -42,7 +42,7 @@ export default {
   //TODO: ir buscar os direitos
   data: () => ({
     items: [] as LinkProps[],
-    orders: Array as () => Order[],
+    orders: [] as Order[],
     userName: "",
     isModalOpen: false,
   }),

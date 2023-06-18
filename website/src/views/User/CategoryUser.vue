@@ -1,5 +1,5 @@
 <template>
-  <Breadcrumbs :links="links" />
+  <Breadcrumbs :links="links" class="elevation-2"/>
   <SimpleBodyLayout>
     <HeadingText>{{ category && category.name }}</HeadingText>
 
@@ -38,7 +38,7 @@ export default {
   name: "CategoryUserPage",
   props: {
     products: {
-      type: Array as () => ProductUserProps[],
+      type: [] as ProductUserProps[],
       require: true,
     },
     links: {

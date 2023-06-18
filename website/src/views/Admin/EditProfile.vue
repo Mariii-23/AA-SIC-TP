@@ -16,7 +16,6 @@
           :button-handler="saveChanges"
         />
         <form ref="form">
-          <div class="custom-flex">
             <v-row>
               <v-col cols="4">
                 <v-list-subheader>
@@ -32,9 +31,10 @@
                   type="name"
                   :placeholder="$t('name')"
                   single-line
-                  class="input-form rounded-lg"
+                  class="rounded-lg"
                   required
                   bg-color="primary"
+                  :rules="nameRules"
                 />
               </v-col>
             </v-row>
@@ -53,16 +53,16 @@
                   type="email"
                   :placeholder="$t('email')"
                   single-line
-                  class="input-form rounded-lg"
+                  class="rounded-lg"
                   required
                   bg-color="primary"
+                  :rules="emailRules"
                 />
               </v-col>
             </v-row>
-            <FullWidthButton :handle-click="saveChanges">
+            <FullWidthButton class="mt-2" :handle-click="saveChanges">
               {{ $t("save-changes") }}</FullWidthButton
             >
-          </div>
         </form>
       </template>
     </TwoColumnsPanel></SimpleBodyLayout
@@ -86,12 +86,28 @@ const adminStore = useAdminsStore();
 export default {
   name: "AdminAdminPage",
   //TODO: ir buscar os direitos
-  data: () => ({
+  data() {
+    return {
     items: [] as LinkProps[],
     name: "",
+    nameRules: [
+        value => {
+          if (value?.length >= 3 && /[^0-9]/.test(value)) return true
+
+          return this.$t('invalid-name')
+        },
+      ],
     email: "",
+    emailRules : [
+        value => {
+          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+
+          return this.$t('invalid-email')
+        },
+      ],
     id: "",
-  }),
+    }
+  },
   mounted: function () {
     (this.name = userStore.name),
       (this.email = userStore.email),

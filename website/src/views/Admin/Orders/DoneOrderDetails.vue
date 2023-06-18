@@ -30,9 +30,9 @@ export default {
     mounted: async function () {
 
         this.items = [
-            { href: "/orders/pending", icon: "brightness-1", text: "pending" },
-            { href: "/orders/ready", icon: "brightness-1", text: "ready" },
-            { href: "/orders/done", icon: "bullseye", text: "done" },
+            { href: "/admin/orders/pending", icon: "brightness-1", text: "pending" },
+            { href: "/admin/orders/ready", icon: "brightness-1", text: "ready" },
+            { href: "/admin/orders/done", icon: "bullseye", text: "done" },
         ];
 
         this.order = {

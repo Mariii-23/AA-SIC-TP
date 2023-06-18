@@ -1,16 +1,16 @@
 <template>
   <CardLayout class="bg-secondary">
     <v-card-text class="fill-height">
-      <form ref="form" @submit.prevent="addUserHandler()">
-        <div class="custom-flex">
+      <form ref="form" class="custom-flex" @submit.prevent="addUserHandler()">
           <v-text-field
             v-model="email"
             name="email"
             label="Email"
             type="text"
             placeholder="Email"
-            class="input-form rounded-lg"
+            class="rounded-lg"
             required
+            :rules="emailRules"
           />
           <v-text-field
             v-model="password"
@@ -19,6 +19,7 @@
             type="password"
             :placeholder="$t('password')"
             required
+            :rules="passwordRules"
           />
           <v-text-field
             v-model="name"
@@ -27,8 +28,8 @@
             type="text"
             :placeholder="$t('name')"
             required
+            :rules="nameRules"
           />
-        </div>
 
         <FullWidthButton> {{ $t("addAdmin") }}</FullWidthButton>
       </form>
@@ -45,8 +46,29 @@ export default {
   data() {
     return {
       email: "",
+      emailRules: [
+        value => {
+          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+
+          return this.$t('invalid-email')
+        },
+      ],
       password: "",
+      passwordRules: [
+        value => {
+          if (value?.length >= 8) return true
+
+          return this.$t('password-length')
+        },
+      ],
       name: "",
+      nameRules: [
+        value => {
+          if (value?.length >= 3 && /[^0-9]/.test(value)) return true
+
+          return this.$t('invalid-name')
+        },
+      ],
     };
   },
   props: {
@@ -62,3 +84,11 @@ export default {
   components: { FullWidthButton, CardLayout },
 };
 </script>
+
+<style>
+.custom-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+</style>

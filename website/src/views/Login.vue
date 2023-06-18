@@ -6,43 +6,23 @@
           <v-toolbar-title>{{ $t("login") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <form ref="form" @submit.prevent="login()">
-            <div class="custom-flex">
-              <div>
-                <v-text-field
-                  v-model="username"
-                  name="email"
-                  label="Email"
-                  type="text"
-                  placeholder="Email"
-                  single-line
-                  class="input-form rounded-lg"
-                  required
-                  bg-color="primary"
-                />
-                <v-text-field
-                  v-model="password"
-                  name="password"
-                  :label="$t('password')"
-                  type="password"
-                  :placeholder="$t('password')"
-                  required
-                  bg-color="primary"
-                  single-line
-                />
-              </div>
-              
-              <div class="signup-phrase">
-                <p>{{ $t("forgot-pw") }}</p>
-                <p class="link" @click="goToRecoverPw()">
-                  {{ $t("recover-pw") }}
-                </p>
-              </div>
+          <v-form class="custom-flex" ref="form" fast-fail @submit.prevent="login()">
+            <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email" single-line
+              class="rounded-lg" required bg-color="primary" :rules="emailRules" />
+            <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
+              :placeholder="$t('password')" required bg-color="primary" single-line :rules="passwordRules" />
 
-              <FullWidthButton> {{ $t("login") }}</FullWidthButton>
+            <div class="signup-phrase">
+              <p>{{ $t("forgot-pw") }}</p>
+              <p class="link" @click="goToRecoverPw()">
+                {{ $t("recover-pw") }}
+              </p>
+            </div>
+
+            <FullWidthButton> {{ $t("login") }}</FullWidthButton>
 
 
-              <!--<div class="custom-divider">
+            <!--<div class="custom-divider">
                 <div class="line" />
                 <div class="text">
                   <p>
@@ -58,12 +38,11 @@
                 </PrimaryButton>
               </div>
               -->
-              <div class="signup-phrase">
-                <p>{{ $t("dont-have-account") }}</p>
-                <p class="link" @click="goToRegister()">{{ $t("register") }}</p>
-              </div>
+            <div class="signup-phrase">
+              <p>{{ $t("dont-have-account") }}</p>
+              <p class="link" @click="goToRegister()">{{ $t("register") }}</p>
             </div>
-          </form>
+          </v-form>
         </v-card-text>
       </v-card>
     </v-container>
@@ -81,7 +60,7 @@
   gap: 20px;
 }
 
-.custom-divider {
+/*.custom-divider {
   display: flex;
   align-items: center;
   margin: 0px 0;
@@ -96,16 +75,7 @@
 .custom-divider .text {
   margin: 0 10px;
 }
-
-.button-grid {
-  display: grid;
-  grid-template-columns: 48% auto 48%;
-  grid-gap: 10px;
-}
-
-.button-grid > v-btn {
-  width: 100%;
-}
+*/
 
 .body {
   display: flex;
@@ -114,6 +84,7 @@
   width: 500px;
   margin: 3% auto auto auto;
 }
+
 
 @media (max-width: 600px) {
   .body {
@@ -128,7 +99,7 @@
   gap: 4px;
 }
 
-.signup-phrase > .link {
+.signup-phrase>.link {
   color: blue;
 }
 </style>
@@ -143,13 +114,32 @@ export default {
   name: "Login",
   data() {
     return {
-      username: "",
+      email: "",
+      emailRules: [
+        value => {
+          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+
+          return this.$t('invalid-email')
+        },
+      ],
       password: "",
+      passwordRules: [
+        value => {
+          if (value?.length >= 8) return true
+
+          return this.$t('password-length')
+        },
+        /*value => {
+          if verificar password return true
+
+          return this.$t('incorrect-login')
+        }*/
+      ]
     };
   },
   methods: {
     async login() {
-      await userStore.login(this.username, this.password);
+      await userStore.login(this.email, this.password);
       if (userStore.isLoggedIn) {
         if (userStore.role == "ADMIN")
           this.$router.push("/admin")
@@ -158,9 +148,9 @@ export default {
         }
       }
     },
-    handleLoginWithGoogle() {
+    /*handleLoginWithGoogle() {
       console.log("login with google");
-    },
+    },*/
     handleLoginWithEmail() {
       console.log("login with email");
     },

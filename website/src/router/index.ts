@@ -100,7 +100,7 @@ const routes = [
         component: () => import("@/views/Admin/EditCompany.vue"),
       },
       {
-        path: "/admin/categories",
+        path: "admin/categories",
         name: "Categories",
         component: () => import("@/views/Admin/StoreCategories.vue"),
       },
@@ -110,37 +110,37 @@ const routes = [
         component: () => import("@/views/Admin/EditProfile.vue"),
       },
       {
-        path: "add-product/",
+        path: "admin/add-product/",
         name: "AddProduct",
         component: () => import("@/views/Admin/AddProduct.vue"),
       },
       {
-        path: "orders/pending",
+        path: "admin/orders/pending",
         name: "OrdersPending",
         component: () => import("@/views/Admin/Orders/PendingOrders.vue"),
       },
       {
-        path: "orders/pending/:id",
+        path: "admin/orders/pending/:id",
         name: "OrderPendingDetails",
         component: () => import("@/views/Admin/Orders/PendingOrderDetails.vue"),
       },
       {
-        path: "orders/ready",
+        path: "admin/orders/ready",
         name: "OrdersReady",
         component: () => import("@/views/Admin/Orders/ReadyOrders.vue"),
       },
       {
-        path: "orders/ready/:id",
+        path: "admin/orders/ready/:id",
         name: "OrderReadyDetails",
         component: () => import("@/views/Admin/Orders/ReadyOrderDetails.vue"),
       },
       {
-        path: "orders/done",
+        path: "admin/orders/done",
         name: "OrdersDone",
         component: () => import("@/views/Admin/Orders/DoneOrders.vue"),
       },
       {
-        path: "orders/done/:id",
+        path: "admin/orders/done/:id",
         name: "OrderDoneDetails",
         component: () => import("@/views/Admin/Orders/DoneOrderDetails.vue"),
       },

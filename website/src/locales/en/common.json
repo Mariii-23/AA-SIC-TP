@@ -130,5 +130,21 @@
     "buy": "Buy",
     "save": "Save",
     "photoLink": "Link",
-    "title": "Title"
+    "title": "Title",
+
+
+
+    "invalid-email": "Invalid email",
+    "password-length": "Password must have at least 8 characters",
+    "password-match": "Passwords don't match",
+    "incorrect-login": "Incorrect email or password",
+    "invalid-address": "Invalid address",
+    "invalid-nif": "Invalid NIF",
+    "invalid-name": "Invalid name",
+    "invalid-code": "Invalid code",
+    "img-required": "Image required",
+    "invalid-postal-code": "Invalid postal code",
+    "invalid-phone-no": "Invalid phone number",
+    "invalid-price": "Invalid price",
+    "invalid-content": "Invalid content"
 }

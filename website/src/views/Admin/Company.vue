@@ -1,5 +1,6 @@
 <template>
-  <ConfirmationModal
+  <div>
+    <ConfirmationModal
     :title="$t('logout')"
     :text="$t('logout-text')"
     :confirmHandler="logoutHandler"
@@ -40,20 +41,22 @@
 
         <CompanyNetworkLinks v-if="!isEdit" :company="company" />
 
-        <div v-if="isEdit">
+        <v-form v-if="isEdit" fast-fail>
           <div
             v-for="(textField, i) in textFields"
             :key="i"
             class="text-fields-row"
           >
-            <v-text-field
+            <v-text-field 
               :label="textField.label1"
               v-model="textField.value1"
+              :rules="socialNetworkNameRules"
             />
 
             <v-text-field
               :label="textField.label2"
               v-model="textField.value2"
+              :rules="linkRules"
             />
 
             <v-btn @click="remove(i)" class="error">
@@ -67,10 +70,11 @@
           <FullWidthButton :handle-click="cancelHandler">
             {{ $t("cancel") }}
           </FullWidthButton>
-        </div>
+        </v-form>
       </template>
     </TwoColumnsPanel></SimpleBodyLayout
   >
+  </div>
 </template>
 
 <style>
@@ -109,6 +113,20 @@ export default {
       value2: String,
     }[],
     isEdit: false,
+    socialNetworkNameRules: [
+      (value: string) => {
+        if (value?.length >= 3 && /[^0-9]/.test(value)) return true;
+
+        return this.$t("invalid-name");
+      },
+    ],
+    linkRules: [
+      (value: string) => {
+        if (/^(ftp|http|https):\/\/[^ "]+$/.test(value)) return true;
+
+        return this.$t("invalid-link");
+      },
+    ],
   }),
   mounted: async function () {
     this.items = [
@@ -178,6 +196,7 @@ export default {
       this.textFields.splice(index, 1);
     },
     cancelHandler() {
+      this.textFields = [];
       companyStore.socialNetworks.forEach((socialNetwork) => {
         this.textFields.push({
           label1: this.$t("name"),

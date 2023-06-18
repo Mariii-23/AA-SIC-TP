@@ -128,7 +128,23 @@
     "finish-add-product": "Concluir adição de produto",
     "cart": "Carrinho",
     "buy": "Comprar",
-    "save": "Salvar",
+    "save": "Guardar",
     "photoLink": "link",
-    "title": "Título"
+    "title": "Título",
+
+
+
+    "invalid-email": "Email inválido",
+    "password-length": "A palavra-passe deve ter pelo menos 8 caracteres",
+    "password-match": "As palavras-passe não coincidem",
+    "incorrect-login": "Email ou palavra-passe incorretos",
+    "invalid-address": "Morada inválida",
+    "invalid-nif": "NIF inválido",
+    "invalid-name": "Nome inválido",
+    "invalid-code": "Código inválido",
+    "img-required": "Imagem necessária",
+    "invalid-postal-code": "Código postal inválido",
+    "invalid-phone-no": "Número de telemóvel inválido",
+    "invalid-price": "Preço inválido",
+    "invalid-content": "Conteúdo inválido"
 }
