@@ -12,6 +12,9 @@
                 :buyNowHandler="() => buyNowHandler && buyNowHandler(productDesc.id)"
                 :favouriteIconHandler="() => favouriteIconHandler && favouriteIconHandler(productDesc.id)"
                 :selectMaterialHandler="selectMaterialHandler"    
+                :quantity="quantity"
+                :incrementQuantityHandler="incrementQuantityHandler"
+                :decrementQuantityHandler="decrementQuantityHandler"
             />
         </div>
     </div>
@@ -60,6 +63,18 @@ export default {
             require: true,
         },
         selectMaterialHandler: {
+            type: Function,
+            require: true,
+        },
+        quantity: {
+            type: Number,
+            require: true,
+        },
+        incrementQuantityHandler: {
+            type: Function,
+            require: true,
+        },
+        decrementQuantityHandler: {
             type: Function,
             require: true,
         },

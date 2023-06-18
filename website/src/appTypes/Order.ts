@@ -7,9 +7,20 @@ export interface Order {
 }
 
 export interface OrderItem {
+    id: number,
     name: string,
     price: number,
     quantity: number,
     img: string,
     material: string
+}
+
+export interface OrderAdmin extends Order {
+    user: number,
+    email: string
+}
+
+export interface Cart {
+    total: number,
+    items: OrderItem[]
 }

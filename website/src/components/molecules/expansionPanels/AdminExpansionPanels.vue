@@ -1,12 +1,11 @@
 //TODO: corrigir esta pagina
 <template>
-  <v-list :lines="false" density="compact" nav bg-color="secondary">
+  <v-list :lines="false" density="compact" nav class="bg-transparent">
     <v-list-item
       v-for="(user, i) in admins"
       :key="i"
       :value="user"
-      bg-color="secondary"
-      class="elevation-1 flex-grow-2 adminInfoWrapper"
+      class="elevation-1 flex-grow-2 adminInfoWrapper bg-secondary"
     >
       <TitleWithButton
         :size="5"

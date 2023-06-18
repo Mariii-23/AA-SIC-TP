@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
-        <v-btn color="primary" size="medium" class="btn btn--minus" @click="changeCounter('-1')" type="button"
+        <v-btn color="primary" size="medium" class="btn btn--minus" @click="decrementHandler" type="button"
             name="button">
             -
         </v-btn>
-        <input class="quantity" type="text" name="name" :value="counter"/>
-        <v-btn color="primary" size="medium" class="btn btn--plus" @click="changeCounter('1')" type="button" name="button">
+        <input class="quantity" type="text" name="name" :value="quantity"/>
+        <v-btn color="primary" size="medium" class="btn btn--plus" @click="incrementHandler" type="button" name="button">
             +
         </v-btn>
     </div>
@@ -56,16 +56,19 @@ input:focus {
 <script>
 export default {
     name: "QuantityButton",
-    data: () => ({
-        counter: 1
-    }),
-    methods: {
-        changeCounter: function (num) {
-            this.counter += +num
-            console.log(this.counter)
-            !isNaN(this.counter) && this.counter > 0 ? this.counter : this.counter = 0;
-
-        }
-    },
+    props : {
+        quantity : {
+            type: Number,
+            default:1
+        },
+        incrementHandler: {
+            type: Function,
+            require: true,
+        },
+        decrementHandler: {
+            type: Function,
+            require: true,
+        },
+    }
 }
 </script>

@@ -74,6 +74,7 @@
     "edit-profile": "Editar perfil",
     "edit-company-info": "Editar informação da empresa",
     "my-orders": "As minhas encomendas",
+    "all-orders": "Todas as encomendas",
 
     "product-details": "Detalhes do produto",
     "tech-info": "Informação técnica",
@@ -112,6 +113,10 @@
     "pending": "Pendente",
     "ready": "Pronto",
     "done": "Entregue",
+    "pending-orders": "Encomendas pendentes",
+    "ready-orders": "Encomendas prontas",
+    "done-orders": "Encomendas entregues",
+    "change-to": "Alterar para",
 
     "name-price": "Definir nome e preço",
     "add-images": "Adicionar Imagens",
@@ -121,6 +126,8 @@
     "field": "Campo",
     "value": "Valor",
     "finish-add-product": "Concluir adição de produto",
+    "cart": "Carrinho",
+    "buy": "Comprar",
     "save": "Salvar",
     "photoLink": "link",
     "title": "Título"

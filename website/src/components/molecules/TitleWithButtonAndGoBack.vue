@@ -15,7 +15,7 @@ import PrimaryButton from "../atoms/Button/PrimaryButton.vue";
 import TitleGoBack from "./TitleGoBack.vue";
 
 export default {
-  name: "TitleWithButton",
+  name: "TitleWithButtonAndGoBack",
   methods: {
     goBack() {
       this.$router.back();

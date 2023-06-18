@@ -74,6 +74,7 @@
     "edit-profile": "Edit profile",
     "edit-company-info": "Edit company information",
     "my-orders": "My orders",
+    "all-orders": "All orders",
     
     "product-details": "Product Details",
     "tech-info": "Technical Information",
@@ -112,6 +113,10 @@
     "pending": "Pending",
     "ready": "Ready",
     "done": "Done",
+    "pending-orders": "Pending orders",
+    "ready-orders": "Ready orders",
+    "done-orders": "Done orders",
+    "change-to": "Change to",
 
     "name-price": "Define name and price",
     "add-images": "Add images",
@@ -121,6 +126,8 @@
     "field": "Field",
     "value": "Value",
     "finish-add-product": "Finish adding product",
+    "cart": "Cart",
+    "buy": "Buy",
     "save": "Save",
     "photoLink": "Link",
     "title": "Title"

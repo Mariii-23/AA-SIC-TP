@@ -134,6 +134,15 @@ export default {
   methods: {
     nextStep() {
       if (this.tab == "one") {
+<<<<<<< HEAD
+        this.isOneDisabled = true
+        this.isTwoDisabled = false
+        this.tab = "two"
+      } else if (this.tab == "two") {
+        this.isTwoDisabled = true
+        this.isThreeDisabled = false
+        this.tab = "three"
+=======
         this.isOneDisabled = true;
         this.isTwoDisabled = false;
         this.tab = "two";
@@ -141,6 +150,7 @@ export default {
         this.isTwoDisabled = true;
         this.isThreeDisabled = false;
         this.tab = "three";
+>>>>>>> main
       }
     },
     add() {

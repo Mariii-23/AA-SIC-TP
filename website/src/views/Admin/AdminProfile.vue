@@ -27,7 +27,6 @@
   import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
   import { UserInfoProps } from "@/appTypes/User";
   import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
-  import { useRoute } from "vue-router";
   import AdminCard from "@/components/organisms/Card/AdminCard.vue";
 import { useUserStore } from "@/store/userStore";
 

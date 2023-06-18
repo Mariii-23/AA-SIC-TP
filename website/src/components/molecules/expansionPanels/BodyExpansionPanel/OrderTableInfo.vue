@@ -5,6 +5,10 @@
           <td>{{ item.name }}</td>
           <td>{{ item.quantity }} x {{ item.price }}€</td>
         </tr>
+        <tr v-if="total">
+          <td class="font-weight-bold">{{ $t("total") }}:</td>
+          <td>{{ total }}€</td>
+        </tr>
       </tbody>
     </v-table>
   </template>
@@ -16,6 +20,10 @@
     props: {
       orderItems: {
         type: Array as () => OrderItem[],
+        require: true,
+      },
+      total: {
+        type: Number,
         require: true,
       },
     },

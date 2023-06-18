@@ -114,6 +114,37 @@ const routes = [
         name: "AddProduct",
         component: () => import("@/views/Admin/AddProduct.vue"),
       },
+      {
+        path: "orders/pending",
+        name: "OrdersPending",
+        component: () => import("@/views/Admin/Orders/PendingOrders.vue"),
+      },
+      {
+        path: "orders/pending/:id",
+        name: "OrderPendingDetails",
+        component: () => import("@/views/Admin/Orders/PendingOrderDetails.vue"),
+      },
+      {
+        path: "orders/ready",
+        name: "OrdersReady",
+        component: () => import("@/views/Admin/Orders/ReadyOrders.vue"),
+      },
+      {
+        path: "orders/ready/:id",
+        name: "OrderReadyDetails",
+        component: () => import("@/views/Admin/Orders/ReadyOrderDetails.vue"),
+      },
+      {
+        path: "orders/done",
+        name: "OrdersDone",
+        component: () => import("@/views/Admin/Orders/DoneOrders.vue"),
+      },
+      {
+        path: "orders/done/:id",
+        name: "OrderDoneDetails",
+        component: () => import("@/views/Admin/Orders/DoneOrderDetails.vue"),
+      },
+
 
       //USER
       {
@@ -136,6 +167,11 @@ const routes = [
         name: "Order info",
         component: () => import("@/views/User/OrderDetails.vue"),
       },
+      {
+        path: "user/cart",
+        name: "User Cart",
+        component: () => import("@/views/User/ShoppingCart.vue"),
+      }
     ],
   },
 ];

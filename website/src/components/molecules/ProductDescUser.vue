@@ -16,7 +16,11 @@
             />
 
             <div class="actions">
-                <QuantityButton />
+                <QuantityButton
+                    :quantity="quantity"
+                    :incrementHandler="() => incrementQuantityHandler && incrementQuantityHandler(product.id, quantity)"
+                    :decrementHandler="() => decrementQuantityHandler && decrementQuantityHandler(product.id, quantity)"
+                 />
                 <PrimaryButton :handleClick="buyNowHandler">{{ $t("buy-now") }} </PrimaryButton>
             </div>
             <FullWidthButton class="btn" :handleClick="addToCartHandler"> {{ $t("add-cart") }} </FullWidthButton>
@@ -64,6 +68,17 @@ export default {
             require: true,
         },
         selectMaterialHandler: {
+            type: Function,
+            require: true,
+        },
+        quantity: {
+            type: Number,
+        },
+        incrementQuantityHandler: {
+            type: Function,
+            require: true,
+        },
+        decrementQuantityHandler: {
             type: Function,
             require: true,
         },

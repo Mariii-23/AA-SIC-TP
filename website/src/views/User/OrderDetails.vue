@@ -26,7 +26,6 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Order } from "@/appTypes/Order";
-import { useRoute } from "vue-router";
 import OrderCard from "@/components/organisms/Card/OrderCard.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
@@ -51,7 +50,6 @@ export default {
       },
     },
     mounted: function () {
-        const route = useRoute();
         //TODO: ir buscar os direitos
         this.userName = "Maria";
 

@@ -10,7 +10,7 @@
         />
       </template>
       <template v-slot:second>
-        <TitleGoBack :title="$t('client') + ' ' + client.id" />
+        <TitleGoBack :title="$t('client') + ' #' + client.id" />
         <ClientCard :client="client" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>

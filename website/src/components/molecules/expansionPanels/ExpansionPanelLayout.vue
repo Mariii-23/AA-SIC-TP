@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panel class="bg-secondary">
-    <v-expansion-panel-title>
+    <v-expansion-panel-title>  
       <div class="user-expansion-title-wrapper w-100">
         <slot name="title" />
       </div>
@@ -10,6 +10,7 @@
         <slot name="text"/>
       </div>
     </v-expansion-panel-text>
+  
   </v-expansion-panel>
 </template>
 
