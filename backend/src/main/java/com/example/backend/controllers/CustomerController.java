@@ -1,10 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
-import com.example.backend.dto.userDTOs.AddRemoveFavouriteDTO;
-import com.example.backend.dto.userDTOs.ChangePasswordDTO;
-import com.example.backend.dto.userDTOs.CreateCustomerDTO;
-import com.example.backend.dto.userDTOs.FavouriteDTO;
+import com.example.backend.dto.userDTOs.*;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
 import com.example.backend.services.UserService;
@@ -47,6 +44,14 @@ public class CustomerController {
         }
     }
 
+    @GetMapping("")
+    public CustomerDTO getCustomerbyId(final @RequestParam int id) {
+        try {
+            return userService.getCustomerById(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
     @PostMapping("/edit/{customer_id}")
     public void editCustomer(final @PathVariable int customer_id, final @RequestBody CreateCustomerDTO costumerDTO) {
         try {
