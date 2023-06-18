@@ -29,7 +29,7 @@ export default {
     name: "PendingOrderDetails",
     data: () => ({
         //TODO: ir buscar os direitos
-        items: Array as () => LinkProps[],
+        items: [] as LinkProps[],
         order: Object as () => OrderAdmin,
     }),
     mounted: async function () {

@@ -1,31 +1,26 @@
 <template>
-    <div class="product">
-        <div class="left-side">
+    <div>
+        <div class="product">
+            <div class="left-side">
                 <Carousel :images="productImages" class="carousel" />
-                <ProductInfo :info="productInfo"/>
+                <ProductInfo :info="productInfo" />
+            </div>
+            <div class="product-desc">
+                <ProductDesc :product="productDesc" :materials="materials"
+                    :addToCartHandler="() => addToCartHandler && addToCartHandler(productDesc.id)"
+                    :buyNowHandler="() => buyNowHandler && buyNowHandler(productDesc.id)"
+                    :favouriteIconHandler="() => favouriteIconHandler && favouriteIconHandler(productDesc.id)"
+                    :selectMaterialHandler="selectMaterialHandler" :quantity="quantity"
+                    :incrementQuantityHandler="incrementQuantityHandler"
+                    :decrementQuantityHandler="decrementQuantityHandler" />
+            </div>
         </div>
-        <div class="product-desc">
-            <ProductDesc 
-                :product="productDesc" 
-                :materials="materials"
-                :addToCartHandler="() => addToCartHandler && addToCartHandler(productDesc.id)"
-                :buyNowHandler="() => buyNowHandler && buyNowHandler(productDesc.id)"
-                :favouriteIconHandler="() => favouriteIconHandler && favouriteIconHandler(productDesc.id)"
-                :selectMaterialHandler="selectMaterialHandler"    
-                :quantity="quantity"
-                :incrementQuantityHandler="incrementQuantityHandler"
-                :decrementQuantityHandler="decrementQuantityHandler"
-            />
-        </div>
-    </div>
 
-    <div class="related-products">
-        <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-        <RelatedProducts 
-            :products="relatedProducts"
-            :favouriteIconHandler="favouriteIconHandler"
-            :addToCartHandler="addToCartHandler"
-        />
+        <div class="related-products">
+            <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
+            <RelatedProducts :products="relatedProducts" :favouriteIconHandler="favouriteIconHandler"
+                :addToCartHandler="addToCartHandler" />
+        </div>
     </div>
 </template>
 
@@ -35,7 +30,7 @@ import ProductInfo from "@/components/molecules/ProductInfoUser.vue";
 import ProductDesc from "@/components/molecules/ProductDescUser.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsUser.vue";
-import { ProductInformation, ProductImages} from "@/appTypes/Product";
+import { ProductInformation, ProductImages } from "@/appTypes/Product";
 import { Materials } from "@/appTypes/Product";
 
 export default {
@@ -95,7 +90,7 @@ export default {
                 price: 8,
                 favourite: true,
             },
-            relatedProducts : [
+            relatedProducts: [
                 {
                     id: "1",
                     name: "Product name 1",
@@ -146,14 +141,14 @@ export default {
                     favourite: false,
                 }
             ]
-            }
+        }
     }
 };
 </script>
 
 <style scoped>
 .product {
-   display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-left: 10%;
@@ -193,5 +188,4 @@ export default {
         width: 100%;
     }
 }
-
 </style>

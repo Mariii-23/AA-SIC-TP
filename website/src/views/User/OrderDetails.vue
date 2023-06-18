@@ -1,12 +1,7 @@
 <template>
-    <ConfirmationModal
-    :title="$t('logout')"
-    :text="$t('logout-text')"
-    :confirmHandler="logoutHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-  />
     <SimpleBodyLayout>
+        <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
+            :closeModal="closeModal" :isModalOpen="isModalOpen" />
         <TwoColumnsPanel>
             <template v-slot:first>
                 <TitleCardLinksButton :title="$t('hello') + ', ' + userName + '!'" :items="items"
@@ -40,14 +35,14 @@ export default {
     }),
     methods: {
         logoutHandler() {
-        console.log("logout");
-      },
-      closeModal() {
-        this.isModalOpen = false;
-      },
-      openModal() {
-        this.isModalOpen = true;
-      },
+            console.log("logout");
+        },
+        closeModal() {
+            this.isModalOpen = false;
+        },
+        openModal() {
+            this.isModalOpen = true;
+        },
     },
     mounted: function () {
         //TODO: ir buscar os direitos
@@ -70,7 +65,8 @@ export default {
                     img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
                     material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
                 }
-        ]};
+            ]
+        };
     },
     components: {
         TwoColumnsPanel,

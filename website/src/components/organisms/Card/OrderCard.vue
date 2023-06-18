@@ -3,7 +3,7 @@
         <v-card-item>
             <div class="product-state">
             <HeadingText>{{ $t("order") }} #{{ order?.id }}</HeadingText>
-            <v-chip class="ml-2">{{ order.state }}</v-chip>
+            <v-chip class="ml-2">{{ $t("order.state") }}</v-chip>
         </div>
         </v-card-item>
         <v-card-item>

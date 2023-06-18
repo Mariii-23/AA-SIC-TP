@@ -1,5 +1,6 @@
 <template>
-  <ConfirmationModal
+  <SimpleBodyLayout>
+    <ConfirmationModal
     :title="$t('removeAdmin')"
     :text="$t('rm-admin-text')"
     :confirmHandler="removeAdminHandler"
@@ -7,7 +8,6 @@
     v-bind:is-modal-open="isModalOpen"
   />
 
-  <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
         <TitleCardLinksButton

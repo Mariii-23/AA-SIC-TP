@@ -41,7 +41,7 @@ export default {
         value => {
           if (value?.length >= 3 && /[^0-9]/.test(value)) return true
 
-          return this.$t('invalid-name')
+          return this.$t("invalid-name")
         },
       ],
       photo: "",
@@ -49,7 +49,7 @@ export default {
         value => {
           if (!value) return true
 
-          return this.$t('img-required')
+          return this.$t("img-required")
         },
       ],
     };

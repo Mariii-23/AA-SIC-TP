@@ -75,10 +75,10 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
-import BodyText from "@/components/atoms/Typography/BodyText.vue";
-import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import { useUserStore } from "@/store/userStore";
 import { useAdminsStore } from "@/store/adminsStore";
+import BodyText from "@/components/atoms/Typography/BodyText.vue";
+import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 
 const userStore = useUserStore();
 const adminStore = useAdminsStore();
@@ -90,22 +90,21 @@ export default {
     return {
     items: [] as LinkProps[],
     name: "",
+    password: "",
+    id: "",
     nameRules: [
         value => {
           if (value?.length >= 3 && /[^0-9]/.test(value)) return true
-
-          return this.$t('invalid-name')
+          return this.$t("invalid-name")
         },
       ],
     email: "",
     emailRules : [
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
-
-          return this.$t('invalid-email')
+          return this.$t("invalid-email")
         },
       ],
-    id: "",
     }
   },
   mounted: function () {

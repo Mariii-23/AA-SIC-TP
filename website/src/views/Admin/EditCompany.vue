@@ -125,34 +125,34 @@ export default {
         value => {
           if (value) return true
 
-          return this.$t('invalid-name')
+          return this.$t("invalid-name")
         },
       ],
       addressRules: [
         value => {
           if (value?.length >= 8) return true
 
-          return this.$t('invalid-address')
+          return this.$t("invalid-address")
         },
       ],
       postCodeRules: [
         value => {
           if (/[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9]/.test(value)) return true
-          return this.$t('invalid-postal-code')
+          return this.$t("invalid-postal-code")
         }
       ],
       phoneNoRules: [
         value => {
           if (value?.length === 9 && /[0-9]+/.test(value)) return true
 
-          return this.$t('invalid-phone-no')
+          return this.$t("invalid-phone-no")
         },
       ],
       emailRules : [
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
 
-          return this.$t('invalid-email')
+          return this.$t("invalid-email")
         },
       ],
     }

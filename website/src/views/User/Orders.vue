@@ -1,29 +1,18 @@
 <template>
-  <ConfirmationModal
-    :title="$t('logout')"
-    :text="$t('logout-text')"
-    :confirmHandler="logoutHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-  />
   <SimpleBodyLayout>
+    <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
+      :closeModal="closeModal" :isModalOpen="isModalOpen" />
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton
-          :title="$t('hello') + ', ' + userName + '!'"
-          :items="items"
-          :button-text="$t('logout')"
-          :button-handler="openModal"
-        />
+        <TitleCardLinksButton :title="$t('hello') + ', ' + userName + '!'" :items="items" :button-text="$t('logout')"
+          :button-handler="openModal" />
       </template>
       <template v-slot:second>
         <HeadingText> {{ $t("my-orders") }} </HeadingText>
-        <OrderExpansionPanels
-          :orders="orders"
-          :view-details-handler="viewDetailsHandler"
-        />
-      </template> </TwoColumnsPanel
-  ></SimpleBodyLayout>
+        <OrderExpansionPanels :orders="orders" :view-details-handler="viewDetailsHandler" />
+      </template>
+    </TwoColumnsPanel>
+  </SimpleBodyLayout>
 </template>
 
 <script lang="ts">
@@ -31,7 +20,6 @@ import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-import { useRoute } from "vue-router";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import OrderExpansionPanels from "@/components/molecules/expansionPanels/OrderExpansionPanel.vue";
@@ -47,7 +35,6 @@ export default {
     isModalOpen: false,
   }),
   mounted: function () {
-    const route = useRoute();
     //TODO: ir buscar o admin consoante o id dado
     this.orders = [
       {

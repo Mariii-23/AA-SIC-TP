@@ -1,5 +1,6 @@
 <template>
-  <ConfirmationModal
+  <SimpleBodyLayout>
+    <ConfirmationModal
     :title="$t('rmv-category')"
     :text="$t('rmv-category-text') + ' ' + category + '?'"
     :confirmHandler="removeCategoryHandler"
@@ -14,7 +15,6 @@
     :closeModal="closeLogoutModal"
     :isModalOpen="isLogoutModalOpen"
   />
-  <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
         <TitleCardLinksButton

@@ -119,7 +119,7 @@ export default {
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
 
-          return this.$t('invalid-email')
+          return this.$t("invalid-email")
         },
       ],
       password: "",
@@ -127,7 +127,7 @@ export default {
         value => {
           if (value?.length >= 8) return true
 
-          return this.$t('password-length')
+          return this.$t("password-length")
         },
         /*value => {
           if verificar password return true

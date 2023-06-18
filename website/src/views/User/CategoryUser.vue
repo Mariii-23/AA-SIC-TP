@@ -1,6 +1,6 @@
 <template>
-  <Breadcrumbs :links="links" class="elevation-2"/>
   <SimpleBodyLayout>
+    <Breadcrumbs :links="links" class="elevation-2"/>
     <HeadingText>{{ category && category.name }}</HeadingText>
 
     <CategoriesAvatar

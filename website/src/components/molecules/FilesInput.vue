@@ -19,7 +19,7 @@ export default {
         value => {
           if (!value) return true
 
-          return this.$t('img-required')
+          return this.$t("img-required")
         },
       ],
   }),

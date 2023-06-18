@@ -73,9 +73,9 @@
                         </v-col>
 
                         <v-col cols="8">
-                            <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')"
-                                type="password" :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg"
-                                required bg-color="primary" :rules="confirmPasswordRules"/>
+                            <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
+                                :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg" required
+                                bg-color="primary" :rules="confirmPasswordRules" />
 
                         </v-col>
                     </v-row>
@@ -95,11 +95,10 @@ import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { UserInfoProps } from "@/appTypes/User";
 import { useRoute } from "vue-router";
 import TitleWithButtonGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
-import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
-
+import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 export default {
-    name: "UserProfile",
+    name: "EditUserProfile",
     //TODO: ir buscar os direitos
     data() {
         return {
@@ -109,30 +108,26 @@ export default {
             nameRules: [
                 value => {
                     if (value?.length >= 3 && /[^0-9]/.test(value)) return true
-
-                    return this.$t('invalid-name')
+                    return this.$t("invalid-name")
                 },
             ],
             emailRules: [
                 value => {
                     if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
-
-                    return this.$t('invalid-email')
+                    return this.$t("invalid-email")
                 },
             ],
             nifRules: [
                 value => {
                     if (value?.length === 9 && /[0-9-]+/.test(value)) return true
-
-                    return this.$t('invalid-nif')
+                    return this.$t("invalid-nif")
                 },
             ],
             password: "",
             passwordRules: [
                 value => {
                     if (value?.length >= 8) return true
-
-                    return this.$t('password-length')
+                    return this.$t("password-length")
                 },
                 //value => {
                 //   if verificar password return true
@@ -144,8 +139,7 @@ export default {
             confirmPasswordRules: [
                 value => {
                     if (value === this.password) return true
-
-                    return this.$t('password-match')
+                    return this.$t("password-match")
                 },
             ],
         }
@@ -191,8 +185,8 @@ export default {
         TitleCardLinksButton,
         SimpleBodyLayout,
         TitleWithButtonGoBack,
+        ConfirmationModal,
         FullWidthButton,
-        ConfirmationModal
     },
 };
 </script>

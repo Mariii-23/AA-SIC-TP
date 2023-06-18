@@ -187,7 +187,7 @@ export default {
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
 
-          return this.$t('invalid-email')
+          return this.$t("invalid-email")
         },
       ],
       password: "",
@@ -195,12 +195,12 @@ export default {
         value => {
           if (value?.length >= 8) return true
 
-          return this.$t('password-length')
+          return this.$t("password-length")
         },
        //value => {
        //   if verificar password return true
 //
-       //   return this.$t('incorrect-login')
+       //   return this.$t("incorrect-login")
        // }
       ],
       conf_password: "",
@@ -208,7 +208,7 @@ export default {
         value => {
           if (value === this.password) return true
 
-          return this.$t('password-match')
+          return this.$t("password-match")
         },
       ],
       address: "",
@@ -216,7 +216,7 @@ export default {
         value => {
           if (value?.length >= 8) return true
 
-          return this.$t('invalid-address')
+          return this.$t("invalid-address")
         },
       ],
       nif: "",
@@ -224,7 +224,7 @@ export default {
         value => {
           if (value?.length === 9 && /[0-9-]+/.test(value)) return true
 
-          return this.$t('invalid-nif')
+          return this.$t("invalid-nif")
         },
       ],
       name: "",
@@ -232,7 +232,7 @@ export default {
         value => {
           if (value?.length >= 3 && /[^0-9]/.test(value)) return true
 
-          return this.$t('invalid-name')
+          return this.$t("invalid-name")
         },
       ],
       date: null,
@@ -240,7 +240,7 @@ export default {
         value => {
           if (value?.date_between("06/18/1990","06/18/2004")) return true
 
-          return this.$t('invalid-date')
+          return this.$t("invalid-date")
         },
       ],
     };

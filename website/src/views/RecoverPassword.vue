@@ -111,7 +111,7 @@ export default {
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
 
-          return this.$t('invalid-email')
+          return this.$t("invalid-email")
         },
       ],
       code: "",

@@ -81,7 +81,7 @@ export default {
         value => {
           if (value?.length >= 3 && /[^0-9]/.test(value)) return true
 
-          return this.$t('invalid-name')
+          return this.$t("invalid-name")
         },
       ],
       price: null,
@@ -89,7 +89,7 @@ export default {
         value => {
           if (/[0-9]+\.[0-9][0-9]/.test(value)) return true
 
-          return this.$t('invalid-price')
+          return this.$t("invalid-price")
         },
       ],
       images: [],
@@ -100,7 +100,7 @@ export default {
         value => {
           if (value) return true
 
-          return this.$t('invalid-content')
+          return this.$t("invalid-content")
         },
       ],
       isOneDisabled: false,
@@ -119,13 +119,13 @@ export default {
   methods: {
     nextStep() {
       if (this.tab == "one") {
-        this.isOneDisabled = true;
-        this.isTwoDisabled = false;
-        this.tab = "two";
+        this.isOneDisabled = true
+        this.isTwoDisabled = false
+        this.tab = "two"
       } else if (this.tab == "two") {
-        this.isTwoDisabled = true;
-        this.isThreeDisabled = false;
-        this.tab = "three";
+        this.isTwoDisabled = true
+        this.isThreeDisabled = false
+        this.tab = "three"
       }
     },
     add() {

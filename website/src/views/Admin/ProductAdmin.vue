@@ -1,40 +1,27 @@
 <template>
-    <ConfirmationModal
-    :title="$t('remove-product')"
-    :text="$t('modal-remove-product') + ' ' + productDesc.name + '? '"
-    :confirmHandler="deleteProductHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-    />
+    <div>
+        <ConfirmationModal :title="$t('remove-product')" :text="$t('modal-remove-product') + ' ' + productDesc.name + '? '"
+            :confirmHandler="deleteProductHandler" :closeModal="closeModal" :isModalOpen="isModalOpen" />
 
-    <div class="product">
-        <div class="left-side">
+        <div class="product">
+            <div class="left-side">
                 <Carousel :images="productImages" class="carousel" />
-                <ProductInfo 
-                    :info="productInfo"
-                    :editProductInfoHandler="() => editProductInfoHandler && editProductInfoHandler(productDesc.id)"
-                />
+                <ProductInfo :info="productInfo"
+                    :editProductInfoHandler="() => editProductInfoHandler && editProductInfoHandler(productDesc.id)" />
+            </div>
+            <div class="product-desc">
+                <ProductDesc :product="productDesc" :materials="materials" :addMaterialHandler="addMaterialHandler"
+                    :selectMaterialHandler="selectMaterialHandler" :deleteProductHandler="openModal"
+                    :editProductDescHandler="() => editProductDescHandler && editProductDescHandler(productDesc.id)" />
+            </div>
         </div>
-        <div class="product-desc">
-            <ProductDesc 
-                :product="productDesc"
-                :materials="materials"
-                :addMaterialHandler="addMaterialHandler"
-                :selectMaterialHandler="selectMaterialHandler"
-                :deleteProductHandler="openModal"
-                :editProductDescHandler="() => editProductDescHandler && editProductDescHandler(productDesc.id)"
-            />
+
+        <div class="related-products">
+            <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
+            <RelatedProducts :products="relatedProducts" :editProductHandler="editProductHandler"
+                :deleteProductHandler="deleteProductHandler" />
         </div>
     </div>
-
-    <div class="related-products">
-        <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-        <RelatedProducts 
-        :products="relatedProducts"
-        :editProductHandler="editProductHandler"
-        :deleteProductHandler="deleteProductHandler"/>
-    </div>
-
 </template>
 
 <script lang="ts">
@@ -43,11 +30,11 @@ import ProductInfo from "@/components/molecules/ProductInfoAdmin.vue";
 import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
-import { ProductInformation, ProductImages, Materials} from "@/appTypes/Product";
+import { ProductInformation, ProductImages, Materials } from "@/appTypes/Product";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
-    name:"ProductAdmin",
+    name: "ProductAdmin",
     data() {
         return {
             isModalOpen: false,
@@ -56,7 +43,7 @@ export default {
                 id: "8",
                 price: 8,
             },
-            relatedProducts : [
+            relatedProducts: [
                 {
                     id: "1",
                     name: "Product name 1",
@@ -100,7 +87,7 @@ export default {
                     href: "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
                 }
             ]
-            }
+        }
     },
     props: {
         //relatedProducts: Array as () => ProductUserProps[],
@@ -141,10 +128,10 @@ export default {
     },
     methods: {
         openModal() {
-          this.isModalOpen = true;
+            this.isModalOpen = true;
         },
         closeModal() {
-          this.isModalOpen = false;
+            this.isModalOpen = false;
         },
     },
     components: {
@@ -160,7 +147,7 @@ export default {
 
 <style scoped>
 .product {
-   display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-left: 10%;
@@ -200,5 +187,4 @@ export default {
         width: 100%;
     }
 }
-
 </style>

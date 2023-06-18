@@ -1,28 +1,18 @@
 <template>
-  <ConfirmationModal
-    :title="$t('rmv-material')"
-    :text="$t('rmv-material-text') + ' ' + material + '?'"
-    :confirmHandler="removeMaterialHandler"
-    :closeModal="closeRemoveModal"
-    v-bind:is-modal-open="isRemoveModalOpen"
-  />
-
   <SimpleBodyLayout>
+    <ConfirmationModal :title="$t('rmv-material')" :text="$t('rmv-material-text') + ' ' + material + '?'"
+      :confirmHandler="removeMaterialHandler" :closeModal="closeRemoveModal" v-bind:is-modal-open="isRemoveModalOpen" />
+    <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
+      :closeModal="closeLogoutModal" :isModalOpen="isLogoutModalOpen" />
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('store')" :items="items" />
+        <TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
+          :button-handler="openLogoutModal" />
       </template>
       <template v-slot:second>
-        <TitleWithButton
-          :title="$t('materials')"
-          :buttonText="$t('add-material')"
-          :buttonHandler="addMaterialHandler"
-        />
-        <MaterialsEditableCards
-          v-bind:items="materials"
-          :remove-material-handler="openRemoveModal"
-          :update-material-handler="updateMaterialHandler"
-        />
+        <TitleWithButton :title="$t('materials')" :buttonText="$t('add-material')" :buttonHandler="addMaterialHandler" />
+        <MaterialsEditableCards v-bind:items="materials" :remove-material-handler="openRemoveModal"
+          :update-material-handler="updateMaterialHandler" />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -49,6 +39,7 @@ export default {
   data: () => ({
     items: [] as LinkProps[],
     isRemoveModalOpen: false,
+    isLogoutModalOpen: false,
     materials: [] as Material[],
     material: "",
   }),
@@ -79,9 +70,18 @@ export default {
       this.isRemoveModalOpen = false;
       this.material = "";
     },
-    openRemoveModal(materialId: string) {
-      this.material = materialId;
+    openRemoveModal(materialId: string, materialName: string) {
+      this.material = materialName;
       this.isRemoveModalOpen = true;
+    },
+    openLogoutModal() {
+      this.isLogoutModalOpen = true;
+    },
+    closeLogoutModal() {
+      this.isLogoutModalOpen = false;
+    },
+    logoutHandler() {
+      console.log("logout");
     },
     async removeMaterialHandler() {
       const r = await materialsStore.removeMaterial(this.material);
