@@ -52,8 +52,8 @@ public class CustomerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
-    @PostMapping("/edit/{customer_id}")
-    public void editCustomer(final @PathVariable int customer_id, final @RequestBody CreateCustomerDTO costumerDTO) {
+    @PostMapping("/edit")
+    public void editCustomer(final @RequestParam int customer_id, final @RequestBody CreateCustomerDTO costumerDTO) {
         try {
             userService.editCustomer(customer_id, costumerDTO);
         } catch (Exception e) {
