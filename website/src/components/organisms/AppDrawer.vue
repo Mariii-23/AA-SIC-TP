@@ -55,7 +55,6 @@ export default {
           prependIcon: "",
         });
       });
-      console.log(categoriesStore.categories);
     }
 
     //FIXME: add prependIcon

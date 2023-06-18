@@ -1,7 +1,12 @@
-import { GetAllCategoriesResponse, Response } from "@/appTypes/AxiosTypes";
+import {
+  CategoryResponse,
+  GetAllCategoriesResponse,
+  Response,
+  SubCategoryResponse,
+} from "@/appTypes/AxiosTypes";
 import { app } from "@/main";
 import { handleResponse } from "./axios";
-import { Category, SubCategory } from "@/appTypes/Product";
+import { Category, ImageProp, SubCategory } from "@/appTypes/Product";
 
 const url = "/product";
 
@@ -30,7 +35,7 @@ const getAllCategories = async (offset: number, numItems: number) => {
           subCategories.push({
             name: subCategory.name,
             id: subCategory.id,
-            href: `${subCategoryImage}?categoryId=${categories.id}`,
+            href: `${subCategoryImage}?subCategoryId=${subCategory.id}`,
           } as SubCategory);
         });
 
@@ -69,12 +74,70 @@ const removeCategory = async (id: string) => {
   }
 };
 
+const addCategoryInfo = async (name: string, image: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/category`,
+      {
+        name,
+        image,
+      }
+    );
+
+    return handleResponse(req, (data: CategoryResponse) => {
+      return {
+        id: data.id,
+        name: data.name,
+        href: `${categoryImage}?categoryId=${data.id}`,
+        subCategories: [],
+      };
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const addSubcategory = async (categoryId: string, subCategory: ImageProp) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/subcategory`,
+      {
+        name: subCategory.name,
+        image: subCategory.photo,
+        categoryId,
+      }
+    );
+
+    return handleResponse(req, (data: SubCategoryResponse) => {
+      console.log(data)
+      return {
+        name: data.name,
+        id: data.id,
+        href: `${subCategoryImage}?subCategoryId=${data.id}`,
+      };
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 export interface CategoriesAxios {
   getAllCategories: (
     offset: number,
     numItems: number
   ) => Promise<Response<Category[]>>;
   deleteCategory: (id: string) => Promise<Response<void>>;
+  addCategory: (name: string, photo: string) => Promise<Response<Category>>;
+  addSubCategories: (
+    categoryId: string,
+    subCategory: ImageProp
+  ) => Promise<Response<SubCategory>>;
 }
 
 const categories: CategoriesAxios = {
@@ -83,6 +146,12 @@ const categories: CategoriesAxios = {
   },
   deleteCategory: async (id: string) => {
     return await removeCategory(id);
+  },
+  addCategory: async (name: string, photo: string) => {
+    return await addCategoryInfo(name, photo);
+  },
+  addSubCategories: async (categoryId: string, subCategory: ImageProp) => {
+    return await addSubcategory(categoryId, subCategory);
   },
 };
 

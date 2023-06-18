@@ -43,7 +43,7 @@ export default {
   methods: {
     async addMaterialHandler(name: string, photo: string) {
       const req = await materialsStore.addMaterial(name, photo);
-      if (req) {
+      if (req == 200) {
         notificationStore.openSuccessAlert("add-material-success");
         this.$router.back();
       } else {

@@ -7,7 +7,7 @@
     :isModalOpen="isModalOpen"
   />
   <v-app-bar>
-    <v-app-bar-nav-icon icon @click="changeDrawer">
+    <v-app-bar-nav-icon @click="changeDrawer">
       <v-icon>mdi-menu</v-icon>
     </v-app-bar-nav-icon>
 
@@ -86,6 +86,7 @@ import LanguageSwitcher from "@/components/molecules/LanguageSwitcher.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import { useUserStore } from "@/store/userStore";
 import ConfirmationModal from "./Modal/ConfirmationModal.vue";
+const userStore = useUserStore();
 
 export default {
   name: "AppBar",
@@ -105,7 +106,6 @@ export default {
     };
   },
   mounted: function () {
-    const userStore = useUserStore();
 
     this.loggedIn = userStore.isLoggedIn;
     this.user_type = userStore.role;
@@ -141,10 +141,7 @@ export default {
       this.$router.push(path);
     },
     logout() {
-      this.loggedIn = false;
-      this.user_type = "";
-      this.username = "";
-      this.id = "";
+      userStore.logout();
       this.$router.push("/");
     },
     openModal(){

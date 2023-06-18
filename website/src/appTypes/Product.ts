@@ -1,3 +1,8 @@
+export interface ImageProp {
+  name: string;
+  photo: string;
+}
+
 export interface ProductDescriptionAdmin {
   name: string;
   id: string;

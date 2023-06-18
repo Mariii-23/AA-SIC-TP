@@ -1,6 +1,5 @@
 <template>
   <CategoryUser
-    v-if="!isAdmin"
     :products="products"
     :category="category"
     :links="links"
@@ -9,25 +8,12 @@
     :shopping-cart-handler="shoppingCartHandler"
     :favorite-icon-handler="favoriteIconHandler"
   />
-
-  <CategoryAdmin
-    v-if="isAdmin"
-    :products="products"
-    :category="category"
-    :links="links"
-    :handle-on-click-avatar="handleOnClickAvatar"
-    :handle-page-change="onChangePagePagination"
-    :add-product-handler="addProductHandler"
-    :delete-product-handler="deleteProductHandler"
-    :edit-product-handler="editProductHandler"
-  />
 </template>
 
 <script lang="ts" setup>
 import CategoryUser from "./User/CategoryUser.vue";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import CategoryAdmin from "./Admin/CategoryAdmin.vue";
 
 const route = useRoute();
 //TODO: change this

@@ -1,12 +1,14 @@
 <template>
   <CardLayout class="bg-secondary">
     <v-card-text class="fill-height">
-      <form ref="form" @submit.prevent="addHandler()">
+      <form ref="form" @submit.prevent="addHandler">
         <div class="custom-flex">
           <v-file-input
             accept="image/*"
             :label="photo"
+            @click:clear="clearInputImage"
             @change="handleFileUpload"
+            required
             :rules="imageRules"
           />
           <v-text-field
@@ -20,7 +22,7 @@
           />
 
         <FullWidthButton :handle-click="() => {}">
-          {{ $t("next") }}</FullWidthButton
+          {{ $t("next-step") }}</FullWidthButton
         >
         </div>
       </form>
@@ -47,7 +49,7 @@ export default {
       photo: "",
       imageRules:  [
         value => {
-          if (!value) return true
+          if (value !== "") return true
 
           return this.$t("img-required")
         },
@@ -60,6 +62,9 @@ export default {
     },
   },
   methods: {
+    clearInputImage() {
+      this.photo = ""
+    },
     handleFileUpload(event) {
       const file = event.target.files[0];
 

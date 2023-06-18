@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
-import { Category } from "@/appTypes/Product";
+import { Category, ImageProp, SubCategory } from "@/appTypes/Product";
 
 export const useCategoriesStore = defineStore("categories", {
   state: () => ({
@@ -9,7 +9,6 @@ export const useCategoriesStore = defineStore("categories", {
   actions: {
     async getAllCategories() {
       const r = await axios.categories.getAllCategories(0, 100000);
-      console.log(r);
       if (r.success == 200) {
         if (typeof r.data === "string") {
           this.categories = [];
@@ -18,11 +17,32 @@ export const useCategoriesStore = defineStore("categories", {
         }
       }
     },
-     async removeCategory(id: string) {
+    async removeCategory(id: string) {
       const r = await axios.categories.deleteCategory(id);
       if (r.success == 200) {
         if (typeof r.data !== "string") {
           this.categories = this.categories.filter((e) => e.id !== id);
+        }
+      }
+      return r.success;
+    },
+    async addCategory(name: string, photo: string, subCategories: ImageProp[]) {
+      const r = await axios.categories.addCategory(name, photo);
+      if (r.success == 200) {
+        if (typeof r.data !== "string") {
+          const categoryId = r.data.id;
+          const subCategoriesProps = [] as SubCategory[];
+          for (const item of subCategories) {
+            const r2 = await axios.categories.addSubCategories(
+              categoryId,
+              item
+            );
+            if (typeof r2.data !== "string") {
+              subCategoriesProps.push(r2.data);
+            }
+          }
+          r.data.subCategories = subCategoriesProps;
+          this.categories.push(r.data);
         }
       }
       return r.success;

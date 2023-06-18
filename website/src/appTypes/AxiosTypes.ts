@@ -8,6 +8,17 @@ export interface MaterialResponse {
   id: string;
 }
 
+export interface CategoryResponse {
+  name: string;
+  id: string;
+}
+
+export interface SubCategoryResponse {
+  name: string;
+  id: string;
+  categoryId: string;
+}
+
 export interface LoginResponse {
   token: string;
   email: string;

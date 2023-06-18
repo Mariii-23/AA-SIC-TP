@@ -5,27 +5,32 @@
         <TitleCardLinksButton :title="$t('store')" :items="items" />
       </template>
       <template v-slot:second>
-        <TitleGoBack :title="$t('addCategory')" :items="items" />
+        <TitleGoBack :title="$t('add-category')" :items="items" />
 
         <NextTabs :tabs="tabs" v-bind:selected-tab="tab">
           <template v-slot:tab1>
             <AddImageNameForm
               class="bg-primary"
-              :text-button="$t('next')"
+              :text-button="$t('next-step')"
               :register="registerNameAndPhoto"
             />
           </template>
 
           <template v-slot:tab2>
-            <AddSubcategoriesForm />
-            <SecondaryButton :handleClick="goBack">{{
-              $t("goBack")
-            }}</SecondaryButton>
+            <div class="titleWithGoBack">
+              <v-btn icon @click="goBack" class="bg-secondary elevation-0">
+                <v-icon>mdi-keyboard-backspace</v-icon>
+              </v-btn>
+              <HeadingText>{{ $t("previos-step") }}</HeadingText>
+            </div>
+            <AddSubcategoriesForm
+              :add-subcategories="registerSubcategories"
+              :text-button="$t('add-category')"
+            />
           </template>
         </NextTabs>
-      </template>
-    </TwoColumnsPanel></SimpleBodyLayout
-  >
+      </template> </TwoColumnsPanel
+  ></SimpleBodyLayout>
 </template>
 
 <script lang="ts">
@@ -38,10 +43,11 @@ import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vu
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
 import { useNotificationStore } from "@/store/notificationStore";
-import { useMaterialStore } from "@/store/materialsStore";
-import SecondaryButton from "@/components/atoms/Button/SecondaryButton.vue";
+import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
+import { useCategoriesStore } from "@/store/categoriesStore";
+import { ImageProp } from "@/appTypes/Product";
 
-const materialsStore = useMaterialStore();
+const categoryStore = useCategoriesStore();
 const notificationStore = useNotificationStore();
 export default {
   name: "AddCategoryPage",
@@ -76,17 +82,24 @@ export default {
       this.photo = photo;
       this.tab = this.tab + 1;
     },
+    async registerSubcategories(subCategories: ImageProp[]) {
+      await this.addCategoryHandler(this.name, this.photo, subCategories);
+    },
     goBack() {
       this.tab = this.tab - 1;
     },
-    async addCategoryHandler(name: string, photo: string) {
-      //const req = await materialsStore.addMaterial(name, photo);
-      //if (req) {
-      //  notificationStore.openSuccessAlert("add-material-success");
-      //  this.$router.back();
-      //} else {
-      //  notificationStore.openErrorAlert("add-material-error");
-      //}
+    async addCategoryHandler(
+      name: string,
+      photo: string,
+      subCategories: ImageProp[]
+    ) {
+      const req = await categoryStore.addCategory(name, photo, subCategories);
+      if (req == 200) {
+        notificationStore.openSuccessAlert("add-category-success");
+        this.$router.back();
+      } else {
+        notificationStore.openErrorAlert("add-category-error");
+      }
     },
   },
   components: {
@@ -96,8 +109,8 @@ export default {
     TitleGoBack,
     NextTabs,
     AddImageNameForm,
-    SecondaryButton,
     AddSubcategoriesForm,
+    HeadingText,
   },
 };
 </script>
