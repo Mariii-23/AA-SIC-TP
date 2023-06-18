@@ -215,7 +215,7 @@ public class UserService {
         adminRep.save(admin);
     }
 
-    public String recoverPassword(int userId) throws UserNotFoundException {
+    public String recoverPassword(String email) throws UserNotFoundException {
         SecureRandom secureRandom = new SecureRandom();
         Base64.Encoder encoder = Base64.getUrlEncoder();
         byte[] randomBytes = new byte[24];
@@ -224,10 +224,7 @@ public class UserService {
 
         String subject = "Password Recovery";
         String message = "Use this token to recover your password: " + token;
-        User user = userRep.findById(userId).orElse(null);
-        if (user == null) {
-            throw new UserNotFoundException("User not found");
-        }
+        User user = userRep.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
         user.setPasswordToken(token);
         userRep.save(user);
 

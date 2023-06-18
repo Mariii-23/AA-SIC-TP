@@ -84,9 +84,9 @@ public class AdminController {
     }
 
     @PostMapping("/password/recover/{admin_id}")
-    public String recoverPassword(final @PathVariable int admin_id) {
+    public String recoverPassword(final @PathVariable String email) {
         try {
-            return userService.recoverPassword(admin_id);
+            return userService.recoverPassword(email);
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

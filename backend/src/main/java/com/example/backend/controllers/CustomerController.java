@@ -79,10 +79,10 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/password/recover/{customer_id}")
-    public String recoverPassword(final @PathVariable int customer_id) {
+    @PostMapping("/password/recover/{customer_email}")
+    public String recoverPassword(final @PathVariable String email) {
         try {
-            return userService.recoverPassword(customer_id);
+            return userService.recoverPassword(email);
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
