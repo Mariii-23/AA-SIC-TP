@@ -1,4 +1,3 @@
-//TODO: corrigir esta pagina
 <template>
   <v-list :lines="false" density="compact" nav class="bg-transparent">
     <v-list-item
@@ -38,14 +37,14 @@
 </style>
 
 <script lang="ts">
-import { UserInfoProps } from "@/appTypes/User";
+import { AdminInfoProps } from "@/appTypes/User";
 import TitleWithButton from "../TitleWithButton.vue";
 
 export default {
   name: "AdminExpansionPanels",
   props: {
     admins: {
-      type: Array as () => UserInfoProps[],
+      type: Array as () => AdminInfoProps[],
       require: true,
     },
     removeAdminHandler: {

@@ -21,10 +21,6 @@
           <td>{{ $t("email") }}:</td>
           <td>{{ company?.email }}</td>
         </tr>
-        <!-- <tr v-for="social_media in company?.socialMedia" :key="social_media.name">
-          <td>{{ social_media.name }}:</td>
-          <td>{{ social_media.link }}</td>
-        </tr> -->
       </tbody>
     </v-table>
   </template>

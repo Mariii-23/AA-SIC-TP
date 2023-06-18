@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"id", "category_id"}))
 public class SubCategory {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

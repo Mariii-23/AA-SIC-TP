@@ -6,7 +6,10 @@
       </template>
       <template v-slot:second>
         <TitleGoBack :title="$t('add-material')" :items="items" />
-        <AddMaterialForm :register-material="addMaterialHandler" />
+        <AddImageNameForm
+          :text-button="$t('add-material')"
+          :register="addMaterialHandler"
+        />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
@@ -18,8 +21,8 @@ import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vu
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
 import { useNotificationStore } from "@/store/notificationStore";
-import AddMaterialForm from "@/components/organisms/Forms/AddMaterialForm.vue";
 import { useMaterialStore } from "@/store/materialsStore";
+import AddImageNameForm from "@/components/organisms/Forms/AddImageNameForm.vue";
 
 const materialsStore = useMaterialStore();
 const notificationStore = useNotificationStore();
@@ -53,7 +56,7 @@ export default {
     TitleCardLinksButton,
     SimpleBodyLayout,
     TitleGoBack,
-    AddMaterialForm,
+    AddImageNameForm,
   },
 };
 </script>

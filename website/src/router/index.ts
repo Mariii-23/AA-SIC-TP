@@ -105,12 +105,22 @@ const routes = [
         component: () => import("@/views/Admin/StoreCategories.vue"),
       },
       {
+        path: "/admin/categories/add",
+        name: "Add Category",
+        component: () => import("@/views/Admin/AddCategory.vue"),
+      },
+      {
+        path: "/admin/categories/edit/:id",
+        name: "Edit Category",
+        component: () => import("@/views/Admin/EditCategory.vue"),
+      },
+      {
         path: "admin/profile/edit",
         name: "ProfileEdit",
         component: () => import("@/views/Admin/EditProfile.vue"),
       },
       {
-        path: "admin/add-product/",
+        path: "admin/product/add",
         name: "AddProduct",
         component: () => import("@/views/Admin/AddProduct.vue"),
       },

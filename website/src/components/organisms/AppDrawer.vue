@@ -1,9 +1,7 @@
 <template>
   <v-navigation-drawer v-model="drawer" temporary>
     <v-list-item @click="changeDrawer" class="close">
-      <v-list-item-avatar>
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-list-item-avatar>
+      <v-icon>mdi-chevron-left</v-icon>
       {{ $t("close") }}
     </v-list-item>
 
@@ -69,7 +67,6 @@ export default {
     this.$watch(
       () => ({ categories: categoriesStore.categories }),
       (newValues) => {
-
         //TODO: falta por a imagem
         this.categories = newValues.categories;
         let categoriesItens: DrawerItem[] = [];

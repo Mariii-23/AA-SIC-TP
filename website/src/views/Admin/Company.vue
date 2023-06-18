@@ -26,7 +26,7 @@
         <CompanyTable :company="company" />
 
         <TitleWithButton
-          size="6"
+          :size="6"
           v-if="isEdit"
           :title="$t('networkLinks')"
           :button-handler="saveNetworkHandler"
@@ -39,7 +39,7 @@
           :edit-handler="editHandler"
         />
 
-        <CompanyNetworkLinks v-if="!isEdit" :company="company" />
+        <CompanyNetworkLinks v-if="!isEdit" v-bind:company="company" />
 
         <v-form v-if="isEdit" fast-fail>
           <div
@@ -147,6 +147,7 @@ export default {
       socialMedia: companyStore.socialNetworks,
     };
 
+    this.textFields = [];
     companyStore.socialNetworks.forEach((socialNetwork) => {
       this.textFields.push({
         label1: this.$t("name"),
@@ -170,8 +171,8 @@ export default {
     this.$watch(
       () => companyStore.socialNetworks,
       (newValues) => {
-        //this.company.socialNetworks = newValues;
-        console.log(newValues)
+        this.company.socialMedia = newValues;
+        this.textFields = [];
         newValues.forEach((socialNetwork) => {
           this.textFields.push({
             label1: this.$t("name"),

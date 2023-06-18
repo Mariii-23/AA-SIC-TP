@@ -18,5 +18,14 @@ export const useCategoriesStore = defineStore("categories", {
         }
       }
     },
+     async removeCategory(id: string) {
+      const r = await axios.categories.deleteCategory(id);
+      if (r.success == 200) {
+        if (typeof r.data !== "string") {
+          this.categories = this.categories.filter((e) => e.id !== id);
+        }
+      }
+      return r.success;
+    },
   },
 });

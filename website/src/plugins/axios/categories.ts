@@ -1,7 +1,7 @@
 import { GetAllCategoriesResponse, Response } from "@/appTypes/AxiosTypes";
 import { app } from "@/main";
 import { handleResponse } from "./axios";
-import { Category, Material, SubCategory } from "@/appTypes/Product";
+import { Category, SubCategory } from "@/appTypes/Product";
 
 const url = "/product";
 
@@ -21,28 +21,45 @@ const getAllCategories = async (offset: number, numItems: number) => {
     );
 
     return handleResponse(req, (data: GetAllCategoriesResponse) => {
-      const materiais = [] as Material[];
+      const category = [] as Category[];
 
-      data.data.forEach((material) => {
+      data.data.forEach((categories) => {
         const subCategories: SubCategory[] = [];
 
-        material.subCategories.forEach((subCategory) => {
+        categories.subCategories.forEach((subCategory) => {
           subCategories.push({
             name: subCategory.name,
             id: subCategory.id,
-            href: `${subCategoryImage}?categoryId=${material.id}`,
+            href: `${subCategoryImage}?categoryId=${categories.id}`,
           } as SubCategory);
         });
 
-        materiais.push({
-          id: material.id,
-          name: material.name,
-          href: `${categoryImage}?categoryId=${material.id}`,
+        category.push({
+          id: categories.id,
+          name: categories.name,
+          href: `${categoryImage}?categoryId=${categories.id}`,
           subCategories: subCategories,
-        } as Material);
+        } as Category);
       });
 
-      return materiais;
+      return category;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const removeCategory = async (id: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.delete(
+      `${url}/category/remove/${id}`
+    );
+
+    return handleResponse(req, (_) => {
+      return null;
     });
   } catch (error) {
     return {
@@ -57,11 +74,15 @@ export interface CategoriesAxios {
     offset: number,
     numItems: number
   ) => Promise<Response<Category[]>>;
+  deleteCategory: (id: string) => Promise<Response<void>>;
 }
 
 const categories: CategoriesAxios = {
   getAllCategories: async (offset: number, numberItems: number) => {
     return await getAllCategories(offset, numberItems);
+  },
+  deleteCategory: async (id: string) => {
+    return await removeCategory(id);
   },
 };
 

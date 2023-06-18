@@ -1,5 +1,7 @@
 package com.example.backend.dto.productDTOs;
 
+import com.example.backend.model.Category;
+
 import java.util.List;
 
 public class CategoryDTO {
@@ -14,6 +16,11 @@ public class CategoryDTO {
         this.id = id;
         this.name = name;
         this.subCategories = subCategories;
+    }
+
+    public CategoryDTO(Category category) {
+        this.id = category.getiD();
+        this.name = category.getName();
     }
 
     public String getName() {

@@ -26,7 +26,7 @@ export const useAdminsStore = defineStore("admins", {
 
     async removeAdmin(id: string) {
       const r = await axios.admins.removeAdmin(id);
-      if (r.success && typeof r.data !== "string") {
+      if (r.success == 200 && typeof r.data !== "string") {
         this.admins = this.admins.filter((e) => e.id != id);
       }
       return r.success;

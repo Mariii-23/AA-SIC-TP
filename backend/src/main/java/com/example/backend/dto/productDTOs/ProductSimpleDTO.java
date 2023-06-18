@@ -1,5 +1,7 @@
 package com.example.backend.dto.productDTOs;
 
+import com.example.backend.model.Product;
+
 public class ProductSimpleDTO {
     private int id;
     private String name;
@@ -25,6 +27,13 @@ public class ProductSimpleDTO {
         this.name = name;
         this.image = image;
         this.price = price;
+    }
+
+    public ProductSimpleDTO(Product product) {
+        this.id = product.getiD();
+        this.name = product.getName();
+        this.image = product.getImages().get(0).getiD();
+        this.price = product.getPrice();
     }
 
     public int getId() {

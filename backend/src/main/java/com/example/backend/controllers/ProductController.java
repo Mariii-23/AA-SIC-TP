@@ -22,9 +22,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/add")
-    public void addProduct(final @RequestBody AddProductDTO addProductDTO) {
+    public ProductSimpleDTO addProduct(final @RequestBody AddProductDTO addProductDTO) {
         try {
-            productService.addProduct(addProductDTO.getName(),
+            return productService.addProduct(addProductDTO.getName(),
                     addProductDTO.getDescription(),
                     addProductDTO.getPrice(),
                     addProductDTO.getCategoryId(),
@@ -47,9 +47,9 @@ public class ProductController {
     }
 
     @PostMapping("/edit/{productId}")
-    public void editProductSimple(final @PathVariable int productId, final @RequestBody EditProductDTO editProductDTO) {
+    public ProductSimpleDTO editProductSimple(final @PathVariable int productId, final @RequestBody EditProductDTO editProductDTO) {
         try {
-            productService.editProduct(productId,
+            return productService.editProduct(productId,
                     editProductDTO.getName(),
                     editProductDTO.getDescription(),
                     editProductDTO.getPrice(),
@@ -78,14 +78,14 @@ public class ProductController {
 
 
     @PostMapping("/category")
-    public void addCategory(final @RequestBody AddCategoryDTO addCategoryDTO) {
-        productService.addCategory(addCategoryDTO.getName(), addCategoryDTO.getImage());
+    public CategoryDTO addCategory(final @RequestBody AddCategoryDTO addCategoryDTO) {
+        return productService.addCategory(addCategoryDTO.getName(), addCategoryDTO.getImage());
     }
 
     @PostMapping("/category/edit/{categoryId}")
-    public void editCategory(final @PathVariable int categoryId, final @RequestBody EditCategoryDTO addCategoryDTO) {
+    public CategoryDTO editCategory(final @PathVariable int categoryId, final @RequestBody EditCategoryDTO editCategoryDTO) {
         try {
-            productService.editCategory(categoryId, addCategoryDTO.getName(), addCategoryDTO.getImage());
+            return productService.editCategory(categoryId, editCategoryDTO.getName(), editCategoryDTO.getImage());
         } catch (CategoryNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -101,8 +101,8 @@ public class ProductController {
     }
 
     @PostMapping("/subcategory")
-    public void addSubCategory(final @RequestBody AddSubCategoryDTO addSubCategoryDTO) {
-        productService.addSubCategory(addSubCategoryDTO.getName(), addSubCategoryDTO.getImage(), addSubCategoryDTO.getCategoryId());
+    public SubCategoryDTO addSubCategory(final @RequestBody AddSubCategoryDTO addSubCategoryDTO) {
+        return productService.addSubCategory(addSubCategoryDTO.getName(), addSubCategoryDTO.getImage(), addSubCategoryDTO.getCategoryId());
     }
 
     @PostMapping("/subcategory/edit")

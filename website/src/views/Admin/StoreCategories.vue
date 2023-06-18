@@ -33,9 +33,8 @@
         <CategoryCards
           :categories="categories"
           :edit-category-handler="editCategoryHandler"
-          :remove-category-handler="removeCategoryHandler"
+          :remove-category-handler="openRemoveModal"
         />
-        <!-- <ItemsTable :items="categories" :deleteItem="openRemoveModal" /> -->
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
@@ -46,13 +45,16 @@ import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
 import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Category } from "@/appTypes/Product";
-import ItemsTable from "@/components/organisms/Table/ItemsTable.vue";
 import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import { useCategoriesStore } from "@/store/categoriesStore";
 import CategoryCards from "@/components/organisms/Cards/CategoryCards.vue";
+import { useNotificationStore } from "@/store/notificationStore";
+import { useUserStore } from "@/store/userStore";
 
 const categoryStore = useCategoriesStore();
+const notifications = useNotificationStore();
+const userStore = useUserStore();
 
 export default {
   name: "StoreCategories",
@@ -83,16 +85,23 @@ export default {
       }
     );
   },
-  //TODO: ir buscar os direitos
   methods: {
-    removeCategoryHandler(categoryId: string) {
-      console.log(categoryId);
+    async removeCategoryHandler() {
+      const r = await categoryStore.removeCategory(this.category);
+      if (r == 200) {
+        notifications.openSuccessAlert(this.$t("rmv-category-success"));
+      } else {
+        notifications.openErrorAlert(this.$t("rmv-category-error"));
+      }
+      this.closeRemoveModal();
     },
     addCategoryHandler() {
-      console.log("add category");
+      const route = `${this.$router.currentRoute.value.fullPath}/add`;
+      this.$router.push(route);
     },
     editCategoryHandler(categoryId: string) {
-      console.log(categoryId);
+      const route = `${this.$router.currentRoute.value.fullPath}/edit/${categoryId}`;
+      this.$router.push(route);
     },
     closeRemoveModal() {
       this.isRemoveModalOpen = false;
@@ -108,14 +117,14 @@ export default {
       this.isLogoutModalOpen = false;
     },
     logoutHandler() {
-      console.log("logout");
+      userStore.logout();
+      this.$router.push("/");
     },
   },
   components: {
     TwoColumnsPanel,
     TitleCardLinksButton,
     SimpleBodyLayout,
-    ItemsTable,
     TitleWithButton,
     ConfirmationModal,
     CategoryCards,

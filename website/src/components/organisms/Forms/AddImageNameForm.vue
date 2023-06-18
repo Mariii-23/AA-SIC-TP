@@ -1,7 +1,8 @@
 <template>
   <CardLayout class="bg-secondary">
     <v-card-text class="fill-height">
-      <v-form fastfail class="custom-flex" ref="form" @submit.prevent="addMaterialHandler()">
+      <form ref="form" @submit.prevent="addHandler()">
+        <div class="custom-flex">
           <v-file-input
             accept="image/*"
             :label="photo"
@@ -18,8 +19,11 @@
             :rules="nameRules"
           />
 
-        <FullWidthButton> {{ $t("add-material") }}</FullWidthButton>
-      </v-form>
+        <FullWidthButton :handle-click="() => {}">
+          {{ $t("next") }}</FullWidthButton
+        >
+        </div>
+      </form>
     </v-card-text>
   </CardLayout>
 </template>
@@ -29,7 +33,7 @@ import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import CardLayout from "@/layouts/CardLayout.vue";
 
 export default {
-  name: "AddMaterialForm",
+  name: "Add Image and Name form",
   data() {
     return {
       name: "",
@@ -51,7 +55,7 @@ export default {
     };
   },
   props: {
-    registerMaterial: {
+    register: {
       type: Function,
     },
   },
@@ -71,11 +75,9 @@ export default {
       };
 
       reader.readAsArrayBuffer(file);
-      //console.log("Nome do arquivo:", file.name);
-      //console.log("Tipo do arquivo:", file.type);
     },
-    addMaterialHandler() {
-      this.registerMaterial && this.registerMaterial(this.name, this.photo);
+    addHandler() {
+      this.register && this.register(this.name, this.photo);
     },
   },
   components: { FullWidthButton, CardLayout },

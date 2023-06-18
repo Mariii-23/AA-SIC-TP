@@ -1,5 +1,11 @@
 <template>
-  <v-btn type="submit" class="custom-full-width" color="primary bg-primary" @click="handleClick" value={{value}}>
+  <v-btn
+    type="submit"
+    class="custom-full-width"
+    color="primary bg-primary"
+    @click="handleClick"
+    value="{{value}}"
+  >
     <ButtonText class="text-black">
       <slot />
     </ButtonText>
@@ -13,6 +19,7 @@
 </style>
 
 <script lang="ts">
+import ButtonText from "../Typography/ButtonText.vue";
 export default {
   props: {
     handleClick: {
@@ -22,6 +29,9 @@ export default {
     value: {
       type: String,
     },
+  },
+  components: {
+    ButtonText,
   },
 };
 </script>

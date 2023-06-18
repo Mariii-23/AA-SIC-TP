@@ -42,7 +42,7 @@ public class ProductService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public void addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<byte[]> images) throws Exception {
+    public ProductSimpleDTO addProduct(String name, String description, double price, int categoryId, int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos, List<byte[]> images) throws Exception {
         Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         SubCategory subCategory;
 
@@ -62,18 +62,18 @@ public class ProductService {
         finalProduct.setImages(imageList);
         List<TechnicalInfo> technicalInfos = infos.stream().map(info -> new TechnicalInfo(info.getName(), info.getDescription(), finalProduct)).toList();
         finalProduct.setInfos(technicalInfos);
-        productRep.save(finalProduct);
+        return new ProductSimpleDTO(productRep.save(finalProduct));
     }
 
-    public void addCategory(String name, byte[] image){
+    public CategoryDTO addCategory(String name, byte[] image){
         Category category = new Category(name, image);
-        categoryRep.save(category);
+        return new CategoryDTO(categoryRep.save(category));
     }
 
-    public void addSubCategory(String name, byte[] image, int categoryId){
+    public SubCategoryDTO addSubCategory(String name, byte[] image, int categoryId){
         Category category = categoryRep.getReferenceById(categoryId);
         SubCategory subCategory = new SubCategory(name, image, category);
-        subCategoryRep.save(subCategory);
+        return new SubCategoryDTO(subCategoryRep.save(subCategory));
     }
 
 
@@ -101,7 +101,7 @@ public class ProductService {
         categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         List<Product> products = productRep.findByCategoryPagination(categoryId, offset, numItems);
         List<ProductSimpleDTO> list = products.stream()
-                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getiD()))
+                .map(ProductSimpleDTO::new)
                 .toList();
         boolean isLast = (offset + numItems) >= getNumberOfProductsByCategory(categoryId);
         return new EnvelopeDTO<>(isLast,list);
@@ -111,7 +111,7 @@ public class ProductService {
         subCategoryRep.findById(subCategoryId).orElseThrow(() -> new SubCategoryNotFoundException("SubCategory not found"));
         List<Product> products = productRep.findBySubcategoryPagination(subCategoryId, offset, numItems);
         List<ProductSimpleDTO> list = products.stream()
-                .map(product -> new ProductSimpleDTO(product.getiD(), product.getName(), product.getPrice(), product.getImages().get(0).getiD()))
+                .map(ProductSimpleDTO::new)
                 .toList();
         boolean isLast = (offset + numItems) >= getNumberOfProductsBySubCategory(subCategoryId);
         return new EnvelopeDTO<>(isLast,list);
@@ -142,7 +142,7 @@ public class ProductService {
                 .map(category -> new CategoryDTO(category.getiD(),
                         category.getName(),
                         category.getSubCategories().stream()
-                        .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName())).toList()))
+                        .map(subCategory -> new SubCategoryDTO(subCategory.getiD(), subCategory.getName(), category.getiD())).toList()))
                 .toList();
         return new EnvelopeDTO<>(isLast,list);
     }
@@ -169,11 +169,11 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public void editCategory(int categoryId, String name, byte[] image) throws CategoryNotFoundException {
+    public CategoryDTO editCategory(int categoryId, String name, byte[] image) throws CategoryNotFoundException {
         Category category = categoryRep.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         category.setName(name);
         category.setImage(image);
-        categoryRep.save(category);
+        return new CategoryDTO(categoryRep.save(category));
     }
 
     public boolean removeCategory(int categoryId) throws CategoryNotFoundException {
@@ -212,7 +212,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void editProduct(int productId, String name, String description, double price, int categoryId,
+    public ProductSimpleDTO editProduct(int productId, String name, String description, double price, int categoryId,
                             int subCategoryId, List<Integer> materialIds, List<TechnicalInfoDTO> infos) throws ProductNotFoundException, CategoryNotFoundException, SubCategoryNotFoundException {
         Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         if (name != null) product.setName(name);
@@ -246,7 +246,7 @@ public class ProductService {
                     .toList();
             technicalInfoRep.saveAll(newInfos);
         }
-        productRep.save(product);
+        return new ProductSimpleDTO(productRep.save(product));
     }
 
     public void addProductImages(int productId, List<byte[]> images) throws ProductNotFoundException {
