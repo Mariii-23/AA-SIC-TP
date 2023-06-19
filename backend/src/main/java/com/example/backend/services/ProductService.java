@@ -320,4 +320,17 @@ public class ProductService {
         Material material = materialRep.findById(materialId).orElseThrow(() -> new Exception("Material not found"));
         return material.getImage();
     }
+
+    public EnvelopeDTO<ProductSimpleDTO> getAllProducts(int offset, int numItems) {
+        List<Product> products = productRep.findProductsPagination(offset, numItems);
+        List<ProductSimpleDTO> productSimpleDTOS = products.stream()
+                .map(ProductSimpleDTO::new)
+                .toList();
+        boolean isLast = (offset + numItems) >= productRep.count();
+        return new EnvelopeDTO<>(isLast, productSimpleDTOS);
+    }
+
+    public int getNumberOfProducts() {
+        return (int) productRep.count();
+    }
 }

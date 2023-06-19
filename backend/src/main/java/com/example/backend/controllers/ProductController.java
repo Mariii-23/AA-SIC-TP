@@ -179,7 +179,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all/category")
+    @GetMapping("/all/category")
     public EnvelopeDTO<ProductSimpleDTO> getProductsByCategory(final @RequestParam int categoryId, final @RequestParam int offset, final @RequestParam int numItems) {
         try {
             return productService.getProductsByCategory(categoryId, offset, numItems);
@@ -197,7 +197,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all/subcategory")
+    @GetMapping("/all/subcategory")
     public EnvelopeDTO<ProductSimpleDTO> getProductsBySubCategory(final @RequestParam int subCategoryId, final @RequestParam int offset, final @RequestParam int numItems) {
         try {
             return productService.getProductsBySubCategory(subCategoryId, offset, numItems);
@@ -206,7 +206,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public ProductDetailedDTO getProductById(final @RequestParam int productId) {
         try {
             return productService.getProductById(productId);
@@ -215,7 +215,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping(value = "all/productImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/all/productImage", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<org.springframework.core.io.Resource> productImage(final @RequestParam int productId, final @RequestParam int imageId) {
         try {
             return ResponseEntity.ok()
@@ -226,7 +226,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping(value = "all/categoryImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/all/categoryImage", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<org.springframework.core.io.Resource> categoryImage(final @RequestParam int categoryId) {
         try {
             return ResponseEntity.ok()
@@ -237,7 +237,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping(value = "all/subcategoryImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/all/subcategoryImage", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<org.springframework.core.io.Resource> subcategoryImage(final @RequestParam int subCategoryId) {
         try {
             return ResponseEntity.ok()
@@ -248,7 +248,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping(value = "all/materialImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/all/materialImage", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<org.springframework.core.io.Resource> materialImage(final @RequestParam int materialId) {
         try {
             return ResponseEntity.ok()
@@ -264,7 +264,7 @@ public class ProductController {
         return productService.getNumberOfCategories();
     }
 
-    @GetMapping("all/categories")
+    @GetMapping("/all/categories")
     public EnvelopeDTO<CategoryDTO> getAllCategories(final @RequestParam int offset, final @RequestParam int numItems) {
         return productService.getAllCategories(offset, numItems);
     }
@@ -272,6 +272,16 @@ public class ProductController {
     @GetMapping("/allMaterials")
     public EnvelopeDTO<MaterialDTO> getAllMaterials(final @RequestParam int offset, final @RequestParam int numItems) {
         return productService.getAllMaterials(offset, numItems);
+    }
+
+    @GetMapping("/all/products")
+    public EnvelopeDTO<ProductSimpleDTO> getAllProducts(final @RequestParam int offset, final @RequestParam int numItems) {
+        return productService.getAllProducts(offset, numItems);
+    }
+
+    @GetMapping("/all/numberOfProducts")
+    public int getNumberOfProducts() {
+        return productService.getNumberOfProducts();
     }
 
     @PostMapping("/review")
