@@ -89,7 +89,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("customer/cart")
+    @GetMapping("customer/shoppingCart")
     public ShoppingCartDTO getShoppingCart(final @RequestParam int id) {
         try {
             return orderService.getShoppingCart(id);

@@ -3,7 +3,6 @@ package com.example.backend.dto.orderDTOs;
 public class ItemDTO {
     private String name;
     private double price;
-
     private int quantity;
     private int materialId;
     private int productImageId;
