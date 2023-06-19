@@ -2,6 +2,8 @@ package com.example.backend.services;
 
 import com.example.backend.dto.orderDTOs.ItemDTO;
 import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
+import com.example.backend.dto.productDTOs.ProductDetailedDTO;
+import com.example.backend.dto.productDTOs.ProductSimpleDTO;
 import com.example.backend.dto.userDTOs.*;
 import com.example.backend.exception.ProductNotFoundException;
 import com.example.backend.exception.UserNotFoundException;
@@ -111,11 +113,11 @@ public class UserService {
         return null;
     }
 
-    public EnvelopeDTO<FavouriteDTO> getFavourites(int id, int offset, int numItems) throws UserNotFoundException {
+    public EnvelopeDTO<ProductSimpleDTO> getFavourites(int id, int offset, int numItems) throws UserNotFoundException {
         List<Product> products = productRep.findFavouritesPagination(id, offset, numItems);
-        List<FavouriteDTO> list = new ArrayList<>();
+        List<ProductSimpleDTO> list = new ArrayList<>();
         products.forEach(product -> {
-            list.add(new FavouriteDTO(product.getName(),product.getPrice()));
+            list.add(new ProductSimpleDTO(product));
         });
         boolean isLast = (offset + numItems) >= getNumberOfFavourites(id);
         return new EnvelopeDTO<>(isLast, list);

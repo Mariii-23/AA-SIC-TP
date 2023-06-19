@@ -11,21 +11,9 @@ public class ProductSimpleDTO {
     public ProductSimpleDTO() {
     }
 
-    public ProductSimpleDTO(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
-
     public ProductSimpleDTO(int id, String name, double price) {
         this.id = id;
         this.name = name;
-        this.price = price;
-    }
-
-    public ProductSimpleDTO(int id, String name, double price, int image) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
         this.price = price;
     }
 

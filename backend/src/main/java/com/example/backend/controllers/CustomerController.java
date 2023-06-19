@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
+import com.example.backend.dto.productDTOs.ProductSimpleDTO;
 import com.example.backend.dto.userDTOs.*;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.*;
@@ -17,8 +18,7 @@ public class CustomerController {
     private UserService userService;
 
     @GetMapping("/favourites")
-     public EnvelopeDTO<FavouriteDTO> getFavourites(final @RequestParam int id, final @RequestParam int offset, final @RequestParam int numItems) {
-        //final @RequestBody PaginationDTO paginationDTO
+     public EnvelopeDTO<ProductSimpleDTO> getFavourites(final @RequestParam int id, final @RequestParam int offset, final @RequestParam int numItems) {
         try {
             return userService.getFavourites(id, offset, numItems);
         } catch (UserNotFoundException e) {
