@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**", "product/all/**", "info/all/**", "/db/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "product/all/**", "info/all/**", "/db/**", "/customer/password/**", "/admin/password/**").permitAll()
                         .requestMatchers("/error").anonymous()
                         .requestMatchers("/product/review").hasAuthority("CUSTOMER")
                         .requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER", "ADMIN")
