@@ -1,16 +1,16 @@
 <template>
   <SimpleBodyLayout>
-    <Breadcrumbs :links="links" class="elevation-2"/>
-    <HeadingText>{{ category && category.name }}</HeadingText>
+    <!-- <Breadcrumbs :links="links" class="elevation-2" /> -->
+    <HeadingText>{{ category.name }}</HeadingText>
 
     <CategoriesAvatar
-      :categories="category && category.subCategories"
+      :categories="category.subCategories"
       :click-handler="handleOnClickAvatar"
       :size="100"
     />
 
     <ProductPreviewUserCards
-      :products="products"
+      :products="productsUser"
       :shopping-cart-handler="shoppingCartHandler"
       :favorite-icon-handler="favoriteIconHandler"
     />
@@ -30,42 +30,70 @@ import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import CategoriesAvatar from "@/components/organisms/AvatarList/CategoriesAvatar.vue";
 import ProductPreviewUserCards from "@/components/organisms/Cards/ProductPreviewUserCards.vue";
 import Pagination from "@/components/molecules/Pagination.vue";
-import { CategoryProps } from "@/appTypes/Category";
-import { ProductUserProps } from "@/appTypes/ProductUserProps";
 import { LinkProps } from "@/appTypes/Link";
+import { Category } from "@/appTypes/Product";
+import { ProductSimple } from "@/appTypes/Product";
+import { ProductUserProps } from "@/appTypes/ProductUserProps";
 
 export default {
   name: "CategoryUserPage",
+  data: () => ({
+    productsUser: [] as ProductUserProps[],
+  }),
+  mounted() {
+    this.productsUser = [];
+    for (let i = 0; i < this.products.length; i++) {
+      const item = this.products[i];
+      this.productsUser.push({
+        favourite: false,
+        ...item,
+      });
+    }
+
+    this.$watch(
+      () => this.products,
+      (newValues) => {
+        this.productsUser = [];
+        for (let i = 0; i < newValues.length; i++) {
+          const item = newValues[i];
+          this.productsUser.push({
+            favourite: false,
+            ...item,
+          });
+        }
+      }
+    );
+  },
   props: {
     products: {
-      type: [] as ProductUserProps[],
-      require: true,
+      type: Array as () => ProductSimple[],
+      required: true,
     },
     links: {
-      type: [] as LinkProps[],
-      require: true,
+      type: Array as () => LinkProps[],
     },
     category: {
-      type: Object as () => CategoryProps,
-      require: true,
+      type: Object as () => Category,
+      required: true,
     },
     handlePageChange: {
       type: Function,
-      require: true,
+      required: true,
     },
     handleOnClickAvatar: {
       type: Function,
-      require: true,
+      required: true,
     },
     shoppingCartHandler: {
       type: Function,
+      required: true,
     },
     favoriteIconHandler: {
       type: Function,
+      required: true,
     },
   },
   components: {
-    Breadcrumbs,
     SimpleBodyLayout,
     HeadingText,
     CategoriesAvatar,

@@ -1,14 +1,14 @@
 <template>
   <SimpleBodyLayout>
-    <Breadcrumbs :links="links" class="elevation-2"/>
+    <!-- <Breadcrumbs :links="links" class="elevation-2" /> -->
     <TitleWithButton
       :button-text="$t('addProduct')"
       :button-handler="addProductHandler"
-      :title="category?.name"
+      :title="category.name"
     />
 
     <CategoriesAvatar
-      :categories="category && category.subcategories"
+      :categories="category.subCategories"
       :click-handler="handleOnClickAvatar"
       :size="100"
     />
@@ -32,23 +32,25 @@ import Breadcrumbs from "@/components/molecules/Breadcrumbs.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import CategoriesAvatar from "@/components/organisms/AvatarList/CategoriesAvatar.vue";
 import Pagination from "@/components/molecules/Pagination.vue";
-import { CategoryProps } from "@/appTypes/Category";
 import { LinkProps } from "@/appTypes/Link";
 import ProductPreviewAdminCards from "@/components/organisms/Cards/ProductPreviewAdminCards.vue";
-import { ProductAdminProps } from "@/appTypes/ProductAdminProps";
 import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
+import { ProductSimple } from "@/appTypes/Product";
+import { Category } from "@/appTypes/Product";
 
 export default {
   name: "CategoryAdminPage",
   props: {
     products: {
-      type: [] as ProductAdminProps[],
+      type: Array as () => ProductSimple[],
+      required: true,
     },
     links: {
-      type: [] as LinkProps[],
+      type: Array as () => LinkProps[],
     },
     category: {
-      type: Object as () => CategoryProps,
+      type: Object as () => Category,
+      required: true,
     },
     handlePageChange: {
       type: Function,
@@ -67,7 +69,6 @@ export default {
     },
   },
   components: {
-    Breadcrumbs,
     SimpleBodyLayout,
     CategoriesAvatar,
     Pagination,

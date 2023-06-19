@@ -1,14 +1,7 @@
 <template>
   <CardLayout>
     <v-card-item>
-      <div class="imgContainer">
-        <v-img
-          :src="product.href"
-          :lazy-src="product.href"
-          class="image"
-          cover
-        />
-      </div>
+      <ImageCard :href="product.href" />
       <v-card-title>{{ product.name }}</v-card-title>
       <v-card-subtitle>{{ product.price }}€</v-card-subtitle>
     </v-card-item>
@@ -17,8 +10,7 @@
       <v-btn icon class="action elevation-0" @click="deleteProductHandler">
         <v-icon>mdi-trash-can-outline</v-icon>
       </v-btn>
-      <v-btn icon class="action elevation-0" 
-        @click="editProductHandler">
+      <v-btn icon class="action elevation-0" @click="editProductHandler">
         <v-icon>mdi-pencil-outline</v-icon>
       </v-btn>
     </div>
@@ -26,28 +18,27 @@
 </template>
 
 <script lang="ts">
-import { ProductAdminProps } from "@/appTypes/ProductAdminProps";
+import { ProductSimple } from "@/appTypes/Product";
 import CardLayout from "@/layouts/CardLayout.vue";
+import ImageCard from "@/components/atoms/ImageCard.vue";
 
 export default {
   name: "ProductPreviewAdmin",
   props: {
     product: {
-      type: Object as () => ProductAdminProps,
-      default: () => ({
-        name: "Product name",
-        price: 12.99,
-        href: "",
-      }),
+      type: Object as () => ProductSimple,
+      required: true,
     },
     deleteProductHandler: {
       type: Function,
+      required: true,
     },
     editProductHandler: {
       type: Function,
+      required: true,
     },
   },
-  components: { CardLayout },
+  components: { CardLayout, ImageCard },
 };
 </script>
 

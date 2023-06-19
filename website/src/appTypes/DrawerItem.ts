@@ -1,5 +1,8 @@
 export interface DrawerItem {
-  prependIcon: String;
-  title: String;
-  value: String;
+  prependIcon: string;
+  title: string;
+  value: string;
+  id: string;
+  href: string;
 }
+

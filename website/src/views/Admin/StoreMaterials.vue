@@ -1,18 +1,39 @@
 <template>
   <SimpleBodyLayout>
-    <ConfirmationModal :title="$t('rmv-material')" :text="$t('rmv-material-text') + ' ' + material + '?'"
-      :confirmHandler="removeMaterialHandler" :closeModal="closeRemoveModal" v-bind:is-modal-open="isRemoveModalOpen" />
-    <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
-      :closeModal="closeLogoutModal" :isModalOpen="isLogoutModalOpen" />
+    <ConfirmationModal
+      :title="$t('rmv-material')"
+      :text="$t('rmv-material-text') + ' ' + material + '?'"
+      :confirmHandler="removeMaterialHandler"
+      :closeModal="closeRemoveModal"
+      v-bind:is-modal-open="isRemoveModalOpen"
+    />
+    <ConfirmationModal
+      :title="$t('logout')"
+      :text="$t('logout-text')"
+      :confirmHandler="logoutHandler"
+      :closeModal="closeLogoutModal"
+      :isModalOpen="isLogoutModalOpen"
+    />
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
-          :button-handler="openLogoutModal" />
+        <TitleCardLinksButton
+          :title="$t('store')"
+          :items="items"
+          :button-text="$t('logout')"
+          :button-handler="openLogoutModal"
+        />
       </template>
       <template v-slot:second>
-        <TitleWithButton :title="$t('materials')" :buttonText="$t('add-material')" :buttonHandler="addMaterialHandler" />
-        <MaterialsEditableCards v-bind:items="materials" :remove-material-handler="openRemoveModal"
-          :update-material-handler="updateMaterialHandler" />
+        <TitleWithButton
+          :title="$t('materials')"
+          :buttonText="$t('add-material')"
+          :buttonHandler="addMaterialHandler"
+        />
+        <MaterialsEditableCards
+          v-bind:items="materials"
+          :remove-material-handler="openRemoveModal"
+          :update-material-handler="updateMaterialHandler"
+        />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -85,7 +106,7 @@ export default {
     },
     async removeMaterialHandler() {
       const r = await materialsStore.removeMaterial(this.material);
-      if (r == 200) {
+      if (r) {
         notifications.openSuccessAlert(this.$t("rmv-material-success"));
       } else {
         notifications.openErrorAlert(this.$t("rmv-material-error"));
@@ -98,7 +119,7 @@ export default {
       photo: string
     ) {
       const r = await materialsStore.updateMaterial(materialId, name, photo);
-      if (r == 200) {
+      if (r) {
         notifications.openSuccessAlert(this.$t("update-material-success"));
       } else {
         notifications.openErrorAlert(this.$t("update-material-error"));

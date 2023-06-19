@@ -8,6 +8,10 @@ export const useAdminsStore = defineStore("admins", {
     admins: [] as AdminInfoProps[],
   }),
   actions: {
+    clearStore() {
+      this.customers = []
+      this.admins = []
+    },
     getCustomerById(id: string) {
       return this.customers.find((c) => c.id == id);
     },
@@ -29,7 +33,7 @@ export const useAdminsStore = defineStore("admins", {
       if (r.success == 200 && typeof r.data !== "string") {
         this.admins = this.admins.filter((e) => e.id != id);
       }
-      return r.success;
+      return r.success == 200;
     },
 
     async addAdmin(email: string, password: string, name: string) {
@@ -37,14 +41,14 @@ export const useAdminsStore = defineStore("admins", {
       if (r.success && typeof r.data !== "string") {
         this.admins.push(r.data);
       }
-      return r.success;
+      return r.success == 200;
     },
     async editAdmin(id: string, email: string, name: string) {
       const r = await axios.admins.updateAdmin(id, email, name);
       if (r.success == 200) {
         this.getAllAdmins();
       }
-      return r.success;
+      return r.success == 200;
     },
   },
 });

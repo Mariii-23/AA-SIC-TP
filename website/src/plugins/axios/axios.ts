@@ -5,6 +5,7 @@ import admins from "./admins";
 import categories from "./categories";
 import company from "./company";
 import materials from "./materials";
+import product from "./products";
 
 interface AxiosOptions {
   baseUrl?: string;
@@ -59,4 +60,5 @@ export default {
   admins,
   company,
   materials,
+  product
 };

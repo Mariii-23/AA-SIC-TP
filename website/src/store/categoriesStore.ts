@@ -5,6 +5,7 @@ import { Category, ImageProp, SubCategory } from "@/appTypes/Product";
 export const useCategoriesStore = defineStore("categories", {
   state: () => ({
     categories: [] as Category[],
+    category: {} as Category,
   }),
   actions: {
     async getAllCategories() {
@@ -24,7 +25,7 @@ export const useCategoriesStore = defineStore("categories", {
           this.categories = this.categories.filter((e) => e.id !== id);
         }
       }
-      return r.success;
+      return r.success == 200;
     },
     async addCategory(name: string, photo: string, subCategories: ImageProp[]) {
       const r = await axios.categories.addCategory(name, photo);
@@ -45,7 +46,18 @@ export const useCategoriesStore = defineStore("categories", {
           this.categories.push(r.data);
         }
       }
-      return r.success;
+      return r.success == 200;
+    },
+    async getCategoryById(categoryId: string) {
+      if (this.categories.length <= 0) {
+        await this.getAllCategories();
+      }
+
+      const category = this.categories.find((e) => e.id == categoryId);
+      if (category) this.category = category;
+
+      // TODO: no caso de nao ter tem q pedir ao backend
+      return true;
     },
   },
 });

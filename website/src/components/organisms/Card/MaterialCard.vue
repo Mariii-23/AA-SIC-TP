@@ -1,20 +1,9 @@
 <template>
-  <CardLayout :class="{ expanded: isEdit }">
+  <CardLayout class="bg-secondary">
     <v-card-item class="card-item-material custom-full-width bg-secondary">
-      <div class="center">
-        <div class="imgContainer" v-if="!isEdit">
-          <v-img
-            cover
-            :src="material?.href"
-            :lazy-src="material?.href"
-            class="image"
-          />
-        </div>
-      </div>
+      <ImageCard  v-if="!isEdit" :href="material.href"/>
       <v-card-title v-if="!isEdit" class="card-item-material bg-secondary">
-        <HeadingText :size="5">
-          {{ material?.name }}
-        </HeadingText>
+        {{ material.name }}
       </v-card-title>
 
       <div class="inputImageContainer">
@@ -35,7 +24,7 @@
         />
       </v-card-title>
     </v-card-item>
-    <div class="actions bg-secondary">
+    <div class="actions">
       <PrimaryButton
         class="action elevation-0 bg-secondary"
         v-if="isEdit"
@@ -74,8 +63,8 @@
 <script lang="ts">
 import { Material } from "@/appTypes/Product";
 import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
-import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import CardLayout from "@/layouts/CardLayout.vue";
+import ImageCard from "@/components/atoms/ImageCard.vue";
 
 export default {
   name: "MaterialCard",
@@ -92,11 +81,7 @@ export default {
   props: {
     material: {
       type: Object as () => Material,
-      default: {
-        name: "Material",
-        id: "10",
-        href: "rip",
-      } as Material,
+      required: true
     },
     removeMaterialHandler: {
       type: Function,
@@ -152,7 +137,7 @@ export default {
       this.editHandler();
     },
   },
-  components: { CardLayout, HeadingText, PrimaryButton },
+  components: { CardLayout, PrimaryButton, ImageCard },
 };
 </script>
 

@@ -37,7 +37,7 @@ export const useMaterialStore = defineStore("materials", {
           });
         }
       }
-      return r.success;
+      return r.success == 200;
     },
     async updateMaterial(id: string, name: string, image: string) {
       const r = await axios.materials.updateMaterial(id, name, image);
@@ -59,7 +59,7 @@ export const useMaterialStore = defineStore("materials", {
           this.materials = newMaterials;
         }
       }
-      return r.success;
+      return r.success == 200;
     },
     async removeMaterial(id: string) {
       const r = await axios.materials.deleteMaterial(id);
@@ -68,7 +68,7 @@ export const useMaterialStore = defineStore("materials", {
           this.materials = this.materials.filter((e) => e.id !== id);
         }
       }
-      return r.success;
+      return r.success == 200;
     },
   },
 });

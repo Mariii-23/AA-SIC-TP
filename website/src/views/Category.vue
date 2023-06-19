@@ -1,8 +1,17 @@
 <template>
+  <CategoryAdmin
+    v-if="isAdmin"
+    v-bind:products="products"
+    v-bind:category="category"
+    :handle-on-click-avatar="handleOnClickAvatar"
+    :handle-page-change="onChangePagePagination"
+    :addProductHandler="addProductHandler"
+  />
+
   <CategoryUser
-    :products="products"
-    :category="category"
-    :links="links"
+    v-else
+    v-bind:products="products"
+    v-bind:category="category"
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
     :shopping-cart-handler="shoppingCartHandler"
@@ -10,178 +19,102 @@
   />
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import CategoryUser from "./User/CategoryUser.vue";
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import CategoryAdmin from "./Admin/CategoryAdmin.vue";
+import { Category, ProductSimple } from "@/appTypes/Product";
+import { useCategoriesStore } from "@/store/categoriesStore";
+import { useProductStore } from "@/store/productStore";
+import { useUserStore } from "@/store/userStore";
 
-const route = useRoute();
-//TODO: change this
-const isAdmin = true;
-const links = ref([]);
+const categoriesStore = useCategoriesStore();
+const productStore = useProductStore();
+const userStore = useUserStore();
 
-//TODO: ir buscar ao backend
-const category = ref({
-  id: null,
-  name: "Mesa",
-  subCategories: [],
-  href: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-});
+export default {
+  name: "Category Page",
+  data: function () {
+    return {
+      isAdmin: false,
+      products: [] as ProductSimple[],
+      category: {} as Category,
+    };
+  },
+  mounted: async function () {
+    await categoriesStore.getCategoryById(this.$route.params.id);
+    this.category = categoriesStore.category;
 
-let product = {
-  name: "Product name 1",
-  price: 1,
-  id: 1,
-  href: "http://diamond.mariii.xyz:8080/api/wall/pleasant-lake.jpg",
+    this.isAdmin = userStore.isAdmin();
+
+    const r = await productStore.getProductByCategoryId(this.category.id);
+    if (r) {
+      this.products = r;
+    }
+
+    this.$watch(
+      () => userStore.role,
+      () => {
+        this.isAdmin = userStore.isAdmin();
+      }
+    );
+
+    this.$watch(
+      () => this.$route.params.id,
+      async (newValue) => {
+        await categoriesStore.getCategoryById(newValue);
+        this.category = categoriesStore.category;
+
+        const r = await productStore.getProductByCategoryId(this.category.id);
+        if (r) {
+          this.products = r;
+        }
+      }
+    );
+
+    this.$watch(
+      () => categoriesStore.category,
+      async (newValue) => {
+        this.category = newValue;
+        const r = await productStore.getProductByCategoryId(this.category.id);
+        if (r) {
+          this.products = r;
+        }
+      }
+    );
+  },
+  methods: {
+    //TODO:
+    onChangePagePagination(number: string) {
+      console.log("page " + number);
+    },
+
+    //TODO:
+    handleOnClickAvatar(number: string) {
+      console.log(number);
+    },
+
+    //TODO:
+    addProductHandler() {
+      console.log("adicionar produto");
+    },
+
+    //TODO:
+    deleteProductHandler(number: string) {
+      console.log("delete " + number);
+    },
+    editProductHandler(productId: string) {
+      console.log("edit " + productId);
+    },
+    shoppingCartHandler(productId: string) {
+      console.log("add to shopping cart" + productId);
+    },
+    favoriteIconHandler(productId: string) {
+      console.log("favourite " + productId);
+    },
+  },
+  components: {
+    CategoryAdmin,
+    CategoryUser,
+  },
 };
-//TODO: ir buscar ao backend
-let products = [];
-
-for (let i = 0; i < 20; i++) {
-  products.push(product);
-}
-
-//TODO:
-const onChangePagePagination = (number: string) => {
-  console.log("page " + number);
-};
-
-//TODO:
-const handleOnClickAvatar = (number: string) => {
-  console.log(number);
-};
-
-//TODO:
-const addProductHandler = () => {
-  console.log("adicionar produto");
-};
-
-//TODO:
-const deleteProductHandler = (number: string) => {
-  console.log("delete " + number);
-};
-
-//TODO:
-const editProductHandler = (productId: string) => {
-  console.log("edit " + productId);
-};
-
-const shoppingCartHandler = (productId: string) => {
-  console.log("add to shopping cart" + productId);
-};
-
-const favoriteIconHandler = (productId: string) => {
-  console.log("favourite " + productId);
-};
-
-onMounted(() => {
-  category.value.id = route.params.id;
-  category.value.name = "Mesa";
-  category.value.subCategories = [
-    {
-      id: 1,
-      name: "Mesa",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 2,
-      name: "Mesa2",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 3,
-      name: "Mesa3",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 3,
-      name: "Mesa3",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 3,
-      name: "Mesa3",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 3,
-      name: "Mesa3",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 3,
-      name: "Mesa3",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 3,
-      name: "Mesa3",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-    {
-      id: 4,
-      name: "Mesa4",
-      imgHref: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-    },
-  ];
-  category.value.href = "https://cdn.vuetifyjs.com/images/cards/hotel.jpg";
-
-  links.value = [
-    {
-      disabled: false,
-      href: category.value.id,
-      title: category.value.name,
-    },
-  ];
-});
 </script>

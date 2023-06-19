@@ -1,5 +1,5 @@
-import { ProductAdminProps } from "./ProductAdminProps";
+import { ProductSimple } from "./Product";
 
-export interface ProductUserProps extends ProductAdminProps{
-    favourite: boolean
+export interface ProductUserProps extends ProductSimple {
+  favourite: boolean;
 }

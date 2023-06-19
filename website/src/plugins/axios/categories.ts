@@ -112,7 +112,7 @@ const addSubcategory = async (categoryId: string, subCategory: ImageProp) => {
     );
 
     return handleResponse(req, (data: SubCategoryResponse) => {
-      console.log(data)
+      console.log(data);
       return {
         name: data.name,
         id: data.id,

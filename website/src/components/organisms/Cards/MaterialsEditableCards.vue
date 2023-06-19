@@ -1,25 +1,24 @@
 <template>
-  <CardsEditableLayout>
+  <CardsLayout>
     <MaterialCard
       v-for="material in items"
       :key="material.id"
       :material="material"
-      :remove-material-handler="() => removeMaterialHandler && removeMaterialHandler(material.id)"
+      :remove-material-handler="
+        () => removeMaterialHandler && removeMaterialHandler(material.id)
+      "
       :update-material-handler="updateMaterialHandler"
     />
-  </CardsEditableLayout>
+  </CardsLayout>
 </template>
 
 <script lang="ts">
 import MaterialCard from "../Card/MaterialCard.vue";
 import { Material } from "@/appTypes/Product";
-import CardsEditableLayout from "@/layouts/CardsEditableLayout.vue";
+import CardsLayout from "@/layouts/CardsLayout.vue";
 
 export default {
-  components: {
-    MaterialCard,
-    CardsEditableLayout,
-  },
+  name: "Materials Editable Cards",
   props: {
     items: {
       type: Array as () => Material[],
@@ -30,6 +29,10 @@ export default {
     updateMaterialHandler: {
       type: Function,
     },
+  },
+  components: {
+    MaterialCard,
+    CardsLayout,
   },
 };
 </script>

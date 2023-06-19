@@ -94,7 +94,7 @@ export default {
       subCategories: ImageProp[]
     ) {
       const req = await categoryStore.addCategory(name, photo, subCategories);
-      if (req == 200) {
+      if (req) {
         notificationStore.openSuccessAlert("add-category-success");
         this.$router.back();
       } else {

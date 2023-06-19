@@ -12,6 +12,12 @@ export const useUserStore = defineStore("user", {
     role: "",
   }),
   actions: {
+    isAdmin() {
+      if (this.isLoggedIn) {
+        return this.role === "ADMIN";
+      }
+      return false;
+    },
     async logout() {
       this.isLoggedIn = false;
       this.token = "";
@@ -31,7 +37,6 @@ export const useUserStore = defineStore("user", {
         this.id = r.data.iD;
         this.role = r.data.role;
       } else if (r.success == 401) {
-        console.log("aqui");
         await axios.authentication.logout();
         const notificationStore = useNotificationStore();
         notificationStore.openErrorAlert("tokenInvalid");

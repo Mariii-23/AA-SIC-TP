@@ -88,7 +88,7 @@ export default {
   methods: {
     async removeCategoryHandler() {
       const r = await categoryStore.removeCategory(this.category);
-      if (r == 200) {
+      if (r) {
         notifications.openSuccessAlert(this.$t("rmv-category-success"));
       } else {
         notifications.openErrorAlert(this.$t("rmv-category-error"));

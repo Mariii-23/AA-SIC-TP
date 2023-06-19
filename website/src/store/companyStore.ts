@@ -44,7 +44,7 @@ export const useCompanyStore = defineStore("company", {
       if (r.success && typeof r.data !== "string") {
         this.socialNetworks = r.data;
       }
-      return r.success;
+      return r.success == 200;
     },
     async updateInfo(company: CompanyInfo) {
       const r = await axios.company.updateInfo(company);

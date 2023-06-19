@@ -144,7 +144,7 @@ export default {
         if (userStore.role == "ADMIN")
           this.$router.push("/admin")
         else {
-          this.$router.push("/user/profile")
+          this.$router.push("/category/12")
         }
       }
     },

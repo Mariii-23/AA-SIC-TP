@@ -86,6 +86,7 @@ import LanguageSwitcher from "@/components/molecules/LanguageSwitcher.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import { useUserStore } from "@/store/userStore";
 import ConfirmationModal from "./Modal/ConfirmationModal.vue";
+import { useAdminsStore } from "@/store/adminsStore";
 const userStore = useUserStore();
 
 export default {
@@ -141,6 +142,8 @@ export default {
       this.$router.push(path);
     },
     logout() {
+      const adminsStore = useAdminsStore();
+      adminsStore.clearStore();
       userStore.logout();
       this.$router.push("/");
     },

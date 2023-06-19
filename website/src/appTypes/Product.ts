@@ -16,10 +16,13 @@ export interface SubCategory {
   href: string;
 }
 
-export interface Category {
+export interface CategoryInfo {
   id: string;
   name: string;
   href: string;
+}
+
+export interface Category extends CategoryInfo {
   subCategories: SubCategory[];
 }
 
@@ -54,9 +57,17 @@ export interface Item {
 }
 
 export interface Product {
-  name: String;
+  id: string;
+  name: string;
   price: number;
   images: ProductImages;
   info: ProductInformation;
   materials: number[];
+}
+
+export interface ProductSimple {
+  id: string
+  name: string;
+  price: number;
+  href: string;
 }

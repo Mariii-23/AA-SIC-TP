@@ -1,14 +1,7 @@
 <template>
-  <CardLayout v-if="category" class="bg-secondary">
-    <v-card-item class="bg-secondary">
-      <div class="imgContainer">
-        <v-img
-          cover
-          :src="category.href"
-          :lazy-src="category.href"
-          class="image"
-        />
-      </div>
+  <CardLayout v-if="category">
+    <v-card-item>
+      <ImageCard :href="category.href" />
       <div class="category-car-body-wrapper">
         <v-card-title>{{ category.name }}</v-card-title>
 
@@ -61,6 +54,7 @@
 import { Category } from "@/appTypes/Product";
 import CardLayout from "@/layouts/CardLayout.vue";
 import ChipGroup from "@/components/molecules/ChipGroup.vue";
+import ImageCard from "@/components/atoms/ImageCard.vue";
 
 export default {
   name: "CategoryCard",
@@ -78,7 +72,7 @@ export default {
       type: Function,
     },
   },
-  components: { CardLayout, ChipGroup },
+  components: { CardLayout, ChipGroup, ImageCard },
 };
 </script>
 

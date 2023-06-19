@@ -13,6 +13,16 @@ export interface CategoryResponse {
   id: string;
 }
 
+export interface GetProductsByCategoryResponse {
+  last: boolean;
+  data: {
+    id: string;
+    name: string;
+    image: string;
+    price: number;
+  }[];
+}
+
 export interface SubCategoryResponse {
   name: string;
   id: string;

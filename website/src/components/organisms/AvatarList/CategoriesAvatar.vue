@@ -4,7 +4,7 @@
       v-for="category in categories"
       :size="size"
       :key="category.id"
-      :avatar-href="category.imgHref"
+      :avatar-href="category.href"
       :name="$t(category.name)"
       :on-click="() => clickHandler && clickHandler(category.id)"
     />
@@ -12,13 +12,13 @@
 </template>
 
 <script lang="ts">
+import { CategoryInfo } from "@/appTypes/Product";
 import CategoryAvatar from "../Avatar/CategoryAvatar.vue";
-import { CategoryAvatarProps } from "@/appTypes/Category";
 export default {
   name: "Avatar",
   props: {
     categories: {
-      type: Array as () => CategoryAvatarProps[],
+      type: Array as () => CategoryInfo[],
       require: true,
     },
     clickHandler: {
