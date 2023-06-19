@@ -7,9 +7,9 @@
 <style>
 .cardsLayout {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 280px);
+    grid-template-columns: repeat(auto-fill, 250px);
     justify-content: space-between;
-    gap: 30px;
+    gap: 50px;
     list-style-type: none;
 }
 </style>

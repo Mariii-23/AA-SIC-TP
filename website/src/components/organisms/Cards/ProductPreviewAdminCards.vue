@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { ProductAdminProps } from "@/appTypes/ProductAdminProps";
+import { ProductSimple } from "@/appTypes/Product";
 import ProductPreviewAdmin from "@/components/organisms/Card/ProductPreviewAdminCard.vue";
 import CardsLayout from "@/layouts/CardsLayout.vue";
 
@@ -26,7 +26,7 @@ export default {
   },
   props: {
     products: {
-      type: Array as () => ProductAdminProps[],
+      type: Array as () => ProductSimple[],
       require: true,
     },
     deleteProductHandler: {

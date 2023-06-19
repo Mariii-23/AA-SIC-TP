@@ -1,6 +1,5 @@
 <template>
   <SimpleBodyLayout>
-    <!-- <Breadcrumbs :links="links" class="elevation-2" /> -->
     <HeadingText>{{ category.name }}</HeadingText>
 
     <CategoriesAvatar
@@ -24,7 +23,6 @@
 </template>
 
 <script lang="ts">
-import Breadcrumbs from "@/components/molecules/Breadcrumbs.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import CategoriesAvatar from "@/components/organisms/AvatarList/CategoriesAvatar.vue";
@@ -44,8 +42,9 @@ export default {
     this.productsUser = [];
     for (let i = 0; i < this.products.length; i++) {
       const item = this.products[i];
+      const isFavorite = this.productsFavorite.find((e) => e.id === item.id);
       this.productsUser.push({
-        favourite: false,
+        favourite: isFavorite !== undefined,
         ...item,
       });
     }
@@ -56,8 +55,27 @@ export default {
         this.productsUser = [];
         for (let i = 0; i < newValues.length; i++) {
           const item = newValues[i];
+          const isFavorite = this.productsFavorite.find(
+            (e) => e.id === item.id
+          );
           this.productsUser.push({
-            favourite: false,
+            favourite: isFavorite !== undefined,
+            ...item,
+          });
+        }
+      }
+    );
+
+    this.$watch(
+      () => this.productsFavorite,
+      (newValues) => {
+
+        this.productsUser = [];
+        for (let i = 0; i < this.products.length; i++) {
+          const item = this.products[i];
+          const isFavorite = newValues.find((e) => e.id === item.id);
+          this.productsUser.push({
+            favourite: isFavorite !== undefined,
             ...item,
           });
         }
@@ -66,6 +84,10 @@ export default {
   },
   props: {
     products: {
+      type: Array as () => ProductSimple[],
+      required: true,
+    },
+    productsFavorite: {
       type: Array as () => ProductSimple[],
       required: true,
     },

@@ -6,6 +6,7 @@ import categories from "./categories";
 import company from "./company";
 import materials from "./materials";
 import product from "./products";
+import customer from "./customer";
 
 interface AxiosOptions {
   baseUrl?: string;
@@ -48,7 +49,8 @@ export default {
         return response;
       },
       (error) => {
-        axiosInstance.defaults.headers.Authorization = "";
+        if (error.response.status === 401)
+          axiosInstance.defaults.headers.Authorization = "";
         return Promise.reject(error);
       }
     );
@@ -60,5 +62,6 @@ export default {
   admins,
   company,
   materials,
-  product
+  product,
+  customer,
 };

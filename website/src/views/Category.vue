@@ -1,4 +1,11 @@
 <template>
+  <ConfirmationModal
+    :title="$t('rmv-product')"
+    :text="$t('rmv-product-text') + ' ' + productId + '?'"
+    :confirmHandler="deleteProductHandler"
+    :closeModal="closeRemoveModal"
+    v-bind:is-modal-open="isRemoveModalOpen"
+  />
   <CategoryAdmin
     v-if="isAdmin"
     v-bind:products="products"
@@ -6,11 +13,14 @@
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
     :addProductHandler="addProductHandler"
+    :edit-product-handler="editProductHandler"
+    :delete-product-handler="openRemoveModal"
   />
 
   <CategoryUser
     v-else
     v-bind:products="products"
+    v-bind:products-favorite="productsFavorite"
     v-bind:category="category"
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
@@ -26,10 +36,13 @@ import { Category, ProductSimple } from "@/appTypes/Product";
 import { useCategoriesStore } from "@/store/categoriesStore";
 import { useProductStore } from "@/store/productStore";
 import { useUserStore } from "@/store/userStore";
+import { useNotificationStore } from "@/store/notificationStore";
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 const categoriesStore = useCategoriesStore();
 const productStore = useProductStore();
 const userStore = useUserStore();
+const notificationStore = useNotificationStore();
 
 export default {
   name: "Category Page",
@@ -37,12 +50,16 @@ export default {
     return {
       isAdmin: false,
       products: [] as ProductSimple[],
+      productsFavorite: [] as ProductSimple[],
       category: {} as Category,
+      isRemoveModalOpen: false,
+      productId: "",
     };
   },
   mounted: async function () {
     await categoriesStore.getCategoryById(this.$route.params.id);
     this.category = categoriesStore.category;
+    this.productsFavorite = [];
 
     this.isAdmin = userStore.isAdmin();
 
@@ -51,10 +68,33 @@ export default {
       this.products = r;
     }
 
+    if (userStore.isLoggedIn) {
+      this.productsFavorite = await productStore.getAllFavoriteProducts(
+        userStore.id
+      );
+    }
+
     this.$watch(
       () => userStore.role,
       () => {
         this.isAdmin = userStore.isAdmin();
+      }
+    );
+
+    this.$watch(
+      () => userStore,
+      async (newValue) => {
+        if (!newValue.isAdmin())
+          this.productsFavorite = await productStore.getAllFavoriteProducts(
+            newValue.id
+          );
+      }
+    );
+
+    this.$watch(
+      () => productStore.productsFavorites,
+      async (newValue) => {
+        this.productsFavorite = newValue;
       }
     );
 
@@ -83,38 +123,70 @@ export default {
     );
   },
   methods: {
+    closeRemoveModal() {
+      this.isRemoveModalOpen = false;
+      this.productId = "";
+    },
+    openRemoveModal(productId: string) {
+      this.productId = productId;
+      this.isRemoveModalOpen = true;
+    },
     //TODO:
     onChangePagePagination(number: string) {
       console.log("page " + number);
     },
 
-    //TODO:
+    //TODO: subcategory
     handleOnClickAvatar(number: string) {
       console.log(number);
     },
 
     //TODO:
     addProductHandler() {
-      console.log("adicionar produto");
-    },
-
-    //TODO:
-    deleteProductHandler(number: string) {
-      console.log("delete " + number);
+      this.$router.push("/admin/product/add");
     },
     editProductHandler(productId: string) {
-      console.log("edit " + productId);
+      this.$router.push(`/admin/product/edit/${productId}`);
+    },
+    async deleteProductHandler() {
+      const r = await productStore.removeProduct(this.productId);
+      if (r) {
+        notificationStore.openSuccessAlert("rmv-product-success");
+      } else {
+        notificationStore.openErrorAlert("rmv-product-error");
+      }
+
+      this.closeRemoveModal();
     },
     shoppingCartHandler(productId: string) {
       console.log("add to shopping cart" + productId);
     },
-    favoriteIconHandler(productId: string) {
-      console.log("favourite " + productId);
+    async favoriteIconHandler(productId: string) {
+      const userId = userStore.id;
+      if (!userStore.isLoggedIn) {
+        this.$router.push("/login");
+        return;
+      }
+      const product = this.productsFavorite.find((e) => e.id == productId);
+      const req = await productStore.addRmvFavoriteProducts(userId, productId);
+      if (req) {
+        if (product) {
+          notificationStore.openSuccessAlert("rm-favorite-success");
+        } else {
+          await productStore.getAllFavoriteProducts(userId);
+          notificationStore.openSuccessAlert("add-favorite-success");
+        }
+      } else {
+        if (product) {
+          notificationStore.openErrorAlert("rm-favorite-error");
+        } else notificationStore.openErrorAlert("add-favorite-error");
+      }
     },
   },
   components: {
     CategoryAdmin,
     CategoryUser,
+    ConfirmationModal,
   },
 };
 </script>

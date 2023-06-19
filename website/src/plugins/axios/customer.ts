@@ -3,44 +3,20 @@ import { handleResponse } from "./axios";
 import { ProductSimple } from "@/appTypes/Product";
 import { GetProductsByCategoryResponse, Response } from "@/appTypes/AxiosTypes";
 
-const url = "product";
+const url = "customer";
 
 const productImage = `http://localhost:8080/${url}/all/productImage`;
 
-//const getAllProducts = async (
-//  categoryId: string,
-//  offset: number,
-//  numItems: number
-//) => {
-//  try {
-//    const req = await app.config.globalProperties.$axios.get(
-//      `${url}/all`,
-//      {
-//        params: {
-//          offset,
-//          numItems,
-//          categoryId,
-//        },
-//      }
-//    );
-//
-//    return handleResponse(req, (data: GetProductsByCategoryResponse) => {
-//      return data.data;
-//    });
-//  } catch (error) {
-//    return {
-//      success: error.request.status,
-//      data: error.request.statusText,
-//    };
-//  }
-//};
-
-const deleteProduct = async (productId: string) => {
-  console.log()
+const addProductFavorites = async (customerId: string, productId: string) => {
   try {
-    const req = await app.config.globalProperties.$axios.delete(
-      `${url}/remove/${productId}`
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/favourite/add`,
+      {
+        customerId,
+        productId,
+      }
     );
+
     return handleResponse(req, () => {
       return null;
     });
@@ -52,19 +28,45 @@ const deleteProduct = async (productId: string) => {
   }
 };
 
-const getProductByCategoryId = async (
-  categoryId: string,
+const removeProductFavorites = async (
+  customerId: string,
+  productId: string
+) => {
+  try {
+    const req = await app.config.globalProperties.$axios.delete(
+      `${url}/favourite/delete`,
+      {
+        data: {
+          customerId,
+          productId,
+        },
+      }
+    );
+
+    return handleResponse(req, () => {
+      return null;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const getProductFavorites = async (
+  id: string,
   offset: number,
   numItems: number
 ) => {
   try {
     const req = await app.config.globalProperties.$axios.get(
-      `${url}/all/category`,
+      `${url}/favourites`,
       {
         params: {
           offset,
           numItems,
-          categoryId,
+          id,
         },
       }
     );
@@ -91,26 +93,36 @@ const getProductByCategoryId = async (
   }
 };
 
-export interface ProductAxios {
-  getProductByCategoryId: (
+export interface CustomerAxios {
+  getProductFavorites: (
     categoryId: string,
     offset: number,
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
-  deleteProduct: (productId: string) => Promise<Response<void>>;
+  removeProductFavorites: (
+    customerId: string,
+    productId: string
+  ) => Promise<Response<void>>;
+  addProductFavorites: (
+    customerId: string,
+    productId: string
+  ) => Promise<Response<void>>;
 }
 
-const productStore: ProductAxios = {
-  getProductByCategoryId: async (
+const customerStore: CustomerAxios = {
+  getProductFavorites: async (
     categoryId: string,
     offset: number,
     numItems: number
   ) => {
-    return await getProductByCategoryId(categoryId, offset, numItems);
+    return await getProductFavorites(categoryId, offset, numItems);
   },
-  deleteProduct: async (productId) => {
-    return deleteProduct(productId);
+  addProductFavorites: async (customerId: string, productId: string) => {
+    return addProductFavorites(customerId, productId);
+  },
+  removeProductFavorites: async (customerId: string, productId: string) => {
+    return removeProductFavorites(customerId, productId);
   },
 };
 
-export default productStore;
+export default customerStore;
