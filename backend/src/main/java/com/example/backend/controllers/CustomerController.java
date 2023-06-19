@@ -64,7 +64,7 @@ public class CustomerController {
     @PostMapping("/favourite/add")
     public void addFavourite(final @RequestBody AddRemoveFavouriteDTO favourite) {
         try {
-            userService.addFavourite(favourite.getCostumerId(), favourite.getProductId());
+            userService.addFavourite(favourite.getCustomerId(), favourite.getProductId());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -73,7 +73,7 @@ public class CustomerController {
     @DeleteMapping("/favourite/delete")
     public void deleteFavourite(final @RequestBody AddRemoveFavouriteDTO favourite) {
         try {
-            userService.deleteFavourite(favourite.getCostumerId(), favourite.getProductId());
+            userService.deleteFavourite(favourite.getCustomerId(), favourite.getProductId());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

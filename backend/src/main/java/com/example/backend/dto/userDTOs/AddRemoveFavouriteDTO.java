@@ -1,23 +1,23 @@
 package com.example.backend.dto.userDTOs;
 
 public class AddRemoveFavouriteDTO {
-    private int costumerId;
+    private int customerId;
     private int productId;
 
     public AddRemoveFavouriteDTO() {
     }
 
-    public AddRemoveFavouriteDTO(int costumerId, int productId) {
-        this.costumerId = costumerId;
+    public AddRemoveFavouriteDTO(int customerId, int productId) {
+        this.customerId = customerId;
         this.productId = productId;
     }
 
-    public int getCostumerId() {
-        return costumerId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCostumerId(int costumerId) {
-        this.costumerId = costumerId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public int getProductId() {
