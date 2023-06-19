@@ -188,6 +188,7 @@ public class DBService{
 
 
         subCategories.add(new SubCategory("Sofas", image1, categories.get(0)));
+        subCategories.add(new SubCategory("Armchairs", image1, categories.get(0)));
         subCategories.add(new SubCategory("Beds", image1, categories.get(1)));
         subCategories.add(new SubCategory("Dining Tables", image1, categories.get( 2)));
         subCategories.add(new SubCategory("Desks", image1, categories.get(3)));
@@ -226,97 +227,112 @@ public class DBService{
         for(int i = 0; i < 2; i++) m1.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(799.99, "Leather Sofa", "Stylish and comfortable leather sofa.", m1, s1.getCategory(), s1)));
 
-        SubCategory s2 = subCategories.get(1);
+        SubCategory s1_2 = subCategories.get(0);
+        List<Material> m1_2 = new ArrayList<>();
+        for(int i = 0; i < 2; i++) m1_2.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(699.99, "Fabric Sofa", "Stylish and comfortable fabric sofa.", m1_2, s1_2.getCategory(), s1_2)));
+
+        SubCategory s1_3 = subCategories.get(1);
+        List<Material> m1_3 = new ArrayList<>();
+        for(int i = 0; i < 2; i++) m1_3.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(399.99, "Leather Armchair", "Stylish and comfortable leather armchair.", m1_3, s1_3.getCategory(), s1_3)));
+
+        SubCategory s1_4 = subCategories.get(1);
+        List<Material> m1_4 = new ArrayList<>();
+        for(int i = 0; i < 2; i++) m1_4.add(materials.get(random.nextInt(materials_size)));
+        products.add((new Product(299.99, "Fabric Armchair", "Stylish and comfortable fabric armchair.", m1_4, s1_4.getCategory(), s1_4)));
+
+        SubCategory s2 = subCategories.get(2);
         List<Material> m2 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m2.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(499.99, "Wooden Bed", "Stylish and comfortable wooden bed.", m2, s2.getCategory(), s2)));
 
-        SubCategory s3 = subCategories.get(2);
+        SubCategory s3 = subCategories.get(3);
         List<Material> m3 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m3.add(materials.get(random.nextInt(materials_size)));
             products.add((new Product(299.99, "Wooden Dining Table", "Stylish and comfortable wooden dining table.", m3, s3.getCategory(), s3)));
 
-        SubCategory s4 = subCategories.get(3);
+        SubCategory s4 = subCategories.get(4);
         List<Material> m4 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m4.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(199.99, "Wooden Desk", "Stylish and comfortable wooden desk.", m4, s4.getCategory(), s4)));
 
-        SubCategory s5 = subCategories.get(4);
+        SubCategory s5 = subCategories.get(5);
         List<Material> m5 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m5.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Outdoor Set", "Stylish and comfortable wooden outdoor set.", m5, s5.getCategory(), s5)));
 
-        SubCategory s6 = subCategories.get(5);
+        SubCategory s6 = subCategories.get(6);
         List<Material> m6 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m6.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Cabinet", "Stylish and comfortable wooden cabinet.", m6, s6.getCategory(), s6)));
 
-        SubCategory s7 = subCategories.get(6);
+        SubCategory s7 = subCategories.get(7);
         List<Material> m7 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m7.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Toilet", "Stylish and comfortable wooden toilet.", m7, s7.getCategory(), s7)));
 
-        SubCategory s8 = subCategories.get(7);
+        SubCategory s8 = subCategories.get(8);
         List<Material> m8 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m8.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Kids Bed", "Stylish and comfortable wooden kids bed.", m8, s8.getCategory(), s8)));
 
-        SubCategory s9 = subCategories.get(8);
+        SubCategory s9 = subCategories.get(9);
         List<Material> m9 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m9.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Chair", "Stylish and comfortable wooden chair.", m9, s9.getCategory(), s9)));
 
-        SubCategory s10 = subCategories.get(9);
+        SubCategory s10 = subCategories.get(10);
         List<Material> m10 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m10.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Coffee Table", "Stylish and comfortable wooden coffee table.", m10, s10.getCategory(), s10)));
 
-        SubCategory s11 = subCategories.get(10);
+        SubCategory s11 = subCategories.get(11);
         List<Material> m11 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m11.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Bookshelf", "Stylish and comfortable wooden bookshelf.", m11, s11.getCategory(), s11)));
 
-        SubCategory s12 = subCategories.get(11);
+        SubCategory s12 = subCategories.get(12);
         List<Material> m12 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m12.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Wardrobe", "Stylish and comfortable wooden wardrobe.", m12, s12.getCategory(), s12)));
 
-        SubCategory s13 = subCategories.get(12);
+        SubCategory s13 = subCategories.get(13);
         List<Material> m13 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m13.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Stool", "Stylish and comfortable wooden stool.", m13, s13.getCategory(), s13)));
 
-        SubCategory s14 = subCategories.get(13);
+        SubCategory s14 = subCategories.get(14);
         List<Material> m14 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m14.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Sofa", "Stylish and comfortable wooden sofa.", m14, s14.getCategory(), s14)));
 
-        SubCategory s15 = subCategories.get(14);
+        SubCategory s15 = subCategories.get(15);
         List<Material> m15 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m15.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Bed", "Stylish and comfortable wooden bed.", m15, s15.getCategory(), s15)));
 
-        SubCategory s16 = subCategories.get(15);
+        SubCategory s16 = subCategories.get(16);
         List<Material> m16 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m16.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Dining Table", "Stylish and comfortable wooden dining table.", m16, s16.getCategory(), s16)));
 
-        SubCategory s17 = subCategories.get(16);
+        SubCategory s17 = subCategories.get(17);
         List<Material> m17 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m17.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Dining Chair", "Stylish and comfortable wooden dining chair.", m17, s17.getCategory(), s17)));
 
-        SubCategory s18 = subCategories.get(17);
+        SubCategory s18 = subCategories.get(18);
         List<Material> m18 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m18.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Dining Bench", "Stylish and comfortable wooden dining bench.", m18, s18.getCategory(), s18)));
 
-        SubCategory s19 = subCategories.get(18);
+        SubCategory s19 = subCategories.get(19);
         List<Material> m19 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m19.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden Sideboard", "Stylish and comfortable wooden sideboard.", m19, s19.getCategory(), s19)));
 
-        SubCategory s20 = subCategories.get(19);
+        SubCategory s20 = subCategories.get(20);
         List<Material> m20 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m20.add(materials.get(random.nextInt(materials_size)));
         products.add((new Product(99.99, "Wooden TV Stand", "Stylish and comfortable wooden TV stand.", m20, s20.getCategory(), s20)));
@@ -371,8 +387,9 @@ public class DBService{
 
         Random random = new Random();
 
-        for (Customer customer : customers) {
+        for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 5 ;j++){
+                Customer customer = customers.get(i);
                 int quantity = random.nextInt(5) + 1; // Random quantity between 1 and 5
                 Product product = products.get(random.nextInt(products.size())); // Randomly select a product
                 Material material = product.getMaterials().get(random.nextInt(product.getMaterials().size())); // Randomly select a material
