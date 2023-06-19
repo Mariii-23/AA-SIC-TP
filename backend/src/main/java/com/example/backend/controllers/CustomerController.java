@@ -71,7 +71,7 @@ public class CustomerController {
     }
 
     @PostMapping("/password/recover")
-    public String recoverPassword(final @RequestParam String email) {
+    public int recoverPassword(final @RequestParam String email) {
         try {
             return userService.recoverPassword(email);
         } catch (UserNotFoundException e) {

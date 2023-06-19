@@ -197,7 +197,7 @@ public class UserService {
         adminRep.save(admin);
     }
 
-    public String recoverPassword(String email) throws UserNotFoundException {
+    public int recoverPassword(String email) throws UserNotFoundException {
         SecureRandom secureRandom = new SecureRandom();
         Base64.Encoder encoder = Base64.getUrlEncoder();
         byte[] randomBytes = new byte[24];
@@ -211,7 +211,7 @@ public class UserService {
         userRep.save(user);
 
         applicationEventPublisher.publishEvent(new EmailEvent(this, user, subject, message));
-        return token;
+        return user.getiD();
     }
 
     public boolean confirmRecoverPassword(int userId, String token, String newPassword) throws UserNotFoundException {
