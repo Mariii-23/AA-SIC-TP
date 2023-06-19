@@ -299,8 +299,8 @@ public class ProductService {
         return (int) categoryRep.count();
     }
 
-    public byte[] getProductImage(int itemId) throws Exception {
-        Image image = imageRep.findById(itemId).orElseThrow(() -> new Exception("Image not found"));
+    public byte[] getProductImage(int imageId) throws Exception {
+        Image image = imageRep.findById(imageId).orElseThrow(() -> new Exception("Image not found"));
         //if (image.getProduct().getiD() == productId) return image.getImage();
         //else throw new Exception("Image not found");
         return image.getImage();
