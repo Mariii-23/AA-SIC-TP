@@ -13,8 +13,6 @@
         <TitleCardLinksButton
           :title="$t('store')"
           :items="items"
-          :button-text="$t('logout')"
-          :button-handler="openModal"
         />
       </template>
       <template v-slot:second>

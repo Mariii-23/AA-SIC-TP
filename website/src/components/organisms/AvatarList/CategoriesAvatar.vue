@@ -1,13 +1,34 @@
 <template>
   <div class="categories-avatar-wrapper">
-    <CategoryAvatar
-      v-for="category in categories"
-      :size="size"
-      :key="category.id"
-      :avatar-href="category.href"
-      :name="$t(category.name)"
-      :on-click="() => clickHandler && clickHandler(category.id)"
-    />
+    <v-slide-group
+      v-model="model"
+      selected-class="bg-primary"
+      multiple
+      show-arrows
+    >
+      <v-slide-group-item
+        v-for="category in categories"
+        :key="category.id"
+        selected-class="radius-wrapper"
+        v-slot="{ isSelected, toggle, selectedClass }"
+      >
+        <div
+          color="grey-lighten-1"
+          :class="['ma-3', selectedClass]"
+          @click="toggle"
+        >
+          <CategoryAvatar
+            :size="size"
+            :class="['ma-4', selectedClass]"
+            :key="category.id"
+            :avatar-href="category.href"
+            :name="$t(category.name)"
+            :on-click="() => clickHandler && clickHandler(category.id)"
+          />
+          <v-scale-transition />
+        </div>
+      </v-slide-group-item>
+    </v-slide-group>
   </div>
 </template>
 
@@ -16,6 +37,9 @@ import { CategoryInfo } from "@/appTypes/Product";
 import CategoryAvatar from "../Avatar/CategoryAvatar.vue";
 export default {
   name: "Avatar",
+  data: () => ({
+    model: [],
+  }),
   props: {
     categories: {
       type: Array as () => CategoryInfo[],
@@ -39,7 +63,11 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 30px;
-  max-height: full; 
-  overflow-y: auto; 
+  max-height: full;
+  overflow-y: auto;
+}
+
+.radius-wrapper{
+  border-radius: 40px;
 }
 </style>
