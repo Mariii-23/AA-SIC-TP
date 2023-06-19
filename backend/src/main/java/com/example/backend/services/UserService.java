@@ -142,10 +142,8 @@ public class UserService {
             throw new UserNotFoundException("Customer not found");
         }
         List<Product> favourites = customer.getFavourites();
-        Product product = favourites.stream().filter(p -> p.getiD() == productId).findFirst().orElse(null);
-        if (product == null) {
-            throw new ProductNotFoundException("Product not in favourites");
-        }
+        Product product = favourites.stream().filter(p -> p.getiD() == productId).findFirst().
+                                orElseThrow(() -> new ProductNotFoundException("Product not in favourites"));
         customer.removeFavourite(product);
         customerRep.save(customer);
     }
