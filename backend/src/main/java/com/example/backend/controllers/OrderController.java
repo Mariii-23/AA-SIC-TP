@@ -89,10 +89,19 @@ public class OrderController {
         }
     }
 
+    @GetMapping("customer/cart")
+    public ShoppingCartDTO getShoppingCart(final @RequestParam int id) {
+        try {
+            return orderService.getShoppingCart(id);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @PostMapping("/customer/create")
     public void createOrder(final @RequestBody CreateOrderDTO order){
         try {
-            orderService.createOrder(order.getCustomerId(), order.getAddress(), order.isStorePickUp());
+            orderService.createOrder(order.getCustomerId() , order.getAddress(), order.isStorePickUp());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

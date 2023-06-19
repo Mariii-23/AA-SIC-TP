@@ -1,5 +1,7 @@
 package com.example.backend.services;
 
+import com.example.backend.dto.orderDTOs.ItemDTO;
+import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
 import com.example.backend.exception.ItemNotFoundException;
 import com.example.backend.exception.OrderAlreadyPayedException;
 import com.example.backend.exception.OrderNotFoundException;
@@ -13,6 +15,7 @@ import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -121,6 +124,23 @@ public class OrderService {
         return order.getiD();
     }
 
+    public ShoppingCartDTO getShoppingCart(int id) throws UserNotFoundException {
+        Customer customer = customerRep.findById(id).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Customer not found");
+        }
+        List<ItemDTO> items = new ArrayList<>();
+        customer.getCart().getItems().forEach(item -> {
+            items.add(new ItemDTO(item.getProduct().getName(),
+                    item.getProduct().getPrice(),
+                    item.getQuantity(),
+                    item.getMaterial().getID(),
+                    item.getProduct().getImages().get(0).getiD()));
+        });
+        return new ShoppingCartDTO(items, customer.getCart().getTotalPrice());
+    }
+
+    @Transactional
     public void addProductToShoppingCart(int customerId, int productId, int materialId, int quantity) throws Exception {
         Customer c = customerRep.findById(customerId).orElse(null);
         if (c == null) {

@@ -15,7 +15,8 @@ public class OrderDetailedDTO extends OrderSimpleDTO {
             items.add(new ItemDTO(orderItem.getProduct().getName(),
                                   orderItem.getPrice(),
                                   orderItem.getQuantity(),
-                                  orderItem.getMaterial().getImage()));
+                                  orderItem.getMaterial().getID(),
+                                  orderItem.getProduct().getImages().get(0).getiD()));
         });
     }
 

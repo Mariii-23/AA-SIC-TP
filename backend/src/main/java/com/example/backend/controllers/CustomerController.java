@@ -35,15 +35,6 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/cart")
-    public ShoppingCartDTO getShoppingCart(final @RequestParam int id) {
-        try {
-            return userService.getShoppingCart(id);
-        } catch (UserNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
     @GetMapping("")
     public CustomerDTO getCustomerbyId(final @RequestParam int id) {
         try {

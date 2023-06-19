@@ -123,21 +123,6 @@ public class UserService {
         return new EnvelopeDTO<>(isLast, list);
     }
 
-    public ShoppingCartDTO getShoppingCart(int id) throws UserNotFoundException {
-        Customer customer = customerRep.findById(id).orElse(null);
-        if (customer == null) {
-            throw new UserNotFoundException("Customer not found");
-        }
-        List<ItemDTO> itens = new ArrayList<>();
-        customer.getCart().getItems().forEach(item -> {
-            itens.add(new ItemDTO(item.getProduct().getName(),
-                                  item.getProduct().getPrice(),
-                                  item.getQuantity(),
-                                  item.getMaterial().getImage()));
-        });
-        return new ShoppingCartDTO(itens, customer.getCart().getTotalPrice());
-    }
-
     public void addFavourite(int customerId, int productId) throws UserNotFoundException, ProductNotFoundException {
         Customer customer = customerRep.findById(customerId).orElse(null);
         if (customer == null) {

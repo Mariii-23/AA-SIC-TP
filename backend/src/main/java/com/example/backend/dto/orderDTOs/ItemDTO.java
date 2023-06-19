@@ -5,16 +5,18 @@ public class ItemDTO {
     private double price;
 
     private int quantity;
-    private byte[] materialImage;
+    private int materialId;
+    private int productImageId;
 
     public ItemDTO() {
     }
 
-    public ItemDTO(String name, double price, int quantity, byte[] materialImage) {
+    public ItemDTO(String name, double price, int quantity, int materialId, int productImageId) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.materialImage = materialImage;
+        this.materialId = materialId;
+        this.productImageId = productImageId;
     }
 
     public ItemDTO(String name, double price, int quantity) {
@@ -47,11 +49,19 @@ public class ItemDTO {
         this.quantity = quantity;
     }
 
-    public byte[] getMaterialImage() {
-        return materialImage;
+    public int getMaterialId() {
+        return materialId;
     }
 
-    public void setMaterialImage(byte[] materialImage) {
-        this.materialImage = materialImage;
+    public void setMaterialId(int materialId) {
+        this.materialId = materialId;
+    }
+
+    public int getProductImageId() {
+        return productImageId;
+    }
+
+    public void setProductImage(int productImageId) {
+        this.productImageId = productImageId;
     }
 }
