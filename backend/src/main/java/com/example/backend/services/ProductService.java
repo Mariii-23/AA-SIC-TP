@@ -299,11 +299,11 @@ public class ProductService {
         return (int) categoryRep.count();
     }
 
-    public byte[] getProductImage(int productId, int itemId) throws Exception {
+    public byte[] getProductImage(int itemId) throws Exception {
         Image image = imageRep.findById(itemId).orElseThrow(() -> new Exception("Image not found"));
-        if (image.getProduct().getiD() == productId) return image.getImage();
-        else throw new Exception("Image not found");
-
+        //if (image.getProduct().getiD() == productId) return image.getImage();
+        //else throw new Exception("Image not found");
+        return image.getImage();
     }
 
     public byte[] getCategoryImage(int categoryId) throws Exception {

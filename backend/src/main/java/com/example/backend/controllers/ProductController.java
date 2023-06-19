@@ -216,11 +216,11 @@ public class ProductController {
     }
 
     @GetMapping(value = "/all/productImage", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<org.springframework.core.io.Resource> productImage(final @RequestParam int productId, final @RequestParam int imageId) {
+    public ResponseEntity<org.springframework.core.io.Resource> productImage(final @RequestParam int imageId) {
         try {
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_JPEG)
-                    .body(new ByteArrayResource(productService.getProductImage(productId, imageId)));
+                    .body(new ByteArrayResource(productService.getProductImage(imageId)));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
