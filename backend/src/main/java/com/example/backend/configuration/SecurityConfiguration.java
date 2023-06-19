@@ -25,7 +25,7 @@ import java.util.Collections;
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider autenticationProvider;
+    private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(autenticationProvider)
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 

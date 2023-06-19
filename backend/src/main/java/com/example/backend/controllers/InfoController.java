@@ -41,13 +41,17 @@ public class InfoController {
 
 
     @PostMapping("/companyInfo")
-    public void addCompany(final @RequestBody CreateCompanyDTO company) {
-        infoService.addCompanyDTO(company);
+    public CompanyDTO addCompany(final @RequestBody CreateCompanyDTO company) {
+        return infoService.addCompanyDTO(company);
     }
 
     @GetMapping("/socialNetworks")
-    public SocialNetwork getSocialNetworkById(final @RequestParam int id) {
-        return infoService.getSocialNetworkById(id);
+    public SocialNetworkDTO getSocialNetworkById(final @RequestParam int id) {
+        try {
+            return infoService.getSocialNetworkById(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/all/socialNetworks")
@@ -56,8 +60,8 @@ public class InfoController {
     }
 
     @PostMapping("/socialNetworks")
-    public void addSocialNetwork(final @RequestBody SocialNetworkDTO socialNetwork) {
-        infoService.addSocialNetworkDTO(socialNetwork);
+    public SocialNetworkDTO addSocialNetwork(final @RequestBody SocialNetworkDTO socialNetwork) {
+        return infoService.addSocialNetworkDTO(socialNetwork);
     }
 
     @PostMapping("/socialNetworks/edit")

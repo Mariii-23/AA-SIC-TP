@@ -430,7 +430,7 @@ public class DBService{
                 "CLOSED\n" +
                 "Sunday\n" +
                 "CLOSED\n";
-        Company company = new Company("Móveis Rodrigues","geral@rodrigues-moveis.pt","252 993 990",
+        Company company = new Company("Móveis Rodrigues","geral@rodrigues-moveis.pt","252993990",
                 "Rua do Carvalhal, nº 18, Vila Nova de Famalicão, Portugal",
                 logo,
                 "4770-847",

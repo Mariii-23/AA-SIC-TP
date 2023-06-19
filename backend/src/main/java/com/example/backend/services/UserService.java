@@ -35,9 +35,6 @@ public class UserService {
     private ProductRep productRep;
 
     @Autowired
-    private OrderRep orderRep;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -175,7 +172,7 @@ public class UserService {
     }
 
     public void editCustomer(int customer_id, CreateCustomerDTO costumerDTO) throws Exception {
-        Customer customer = customerRep.getReferenceById(customer_id);
+        Customer customer = customerRep.findById(customer_id).orElse(null);
         if (customer == null) {
             throw new UserNotFoundException("Customer not found");
         }

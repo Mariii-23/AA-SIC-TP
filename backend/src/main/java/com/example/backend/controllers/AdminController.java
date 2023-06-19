@@ -20,7 +20,7 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping("/customer")
-    public CustomerDTO getCustomerbyId(final @RequestParam int id) {
+    public CustomerDTO getCustomerById(final @RequestParam int id) {
         try {
             return userService.getCustomerById(id);
         } catch (Exception e) {
@@ -50,7 +50,6 @@ public class AdminController {
 
     @GetMapping("/all")
     public EnvelopeDTO<AdminDTO> getAllAdmins(final @RequestParam int offset, final@RequestParam int numItems) {
-        //final @RequestBody PaginationDTO paginationDTO
         return userService.getAllAdmins(offset, numItems);
     }
 

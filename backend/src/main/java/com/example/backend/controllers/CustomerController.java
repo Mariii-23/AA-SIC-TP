@@ -53,9 +53,9 @@ public class CustomerController {
         }
     }
     @PostMapping("/edit")
-    public void editCustomer(final @RequestParam int customer_id, final @RequestBody CreateCustomerDTO costumerDTO) {
+    public void editCustomer(final @RequestParam int customer_id, final @RequestBody CreateCustomerDTO customerDTO) {
         try {
-            userService.editCustomer(customer_id, costumerDTO);
+            userService.editCustomer(customer_id, customerDTO);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

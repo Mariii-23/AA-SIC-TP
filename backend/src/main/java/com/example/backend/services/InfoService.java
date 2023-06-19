@@ -22,8 +22,8 @@ public class InfoService {
     @Autowired
     private SocialNetworkRep socialNetworkRep;
 
-    public Company addCompany(Company company) {
-        return companyRep.save(company);
+    public CompanyDTO addCompany(Company company) {
+        return new CompanyDTO(companyRep.save(company));
     }
 
     public CompanyDTO getCompany() {
@@ -31,7 +31,7 @@ public class InfoService {
         return new CompanyDTO(companies.get(0));
     }
 
-    public void addCompanyDTO(CreateCompanyDTO companyDTO){
+    public CompanyDTO addCompanyDTO(CreateCompanyDTO companyDTO){
         if (Company.getInstance() == null) {
             Company company = new Company(companyDTO.getName(),
                     companyDTO.getEmail(),
@@ -40,20 +40,21 @@ public class InfoService {
                     companyDTO.getLogoImage(),
                     companyDTO.getPostCode(),
                     companyDTO.getSchedule());
-            addCompany(company);
+            return addCompany(company);
         }
+        return null;
     }
 
-    public SocialNetwork addSocialNetwork(SocialNetwork socialNetwork) {
-        return socialNetworkRep.save(socialNetwork);
+    public SocialNetworkDTO addSocialNetwork(SocialNetwork socialNetwork) {
+        return new SocialNetworkDTO(socialNetworkRep.save(socialNetwork));
     }
 
-    public void addSocialNetworkDTO(SocialNetworkDTO socialNetworkDTO){
+    public SocialNetworkDTO addSocialNetworkDTO(SocialNetworkDTO socialNetworkDTO){
         Company company = companyRep.findAll().get(0);
         SocialNetwork socialNetwork = new SocialNetwork(socialNetworkDTO.getName(),
                                                         socialNetworkDTO.getLink(),
                                                         company);
-        addSocialNetwork(socialNetwork);
+        return addSocialNetwork(socialNetwork);
     }
 
     public List<SocialNetworkDTO> getAllSocialNetworks() {
@@ -65,8 +66,10 @@ public class InfoService {
         return result;
     }
 
-    public SocialNetwork getSocialNetworkById(int id) {
-        return socialNetworkRep.findById(id).orElse(null);
+    public SocialNetworkDTO getSocialNetworkById(int id) throws Exception {
+        SocialNetwork socialNetwork = socialNetworkRep.findById(id).orElse(null);
+        if (socialNetwork == null) throw new Exception("Social network not found");
+        return new SocialNetworkDTO(socialNetwork);
     }
 
     public void editCompanyInfo(CreateCompanyDTO companyDTO) {
