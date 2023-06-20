@@ -13,7 +13,7 @@
 <script lang="ts">
 import ProductUser from "./User/ProductUser.vue";
 import ProductAdmin from "./Admin/ProductAdmin.vue";
-import { ProductImages, ProductInformation, Materials } from "@/appTypes/Product";
+import { ProductImages, ProductInformation, Material } from "@/appTypes/Product";
 
 export default {
   name: "Product",
@@ -26,7 +26,7 @@ export default {
     quantity: 1,
     images: Object as () => ProductImages,
     info: Object as () => ProductInformation,
-    materials: Array as () => Materials[],
+    materials: Array as () => Material[],
   }),
   mounted: function () {
     this.images = [

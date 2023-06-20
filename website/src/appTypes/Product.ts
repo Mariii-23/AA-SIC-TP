@@ -65,6 +65,10 @@ export interface Product {
   materials: number[];
 }
 
+export interface ProductAddCard  extends ProductSimple {
+  materialId: string
+}
+
 export interface ProductSimple {
   id: string
   name: string;

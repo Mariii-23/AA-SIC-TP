@@ -30,7 +30,7 @@ import ProductInfo from "@/components/molecules/ProductInfoAdmin.vue";
 import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
-import { ProductInformation, ProductImages, Materials } from "@/appTypes/Product";
+import { ProductInformation, ProductImages, Material } from "@/appTypes/Product";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 
 export default {
@@ -95,7 +95,7 @@ export default {
         productInfo: Object as () => ProductInformation,
         productImages: Object as () => ProductImages,
         materials: {
-            type: Array as () => Materials[],
+            type: Array as () => Material[],
             require: true,
         },
 

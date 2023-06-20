@@ -11,7 +11,7 @@ export interface OrderItem {
     name: string,
     price: number,
     quantity: number,
-    img: string,
+    href: string,
     materialHref: string
     materialId: string
 }

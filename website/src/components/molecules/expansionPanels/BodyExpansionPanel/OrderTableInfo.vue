@@ -7,7 +7,7 @@
         </tr>
         <tr v-if="total">
           <td class="font-weight-bold">{{ $t("total") }}:</td>
-          <td>{{ total }}€</td>
+          <td>{{ total.toFixed(2) }}€</td>
         </tr>
       </tbody>
     </v-table>

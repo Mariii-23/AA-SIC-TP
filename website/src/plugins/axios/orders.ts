@@ -54,7 +54,7 @@ const getOrderById = async (orderId: string) => {
           name: item.name,
           price: item.price,
           quantity: item.quantity,
-          img: `${productImage}?imageId=${item.productImageId}`,
+          href: `${productImage}?imageId=${item.productImageId}`,
           materialHref: `http://localhost:8080/product/all/materialImage?materialId=${item.materialId}`,
           materialId: item.materialId,
         });

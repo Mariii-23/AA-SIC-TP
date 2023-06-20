@@ -7,7 +7,11 @@
       <div class="name-remove">
         <v-card-title class="mt-2">{{ orderItem?.name }}</v-card-title>
 
-        <v-btn icon class="elevation-0 bg-secondary" v-on:click="removeProductHandler">
+        <v-btn
+          icon
+          class="elevation-0 bg-secondary"
+          v-on:click="removeProductHandler"
+        >
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </div>
@@ -34,7 +38,7 @@ import CardLayout from "@/layouts/CardLayout.vue";
 import Avatar from "@/components/atoms/AvatarVue.vue";
 import QuantityButton from "@/components/atoms/Button/QuantityButton.vue";
 export default {
-  name: 'CartItemCard',
+  name: "CartItemCard",
   props: {
     orderItem: {
       type: Object as () => OrderItem,

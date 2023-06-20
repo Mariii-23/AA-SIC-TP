@@ -1,23 +1,23 @@
 <template>
-    <SimpleBodyLayout>
-        <ShoppingCartLayout>
-            <template v-slot:first>
-              <CartItemCards 
-                :order-items="cart.items" 
-                :incrementHandler="incrementHandler" 
-                :decrementHandler="decrementHandler"
-                :removeProductHandler="removeProductHandler"    
-            />
-            </template>
-            <template v-slot:second>
-                <CartTotalCard 
-                    :cart="cart"
-                    :makeOrder="makeOrder"
-                    :cancelOrder="cancelOrder"
-                />
-            </template>
-        </ShoppingCartLayout>
-    </SimpleBodyLayout>
+  <SimpleBodyLayout>
+    <ShoppingCartLayout>
+      <template v-slot:first>
+        <CartItemCards
+          v-bind:order-items="cart.items"
+          :incrementHandler="incrementHandler"
+          :decrementHandler="decrementHandler"
+          :removeProductHandler="removeProductHandler"
+        />
+      </template>
+      <template v-slot:second>
+        <CartTotalCard
+          v-bind:cart="cart"
+          :makeOrder="makeOrder"
+          :cancelOrder="cancelOrder"
+        />
+      </template>
+    </ShoppingCartLayout>
+  </SimpleBodyLayout>
 </template>
 
 <script lang="ts">
@@ -33,49 +33,63 @@ const shoppingCartStore = useShoppingCartStore();
 const userStore = useUserStore();
 
 export default {
-    name: "ShoppingCart",
-    data: () => ({
-        cart: {} as Cart,
-    }),
-    mounted: async function () {
-        if (userStore.isLoggedIn === false) {
-            //TODO
+  name: "ShoppingCart",
+  data: () => ({
+    cart: {} as Cart,
+  }),
+  mounted: async function () {
+    if (userStore.isLoggedIn) {
+      await shoppingCartStore.getShoppingCart(userStore.id);
+      this.cart = shoppingCartStore.cart;
+    }
+    this.cart = shoppingCartStore.cart;
+
+    this.$watch(
+      () => shoppingCartStore.cart,
+      (newValues) => {
+        this.cart = newValues;
+      }
+    );
+  },
+  methods: {
+    updateTotal() {
+      this.cart.total = 0;
+
+      if (this.cart.items) {
+        for (const item of this.cart.items) {
+          this.cart.total += item.quantity * item.price;
         }
-        await shoppingCartStore.getShoppingCart(userStore.id);
-        this.cart = shoppingCartStore.cart;
+      }
     },
-    methods: {
-        incrementHandler (index: number) {
-            this.cart &&
-            this.cart.items &&
-            this.cart.items[index] &&
-            this.cart.items[index].quantity++;
-        },
-        decrementHandler (index: number) {
-            this.cart &&
-            this.cart.items &&
-            this.cart.items[index];
-            if (this.cart.items[index].quantity > 1) {
-                this.cart.items[index].quantity--;
-            }
-        },
-        removeProductHandler (index: number) {
-            this.cart &&
-            this.cart.items &&
-            this.cart.items[index];
-        },
-        makeOrder () {
-            console.log("make order");
-        },
-        cancelOrder () {
-            this.$router.back()
-        }
+    incrementHandler(index: number) {
+      const quantity = this.cart.items[index].quantity;
+      shoppingCartStore.updateProduct(index, quantity + 1);
+      this.updateTotal();
     },
-    components: {
-        ShoppingCartLayout,
-        SimpleBodyLayout,
-        CartItemCards,
-        CartTotalCard
+    decrementHandler(index: number) {
+      const quantity = this.cart.items[index].quantity;
+      if (quantity > 1) {
+        shoppingCartStore.updateProduct(index, quantity - 1);
+      } else if (quantity == 1) this.removeProductHandler(index);
+      this.updateTotal();
     },
-}
+    removeProductHandler(index: number) {
+      shoppingCartStore.removeProduct(index);
+      this.updateTotal();
+    },
+    makeOrder() {
+      this.updateTotal();
+      console.log("make order");
+    },
+    cancelOrder() {
+      this.$router.back();
+    },
+  },
+  components: {
+    ShoppingCartLayout,
+    SimpleBodyLayout,
+    CartItemCards,
+    CartTotalCard,
+  },
+};
 </script>

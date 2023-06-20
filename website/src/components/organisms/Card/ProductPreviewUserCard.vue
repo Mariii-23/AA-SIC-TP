@@ -1,14 +1,7 @@
 <template>
   <CardLayout>
     <v-card-item>
-      <div class="imgContainer">
-        <v-img
-          :src="product.href"
-          :lazy-src="product.href"
-          class="image"
-          cover
-        />
-      </div>
+      <ImageCard :href="product.href" />
       <v-card-title>{{ product.name }}</v-card-title>
       <v-card-subtitle>{{ product.price }}€</v-card-subtitle>
     </v-card-item>

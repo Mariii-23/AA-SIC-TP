@@ -166,7 +166,7 @@ export interface GetAllAdminsResponse {
   }[];
 }
 
-export interface ShoppingCart {
+export interface ShoppingCartResponse {
   total: number;
   items: {
     itemId: string;

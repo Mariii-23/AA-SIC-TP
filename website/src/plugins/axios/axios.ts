@@ -67,5 +67,5 @@ export default {
   customer,
   orders,
   product,
-  order: shoppingCard,
+  shoppingCard,
 };

@@ -27,7 +27,7 @@
 <script lang="ts">
 import HeadingText from "../atoms/Typography/HeadingText.vue";
 import FullWidthButton from "../atoms/Button/FullWidthButton.vue";
-import { ProductDescriptionUser, Materials } from "@/appTypes/Product";
+import { ProductDescriptionUser, Material as Materials } from "@/appTypes/Product";
 import Material from "../molecules/MaterialsAdmin.vue";
 
 export default {
