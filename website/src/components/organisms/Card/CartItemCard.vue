@@ -8,13 +8,13 @@
             <v-card-item>{{ orderItem?.price }}€</v-card-item>
             <div class="material-quantity">
                 <v-card-item>
-                    <Avatar :href="orderItem?.material" :size="20" />
+                    <Avatar :href="orderItem?.materialHref" :size="20" />
                 </v-card-item>
                 <!--FIXME. alterar para começar na quantidade-->
                 <QuantityButton class="mr-5" 
                     :quantity="quantity"
-                    :incrementHandler="() => incrementHandler && incrementHandler(orderItem?.id, orderItem?.quantity)"
-                    :decrementHandler="() => decrementHandler  && decrementHandler(orderItem?.id, orderItem?.quantity)"
+                    :incrementHandler="incrementHandler"
+                    :decrementHandler="decrementHandler"
                 />
             </div>
         </div>

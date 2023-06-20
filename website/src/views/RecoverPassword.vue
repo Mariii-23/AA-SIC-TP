@@ -6,7 +6,7 @@
           <v-toolbar-title>{{ $t("recover-pw") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <v-form fastfail class="custom-flex" ref="form" @submit.prevent="sendCode()">
+          <v-form fastfail class="custom-flex" ref="form" @submit.prevent="sendCode(email)">
             <p>{{ $t("enter-email") }}</p>
             <div>
               <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email" single-line
@@ -22,7 +22,31 @@
 
             <div>
               <v-text-field v-model="code" name="code" :label="$t('code')" type="text" :placeholder="$t('code')"
-                single-line class="input-form rounded-lg" required bg-color="primary" :rules="codeRules" />
+                single-line class="input-form rounded-lg" required bg-color="primary"/>
+                <v-text-field
+                    v-model="password"
+                    name="password"
+                    :label="$t('new-pw')"
+                    type="password"
+                    :placeholder="$t('new-pw')"
+                    required
+                    bg-color="primary"
+                    single-line
+                    :rules="passwordRules"
+                    class="input-form"
+                  />
+                  <v-text-field
+                    v-model="conf_password"
+                    name="password"
+                    :label="$t('confirm-pw')"
+                    type="password"
+                    :placeholder="$t('confirm-pw')"
+                    required
+                    bg-color="primary"
+                    single-line
+                    :rules="confirmPasswordRules"
+                    class="input-form"
+                  />
               <FullWidthButton :handleClick="recoverPassword">
                 {{ $t("recover-pw") }}
               </FullWidthButton>
@@ -30,7 +54,7 @@
 
             <div class="signup-phrase">
               <p>{{ $t("didnt-receive") }}</p>
-              <p class="link" @click="sendCode()">{{ $t("resend") }}</p>
+              <p class="link" @click="sendCode(email)">{{ $t("resend") }}</p>
             </div>
 
           </v-form>
@@ -101,6 +125,9 @@
  
 <script lang="ts">
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
+import { useUserStore } from "@/store/userStore";
+
+const userStore = useUserStore();
 
 export default {
   name: "RecoverPassword",
@@ -115,22 +142,34 @@ export default {
         },
       ],
       code: "",
-      codeRules: [
-        //  value => {
-        //    if (verificar) return true
-        //
-        //    return this.$t('invalid-code')
-        //  },
-      ]
+      password: "",
+        passwordRules: [
+          value => {
+            if (value?.length >= 8) return true
+  
+            return this.$t("password-length")
+          },
+        ],
+        conf_password: "",
+        confirmPasswordRules: [
+          value => {
+            if (value === this.password) return true
+  
+            return this.$t("password-match")
+          },
+        ],
     }
   },
   components: { FullWidthButton },
   methods: {
-    sendCode() {
-      console.log("sendCode");
+    async sendCode(email : string) {
+      await userStore.recoverPassword(email);
     },
-    recoverPassword() {
-      console.log("recoverPassword");
+    async recoverPassword() {
+      const result = await userStore.confirmRecoverPassword(this.code, this.password)
+      if (result == true){
+        this.$router.push("/login");
+      }
     },
   },
 };

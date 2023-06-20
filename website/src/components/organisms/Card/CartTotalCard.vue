@@ -1,5 +1,5 @@
 <template>
-    <CardLayout width="45%" class="card bg-secondary">
+    <CardLayout width="45%" height="fit-content" class="card bg-secondary">
         <v-card-title>
             {{ $t("total") }}
         </v-card-title>

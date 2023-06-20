@@ -1,26 +1,32 @@
 export interface Order {
-    id: number,
-    date: string,
+    id: string,
+    date: Date,
     total: number,
-    state: string,
+    state: OrderState,
     orderItems: OrderItem[]
 }
 
 export interface OrderItem {
-    id: number,
     name: string,
     price: number,
     quantity: number,
     img: string,
-    material: string
+    materialHref: string
+    materialId: string
 }
 
 export interface OrderAdmin extends Order {
-    user: number,
+    user: string,
     email: string
 }
 
 export interface Cart {
     total: number,
     items: OrderItem[]
+}
+
+export enum OrderState {
+    PENDING,
+    READY,
+    DONE
 }

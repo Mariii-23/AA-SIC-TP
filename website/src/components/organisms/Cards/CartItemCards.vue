@@ -3,12 +3,12 @@
       <HeadingText class="mb-6">{{ $t("cart") }}</HeadingText>
   
     <CartItemCard class="card"
-      v-for="orderItem in orderItems" 
+      v-for="(orderItem, index) in orderItems" 
       :key="orderItem.name" 
       :orderItem="orderItem" 
       :quantity="orderItem.quantity"
-      :incrementHandler="incrementHandler"
-      :decrementHandler="decrementHandler"
+      :incrementHandler="() => incrementHandler && incrementHandler(index)"
+      :decrementHandler="() => decrementHandler && decrementHandler(index)"
       />
   </div>
 </template>

@@ -1,11 +1,8 @@
 <template>
   <SimpleBodyLayout>
-    <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
-      :closeModal="closeModal" :isModalOpen="isModalOpen" />
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('hello') + ', ' + userName + '!'" :items="items" :button-text="$t('logout')"
-          :button-handler="openModal" />
+        <TitleCardLinks :title="$t('hello') + ', ' + user.name + '!'" :items="items" />
       </template>
       <template v-slot:second>
         <HeadingText> {{ $t("my-orders") }} </HeadingText>
@@ -18,12 +15,11 @@
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import OrderExpansionPanels from "@/components/molecules/expansionPanels/OrderExpansionPanel.vue";
 import { Order } from "@/appTypes/Order";
+import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
 
 export default {
   name: "Orders",
@@ -60,17 +56,8 @@ export default {
   },
   //TODO: ir buscar os direitos
   methods: {
-    logoutHandler() {
-      console.log("logout");
-    },
     editProfile() {
       this.$router.push("/user/profile/edit");
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
-    openModal() {
-      this.isModalOpen = true;
     },
     viewDetailsHandler(productId: number) {
       this.$router.push("/user/orders/" + productId);
@@ -78,9 +65,8 @@ export default {
   },
   components: {
     TwoColumnsPanel,
-    TitleCardLinksButton,
+    TitleCardLinks,
     SimpleBodyLayout,
-    ConfirmationModal,
     HeadingText,
     OrderExpansionPanels,
   },

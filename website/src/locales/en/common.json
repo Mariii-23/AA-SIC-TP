@@ -26,7 +26,7 @@
     "password": "Password",
     "forgot-pw": "Forgot your password?",
     "enter-email": "Enter your email and you'll receive a code in order to recover your password:",
-    "enter-code": "Enter the code here once you receive it. The code is valid for 2 minutes.",
+    "enter-code": "Enter the code here once you receive it and enter your new password. The code is valid for 2 minutes.",
     "didnt-receive": "Didn't receive the code?",
     "resend": "Resend",
     "code": "Code",
@@ -171,5 +171,9 @@
     "invalid-postal-code": "Invalid postal code",
     "invalid-phone-no": "Invalid phone number",
     "invalid-price": "Invalid price",
-    "invalid-content": "Invalid content"
+    "invalid-content": "Invalid content",
+
+
+    "redefine-pw": "Redefine password",
+    "new-pw": "New password"
 }

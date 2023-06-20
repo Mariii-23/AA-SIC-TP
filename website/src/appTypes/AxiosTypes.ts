@@ -111,6 +111,16 @@ export interface GetAllCustomersResponse {
   }[];
 }
 
+export interface GetCustomerResponse {
+    iD: string;
+    email: string;
+    name: string;
+    birthday: Date;
+    nif: string;
+    address: string;
+}
+
+
 export interface GetAllAdminsResponse {
   last: boolean;
   data: {
@@ -126,5 +136,17 @@ export interface GetAllAdminsResponse {
     iD: string;
     email: string;
     name: string;
+  }[];
+}
+
+export interface ShoppingCart {
+  total: number;
+  items: {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    img: string;
+    material: string;
   }[];
 }

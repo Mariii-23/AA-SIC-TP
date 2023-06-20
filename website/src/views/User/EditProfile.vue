@@ -1,15 +1,12 @@
 <template>
     <SimpleBodyLayout>
-        <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
-            :closeModal="closeModal" :isModalOpen="isModalOpen" />
         <TwoColumnsPanel>
             <template v-slot:first>
-                <TitleCardLinksButton :title="$t('hello') + ', ' + user.name + '!'" :items="items"
-                    :button-text="$t('logout')" :button-handler="openModal" />
+                <TitleCardLinks :title="$t('hello') + ', ' + user.name + '!'" :items="items" />
             </template>
             <template v-slot:second>
                 <TitleWithButtonGoBack :title="$t('edit-profile')" :button-text="$t('save-changes')"
-                    :button-handler="editProfile" />
+                    :button-handler="saveChanges" />
                 <form ref="form">
                     <v-row>
                         <v-col cols="4">
@@ -90,21 +87,24 @@
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { UserInfoProps } from "@/appTypes/User";
 import { useRoute } from "vue-router";
 import TitleWithButtonGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
-import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
+import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
+import { useCustomerStore } from "@/store/customerStore";
+import { useUserStore } from "@/store/userStore";
+
+const customerStore = useCustomerStore();
+const userStore = useUserStore();
+
 export default {
     name: "EditUserProfile",
-    //TODO: ir buscar os direitos
     data() {
         return {
             items: [] as LinkProps[],
             user: Object as () => UserInfoProps,
-            isModalOpen: false,
             nameRules: [
                 value => {
                     if (value?.length >= 3 && /[^0-9]/.test(value)) return true
@@ -148,10 +148,10 @@ export default {
         const route = useRoute();
         //TODO: ir buscar o admin consoante o id dado
         this.user = {
-            name: "Maria",
-            email: "maria@hotmail.com",
-            address: "Rua da Marina, Edificiona Nao sei , ablalkb",
-            nif: "999888999",
+            name: userStore.name,
+            email: userStore.email,
+            address: customerStore.address,
+            nif: customerStore.nif,
             id: route.params.id,
         } as UserInfoProps;
 
@@ -162,31 +162,17 @@ export default {
     },
     //TODO: ir buscar os direitos
     methods: {
-        logoutHandler() {
-            console.log("logout");
-        },
-        editProfile() {
-            console.log("edit profile");
-        },
         saveChanges() {
             console.log("save changes");
-        },
-
-        closeModal() {
-            this.isModalOpen = false;
-        },
-        openModal() {
-            this.isModalOpen = true;
         },
 
     },
     components: {
         TwoColumnsPanel,
-        TitleCardLinksButton,
         SimpleBodyLayout,
         TitleWithButtonGoBack,
-        ConfirmationModal,
         FullWidthButton,
+        TitleCardLinks
     },
 };
 </script>

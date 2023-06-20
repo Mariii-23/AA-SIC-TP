@@ -26,7 +26,7 @@
     "password": "Palavra-passe",
     "forgot-pw": "Esqueceu a palavra-passe?",
     "enter-email": "Introduza o seu email e irá receber um código para recupearar a palavra-passe:",
-    "enter-code": "Introduza o código assim que o receber. O código é valido durante 2 minutos.",
+    "enter-code": "Introduza o código assim que o receber e introduza a sua nova palavra-passe. O código é valido durante 2 minutos.",
     "didnt-receive": "Não recebeu o código?",
     "resend": "Voltar a enviar",
     "code": "Código",
@@ -172,5 +172,9 @@
     "invalid-postal-code": "Código postal inválido",
     "invalid-phone-no": "Número de telemóvel inválido",
     "invalid-price": "Preço inválido",
-    "invalid-content": "Conteúdo inválido"
+    "invalid-content": "Conteúdo inválido",
+
+
+    "redefine-pw": "Redefinir palavra-passe",
+    "new-pw": "Nova palavra-passe"
 }

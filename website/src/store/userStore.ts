@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
 import { useNotificationStore } from "./notificationStore";
+import { useCustomerStore } from "./customerStore";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -36,6 +37,10 @@ export const useUserStore = defineStore("user", {
         this.name = r.data.name;
         this.id = r.data.iD;
         this.role = r.data.role;
+        if (this.role == "CUSTOMER") {
+          const customerStore = useCustomerStore();
+          customerStore.getUserById(this.id);
+        }
       } else if (r.success == 401) {
         await axios.authentication.logout();
         const notificationStore = useNotificationStore();
@@ -70,6 +75,17 @@ export const useUserStore = defineStore("user", {
     async update(name: string, email: string) {
       this.email = email;
       this.name = name;
+    },
+    async recoverPassword(email: string) {
+      const r = await axios.customer.recoverPassword(email);
+      if (r.success == 200) {
+        this.id = r.data;
+      }
+      return r.success;
+    },
+    async confirmRecoverPassword(code: string, new_password: string) {
+      const r = await axios.customer.confirmRecoverPassword(code, new_password, this.id);
+      return r.success;
     },
   },
 });

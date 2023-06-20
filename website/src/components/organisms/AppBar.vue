@@ -42,9 +42,11 @@
       </BodyText>
     </div>
 
-    <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'">
+
+    <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'" @click="goTo('/user/cart')">
       <v-icon>mdi-shopping-outline</v-icon>
     </v-btn>
+
 
     <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'">
       <v-icon>mdi-heart-outline</v-icon>

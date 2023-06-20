@@ -5,7 +5,9 @@ import admins from "./admins";
 import categories from "./categories";
 import company from "./company";
 import materials from "./materials";
+import customer from "./customer";
 import product from "./products";
+import order from "./order";
 import customer from "./customer";
 
 interface AxiosOptions {
@@ -62,6 +64,7 @@ export default {
   admins,
   company,
   materials,
-  product,
   customer,
+  product,
+  order,
 };

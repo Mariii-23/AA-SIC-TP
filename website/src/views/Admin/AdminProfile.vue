@@ -34,7 +34,6 @@ import { useUserStore } from "@/store/userStore";
   
   export default {
     name: "AdminProfile",
-    //TODO: ir buscar os direitos
     data: () => ({
       items: [] as LinkProps[],
       admin: Object as () => UserInfoProps,

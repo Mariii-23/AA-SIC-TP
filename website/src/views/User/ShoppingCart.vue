@@ -24,79 +24,40 @@ import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Cart } from "@/appTypes/Order";
 import CartItemCards from "@/components/organisms/Cards/CartItemCards.vue";
 import CartTotalCard from "@/components/organisms/Card/CartTotalCard.vue";
+import { useShoppingCartStore } from "@/store/shoppingCartStore";
+import { useUserStore } from "@/store/userStore";
+
+const shoppingCartStore = useShoppingCartStore();
+const userStore = useUserStore();
 
 export default {
     name: "ShoppingCart",
     data: () => ({
-        cart: Object as () => Cart,
+        cart: {} as Cart,
     }),
     mounted: async function () {
-        this.cart = {
-            total: 500,
-            items: [
-            {
-                id: 1,
-                name: "Cadeira",
-                quantity: 2,
-                price: 100,
-                img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-            },
-            {
-                id: 2,
-                name: "Cadeira2",
-                quantity: 2,
-                price: 100,
-                img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-            },
-            {
-                id: 3,
-                name: "Cadeira3",
-                quantity: 2,
-                price: 100,
-                img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-            },
-            {
-                id: 4,
-                name: "Cadeira4",
-                quantity: 2,
-                price: 100,
-                img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-            },
-            {
-                id: 5,
-                name: "Cadeira5",
-                quantity: 2,
-                price: 100,
-                img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-            },
-        ]};
-
+        if (userStore.isLoggedIn === false) {
+            //TODO
+        }
+        await shoppingCartStore.getShoppingCart(userStore.id);
+        this.cart = shoppingCartStore.cart;
+        console.log(this.cart);
+        console.log(this.cart.items);
     },
     methods: {
-        incrementHandler (productid: number) {
+        incrementHandler (index: number) {
             this.cart &&
             this.cart.items &&
-            this.cart.items.forEach((item) => {
-                if (item.id === productid) {
-                    item.quantity++;
-                }
-            });
-            console.log("increment " + productid);
+            this.cart.items[index] &&
+            this.cart.items[index].quantity++;
         },
-        decrementHandler (productid: number) {
+        decrementHandler (index: number) {
             this.cart &&
             this.cart.items &&
-            this.cart.items.forEach((item) => {
-                if (item.id === productid) {
-                    item.quantity--;
-                }
-            });
-            console.log("decrement " + productid);
+            this.cart.items[index];
+            if (this.cart.items[index].quantity > 1) {
+                this.cart.items[index].quantity--;
+            }
         },
         makeOrder () {
             console.log("make order");

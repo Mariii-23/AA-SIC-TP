@@ -1,9 +1,10 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
+import { Response } from "@/appTypes/AxiosTypes";
 import { ProductSimple } from "@/appTypes/Product";
 import { GetProductsByCategoryResponse, Response } from "@/appTypes/AxiosTypes";
 
-const url = "customer";
+const url = "/customer";
 
 const productImage = `http://localhost:8080/${url}/all/productImage`;
 
@@ -93,8 +94,62 @@ const getProductFavorites = async (
   }
 };
 
+const getCustomerById = async (id: string) => {
+    try {
+        const req = await app.config.globalProperties.$axios.get(
+            `${url}`, {
+            params: {
+                id
+            }
+        }
+        );
+        return handleResponse(req, (data) => {
+            return data;
+        })
+    }
+    catch (error) {
+        return {
+            success: error.request.status,
+            data: error.request.statusText,
+        };
+    }
+};
+
+const recoverPassword = async (email: string) => {
+    try {
+        const req = await app.config.globalProperties.$axios.post(
+            `${url}/password/recover?email=${email}`);
+        return handleResponse(req, (data) => {
+            return data;
+        });
+    } catch (error) {
+        return {
+            success: error.request.status,
+            data: error.request.statusText,
+        };
+    }
+};
+
+const confirmRecoverPassword = async (code: string, password: string, id: string) => {
+    try {
+        const req = await app.config.globalProperties.$axios.post(
+            `${url}/password/recover/confirm/${id}`, {
+            token: code,
+            newPassword: password,
+        });
+        return handleResponse(req, (data) => {
+            return data;
+        });
+    } catch (error) {
+        return {
+            success: error.request.status,
+            data: error.request.statusText,
+        };
+    }
+};
+
 export interface CustomerAxios {
-  getProductFavorites: (
+   getProductFavorites: (
     categoryId: string,
     offset: number,
     numItems: number
@@ -107,9 +162,20 @@ export interface CustomerAxios {
     customerId: string,
     productId: string
   ) => Promise<Response<void>>;
+    getCustomerById: (
+        id: string
+    ) => Promise<Response<GetCustomerResponse>>;
+    recoverPassword: (
+        email: string
+    ) => Promise<Response<String>>;
+    confirmRecoverPassword: (
+        code: string,
+        password: string,
+        id: string
+    ) => Promise<Response<Boolean>>;
 }
 
-const customerStore: CustomerAxios = {
+const customer: CustomerAxios = {
   getProductFavorites: async (
     categoryId: string,
     offset: number,
@@ -123,6 +189,15 @@ const customerStore: CustomerAxios = {
   removeProductFavorites: async (customerId: string, productId: string) => {
     return removeProductFavorites(customerId, productId);
   },
+    getCustomerById: async (id: string) => {
+        return await getCustomerById(id);
+    },
+    recoverPassword: async (email: string) => {
+        return await recoverPassword(email);
+    },
+    confirmRecoverPassword: async (code: string, password: string, id: string) => {
+        return await confirmRecoverPassword(code, password, id);
+    }
 };
 
-export default customerStore;
+export default customer;

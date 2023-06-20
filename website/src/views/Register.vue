@@ -197,11 +197,6 @@ export default {
 
           return this.$t("password-length")
         },
-       //value => {
-       //   if verificar password return true
-//
-       //   return this.$t("incorrect-login")
-       // }
       ],
       conf_password: "",
       confirmPasswordRules: [
