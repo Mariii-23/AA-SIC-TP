@@ -148,7 +148,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void addProductToShoppingCart(int customerId, int productId, int materialId, int quantity) throws Exception {
+    public int addProductToShoppingCart(int customerId, int productId, int materialId, int quantity) throws Exception {
         Customer c = customerRep.findById(customerId).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
@@ -164,7 +164,9 @@ public class OrderService {
         Material m = (Material) result[1];
         Item item = new Item(quantity, m, p, cart);
         cart.addItem(item);
+        item = itemRep.saveAndFlush(item);
         shoppingCartRep.save(cart);
+        return item.getiD();
     }
 
     public void setProductQuantity(int itemId, int quantity) throws ItemNotFoundException {
