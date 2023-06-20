@@ -83,7 +83,11 @@ public class DBController {
 
     @PostMapping("/addOrders")
     public void addOrders() throws UserNotFoundException {
-        dbService.addOrders();
+        try {
+            dbService.addOrders();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/addItems")

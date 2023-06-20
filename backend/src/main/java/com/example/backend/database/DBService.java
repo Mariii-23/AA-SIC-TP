@@ -400,20 +400,19 @@ public class DBService{
         //
     }
 
-    public void addOrders() throws UserNotFoundException {
+    public void addOrders() throws Exception {
         List<Customer> customers = customerRep.findAll();
         Random random = new Random();
 
-        int i = 0;
-        for(Customer c : customers){
+        for(int i = 0; i < 100; i++){
             if (i % 2 == 0) {
+                Customer c = customers.get(i);
                 boolean storePickUp = random.nextBoolean();
                 String address;
                 if (storePickUp) address = null;
                 else address = c.getAddress();
                 orderService.createOrder(c.getiD(), address, storePickUp);
             }
-            i++;
         }
     }
 

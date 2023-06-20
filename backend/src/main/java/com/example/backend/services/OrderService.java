@@ -78,7 +78,14 @@ public class OrderService {
         if (order == null) {
             throw new OrderNotFoundException("Order not found");
         }
-        return new OrderDetailedDTO(order);
+        List<ItemDTO> items = order.getItems()
+                .stream().map(orderItem -> new ItemDTO(orderItem.getProduct().getName(),
+                        orderItem.getPrice(),
+                        orderItem.getQuantity(),
+                        orderItem.getMaterial().getID(),
+                        orderItem.getProduct().getImages().get(0).getiD(),
+                        orderItem.getiD())).toList();
+        return new OrderDetailedDTO(order, items);
     }
 
     public boolean setOrderState(int orderId, OrderState state) throws OrderNotFoundException {
@@ -97,7 +104,7 @@ public class OrderService {
         return false;
     }
 
-    public int createOrder(int customerId, String address, boolean storePickUp) throws UserNotFoundException {
+    public int createOrder(int customerId, String address, boolean storePickUp) throws Exception {
         Customer c = customerRep.findById(customerId).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
@@ -109,7 +116,9 @@ public class OrderService {
         }
         Order order = new Order(LocalDate.now(),address, storePickUp, OrderState.PENDING, c);
         double total = 0.0;
-        for(Item item : cart.getItems()) {
+        List<Item> items = cart.getItems();
+        if (items.isEmpty()) throw new Exception("Cart is empty");
+        for(Item item : items){
             OrderItem orderItem = new OrderItem(item, order);
             itemRep.deleteById(item.getiD());
             orderItems.add(orderItem);
