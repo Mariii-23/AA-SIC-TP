@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
-import { Product, ProductSimple } from "@/appTypes/Product";
+import { Product, ProductSimple, TechnicalInfo } from "@/appTypes/Product";
 
 export const useProductStore = defineStore("products", {
   state: () => ({
@@ -61,12 +61,42 @@ export const useProductStore = defineStore("products", {
     async removeProduct(id: string) {
       const r = await axios.product.deleteProduct(id);
       if (r.success == 200) {
-        if (typeof r.data !== "string") {
+        if (typeof r.data != "string") {
           this.products = this.products.filter((e) => e.id !== id);
         }
       }
+
+
       return r.success == 200;
     },
+
+    async addProduct(
+      name: string,
+      description: string,
+      price: number,
+      categoryId: string | null,
+      subCategoryId: string | null,
+      materialsId: string[],
+      infos: TechnicalInfo[],
+      images: string[]
+    ) {
+      const r = await axios.product.addProduct(
+        name,
+        description,
+        price,
+        categoryId,
+        subCategoryId,
+        materialsId,
+        infos,
+        images
+      );
+
+      if (r.success == 200 && typeof r.data != "string")
+        this.products.push(r.data);
+
+      return r.data;
+    },
+
     async getProductByCategoryId(categoryId: string) {
       let products = [] as ProductSimple[];
       const r = await axios.product.getProductByCategoryId(

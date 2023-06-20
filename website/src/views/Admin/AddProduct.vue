@@ -1,150 +1,198 @@
 <template>
   <div class="body">
     <v-card width="100%">
-      <v-tabs v-model="tab" bg-color="primary">
-        <v-tab value="one" :disabled="isOneDisabled">
-          <v-icon v-if="tab === 'one'">mdi-numeric-1-circle</v-icon>
-          <v-icon v-else>mdi-numeric-1-circle-outline</v-icon>
-          {{ $t("name-price") }}
-        </v-tab>
-        <v-tab value="two" :disabled="isTwoDisabled">
-          <v-icon v-if="tab === 'two'">mdi-numeric-2-circle</v-icon>
-          <v-icon v-else>mdi-numeric-2-circle-outline</v-icon>
-          {{ $t("add-images") }}
-        </v-tab>
-        <v-tab value="three" :disabled="isThreeDisabled">
-          <v-icon v-if="tab === 'three'">mdi-numeric-3-circle</v-icon>
-          <v-icon v-else>mdi-numeric-3-circle-outline</v-icon>
-          {{ $t("add-description") }}
-        </v-tab>
-      </v-tabs>
-
-      <v-card-text>
-        <v-window v-model="tab">
-          <v-window-item value="one">
-            <v-form fast-fail ref="form">
-              <v-text-field v-model="name" name="name" :label="$t('name')" type="text" :placeholder="$t('name')"
-                single-line class="input-form rounded-lg" required bg-color="primary" :rules="nameRules" />
-              <v-text-field v-model="price" name="price" :label="$t('price')" type="text" :placeholder="$t('price')"
-                required bg-color="primary" single-line :rules="priceRules" />
-              <FullWidthButton :handle-click="nextStep">
-                {{ $t("next-step") }}</FullWidthButton>
-            </v-form>
-          </v-window-item>
-
-          <v-window-item value="two">
-            <FilesInput :label="$t('images')" />
-            <FullWidthButton :handle-click="nextStep">
-              {{ $t("next-step") }}</FullWidthButton>
-          </v-window-item>
-
-          <v-window-item value="three">
-            <HeadingText :size="6"> {{ $t("product-details") }}:</HeadingText>
-            <v-form fast-fail >
-              <v-textarea bg-color="primary" v-model="description" counter :label="$t('description')" maxlength="400"
-                single-line :rules="textRules" />
-              <HeadingText :size="6"> {{ $t("tech-info") }}:</HeadingText>
-              <div v-for="(textField, i) in textFields" :key="i" class="text-fields-row">
-                <v-text-field class="mr-2" bg-color="primary" :label="textField.label1" v-model="textField.value1"
-                  :rules="textRules" />
-
-                <v-text-field bg-color="primary" :label="textField.label2" v-model="textField.value2"
-                  :rules="textRules" />
-
-                <v-icon size="30" @click="remove(i)" class="error">
-                  mdi-trash-can-outline</v-icon>
-              </div>
-              <v-icon size="30" @click="add" class="mb-5"> mdi-plus</v-icon>
-              <FullWidthButton> {{ $t("finish-add-product") }}</FullWidthButton>
-            </v-form>
-          </v-window-item>
-        </v-window>
-      </v-card-text>
+      <NextTabs :tabs="tabs" v-bind:selected-tab="tab">
+        <template v-slot:tab1>
+          <AddNamePriceForm
+            :register="updateNameAndPriceHandler"
+            :button-text="$t('next-step')"
+          />
+        </template>
+        <template v-slot:tab2>
+          <TitleWithGoBackIcon :title="$t('previos-step')" :goBack="goBack" />
+          <FilesInput
+            :label="$t('images')"
+            :register="updateImages"
+            :button-text="$t('next-step')"
+          />
+        </template>
+        <template v-slot:tab3>
+          <TitleWithGoBackIcon :title="$t('previos-step')" :goBack="goBack" />
+          <ProductDescriptionAndTechInfoForm
+            :register="updateDescriptionTechincalInfo"
+            :button-text="$t('next-step')"
+          />
+        </template>
+        <template v-slot:tab4>
+          <TitleWithGoBackIcon :title="$t('previos-step')" :goBack="goBack" />
+          <SelectBoxMaterials
+            v-bind:materials="materials"
+            :register="updateMaterials"
+            :button-text="$t('next-step')"
+          />
+        </template>
+        <template v-slot:tab5>
+          <TitleWithGoBackIcon :title="$t('previos-step')" :goBack="goBack" />
+          <SelectBoxCategoryAndSubcategory
+            v-bind:categories="categoriesInfo"
+            :register="updateCategories"
+            :button-text="$t('next-step')"
+          />
+        </template>
+      </NextTabs>
     </v-card>
   </div>
 </template>
 
 <script lang="ts">
-import { LinkProps } from "@/appTypes/Link";
-import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
-import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
+import SelectBoxCategoryAndSubcategory from "@/components/organisms/selectBox/SelectBoxCategoryAndSubcategory.vue";
 import FilesInput from "@/components/molecules/FilesInput.vue";
+import AddNamePriceForm from "@/components/organisms/Forms/AddNamePriceForm.vue";
+import { Category, Material, TechnicalInfo } from "@/appTypes/Product";
+import ProductDescriptionAndTechInfoForm from "@/components/organisms/Forms/ProductDescriptionAndTechInfoForm.vue";
+import NextTabs from "@/components/organisms/NextTabs.vue";
+import { useProductStore } from "@/store/productStore";
+import { useNotificationStore } from "@/store/notificationStore";
+import SelectBoxMaterials from "@/components/organisms/selectBox/SelectBoxMaterials.vue";
+import { useMaterialStore } from "@/store/materialsStore";
+import TitleWithGoBackIcon from "@/components/molecules/TitleWithGoBackIcon.vue";
+import { useCategoriesStore } from "@/store/categoriesStore";
+
+const productStore = useProductStore();
+const notificationStore = useNotificationStore();
+const materialsStore = useMaterialStore();
+const categoriesStore = useCategoriesStore();
 
 export default {
   name: "AddProduct",
-  //TODO: ir buscar os direitos
   data() {
     return {
-      items: [] as LinkProps[],
       name: "",
-      nameRules: [
-        value => {
-          if (value?.length >= 3 && /[^0-9]/.test(value)) return true
-
-          return this.$t("invalid-name")
-        },
-      ],
-      price: null,
-      priceRules: [
-        value => {
-          if (/[0-9]+\.[0-9][0-9]/.test(value)) return true
-
-          return this.$t("invalid-price")
-        },
-      ],
-      images: [],
+      price: 0,
+      images: [] as string[],
       description: "",
-      tab: null,
-      textFields: [],
-      textRules: [
-        value => {
-          if (value) return true
+      technicalInfo: [] as TechnicalInfo[],
+      materialsId: [] as string[],
+      categoryId: "",
+      subcategoryId: "",
 
-          return this.$t("invalid-content")
-        },
-      ],
-      isOneDisabled: false,
-      isTwoDisabled: true,
-      isThreeDisabled: true,
-    }
+      tabs: [] as {
+        label: string;
+      }[],
+      tab: 0,
+
+      materials: [] as Material[],
+      categoriesInfo: [] as Category[],
+    };
   },
-  mounted: function () {
-    this.items = [
-      { icon: "numeric-1-circle", text: "name-price" },
-      { icon: "numeric-2-circle-outline", text: "images" },
-      { icon: "numeric-3-circle-outline", text: "description" },
+  mounted: async function () {
+    this.tabs = [
+      {
+        label: this.$t("name-price"),
+      },
+      {
+        label: this.$t("images"),
+      },
+      {
+        label: this.$t("description"),
+      },
+      {
+        label: this.$t("select-materials"),
+      },
+      {
+        label: this.$t("category"),
+      },
     ];
+
+    if (materialsStore.materials.length <= 0) {
+      await materialsStore.getAllMaterials();
+    }
+
+    this.materials = materialsStore.materials;
+
+    this.$watch(
+      () => materialsStore.materials,
+      (newValues) => {
+        this.materials = newValues;
+      }
+    );
+
+    //CATEGORIES
+    if (categoriesStore.categories.length <= 0) {
+      await categoriesStore.categories;
+    }
+
+    this.categoriesInfo = categoriesStore.categories;
+
+    this.$watch(
+      () => categoriesStore.categories,
+      (newValues) => {
+        this.categoriesInfo = newValues;
+      }
+    );
   },
 
   methods: {
-    nextStep() {
-      if (this.tab == "one") {
-        this.isOneDisabled = true
-        this.isTwoDisabled = false
-        this.tab = "two"
-      } else if (this.tab == "two") {
-        this.isTwoDisabled = true
-        this.isThreeDisabled = false
-        this.tab = "three"
+    updateNameAndPriceHandler(name: string, price: number) {
+      this.name = name;
+      this.price = price;
+      this.nextStep();
+    },
+    updateImages(photos: string[]) {
+      this.images = photos;
+      this.nextStep();
+    },
+    updateDescriptionTechincalInfo(
+      description: string,
+      technicalInfo: TechnicalInfo[]
+    ) {
+      this.description = description;
+      this.technicalInfo = technicalInfo;
+      this.nextStep();
+    },
+    updateMaterials(materialsId: string[]) {
+      this.materialsId = materialsId;
+      this.nextStep();
+    },
+    updateCategories(categoryId: string, subcategoryId: string) {
+      this.categoryId = categoryId;
+      this.subcategoryId = subcategoryId;
+      this.addProduct();
+    },
+    async addProduct() {
+      const r = await productStore.addProduct(
+        this.name,
+        this.description,
+        this.price,
+        this.categoryId,
+        this.subcategoryId,
+        this.materialsId,
+        this.technicalInfo,
+        this.images
+      );
+
+      if (typeof r !== "string") {
+        notificationStore.openSuccessAlert("add-product-success");
+        this.$router.push(`/product/${r.id}`);
+      } else {
+        notificationStore.openErrorAlert("add-product-error");
       }
     },
-    add() {
-      this.textFields.push({
-        label1: this.$t("field"),
-        value1: "",
-        label2: this.$t("value"),
-        value2: "",
-      });
+    goBack() {
+      this.tab = this.tab - 1;
     },
-
-    remove(index) {
-      this.textFields.splice(index, 1);
+    nextStep() {
+      this.tab = this.tab + 1;
     },
   },
   components: {
-    FullWidthButton,
-    HeadingText,
     FilesInput,
+    AddNamePriceForm,
+    ProductDescriptionAndTechInfoForm,
+    NextTabs,
+    SelectBoxMaterials,
+    TitleWithGoBackIcon,
+    SelectBoxCategoryAndSubcategory,
   },
 };
 </script>

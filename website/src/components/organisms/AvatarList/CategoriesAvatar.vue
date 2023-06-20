@@ -3,14 +3,13 @@
     <v-slide-group
       v-model="model"
       selected-class="bg-primary"
-      multiple
       show-arrows
     >
       <v-slide-group-item
         v-for="category in categories"
         :key="category.id"
         selected-class="radius-wrapper"
-        v-slot="{ isSelected, toggle, selectedClass }"
+        v-slot="{ toggle, selectedClass }"
       >
         <div
           color="grey-lighten-1"

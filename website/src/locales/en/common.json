@@ -83,6 +83,7 @@
     "related-products": "Related products",
     "remove-product": "Remove product",
     "modal-remove-product": "Are you sure you want to remove the product",
+
     "rmv-material": "Remove material",
     "rmv-material-text": "Are you sure you want to remove the material",
     "rmv-material-success": "Material delete with success",
@@ -91,8 +92,10 @@
     "add-material-error": "Error adding material",
     "update-material-success": "Material updated with success",
     "update-material-fail": "Error updating material",
+
     "add-material": "Add material",
     "edit-material": "Edit material",
+
     "add-category": "Add category",
     "rmv-category": "Remove category",
     "rmv-category-text": "Are you sure you want to remove the category",
@@ -100,7 +103,19 @@
     "rmv-category-error": "Error deleting category",
     "add-category-success": "Category added with success",
     "add-category-error": "Error adding category",
+    "update-category-success": "Category updated with success",
+    "update-category-error": "Error updating category",
+
     "add-subcategories": "Add subcategories",
+
+    "rmv-product": "Remove product",
+    "rmv-product-text": "Are you sure you want to remove the product",
+    "add-product-success": "Add product with success",
+    "add-product-error": "Error adding product",
+    "rmv-product-success": "Removed product with success",
+    "rmv-product-error": "Error removing product, it contains orders associated with it",
+    "update-product-success": "Updated product with success",
+    "update-product-error": "Error updating product",
 
     "store": "Store",
     "categories": "Categories",
@@ -139,6 +154,9 @@
     "photoLink": "Link",
     "title": "Title",
 
+    "select-materials": "Select Materials",
+    "select-category": "Select Categories",
+    "select-subcategory": "Select SubCategories",
 
 
     "invalid-email": "Invalid email",

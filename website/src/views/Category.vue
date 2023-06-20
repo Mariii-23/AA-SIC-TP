@@ -99,6 +99,13 @@ export default {
     );
 
     this.$watch(
+      () => productStore.products,
+      async (newValue) => {
+        this.products = newValue;
+      }
+    );
+
+    this.$watch(
       () => this.$route.params.id,
       async (newValue) => {
         await categoriesStore.getCategoryById(newValue);

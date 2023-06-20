@@ -3,26 +3,32 @@
     <v-card-text class="fill-height">
       <form ref="form" @submit.prevent="addHandler">
         <div class="custom-flex">
-          <v-file-input
-            accept="image/*"
-            :label="photo"
-            @click:clear="clearInputImage"
-            @change="handleFileUpload"
-            required
-            :rules="imageRules"
-          />
           <v-text-field
             v-model="name"
             name="name"
             :label="$t('name')"
             type="text"
             :placeholder="$t('name')"
+            single-line
+            class="input-form rounded-lg"
             required
+            bg-color="primary"
             :rules="nameRules"
+          />
+          <v-text-field
+            v-model="price"
+            name="price"
+            :label="$t('price')"
+            type="text"
+            :placeholder="$t('price')"
+            required
+            bg-color="primary"
+            single-line
+            :rules="priceRules"
           />
 
           <FullWidthButton :handle-click="() => {}">
-            {{ $t("next-step") }}</FullWidthButton
+            {{ buttonText }}</FullWidthButton
           >
         </div>
       </form>
@@ -35,7 +41,7 @@ import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import CardLayout from "@/layouts/CardLayout.vue";
 
 export default {
-  name: "Add Image and Name form",
+  name: "Add Name and Price form",
   data() {
     return {
       name: "",
@@ -46,43 +52,28 @@ export default {
           return this.$t("invalid-name");
         },
       ],
-      photo: "",
-      imageRules: [
+      price: null,
+      priceRules: [
         (value: string) => {
-          if (value !== "") return true;
+          if (/[0-9]+\.[0-9][0-9]/.test(value)) return true;
 
-          return this.$t("img-required");
+          return this.$t("invalid-price");
         },
       ],
     };
   },
   props: {
+    buttonText: {
+      type: String,
+      required: true,
+    },
     register: {
       type: Function,
     },
   },
   methods: {
-    clearInputImage() {
-      this.photo = "";
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        const arrayBuffer = reader.result;
-        const bytes = new Uint8Array(arrayBuffer);
-        let binaryString = "";
-        for (let i = 0; i < bytes.length; i++) {
-          binaryString += String.fromCharCode(bytes[i]);
-        }
-        this.photo = btoa(binaryString);
-      };
-
-      reader.readAsArrayBuffer(file);
-    },
     addHandler() {
-      this.register && this.register(this.name, this.photo);
+      this.register && this.register(this.name, this.price);
     },
   },
   components: { FullWidthButton, CardLayout },

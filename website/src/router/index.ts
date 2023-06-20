@@ -37,7 +37,7 @@ const routes = [
         component: () => import("@/views/RecoverPassword.vue"),
       },
       {
-        path: "product",
+        path: "product/:id",
         name: "ProductPage",
         component: () => import("@/views/Product.vue"),
       },

@@ -32,7 +32,7 @@ export interface ProductDescriptionUser extends ProductDescriptionAdmin {
 
 export interface TechnicalInfo {
   name: string;
-  info: string;
+  description: string;
 }
 
 export interface ProductInformation {

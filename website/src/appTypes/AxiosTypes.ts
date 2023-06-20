@@ -23,6 +23,13 @@ export interface GetProductsByCategoryResponse {
   }[];
 }
 
+export interface AddProductResponse {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+}
+
 export interface SubCategoryResponse {
   name: string;
   id: string;

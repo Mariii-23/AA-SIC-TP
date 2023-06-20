@@ -1,7 +1,7 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
-import { ProductSimple } from "@/appTypes/Product";
-import { GetProductsByCategoryResponse, Response } from "@/appTypes/AxiosTypes";
+import { ProductSimple, TechnicalInfo } from "@/appTypes/Product";
+import { AddProductResponse, GetProductsByCategoryResponse, Response } from "@/appTypes/AxiosTypes";
 
 const url = "product";
 
@@ -35,8 +35,46 @@ const productImage = `http://localhost:8080/${url}/all/productImage`;
 //  }
 //};
 
+const addProduct = async (
+  name: string,
+  description: string,
+  price: number,
+  categoryId: string | null,
+  subCategoryId: string | null,
+  materialsId: string[],
+  infos: TechnicalInfo[],
+  images: string[]
+) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(`${url}/add`, {
+      name,
+      description,
+      price,
+      categoryId,
+      subCategoryId,
+      materialsId,
+      infos,
+      images,
+    });
+
+    return handleResponse(req, (data: AddProductResponse) => {
+      return {
+        name: data.name,
+        id: data.id,
+        href: `${productImage}?imageId=${data.image}`,
+        price: data.price,
+      };
+    });
+  } catch (error) {
+    console.log(error)
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 const deleteProduct = async (productId: string) => {
-  console.log()
   try {
     const req = await app.config.globalProperties.$axios.delete(
       `${url}/remove/${productId}`
@@ -98,6 +136,16 @@ export interface ProductAxios {
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
   deleteProduct: (productId: string) => Promise<Response<void>>;
+  addProduct: (
+    name: string,
+    description: string,
+    price: number,
+    categoryId: string | null,
+    subCategoryId: string | null,
+    materialsId: string[],
+    infos: TechnicalInfo[],
+    images: string[]
+  ) => Promise<Response<ProductSimple>>;
 }
 
 const productStore: ProductAxios = {
@@ -110,6 +158,27 @@ const productStore: ProductAxios = {
   },
   deleteProduct: async (productId) => {
     return deleteProduct(productId);
+  },
+  addProduct: async (
+    name: string,
+    description: string,
+    price: number,
+    categoryId: string | null,
+    subCategoryId: string | null,
+    materialsId: string[],
+    infos: TechnicalInfo[],
+    images: string[]
+  ) => {
+    return await addProduct(
+      name,
+      description,
+      price,
+      categoryId,
+      subCategoryId,
+      materialsId,
+      infos,
+      images
+    );
   },
 };
 

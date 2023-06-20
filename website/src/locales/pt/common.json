@@ -83,6 +83,7 @@
     "related-products": "Produtos relacionados",
     "remove-product": "Remover produto",
     "modal-remove-product": "Temma certeza que quer remover o produto",
+
     "rmv-material": "Remover material",
     "rmv-material-text": "Tem a certeza que quer remover o material",
     "rmv-material-success": "Material eliminado com sucesso",
@@ -91,8 +92,10 @@
     "add-material-error": "Material adicionado com sucesso",
     "update-material-success": "Material atualizado com sucesso",
     "update-material-fail": "Erro ao atualizar o material",
+
     "add-material": "Adicionar material",
     "edit-material": "Editar material",
+
     "add-category": "Adicionar categoria",
     "rmv-category": "Remover categoria",
     "rmv-category-text": "Tem a certeza que quer remover a categoria",
@@ -100,7 +103,20 @@
     "rmv-category-error": "Erro ao eliminar a categoria",
     "add-category-success": "Categoria adicionado com sucesso",
     "add-category-error": "Categoria adicionado com sucesso",
-    "add-subcategories": "Adicionar subcategorias",
+    "update-category-success": "Categoria atualizada com sucesso",
+    "update-category-error": "Erro ao atualizar a categoria",
+
+    "add-subcategories": "Adicionar subcategories",
+
+    "rmv-product": "Remover produto",
+    "rmv-product-text": "Tem a certeza que quer remover o produto",
+    "add-product-success": "Produto adicionado com sucesso",
+    "add-product-error": "Erro ao adicionar o produto",
+    "rmv-product-success": "Produto removido com sucesso",
+    "rmv-product-error": "Erro ao remover o produto, este contêm encomendas associadas a ele",
+    "update-product-success": "Produto atualizado com sucesso",
+    "update-product-error": "Erro ao atualizar o producto",
+
 
     "store": "Loja",
     "categories": "Categorias",
@@ -139,6 +155,9 @@
     "photoLink": "link",
     "title": "Título",
 
+    "select-materials": "Selecionar Materias",
+    "select-category": "Selecionar Categoria",
+    "select-subcategory": "Selecionar Subcategoria",
 
 
     "invalid-email": "Email inválido",

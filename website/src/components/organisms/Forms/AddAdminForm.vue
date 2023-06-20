@@ -31,7 +31,7 @@
             :rules="nameRules"
           />
 
-        <FullWidthButton> {{ $t("addAdmin") }}</FullWidthButton>
+        <FullWidthButton :handle-click="()=>{}"> {{ $t("addAdmin") }}</FullWidthButton>
       </form>
     </v-card-text>
   </CardLayout>
