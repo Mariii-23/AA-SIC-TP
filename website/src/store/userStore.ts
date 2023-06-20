@@ -85,7 +85,7 @@ export const useUserStore = defineStore("user", {
     },
     async confirmRecoverPassword(code: string, new_password: string) {
       const r = await axios.customer.confirmRecoverPassword(code, new_password, this.id);
-      return r.success;
+      return r;
     },
   },
 });

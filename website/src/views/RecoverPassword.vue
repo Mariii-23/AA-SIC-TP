@@ -47,7 +47,7 @@
                     :rules="confirmPasswordRules"
                     class="input-form"
                   />
-              <FullWidthButton :handleClick="recoverPassword">
+              <FullWidthButton>
                 {{ $t("recover-pw") }}
               </FullWidthButton>
             </div>
@@ -167,7 +167,8 @@ export default {
     },
     async recoverPassword() {
       const result = await userStore.confirmRecoverPassword(this.code, this.password)
-      if (result == true){
+      console.log(result)
+      if (result){
         this.$router.push("/login");
       }
     },
