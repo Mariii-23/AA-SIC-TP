@@ -1,7 +1,14 @@
 <template>
   <CardLayout>
     <v-card-item>
-      <ImageCard :href="product.href" />
+      <div class="imgContainer">
+        <v-img
+          :src="product.href"
+          :lazy-src="product.href"
+          class="image"
+          cover
+        />
+      </div>
       <v-card-title>{{ product.name }}</v-card-title>
       <v-card-subtitle>{{ product.price }}€</v-card-subtitle>
     </v-card-item>
@@ -52,6 +59,11 @@ export default {
 </script>
 
 <style scoped>
+.imgContainer {
+  width: 150px;
+  height: 150px;
+}
+
 .image {
   border-radius: 5%;
   width: 100%;
