@@ -73,8 +73,9 @@ export default {
     async removeAdminHandler() {
       if (await adminStore.removeAdmin(this.idAdmin)) {
         this.closeModal();
-        notificationStore.openSuccessAlert("removeAdminSuccesss");
+        notificationStore.openSuccessAlert("removeAdminSuccess");
       } else {
+        this.closeModal();
         notificationStore.openErrorAlert("removeAdminError");
       }
     },

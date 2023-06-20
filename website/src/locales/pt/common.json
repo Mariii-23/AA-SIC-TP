@@ -176,5 +176,9 @@
 
 
     "redefine-pw": "Redefinir palavra-passe",
-    "new-pw": "Nova palavra-passe"
+    "new-pw": "Nova palavra-passe",
+
+
+    "addAdminSuccess": "Administrador adicionado com sucesso",
+    "addAdminError": "Erro ao adicionar o administrador"
 }

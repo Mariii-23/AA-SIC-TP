@@ -175,5 +175,12 @@
 
 
     "redefine-pw": "Redefine password",
-    "new-pw": "New password"
+    "new-pw": "New password",
+
+
+
+    "addAdminSuccess": "Administrator successfully added",
+    "addAdminError": "Error adding admin",
+    "removeAdminSuccess": "Administrator successfully removed",
+    "removeAdminError": "Error removing administrator"
 }

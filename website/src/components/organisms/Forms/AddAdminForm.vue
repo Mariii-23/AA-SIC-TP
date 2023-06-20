@@ -2,6 +2,15 @@
   <CardLayout class="bg-secondary">
     <v-card-text class="fill-height">
       <form ref="form" class="custom-flex" @submit.prevent="addUserHandler()">
+        <v-text-field
+            v-model="name"
+            name="name"
+            :label="$t('name')"
+            type="text"
+            :placeholder="$t('name')"
+            required
+            :rules="nameRules"
+          />
           <v-text-field
             v-model="email"
             name="email"
@@ -20,15 +29,6 @@
             :placeholder="$t('password')"
             required
             :rules="passwordRules"
-          />
-          <v-text-field
-            v-model="name"
-            name="name"
-            :label="$t('name')"
-            type="text"
-            :placeholder="$t('name')"
-            required
-            :rules="nameRules"
           />
 
         <FullWidthButton :handle-click="()=>{}"> {{ $t("addAdmin") }}</FullWidthButton>
