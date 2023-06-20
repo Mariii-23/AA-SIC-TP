@@ -126,7 +126,8 @@ public class ProductService {
                 product.getMaterials().stream().map(material -> new MaterialDTO(material.getID(), material.getName())).toList(),
                 product.getInfos().stream().map(info -> new TechnicalInfoDTO(info.getName(), info.getDescription())).toList(),
                 product.getReviews().stream().map(review -> new ReviewDTO(review.getClassification(), review.getComment(), review.getAuthor().getName())).toList(),
-                product.getImages().stream().map(Image::getiD).toList());
+                product.getImages().stream().map(Image::getiD).toList(),
+                product.getCategory().getiD());
     }
 
     @Transactional

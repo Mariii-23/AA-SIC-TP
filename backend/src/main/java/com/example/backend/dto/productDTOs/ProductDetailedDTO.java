@@ -9,17 +9,20 @@ public class ProductDetailedDTO extends ProductSimpleDTO{
     List<ReviewDTO> reviews;
     List<Integer> images;
 
+    private int categoryID;
+
     public ProductDetailedDTO() {
     }
 
     public ProductDetailedDTO(int id, String name, double price, String description, List<MaterialDTO> materials,
-                              List<TechnicalInfoDTO> technicalInfo, List<ReviewDTO> reviews, List<Integer> images) {
+                              List<TechnicalInfoDTO> technicalInfo, List<ReviewDTO> reviews, List<Integer> images, int categoryID) {
         super(id, name, price);
         this.description = description;
         this.materials = materials;
         this.technicalInfo = technicalInfo;
         this.reviews = reviews;
         this.images = images;
+        this.categoryID = categoryID;
     }
     public List<MaterialDTO> getMaterials() {
         return materials;
