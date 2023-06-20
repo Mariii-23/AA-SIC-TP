@@ -95,11 +95,25 @@ const removeAdmin = async (id: string) => {
 
 const editAdmin = async (id: string, email: string, name: string) => {
   try {
+    let paramEmail, paramName;
+    if (email == "") {
+      paramEmail = null;
+    }
+    else {
+      paramEmail = email;
+    }
+    if (name == "") {
+      paramName = null;
+    }
+    else {
+      paramName = name;
+    }
+    console.log(paramEmail , paramName);
     const req = await app.config.globalProperties.$axios.post(
       `${url}/edit/${id}`,
       {
-        email,
-        name,
+        email: paramEmail,
+        name: paramName,
         password: null,
       }
     );

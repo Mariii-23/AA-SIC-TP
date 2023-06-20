@@ -7,7 +7,7 @@
       </template>
       <template v-slot:second>
         <TitleWithButton :title="$t('profile')" :button-text="$t('save-changes')" :button-handler="saveChanges" />
-        <form ref="form">
+        <form ref="form" @submit.prevent="saveChanges()">
           <v-row>
             <v-col cols="4">
               <v-list-subheader>
@@ -41,7 +41,7 @@
 
             <v-col cols="8">
               <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-                :placeholder="$t('password')" single-line class="input-form rounded-lg" required bg-color="primary"
+                :placeholder="$t('password')" single-line class="input-form rounded-lg"  bg-color="primary"
                 :rules="passwordRules" />
 
             </v-col>
@@ -55,12 +55,12 @@
 
             <v-col cols="8">
               <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
-                :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg" required bg-color="primary"
+                :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg" bg-color="primary"
                 :rules="confirmPasswordRules" />
 
             </v-col>
           </v-row>
-          <FullWidthButton class="mt-2" :handle-click="saveChanges">
+          <FullWidthButton class="mt-2">
             {{ $t("save-changes") }}</FullWidthButton>
         </form>
       </template>
@@ -106,10 +106,10 @@ export default {
       ],
       password: "",
             passwordRules: [
-                value => {
-                    if (value?.length >= 8) return true
-                    return this.$t("password-length")
-                },
+                //value => {
+                //    if (value?.length >= 8) return true
+                //    return this.$t("password-length")
+                //},
                 //value => {
                 //   if verificar password return true
                 //
@@ -141,9 +141,22 @@ export default {
       this.$router.push("/admin/add-admin/");
     },
     async saveChanges() {
-      const r = await adminStore.editAdmin(this.id, this.email, this.name);
+      let argname, argemail;
+      if (this.name == userStore.name) {
+        argname = "";
+      } else {
+        argname = this.name;
+      }
+
+      if (this.email == userStore.email) {
+        argemail = "";
+      } else {
+        argemail = this.email;
+      }
+      const r = await adminStore.editAdmin(this.id, argemail, argname);
       if (r) {
         console.log("save changes");
+        userStore.update(argname, argemail);
         this.$router.push("/admin/profile");
       }
     },
