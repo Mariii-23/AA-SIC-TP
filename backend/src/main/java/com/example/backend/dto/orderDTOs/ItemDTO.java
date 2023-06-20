@@ -6,22 +6,25 @@ public class ItemDTO {
     private int quantity;
     private int materialId;
     private int productImageId;
+    private int itemId;
 
     public ItemDTO() {
     }
 
-    public ItemDTO(String name, double price, int quantity, int materialId, int productImageId) {
+    public ItemDTO(String name, double price, int quantity, int materialId, int productImageId, int itemId) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.materialId = materialId;
         this.productImageId = productImageId;
+        this.itemId = itemId;
     }
 
-    public ItemDTO(String name, double price, int quantity) {
+    public ItemDTO(String name, double price, int quantity, int itemId) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.itemId = itemId;
     }
 
     public String getName() {
@@ -61,6 +64,18 @@ public class ItemDTO {
     }
 
     public void setProductImage(int productImageId) {
+        this.productImageId = productImageId;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setProductImageId(int productImageId) {
         this.productImageId = productImageId;
     }
 }

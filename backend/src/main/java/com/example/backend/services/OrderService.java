@@ -132,7 +132,8 @@ public class OrderService {
                     item.getProduct().getPrice(),
                     item.getQuantity(),
                     item.getMaterial().getID(),
-                    item.getProduct().getImages().get(0).getiD()));
+                    item.getProduct().getImages().get(0).getiD(),
+                    item.getiD()));
         });
         return new ShoppingCartDTO(items, customer.getCart().getTotalPrice());
     }
