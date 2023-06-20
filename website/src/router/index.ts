@@ -46,6 +46,7 @@ const routes = [
         name: "Category",
         component: () => import("@/views/Category.vue"),
       },
+
       // FIXME: alterar pagina 
       {
         path: "/category/:id/subcategory/:subCategoryId",
@@ -168,12 +169,12 @@ const routes = [
         component: () => import("@/views/User/EditProfile.vue"),
       },
       {
-        path: "user/orders",
+        path: "orders",
         name: "User Orders",
         component: () => import("@/views/User/Orders.vue"),
       },
       {
-        path: "user/orders/:id",
+        path: "/orders/:id",
         name: "Order info",
         component: () => import("@/views/User/OrderDetails.vue"),
       },

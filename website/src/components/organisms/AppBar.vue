@@ -33,7 +33,7 @@
       </BodyText>
     </div>
 
-    <div v-if="loggedIn && user_type === 'CUSTOMER'" class="icon-w-text">
+    <div v-if="loggedIn && user_type === 'CUSTOMER'" class="icon-w-text" @click="userAccountHandler">
       <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
@@ -154,7 +154,10 @@ export default {
     },
     closeModal(){
       this.isModalOpen = false;
-    }
+    },
+    userAccountHandler() {
+      this.$router.push("/user/profile");
+    },
   },
   components: { Logo, BodyText, LanguageSwitcher, SearchBar, ConfirmationModal },
 };

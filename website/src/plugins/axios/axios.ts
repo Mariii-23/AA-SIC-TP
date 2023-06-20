@@ -5,10 +5,10 @@ import admins from "./admins";
 import categories from "./categories";
 import company from "./company";
 import materials from "./materials";
-import customer from "./customer";
 import product from "./products";
-import order from "./order";
+import shoppingCard from "./shoppingCard";
 import customer from "./customer";
+import orders from "./orders";
 
 interface AxiosOptions {
   baseUrl?: string;
@@ -65,6 +65,7 @@ export default {
   company,
   materials,
   customer,
+  orders,
   product,
-  order,
+  order: shoppingCard,
 };

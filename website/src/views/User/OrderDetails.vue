@@ -1,20 +1,29 @@
 <template>
-    <SimpleBodyLayout>
-        <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
-            :closeModal="closeModal" :isModalOpen="isModalOpen" />
-        <TwoColumnsPanel>
-            <template v-slot:first>
-                <TitleCardLinksButton :title="$t('hello') + ', ' + userName + '!'" :items="items"
-                    :button-text="$t('logout')" :button-handler="openModal" />
-            </template>
-            <template v-slot:second>
-                <TitleGoBack :title="$t('order-details')" />
-                <OrderCard :order="order" />
-            </template>
-        </TwoColumnsPanel>
-    </SimpleBodyLayout>
+  <SimpleBodyLayout>
+    <ConfirmationModal
+      :title="$t('logout')"
+      :text="$t('logout-text')"
+      :confirmHandler="logoutHandler"
+      :closeModal="closeModal"
+      :isModalOpen="isModalOpen"
+    />
+    <TwoColumnsPanel>
+      <template v-slot:first>
+        <TitleCardLinksButton
+          :title="$t('hello') + ', ' + userName + '!'"
+          :items="items"
+          :button-text="$t('logout')"
+          :button-handler="openModal"
+        />
+      </template>
+      <template v-slot:second>
+        <TitleGoBack :title="$t('order-details')" />
+        <OrderCard :order="order" />
+      </template>
+    </TwoColumnsPanel>
+  </SimpleBodyLayout>
 </template>
-  
+
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
@@ -24,58 +33,65 @@ import { Order } from "@/appTypes/Order";
 import OrderCard from "@/components/organisms/Card/OrderCard.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+import { useOrderStore } from "@/store/orders";
+import { useUserStore } from "@/store/userStore";
+
+const ordersStore = useOrderStore();
+const userStore = useUserStore();
 
 export default {
-    name: "OrderDetails",
-    data: () => ({
-        items: [] as LinkProps[],
-        userName: "",
-        order: Object as () => Order,
-        isModalOpen: false,
-    }),
-    methods: {
-        logoutHandler() {
-            console.log("logout");
-        },
-        closeModal() {
-            this.isModalOpen = false;
-        },
-        openModal() {
-            this.isModalOpen = true;
-        },
+  name: "OrderDetails",
+  data: () => ({
+    items: [] as LinkProps[],
+    userName: "",
+    orderId: "",
+    order: {} as Order,
+    isModalOpen: false,
+  }),
+  methods: {
+    logoutHandler() {
+      console.log("logout");
     },
-    mounted: function () {
-        //TODO: ir buscar os direitos
-        this.userName = "Maria";
+    closeModal() {
+      this.isModalOpen = false;
+    },
+    openModal() {
+      this.isModalOpen = true;
+    },
+  },
+  mounted: async function () {
+    this.orderId = this.$route.params.id.toString();
 
-        this.items = [
-            { href: "/user/profile", icon: "brightness-1", text: "profile" },
-            { href: "/user/orders", icon: "bullseye", text: "my-orders" },
-        ];
-        this.order = {
-            id: 1,
-            date: "2021-05-05",
-            total: 100,
-            state: "pending",
-            orderItems: [
-                {
-                    name: "Cadeira",
-                    quantity: 2,
-                    price: 50,
-                    img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                    material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-                }
-            ]
-        };
-    },
-    components: {
-        TwoColumnsPanel,
-        TitleCardLinksButton,
-        SimpleBodyLayout,
-        OrderCard,
-        TitleGoBack,
-        ConfirmationModal
-    },
+    const r = await ordersStore.getOrder(this.orderId);
+    if (r) this.order = r;
+
+    if (userStore.isLoggedIn) {
+      this.userName = userStore.name;
+    }
+
+    this.items = [
+      { href: "/user/profile", icon: "brightness-1", text: "profile" },
+      { href: "/user/orders", icon: "bullseye", text: "my-orders" },
+    ];
+
+    this.$watch(
+      () => userStore,
+      async (newValue) => {
+        if (!newValue.isAdmin()) {
+          this.userName = newValue.name;
+          const r = await ordersStore.getOrder(this.orderId);
+          if (r) this.order = r;
+        }
+      }
+    );
+  },
+  components: {
+    TwoColumnsPanel,
+    TitleCardLinksButton,
+    SimpleBodyLayout,
+    OrderCard,
+    TitleGoBack,
+    ConfirmationModal,
+  },
 };
 </script>
-  

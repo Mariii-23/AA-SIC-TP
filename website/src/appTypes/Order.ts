@@ -7,7 +7,7 @@ export interface Order {
 }
 
 export interface OrderItem {
-    itemId: string,
+    id: string,
     name: string,
     price: number,
     quantity: number,

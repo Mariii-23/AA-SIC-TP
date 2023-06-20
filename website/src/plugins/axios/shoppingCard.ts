@@ -16,7 +16,7 @@ const getShoppingCart = async (customerId: string) => {
             const orderItems = [] as OrderItem[];
             for (const item of data.items) {
                 orderItems.push({
-                    itemId: item.itemId,
+                    id: item.itemId,
                     name: item.name,
                     price: item.price,
                     quantity: item.quantity,
@@ -41,16 +41,16 @@ const getShoppingCart = async (customerId: string) => {
     }
 };
 
-export interface OrderAxios {
+export interface ShoppingCardAxios {
     getShoppingCart: (
         customerId: string
     ) => Promise<Response<ShoppingCart>>;
 }
 
-const order: OrderAxios = {
+const shoppingCard: ShoppingCardAxios = {
     getShoppingCart: async (customerId: string) => {
         return await getShoppingCart(customerId);
     }
 };
 
-export default order;
+export default shoppingCard;

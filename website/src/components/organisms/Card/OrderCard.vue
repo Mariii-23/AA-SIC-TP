@@ -2,14 +2,14 @@
     <CardLayout class="bg-secondary">
         <v-card-item>
             <div class="product-state">
-            <HeadingText>{{ $t("order") }} #{{ order?.id }}</HeadingText>
-            <v-chip class="ml-2">{{ $t("order.state") }}</v-chip>
+            <HeadingText>{{ $t("order") }} #{{ order.id }}</HeadingText>
+            <v-chip class="ml-2">{{ order.state ?  $t(order.state) : "" }}</v-chip>
         </div>
         </v-card-item>
         <v-card-item>
             <div class="user-title-info-wrapper">
-                <div>{{ $t("date-text") }} {{ order?.date }}</div>
-                <div>{{ $t("total") }}: {{ order?.total }}€</div>
+                <div>{{ $t("date-text") }} {{ order.date }}</div>
+                <div>{{ $t("total") }}: {{ order.total }}€</div>
             </div>
 
             <v-table class="bg-secondary">
@@ -28,7 +28,7 @@
                             {{ item.name }}
                         </td>
                         <td>
-                            <Avatar :href="item.material" :size="30" />
+                            <Avatar :href="item.materialHref" :size="30" />
                         </td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.price }}€</td>
@@ -50,7 +50,7 @@ export default {
     props: {
         order: {
             type: Object as () => Order,
-            require: true,
+            required: true,
         },
     },
     components: { CardLayout, Avatar, HeadingText },

@@ -1,3 +1,5 @@
+import { OrderState } from "./Order";
+
 export interface Response<T> {
   success: number;
   data: T | string;
@@ -11,6 +13,31 @@ export interface MaterialResponse {
 export interface CategoryResponse {
   name: string;
   id: string;
+}
+
+export interface GetOrder {
+  id: string;
+  date: Date;
+  total: number;
+  state: OrderState;
+  items: {
+    id: string,
+    name: string;
+    price: string;
+    quantity: number;
+    materialId: string;
+    productImageId: string;
+  }[];
+}
+
+export interface GetAllOrders {
+  last: boolean;
+  data: {
+    id: string;
+    date: Date;
+    total: number;
+    state: OrderState;
+  }[];
 }
 
 export interface GetProductsByCategoryResponse {
