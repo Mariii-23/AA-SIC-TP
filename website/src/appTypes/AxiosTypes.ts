@@ -142,11 +142,11 @@ export interface GetAllAdminsResponse {
 export interface ShoppingCart {
   total: number;
   items: {
-    id: string;
+    itemId: string;
     name: string;
     price: number;
     quantity: number;
-    img: string;
-    material: string;
+    materialId: string;
+    productImageId: string;
   }[];
 }

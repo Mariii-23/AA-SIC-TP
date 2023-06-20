@@ -9,6 +9,7 @@
       :quantity="orderItem.quantity"
       :incrementHandler="() => incrementHandler && incrementHandler(index)"
       :decrementHandler="() => decrementHandler && decrementHandler(index)"
+      :removeProductHandler="() => removeProductHandler && removeProductHandler(index)"
       />
   </div>
 </template>
@@ -36,6 +37,10 @@ export default {
       type: Function,
       require: true,
     },
+    removeProductHandler: {
+      type: Function,
+      require: true,
+    }
   },
 };
 </script>

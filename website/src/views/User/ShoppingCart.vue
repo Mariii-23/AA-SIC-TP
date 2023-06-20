@@ -5,7 +5,9 @@
               <CartItemCards 
                 :order-items="cart.items" 
                 :incrementHandler="incrementHandler" 
-                :decrementHandler="decrementHandler"/>
+                :decrementHandler="decrementHandler"
+                :removeProductHandler="removeProductHandler"    
+            />
             </template>
             <template v-slot:second>
                 <CartTotalCard 
@@ -41,8 +43,6 @@ export default {
         }
         await shoppingCartStore.getShoppingCart(userStore.id);
         this.cart = shoppingCartStore.cart;
-        console.log(this.cart);
-        console.log(this.cart.items);
     },
     methods: {
         incrementHandler (index: number) {
@@ -59,11 +59,15 @@ export default {
                 this.cart.items[index].quantity--;
             }
         },
+        removeProductHandler (index: number) {
+            this.cart &&
+            this.cart.items &&
+            this.cart.items[index];
+        },
         makeOrder () {
             console.log("make order");
         },
         cancelOrder () {
-            console.log("cancel order");
             this.$router.back()
         }
     },

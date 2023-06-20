@@ -1,7 +1,7 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
 import { Response, ShoppingCart } from "@/appTypes/AxiosTypes";
-import { Cart, OrderItem } from "@/appTypes/OrderTypes";
+import { Cart, OrderItem } from "@/appTypes/Order";
 
 const productImage = "http://localhost:8080/product/all/productImage";
 
@@ -14,12 +14,12 @@ const getShoppingCart = async (customerId: string) => {
 
         return handleResponse(req, (data: ShoppingCart) => {
             const orderItems = [] as OrderItem[];
-
             for (const item of data.items) {
                 orderItems.push({
+                    itemId: item.itemId,
                     name: item.name,
                     price: item.price,
-                    quantity: item.quatity,
+                    quantity: item.quantity,
                     img: `${productImage}?imageId=${item.productImageId}`,
                     materialHref: `http://localhost:8080/product/all/materialImage?materialId=${item.materialId}`,
                     materialId: item.materialId,
@@ -33,6 +33,7 @@ const getShoppingCart = async (customerId: string) => {
             return cart;
         });
     } catch (error) {
+        console.log(error)
         return {
             success: error.request.status,
             data: error.request.statusText,
