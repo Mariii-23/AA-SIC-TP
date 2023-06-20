@@ -93,9 +93,9 @@ const removeAdmin = async (id: string) => {
   }
 };
 
-const editAdmin = async (id: string, email: string, name: string) => {
+const editAdmin = async (id: string, email: string, name: string, password: string) => {
   try {
-    let paramEmail, paramName;
+    let paramEmail, paramName, paramPassword
     if (email == "") {
       paramEmail = null;
     }
@@ -108,13 +108,18 @@ const editAdmin = async (id: string, email: string, name: string) => {
     else {
       paramName = name;
     }
-    console.log(paramEmail , paramName);
+    if (password == "") {
+      paramPassword = null;
+    }
+    else {
+      paramPassword = password;
+    }
     const req = await app.config.globalProperties.$axios.post(
       `${url}/edit/${id}`,
       {
         email: paramEmail,
         name: paramName,
-        password: null,
+        password: paramPassword,
       }
     );
 
@@ -147,7 +152,8 @@ export interface AdminAxios {
   updateAdmin: (
     id: string,
     email: string,
-    name: string
+    name: string,
+    password: string
   ) => Promise<Response<string>>;
 }
 
@@ -164,8 +170,8 @@ const admin: AdminAxios = {
   removeAdmin: async (id: string) => {
     return await removeAdmin(id);
   },
-  updateAdmin: async (id: string, email: string, name: string) => {
-    return await editAdmin(id, email, name);
+  updateAdmin: async (id: string, email: string, name: string, password: string) => {
+    return await editAdmin(id, email, name, password);
   },
 };
 

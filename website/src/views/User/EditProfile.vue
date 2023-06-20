@@ -57,7 +57,7 @@
 
                         <v-col cols="8">
                             <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-                                :placeholder="$t('password')" single-line class="input-form rounded-lg" required
+                                :placeholder="$t('password')" single-line class="input-form rounded-lg" 
                                 bg-color="primary" :rules="passwordRules" />
 
                         </v-col>
@@ -71,7 +71,7 @@
 
                         <v-col cols="8">
                             <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
-                                :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg" required
+                                :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg" 
                                 bg-color="primary" :rules="confirmPasswordRules" />
 
                         </v-col>
@@ -125,22 +125,17 @@ export default {
             ],
             password: "",
             passwordRules: [
-                value => {
-                    if (value?.length >= 8) return true
-                    return this.$t("password-length")
-                },
                 //value => {
-                //   if verificar password return true
-                //
-                //   return this.$t('incorrect-login')
-                // }
+                //    if (value?.length >= 8) return true
+                //    return this.$t("password-length")
+                //},
             ],
             conf_password: "",
             confirmPasswordRules: [
-                value => {
-                    if (value === this.password) return true
-                    return this.$t("password-match")
-                },
+                //value => {
+                //    if (value === this.password) return true
+                //    return this.$t("password-match")
+                //},
             ],
         }
     },

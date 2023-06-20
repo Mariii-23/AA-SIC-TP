@@ -43,8 +43,8 @@ export const useAdminsStore = defineStore("admins", {
       }
       return r.success == 200;
     },
-    async editAdmin(id: string, email: string, name: string) {
-      const r = await axios.admins.updateAdmin(id, email, name);
+    async editAdmin(id: string, email: string, name: string, password: string) {
+      const r = await axios.admins.updateAdmin(id, email, name, password);
       if (r.success == 200) {
         this.getAllAdmins();
       }

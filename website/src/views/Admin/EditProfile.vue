@@ -110,11 +110,6 @@ export default {
                 //    if (value?.length >= 8) return true
                 //    return this.$t("password-length")
                 //},
-                //value => {
-                //   if verificar password return true
-                //
-                //   return this.$t('incorrect-login')
-                // }
             ],
             conf_password: "",
             confirmPasswordRules: [
@@ -153,7 +148,8 @@ export default {
       } else {
         argemail = this.email;
       }
-      const r = await adminStore.editAdmin(this.id, argemail, argname);
+
+      const r = await adminStore.editAdmin(this.id, argemail, argname, this.password);
       if (r) {
         console.log("save changes");
         userStore.update(argname, argemail);
