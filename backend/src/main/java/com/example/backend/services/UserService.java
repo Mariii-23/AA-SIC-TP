@@ -167,7 +167,7 @@ public class UserService {
             }
             customer.setEmail(costumerDTO.getEmail());
         }
-        if (costumerDTO.getPassword() != null) customer.setPassword(costumerDTO.getPassword());
+        if (costumerDTO.getPassword() != null) customer.setPassword(passwordEncoder.encode(costumerDTO.getPassword()));
         if (costumerDTO.getName() != null) customer.setName(costumerDTO.getName());
         if (costumerDTO.getBirthday() != null) customer.setBirthday(costumerDTO.getBirthday());
         if (costumerDTO.getNif() != null) {
@@ -192,7 +192,7 @@ public class UserService {
             }
             admin.setEmail(adminDTO.getEmail());
         }
-        if (adminDTO.getPassword() != null) admin.setPassword(adminDTO.getPassword());
+        if (adminDTO.getPassword() != null) admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
         if (adminDTO.getName() != null) admin.setName(adminDTO.getName());
         adminRep.save(admin);
     }
