@@ -99,9 +99,9 @@ public class OrderController {
     }
 
     @PostMapping("/customer/create")
-    public void createOrder(final @RequestBody CreateOrderDTO order){
+    public OrderDetailedDTO createOrder(final @RequestBody CreateOrderDTO order){
         try {
-            orderService.createOrder(order.getCustomerId() , order.getAddress(), order.isStorePickUp());
+            return orderService.createOrder(order.getCustomerId() , order.getAddress(), order.isStorePickUp());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

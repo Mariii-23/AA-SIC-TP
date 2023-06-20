@@ -104,7 +104,7 @@ public class OrderService {
         return false;
     }
 
-    public int createOrder(int customerId, String address, boolean storePickUp) throws Exception {
+    public OrderDetailedDTO createOrder(int customerId, String address, boolean storePickUp) throws Exception {
         Customer c = customerRep.findById(customerId).orElse(null);
         if (c == null) {
             throw new UserNotFoundException("Customer not found");
@@ -126,8 +126,13 @@ public class OrderService {
         }
         order.setTotal(total);
         order.setItems(orderItems);
-        orderRep.save(order);
-        return order.getiD();
+        order = orderRep.saveAndFlush(order);
+        return new OrderDetailedDTO(order, orderItems.stream().map(orderItem -> new ItemDTO(orderItem.getProduct().getName(),
+                orderItem.getPrice(),
+                orderItem.getQuantity(),
+                orderItem.getMaterial().getID(),
+                orderItem.getProduct().getImages().get(0).getiD(),
+                orderItem.getiD())).toList());
     }
 
     public ShoppingCartDTO getShoppingCart(int id) throws UserNotFoundException {
