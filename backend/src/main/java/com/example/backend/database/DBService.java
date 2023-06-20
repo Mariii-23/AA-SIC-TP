@@ -1,5 +1,6 @@
 package com.example.backend.database;
 
+import com.example.backend.dto.orderDTOs.OrderDetailedDTO;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.userDTOs.CreateAdminDTO;
 import com.example.backend.dto.userDTOs.CreateCustomerDTO;
@@ -430,7 +431,8 @@ public class DBService{
                 Product p = products.get(random.nextInt(products.size()));
                 Material m = p.getMaterials().get(random.nextInt(p.getMaterials().size()));
                 orderService.addProductToShoppingCart(c.getiD(), p.getiD(), m.getiD(), 1);
-                int order_id = orderService.createOrder(c.getiD(), address, storePickUp);
+                OrderDetailedDTO order = orderService.createOrder(c.getiD(), address, storePickUp);
+                int order_id = order.getId();
                 if(j % 2 == 0) orderService.setOrderState(order_id, OrderState.READY);
                 else orderService.setOrderState(order_id, OrderState.DONE);
             }
