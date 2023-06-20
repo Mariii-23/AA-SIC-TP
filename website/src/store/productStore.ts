@@ -110,5 +110,19 @@ export const useProductStore = defineStore("products", {
       this.products = products;
       return products;
     },
+
+    async getProductBySubCategoryId(subcategoryId: string) {
+      let products = [] as ProductSimple[];
+      const r = await axios.product.getProductBySubCategoryId(
+        subcategoryId,
+        0,
+        100000
+      );
+      if (r && typeof r.data != "string") {
+        products = r.data;
+      }
+      this.products = products;
+      return products;
+    },
   },
 });

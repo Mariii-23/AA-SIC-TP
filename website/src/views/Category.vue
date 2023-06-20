@@ -52,6 +52,7 @@ export default {
       products: [] as ProductSimple[],
       productsFavorite: [] as ProductSimple[],
       category: {} as Category,
+      categoryId: "",
       isRemoveModalOpen: false,
       productId: "",
     };
@@ -73,6 +74,17 @@ export default {
         userStore.id
       );
     }
+
+    this.$watch(
+      () => this.categoryId,
+      async (newValue) => {
+        if (newValue == "") {
+          await productStore.getProductByCategoryId(this.category.id);
+        } else {
+          await productStore.getProductBySubCategoryId(this.category.id);
+        }
+      }
+    );
 
     this.$watch(
       () => userStore.role,
@@ -143,9 +155,12 @@ export default {
       console.log("page " + number);
     },
 
-    //TODO: subcategory
     handleOnClickAvatar(number: string) {
-      console.log(number);
+      if (this.categoryId == number) {
+        this.categoryId = "";
+      } else {
+        this.categoryId = number;
+      }
     },
 
     //TODO:

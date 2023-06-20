@@ -129,9 +129,53 @@ const getProductByCategoryId = async (
   }
 };
 
+const getProductBySubCategoryId = async (
+  subCategoryId: string,
+  offset: number,
+  numItems: number
+) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/all/subcategory`,
+      {
+        params: {
+          offset,
+          numItems,
+          subCategoryId,
+        },
+      }
+    );
+
+    return handleResponse(req, (data: GetProductsByCategoryResponse) => {
+      const products: ProductSimple[] = [];
+
+      for (let i = 0; i < data.data.length; i++) {
+        const item = data.data[i];
+        products.push({
+          name: item.name,
+          id: item.id,
+          href: `${productImage}?imageId=${item.image}`,
+          price: item.price,
+        });
+      }
+      return products;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 export interface ProductAxios {
   getProductByCategoryId: (
     categoryId: string,
+    offset: number,
+    numItems: number
+  ) => Promise<Response<ProductSimple[]>>;
+  getProductBySubCategoryId: (
+    subCategoryId: string,
     offset: number,
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
@@ -155,6 +199,13 @@ const productStore: ProductAxios = {
     numItems: number
   ) => {
     return await getProductByCategoryId(categoryId, offset, numItems);
+  },
+  getProductBySubCategoryId: async (
+    subCategoryId: string,
+    offset: number,
+    numItems: number
+  ) => {
+    return await getProductBySubCategoryId(subCategoryId, offset, numItems);
   },
   deleteProduct: async (productId) => {
     return deleteProduct(productId);
