@@ -30,9 +30,6 @@ public class OrderService {
     private ItemRep itemRep;
 
     @Autowired
-    private OrderItemRep orderItemRep;
-
-    @Autowired
     private ShoppingCartRep shoppingCartRep;
 
     @Autowired
@@ -44,10 +41,10 @@ public class OrderService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public EnvelopeDTO<OrderSimpleDTO> getOrdersOfCostumer(int costumerId, int offset, int numItems) throws UserNotFoundException {
+    public EnvelopeDTO<OrderSimpleDTO> getOrdersOfCustomer(int customerId, int offset, int numItems) throws UserNotFoundException {
         List<Order> orders;
         try {
-            orders = orderRep.findCustomerOrdersPagination(costumerId, offset, numItems);
+            orders = orderRep.findCustomerOrdersPagination(customerId, offset, numItems);
         } catch (Exception e) {
             throw new UserNotFoundException("Customer not found");
         }
@@ -55,7 +52,7 @@ public class OrderService {
         orders.forEach(order -> {
             list.add(new OrderSimpleDTO(order));
         });
-        boolean isLast = (offset + numItems) >= getNumberOfCustomerOrders(costumerId);
+        boolean isLast = (offset + numItems) >= getNumberOfCustomerOrders(customerId);
         return new EnvelopeDTO<>(isLast, list);
     }
 

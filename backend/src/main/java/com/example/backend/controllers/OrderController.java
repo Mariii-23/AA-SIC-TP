@@ -20,9 +20,9 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/customer/orders")
-    public EnvelopeDTO<OrderSimpleDTO> getOrders(final @RequestParam int costumerId, final @RequestParam int offset, final @RequestParam int numItems){
+    public EnvelopeDTO<OrderSimpleDTO> getOrders(final @RequestParam int customerId, final @RequestParam int offset, final @RequestParam int numItems){
         try {
-            return orderService.getOrdersOfCostumer(costumerId, offset, numItems);
+            return orderService.getOrdersOfCustomer(customerId, offset, numItems);
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
