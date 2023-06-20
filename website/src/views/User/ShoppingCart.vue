@@ -1,23 +1,26 @@
 <template>
-  <SimpleBodyLayout>
-    <ShoppingCartLayout>
-      <template v-slot:first>
-        <CartItemCards
-          v-bind:order-items="cart.items"
-          :incrementHandler="incrementHandler"
-          :decrementHandler="decrementHandler"
-          :removeProductHandler="removeProductHandler"
-        />
-      </template>
-      <template v-slot:second>
-        <CartTotalCard
-          v-bind:cart="cart"
-          :makeOrder="makeOrder"
-          :cancelOrder="cancelOrder"
-        />
-      </template>
-    </ShoppingCartLayout>
-  </SimpleBodyLayout>
+    <SimpleBodyLayout>
+        <ShoppingCartLayout>
+            <template v-slot:first>
+              <CartItemCards 
+                :order-items="cart.items" 
+                :incrementHandler="incrementHandler" 
+                :decrementHandler="decrementHandler"
+                :removeProductHandler="removeProductHandler"    
+            />
+            <div v-if="cart.items && cart.items.length === 0">
+                <BodyText>{{ $t("empty-cart") }}</BodyText>
+            </div>
+            </template>
+            <template v-slot:second>
+                <CartTotalCard 
+                    :cart="cart"
+                    :makeOrder="makeOrder"
+                    :cancelOrder="cancelOrder"
+                />
+            </template>
+        </ShoppingCartLayout>
+    </SimpleBodyLayout>
 </template>
 
 <script lang="ts">
@@ -28,6 +31,7 @@ import CartItemCards from "@/components/organisms/Cards/CartItemCards.vue";
 import CartTotalCard from "@/components/organisms/Card/CartTotalCard.vue";
 import { useShoppingCartStore } from "@/store/shoppingCartStore";
 import { useUserStore } from "@/store/userStore";
+import BodyText from "@/components/atoms/Typography/BodyText.vue";
 
 const shoppingCartStore = useShoppingCartStore();
 const userStore = useUserStore();
@@ -83,13 +87,15 @@ export default {
     },
     cancelOrder() {
       this.$router.back();
-    },
-  },
-  components: {
-    ShoppingCartLayout,
-    SimpleBodyLayout,
-    CartItemCards,
-    CartTotalCard,
-  },
+      }
+      },
+    components: {
+        ShoppingCartLayout,
+        SimpleBodyLayout,
+        CartItemCards,
+        CartTotalCard,
+        BodyText
+
+    
 };
 </script>

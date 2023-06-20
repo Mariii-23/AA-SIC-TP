@@ -28,7 +28,6 @@
 <script lang="ts">
 import { ProductSimple } from "@/appTypes/Product";
 import CardLayout from "@/layouts/CardLayout.vue";
-import ImageCard from "@/components/atoms/ImageCard.vue";
 
 export default {
   name: "ProductPreviewAdmin",
@@ -46,7 +45,7 @@ export default {
       required: true,
     },
   },
-  components: { CardLayout, ImageCard },
+  components: { CardLayout },
 };
 </script>
 

@@ -14,5 +14,16 @@ export const useCustomerStore = defineStore("customer", {
                 this.nif = r.data.nif;
             }
         },
+        async editCustomer(id: string, name: string, email: string,
+            address: string, nif: string, password: string) {
+            const r = await axios.customer.editCustomer(id, name, email,
+                address, nif, password);
+
+            return r.success == 200;
+        },
+        async update(address: string, nif: string) {
+            if (address != "") this.address = address;
+            if (nif != "") this.nif = nif;
+        },
     }
 });

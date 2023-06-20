@@ -187,6 +187,7 @@ export default {
   methods: {
     async saveChanges() {
       await companyStore.updateInfo(this.company);
+      this.$router.push("/admin/company");
     },
     //TODO: ir buscar os direitos
     logoutHandler() {

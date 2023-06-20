@@ -29,7 +29,6 @@
 <script lang="ts">
 import { ProductUserProps } from "@/appTypes/ProductUserProps";
 import CardLayout from "@/layouts/CardLayout.vue";
-import ImageCard from "@/components/atoms/ImageCard.vue";
 
 export default {
   name: "ProductPreviewUserCard",
@@ -47,7 +46,7 @@ export default {
       required: true,
     },
   },
-  components: { CardLayout, ImageCard },
+  components: { CardLayout },
 };
 </script>
 

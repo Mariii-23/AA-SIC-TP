@@ -180,5 +180,14 @@
 
 
     "addAdminSuccess": "Administrador adicionado com sucesso",
-    "addAdminError": "Erro ao adicionar o administrador"
+    "addAdminError": "Erro ao adicionar o administrador",
+    "rm-favorite-error": "Erro ao remover favorito",
+    "add-favorite-error": "Erro ao adicionar favorito",
+    "add-favorite-success": "Favorito adicionado com sucesso",
+    "rm-favorite-success": "Favorito removido com sucesso",
+
+
+    "favourites": "Favoritos",
+    "no-favourites": "Ainda não adicionou nenhum produto aos favoritos. Adicione produtos à sua lista de favoritos para os poder encontrar mais facilmente.",
+    "empty-cart": "Ainda não adicionou nenhum produto ao seu carrinho."
 }

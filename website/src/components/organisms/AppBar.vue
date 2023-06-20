@@ -48,7 +48,7 @@
     </v-btn>
 
 
-    <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'">
+    <v-btn icon v-if="loggedIn && user_type == 'CUSTOMER'" @click="goTo('/user/favourites')">
       <v-icon>mdi-heart-outline</v-icon>
     </v-btn>
 

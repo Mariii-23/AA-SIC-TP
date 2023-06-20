@@ -86,11 +86,11 @@
 
     "rmv-material": "Remove material",
     "rmv-material-text": "Are you sure you want to remove the material",
-    "rmv-material-success": "Material delete with success",
+    "rmv-material-success": "Material successfully deleted",
     "rmv-material-error": "Error deleting material",
-    "add-material-success": "Material added with success",
+    "add-material-success": "Material successfully added",
     "add-material-error": "Error adding material",
-    "update-material-success": "Material updated with success",
+    "update-material-success": "Material successfully updated",
     "update-material-fail": "Error updating material",
 
     "add-material": "Add material",
@@ -99,22 +99,22 @@
     "add-category": "Add category",
     "rmv-category": "Remove category",
     "rmv-category-text": "Are you sure you want to remove the category",
-    "rmv-category-success": "Category delete with success",
+    "rmv-category-success": "Category successfully deleted",
     "rmv-category-error": "Error deleting category",
-    "add-category-success": "Category added with success",
+    "add-category-success": "Category successfully added",
     "add-category-error": "Error adding category",
-    "update-category-success": "Category updated with success",
+    "update-category-success": "Category successfully updated",
     "update-category-error": "Error updating category",
 
     "add-subcategories": "Add subcategories",
 
     "rmv-product": "Remove product",
     "rmv-product-text": "Are you sure you want to remove the product",
-    "add-product-success": "Add product with success",
+    "add-product-success": "Product successfully aded",
     "add-product-error": "Error adding product",
-    "rmv-product-success": "Removed product with success",
+    "rmv-product-success": "Product successfully removed",
     "rmv-product-error": "Error removing product, it contains orders associated with it",
-    "update-product-success": "Updated product with success",
+    "update-product-success": "Product successfully updated",
     "update-product-error": "Error updating product",
 
     "store": "Store",
@@ -182,5 +182,13 @@
     "addAdminSuccess": "Administrator successfully added",
     "addAdminError": "Error adding admin",
     "removeAdminSuccess": "Administrator successfully removed",
-    "removeAdminError": "Error removing administrator"
+    "removeAdminError": "Error removing administrator",
+    "rm-favorite-error": "Error removing favourite",
+    "add-favorite-error": "Error adding favourite",
+    "add-favorite-success": "Favourite successfully added",
+    "rm-favorite-success": "Favourite successfully removed",
+
+    "favourites": "Favourites",
+    "no-favourites": "You haven't added any favourites yet. Add products to your favourites list to find them easily.",
+    "empty-cart": "You haven't added any product to your cart yet."
 }

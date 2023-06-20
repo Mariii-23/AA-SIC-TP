@@ -182,7 +182,12 @@ const routes = [
         path: "user/cart",
         name: "User Cart",
         component: () => import("@/views/User/ShoppingCart.vue"),
-      }
+      },
+      {
+        path: "user/favourites",
+        name: "User Favourites",
+        component: () => import("@/views/User/Favourites.vue"),
+      },
     ],
   },
 ];

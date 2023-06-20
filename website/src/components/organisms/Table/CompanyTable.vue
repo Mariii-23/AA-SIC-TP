@@ -2,6 +2,10 @@
     <v-table density="compact"  class="bg-secondary elevation-2">
       <tbody>
         <tr>
+          <td>{{ $t("name") }}:</td>
+          <td>{{ company?.name }}</td>
+        </tr>
+        <tr>
           <td>{{ $t("address") }}:</td>
           <td>{{ company?.address }}</td>
         </tr>

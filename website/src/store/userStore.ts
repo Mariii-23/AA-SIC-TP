@@ -73,18 +73,14 @@ export const useUserStore = defineStore("user", {
       }
     },
     async update(name: string, email: string) {
-      if (email != "") {
-      this.email = email;
-      }
-      if (name != "") {
-      this.name = name;
-      }
+      if (email != "") this.email = email;
+      if (name != "") this.name = name;
     },
     async recoverPassword(email: string) {
       const r = await axios.customer.recoverPassword(email);
-      if (r.success == 200) {
+      if (r.success == 200) 
         this.id = r.data;
-      }
+
       return r.success;
     },
     async confirmRecoverPassword(code: string, new_password: string) {

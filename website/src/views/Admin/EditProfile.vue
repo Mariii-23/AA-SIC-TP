@@ -41,7 +41,7 @@
 
             <v-col cols="8">
               <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-                :placeholder="$t('password')" single-line class="input-form rounded-lg"  bg-color="primary"
+                :placeholder="$t('password')" single-line class="input-form rounded-lg" bg-color="primary"
                 :rules="passwordRules" />
 
             </v-col>
@@ -89,7 +89,6 @@ export default {
     return {
       items: [] as LinkProps[],
       name: "",
-      password: "",
       id: "",
       nameRules: [
         value => {
@@ -105,19 +104,19 @@ export default {
         },
       ],
       password: "",
-            passwordRules: [
-                //value => {
-                //    if (value?.length >= 8) return true
-                //    return this.$t("password-length")
-                //},
-            ],
-            conf_password: "",
-            confirmPasswordRules: [
-                value => {
-                    if (value === this.password) return true
-                    return this.$t("password-match")
-                },
-            ],
+      passwordRules: [
+        //value => {
+        //    if (value?.length >= 8) return true
+        //    return this.$t("password-length")
+        //},
+      ],
+      conf_password: "",
+      confirmPasswordRules: [
+        value => {
+          if (value === this.password) return true
+          return this.$t("password-match")
+        },
+      ],
     }
   },
   mounted: function () {
