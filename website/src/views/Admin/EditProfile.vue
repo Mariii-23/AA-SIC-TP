@@ -2,71 +2,70 @@
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton
-          :title="$t('allUsers')"
-          :items="items"
-          :button-text="$t('addAdmin')"
-          :button-handler="addAdminHandler"
-        />
+        <TitleCardLinksButton :title="$t('allUsers')" :items="items" :button-text="$t('addAdmin')"
+          :button-handler="addAdminHandler" />
       </template>
       <template v-slot:second>
-        <TitleWithButton
-          :title="$t('profile')"
-          :button-text="$t('save-changes')"
-          :button-handler="saveChanges"
-        />
+        <TitleWithButton :title="$t('profile')" :button-text="$t('save-changes')" :button-handler="saveChanges" />
         <form ref="form">
-            <v-row>
-              <v-col cols="4">
-                <v-list-subheader>
-                  <BodyText>{{ $t("name") }}</BodyText>
-                </v-list-subheader>
-              </v-col>
+          <v-row>
+            <v-col cols="4">
+              <v-list-subheader>
+                <BodyText>{{ $t("name") }}</BodyText>
+              </v-list-subheader>
+            </v-col>
 
-              <v-col cols="8">
-                <v-text-field
-                  v-model="name"
-                  name="name"
-                  :label="$t('name')"
-                  type="name"
-                  :placeholder="$t('name')"
-                  single-line
-                  class="rounded-lg"
-                  required
-                  bg-color="primary"
-                  :rules="nameRules"
-                />
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="4">
-                <v-list-subheader>
-                  <BodyText>{{ $t("email") }}</BodyText>
-                </v-list-subheader>
-              </v-col>
+            <v-col cols="8">
+              <v-text-field v-model="name" name="name" :label="$t('name')" type="name" :placeholder="$t('name')"
+                single-line class="rounded-lg" required bg-color="primary" :rules="nameRules" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4">
+              <v-list-subheader>
+                <BodyText>{{ $t("email") }}</BodyText>
+              </v-list-subheader>
+            </v-col>
 
-              <v-col cols="8">
-                <v-text-field
-                  v-model="email"
-                  name="email"
-                  :label="$t('email')"
-                  type="email"
-                  :placeholder="$t('email')"
-                  single-line
-                  class="rounded-lg"
-                  required
-                  bg-color="primary"
-                  :rules="emailRules"
-                />
-              </v-col>
-            </v-row>
-            <FullWidthButton class="mt-2" :handle-click="saveChanges">
-              {{ $t("save-changes") }}</FullWidthButton
-            >
+            <v-col cols="8">
+              <v-text-field v-model="email" name="email" :label="$t('email')" type="email" :placeholder="$t('email')"
+                single-line class="rounded-lg" required bg-color="primary" :rules="emailRules" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4">
+              <v-list-subheader>
+                <BodyText>{{ $t("password") }}</BodyText>
+              </v-list-subheader>
+            </v-col>
+
+            <v-col cols="8">
+              <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
+                :placeholder="$t('password')" single-line class="input-form rounded-lg" required bg-color="primary"
+                :rules="passwordRules" />
+
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4">
+              <v-list-subheader>
+                <BodyText>{{ $t("confirm-pw") }}</BodyText>
+              </v-list-subheader>
+            </v-col>
+
+            <v-col cols="8">
+              <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
+                :placeholder="$t('confirm-pw')" single-line class="input-form rounded-lg" required bg-color="primary"
+                :rules="confirmPasswordRules" />
+
+            </v-col>
+          </v-row>
+          <FullWidthButton class="mt-2" :handle-click="saveChanges">
+            {{ $t("save-changes") }}</FullWidthButton>
         </form>
       </template>
-    </TwoColumnsPanel></SimpleBodyLayout
-  >
+    </TwoColumnsPanel>
+  </SimpleBodyLayout>
 </template>
 
 <script lang="ts">
@@ -88,23 +87,42 @@ export default {
   //TODO: ir buscar os direitos
   data() {
     return {
-    items: [] as LinkProps[],
-    name: "",
-    password: "",
-    id: "",
-    nameRules: [
+      items: [] as LinkProps[],
+      name: "",
+      password: "",
+      id: "",
+      nameRules: [
         value => {
           if (value?.length >= 3 && /[^0-9]/.test(value)) return true
           return this.$t("invalid-name")
         },
       ],
-    email: "",
-    emailRules : [
+      email: "",
+      emailRules: [
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
           return this.$t("invalid-email")
         },
       ],
+      password: "",
+            passwordRules: [
+                value => {
+                    if (value?.length >= 8) return true
+                    return this.$t("password-length")
+                },
+                //value => {
+                //   if verificar password return true
+                //
+                //   return this.$t('incorrect-login')
+                // }
+            ],
+            conf_password: "",
+            confirmPasswordRules: [
+                value => {
+                    if (value === this.password) return true
+                    return this.$t("password-match")
+                },
+            ],
     }
   },
   mounted: function () {
@@ -124,8 +142,9 @@ export default {
     },
     async saveChanges() {
       const r = await adminStore.editAdmin(this.id, this.email, this.name);
-      if ( r == 200) {
+      if (r) {
         console.log("save changes");
+        this.$router.push("/admin/profile");
       }
     },
   },
