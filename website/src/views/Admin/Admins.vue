@@ -29,7 +29,7 @@
           :admins="admins"
           :remove-admin-handler="openModal"
         />
-        <Pagination :length="length" :total-visible="20" :handle-page-change="handlePageChange" />
+        <Pagination :length="length" :total-visible="5" :handle-page-change="handlePageChange" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
