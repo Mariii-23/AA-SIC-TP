@@ -20,10 +20,9 @@ public class OrderSimpleDTO {
     }
 
     public OrderSimpleDTO(int order_id, LocalDate date, double total, OrderState state, int customer_id) {
-        DecimalFormat df = new DecimalFormat("#.##");
         this.id = order_id;
         this.date = date;
-        this.total = Double.parseDouble(df.format(total));
+        this.total = total;
         this.state = state;
         this.customer_id = customer_id;
     }
