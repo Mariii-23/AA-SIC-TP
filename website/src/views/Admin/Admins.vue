@@ -29,6 +29,7 @@
           :admins="admins"
           :remove-admin-handler="openModal"
         />
+        <Pagination :length="length" :total-visible="20" :handle-page-change="handlePageChange" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
@@ -45,6 +46,7 @@ import AdminExpansionPanels from "@/components/molecules/expansionPanels/AdminEx
 import { useAdminsStore } from "@/store/adminsStore";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import { useNotificationStore } from "@/store/notificationStore";
+import Pagination from "@/components/molecules/Pagination.vue";
 const adminStore = useAdminsStore();
 const notificationStore = useNotificationStore();
 
@@ -55,9 +57,13 @@ export default {
     items: [] as LinkProps[],
     admins: [] as AdminInfoProps[],
     isModalOpen: false,
+    page: 1,
+    length: 0,
+    numberOfCustomers: 0
   }),
   mounted: async function () {
-    await adminStore.getAllAdmins();
+    await adminStore.getAllAdmins(0, 20);
+    this.length = (await adminStore.getNumberOfAdmins())/20;
 
     this.admins = adminStore.admins;
 
@@ -95,6 +101,12 @@ export default {
       this.idAdmin = "";
       this.isModalOpen = false;
     },
+    async handlePageChange(page: number){
+      this.page = page;
+      const adminStore = useAdminsStore();
+      await adminStore.getAllAdmins((this.page-1)*20, 20);
+      console.log(this.page);
+    }
   },
   components: {
     TwoColumnsPanel,
@@ -104,6 +116,7 @@ export default {
     SearchBar,
     AdminExpansionPanels,
     ConfirmationModal,
+    Pagination
   },
 };
 </script>

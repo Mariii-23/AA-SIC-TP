@@ -9,6 +9,20 @@ import { handleResponse } from "./axios";
 
 const url = "/admin";
 
+const getNumberOfAdmins = async () => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(`${url}/numberOfAdmins`);
+    return handleResponse(req, (data) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };  
+  }
+};
+
 const getAllAdmins = async (offset: number, numItems: number) => {
   try {
     const req = await app.config.globalProperties.$axios.get(`${url}/all`, {
@@ -23,6 +37,21 @@ const getAllAdmins = async (offset: number, numItems: number) => {
         element.id = element.iD;
       });
       return data.data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const getNumberOfCustomers = async () => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/numberOfCustomers`);
+    return handleResponse(req, (data) => {
+      return data;
     });
   } catch (error) {
     return {
@@ -142,10 +171,12 @@ export interface AdminAxios {
     offset: number,
     numItems: number
   ) => Promise<Response<GetAllCustomersResponse>>;
+  getNumberOfCustomers: () => Promise<Response<number>>;
   getAllAdmins: (
     offset: number,
     numItems: number
   ) => Promise<Response<GetAllAdminsResponse>>;
+  getNumberOfAdmins: () => Promise<Response<number>>;
   addAdmin: (
     email: string,
     password: string,
@@ -164,8 +195,14 @@ const admin: AdminAxios = {
   getAllCustomers: async (offset: number, numberItems: number) => {
     return await getAllCustomers(offset, numberItems);
   },
+  getNumberOfCustomers: async () => {
+    return await getNumberOfCustomers();
+  },
   getAllAdmins: async (offset: number, numberItems: number) => {
     return await getAllAdmins(offset, numberItems);
+  },
+  getNumberOfAdmins: async () => {
+    return await getNumberOfAdmins();
   },
   addAdmin: async (email: string, password: string, name: string) => {
     return await addAdmin(email, password, name);

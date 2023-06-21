@@ -4,7 +4,7 @@
       v-model="page"
       :length="length"
       :total-visible="totalVisible"
-      @update:model-value="handlePageChange"
+      @update:model-value="() => handlePageChange && handlePageChange(page)"
     />
   </div>
 </template>

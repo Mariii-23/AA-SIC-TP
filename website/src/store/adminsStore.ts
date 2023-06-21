@@ -15,14 +15,28 @@ export const useAdminsStore = defineStore("admins", {
     getCustomerById(id: string) {
       return this.customers.find((c) => c.id == id);
     },
-    async getAllCustomers() {
-      const r = await axios.admins.getAllCustomers(0, 100000);
+    async getNumberOfCustomers() {
+      const r = await axios.admins.getNumberOfCustomers();
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return 0;
+    },
+    async getAllCustomers(offset: number, numItems: number) {
+      const r = await axios.admins.getAllCustomers(offset, numItems);
       if (r.success && typeof r.data !== "string") {
         this.customers = r.data;
       }
     },
-    async getAllAdmins() {
-      const r = await axios.admins.getAllAdmins(0, 100000);
+    async getNumberOfAdmins() {
+      const r = await axios.admins.getNumberOfAdmins();
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return 0;
+    },
+    async getAllAdmins(offset: number, numItems: number) {
+      const r = await axios.admins.getAllAdmins(offset, numItems);
       if (r.success && typeof r.data !== "string") {
         this.admins = r.data;
       }

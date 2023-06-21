@@ -18,6 +18,7 @@
           :users="users"
           :view-details-handler="viewDetailsHandler"
         />
+        <Pagination :length="length" :total-visible="20" :handle-page-change="handlePageChange" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
@@ -32,16 +33,21 @@ import SearchBar from "@/components/molecules/SearchBar.vue";
 import UserExpansionPanels from "@/components/molecules/expansionPanels/UserExpansionPanels.vue";
 import { UserInfoProps } from "@/appTypes/User";
 import { useAdminsStore } from "@/store/adminsStore";
+import Pagination from "@/components/molecules/Pagination.vue";
 
 export default {
   name: "ClientsAdminPage",
   data: () => ({
     items: [] as LinkProps[],
     users: [] as UserInfoProps[],
+    page: 1,
+    length: 0,
+    numberOfCustomers: 0
   }),
   mounted: async function () {
     const adminStore = useAdminsStore();
-    await adminStore.getAllCustomers();
+    await adminStore.getAllCustomers(0, 20);
+    this.length = (await adminStore.getNumberOfCustomers())/20;
 
     this.users = adminStore.customers;
 
@@ -65,6 +71,12 @@ export default {
     addAdminHandler() {
       this.$router.push("/admin/add-admin/");
     },
+    async handlePageChange(page: number){
+      this.page = page;
+      const adminStore = useAdminsStore();
+      await adminStore.getAllCustomers((this.page-1)*20, 20);
+      console.log(this.page);
+    }
   },
   components: {
     TwoColumnsPanel,
@@ -73,6 +85,7 @@ export default {
     HeadingText,
     SearchBar,
     UserExpansionPanels,
+    Pagination
   },
 };
 </script>
