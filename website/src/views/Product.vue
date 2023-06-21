@@ -194,9 +194,8 @@ export default {
       console.log("edit product " + productId);
     },
 
-    //TODO:
     addMaterialHandler() {
-      console.log("add material");
+      this.$router.push("/admin/materials/add");
     },
 
     async addToCartHandler() {
@@ -219,13 +218,14 @@ export default {
       );
 
       if (r) {
-        this.$router.push("/user/cart");
+        notificationStore.openSuccessAlert("add-product-cart-success");
       } else {
         notificationStore.openErrorAlert("add-product-cart-error");
       }
     },
     async buyNowHandler() {
       await this.addToCartHandler();
+      this.$router.push("/user/cart");
     },
 
     async favouriteIconHandler() {

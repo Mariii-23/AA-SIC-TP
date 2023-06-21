@@ -120,6 +120,7 @@
     "rmv-product-error": "Erro ao remover o produto, este contêm encomendas associadas a ele",
     "update-product-success": "Produto atualizado com sucesso",
     "update-product-error": "Erro ao atualizar o producto",
+    "add-product-cart-error": "Erro ao adicionar o produto ao carrinho",
 
 
     "store": "Loja",
@@ -190,6 +191,9 @@
     "add-favorite-error": "Erro ao adicionar favorito",
     "add-favorite-success": "Favorito adicionado com sucesso",
     "rm-favorite-success": "Favorito removido com sucesso",
+    "add-product-cart-success": "Produto adicionado ao carrinho com sucesso",
+    "add-product-cart-error":"Erro ao adicionar o produto ao carrinho",
+
 
 
     "favourites": "Favoritos",

@@ -192,6 +192,8 @@
     "add-favorite-error": "Error adding favourite",
     "add-favorite-success": "Favourite successfully added",
     "rm-favorite-success": "Favourite successfully removed",
+    "add-product-cart-error": "Error adding product to cart",
+    "add-product-cart-success": "Product successfully added to cart",
 
     "favourites": "Favourites",
     "no-favourites": "You haven't added any favourites yet. Add products to your favourites list to find them easily.",

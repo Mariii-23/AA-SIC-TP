@@ -107,7 +107,7 @@ export default {
     async login() {
       await userStore.login(this.email, this.password);
       if (userStore.isLoggedIn) {
-        this.$router.push("/");
+        this.$router.back();
         /*if (userStore.role == "ADMIN")
           this.$router.push("/admin")
         else {
