@@ -8,7 +8,7 @@
         </v-card-item>
         <v-card-item>
             <div class="user-title-info-wrapper">
-                <div>{{ $t("client") }} #{{ order?.user }}</div>
+                <div>{{ $t("client") }} {{ order?.user }}</div>
                 <div>{{ $t("email") }}: {{ order?.email }}</div>
                 <div>{{ $t("date-text") }} {{ order?.date }}</div>
                 <div>{{ $t("total") }}: {{ order?.total }}€</div>

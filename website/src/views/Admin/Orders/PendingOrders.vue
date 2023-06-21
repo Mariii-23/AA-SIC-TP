@@ -1,5 +1,5 @@
 <template>
-  <div v-if="orders.length == 0">
+  <div v-if="!loaded">
       <v-progress-linear
       indeterminate
     />
@@ -41,6 +41,7 @@ export default {
   data: () => ({
     items: Array as () => LinkProps[],
     orders: Array as () => OrderAdmin[],
+    loaded: false,
   }),
   mounted: async function () {
     this.items = [
@@ -51,6 +52,7 @@ export default {
 
     if (orderStore.ordersPending.length <= 0)
       await orderStore.getAllOrdersPending();
+    this.loaded = true;
     this.orders = orderStore.ordersPending;
   },
   methods: {
