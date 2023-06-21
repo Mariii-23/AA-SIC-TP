@@ -28,7 +28,7 @@
             <UpdateSubcategoriesForm
               :remove-subcategory="removeSubcategory"
               :add-subcategories="registerSubcategories"
-              :text-button="$t('add-category')"
+              :text-button="$t('edit-category')"
               v-bind:sub-categories="subCategories"
             />
           </template>

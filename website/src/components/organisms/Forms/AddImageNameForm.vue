@@ -3,14 +3,6 @@
     <v-card-text class="fill-height">
       <form ref="form" @submit.prevent="addHandler">
         <div class="custom-flex">
-          <v-file-input
-            accept="image/*"
-            :label="photo"
-            @click:clear="clearInputImage"
-            @change="handleFileUpload"
-            :required="requiredFile"
-            :rules="imageRules"
-          />
           <v-text-field
             v-model="name"
             name="name"
@@ -19,6 +11,14 @@
             :placeholder="$t('name')"
             required
             :rules="nameRules"
+          />
+          <v-file-input
+            accept="image/*"
+            :label="$t('image')"
+            @click:clear="clearInputImage"
+            @change="handleFileUpload"
+            :required="requiredFile"
+            :rules="imageRules"
           />
 
           <FullWidthButton :handle-click="() => {}">

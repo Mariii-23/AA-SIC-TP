@@ -95,6 +95,7 @@
 
     "add-material": "Add material",
     "edit-material": "Edit material",
+    "edit-category": "Edit category",
 
     "add-category": "Add category",
     "rmv-category": "Remove category",
@@ -149,7 +150,7 @@
     "add-description": "Add description",
     "description": "Description",
     "next-step": "Next step",
-    "previos-step": "Previos step",
+    "previos-step": "Previous step",
     "field": "Field",
     "value": "Value",
     "finish-add-product": "Finish adding product",
