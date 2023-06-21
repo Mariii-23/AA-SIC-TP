@@ -6,7 +6,7 @@
       <template v-slot:first>
         <!--<TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
           :button-handler="openModal" />-->
-          <TitleCardLinksButton
+          <TitleCardLinks
           :title="$t('store')"
           :items="items"
         />
