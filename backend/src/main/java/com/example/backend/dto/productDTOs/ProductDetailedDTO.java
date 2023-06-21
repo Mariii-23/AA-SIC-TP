@@ -32,6 +32,14 @@ public class ProductDetailedDTO extends ProductSimpleDTO{
         this.materials = materials;
     }
 
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
     public List<TechnicalInfoDTO> getTechnicalInfo() {
         return technicalInfo;
     }

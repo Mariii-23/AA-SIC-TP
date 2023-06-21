@@ -1,6 +1,5 @@
 <template>
   <v-img
-    width="100%"
     :aspect-ratio="1"
     cover
     :src="href"
@@ -24,7 +23,5 @@ export default {
 <style scoped>
 .image {
   border-radius: 5%;
-  width: 100%;
-  height: 100%;
 }
 </style>

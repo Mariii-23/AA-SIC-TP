@@ -8,7 +8,7 @@
     >
       <v-slide-group-item v-for="product in products" :key="product.id">
         <ProductPreviewAdminCard
-          class="product"
+          class="product-preview-wrapper"
           :product="product"
           :editProductHandler="
             () => editProductHandler && editProductHandler(product.id)
@@ -48,7 +48,9 @@ export default {
 </script>
 
 <style scoped>
-.product {
+.product-preview-wrapper {
+  width: 250px;
   margin: 25px;
+  height: 350px;
 }
 </style>
