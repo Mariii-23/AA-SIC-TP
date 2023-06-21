@@ -6,6 +6,13 @@
     :closeModal="closeRemoveModal"
     v-bind:is-modal-open="isRemoveModalOpen"
   />
+
+  <div v-if="products.length == 0">
+      <v-progress-linear
+      indeterminate
+    />
+    </div>
+    
   <CategoryAdmin
     v-if="isAdmin"
     v-bind:products="products"

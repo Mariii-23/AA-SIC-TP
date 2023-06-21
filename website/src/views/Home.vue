@@ -1,13 +1,12 @@
 <template>
-  <SimpleBodyLayout>
-    <HeadingText>{{ name }}</HeadingText>
-
-    <div v-if="products.length == 0">
+  <div v-if="products.length == 0">
       <v-progress-linear
       indeterminate
     />
     </div>
 
+  <SimpleBodyLayout>
+    <HeadingText>{{ name }}</HeadingText>
     <CategoriesAvatar
       :categories="categories"
       :click-handler="handleOnClickAvatar"
