@@ -14,7 +14,7 @@
             () => editProductHandler && editProductHandler(product.id)
           "
           :deleteProductHandler="
-            () => deleteProductHandler && deleteProductHandler(product.id)
+            () => deleteProductHandler && deleteProductHandler(product.id, product.name)
           "
         />
       </v-slide-group-item>

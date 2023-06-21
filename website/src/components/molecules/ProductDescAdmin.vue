@@ -25,7 +25,7 @@
       />
     </v-card-item>
     <v-card-text>
-      <FullWidthButton class="btn" :handleClick="deleteProductHandler">
+      <FullWidthButton class="btn" :handleClick="() => deleteProductHandler && deleteProductHandler(product.id, product.name)">
         {{ $t("remove-product") }}
       </FullWidthButton>
     </v-card-text>

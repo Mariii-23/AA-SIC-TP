@@ -1,13 +1,5 @@
 <template>
-  <ConfirmationModal
-    :title="$t('remove-product')"
-    :text="$t('modal-remove-product') + ' ' + product.name + '? '"
-    :confirmHandler="deleteProductHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-  />
-
-  <div class="product">
+<div class="product">
     <ProductLayout>
       <template v-slot:first>
         <Carousel :images="productImages" class="carousel" />
@@ -24,7 +16,7 @@
           :materials="materials"
           :addMaterialHandler="addMaterialHandler"
           :selectMaterialHandler="selectMaterialHandler"
-          :deleteProductHandler="openModal"
+          :deleteProductHandler="openRemoveModal"
           :editProductDescHandler="
             () => editProductDescHandler && editProductDescHandler(product.id)
           "
@@ -37,7 +29,7 @@
       <RelatedProducts
         :products="relatedProducts"
         :editProductHandler="editProductHandler"
-        :deleteProductHandler="deleteProductHandler"
+        :deleteProductHandler="openRemoveModal"
       />
     </div>
   </div>
@@ -54,16 +46,10 @@ import {
   Material,
   ProductSimple,
 } from "@/appTypes/Product";
-import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import ProductLayout from "@/layouts/Body/ProductLayout.vue";
 
 export default {
   name: "ProductAdmin",
-  data() {
-    return {
-      isModalOpen: false,
-    };
-  },
   props: {
     relatedProducts: Array as () => ProductSimple[],
     product: {
@@ -102,13 +88,9 @@ export default {
       type: Function,
       required: true,
     },
-  },
-  methods: {
-    openModal() {
-      this.isModalOpen = true;
-    },
-    closeModal() {
-      this.isModalOpen = false;
+    openRemoveModal: {
+      type: Function,
+      required: true,
     },
   },
   components: {
@@ -117,7 +99,6 @@ export default {
     ProductDescAdmin,
     HeadingText,
     RelatedProducts,
-    ConfirmationModal,
     ProductLayout,
   },
 };

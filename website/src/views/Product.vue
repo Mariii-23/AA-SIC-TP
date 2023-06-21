@@ -1,7 +1,7 @@
 <template>
   <ConfirmationModal
     :title="$t('rmv-product')"
-    :text="$t('rmv-product-text') + ' ' + product.id + '?'"
+    :text="$t('rmv-product-text') + ' ' + nameProductToRemove + '?'"
     :confirmHandler="deleteProductHandler"
     :closeModal="closeRemoveModal"
     v-bind:is-modal-open="isRemoveModalOpen"
@@ -37,6 +37,7 @@
       :editProductHandler="editProductHandler"
       :addMaterialHandler="addMaterialHandler"
       :selectMaterialHandler="selectMaterialHandler"
+      :openRemoveModal="openRemoveModal"
       v-bind:related-products="productsRelatedAdmin"
     />
   </SimpleBodyLayout>
@@ -78,6 +79,8 @@ export default {
     productsFavorite: [] as ProductSimple[],
     productsRelatedUser: [] as ProductUserProps[],
     productsRelatedAdmin: [] as ProductSimple[],
+    nameProductToRemove: "",
+    idProductToRemove: "",
   }),
   mounted: async function () {
     this.isAdmin = userStore.isAdmin();
@@ -104,7 +107,7 @@ export default {
 
       await this.updateRelatedProduct();
     }
-    if (userStore.isLoggedIn) {
+    if (userStore.isLoggedIn && !userStore.isAdmin()) {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
         userStore.id
       );
@@ -157,10 +160,8 @@ export default {
         }
       }
     },
-    async deleteProductHandler(productId: string) {
-      console.log("delete product " + productId);
-
-      const r = await productStore.removeProduct(this.product.id);
+    async deleteProductHandler() {
+      const r = await productStore.removeProduct(this.idProductToRemove);
       if (r) {
         notificationStore.openSuccessAlert("rmv-product-success");
       } else {
@@ -173,8 +174,9 @@ export default {
       this.isRemoveModalOpen = false;
       this.product.id = "";
     },
-    openRemoveModal(productId: string) {
-      this.product.id = productId;
+    openRemoveModal(productId: string, productName: string) {
+      this.idProductToRemove = productId;
+      this.nameProductToRemove = productName;
       this.isRemoveModalOpen = true;
     },
 
