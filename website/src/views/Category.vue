@@ -184,7 +184,11 @@ export default {
       this.closeRemoveModal();
     },
     shoppingCartHandler(productId: string) {
-      this.onClickProductUser(productId);
+      if (!userStore.isLoggedIn) {
+        this.$router.push("/login");
+      }
+      else 
+        this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {
       const userId = userStore.id;
