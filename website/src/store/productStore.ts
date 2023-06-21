@@ -45,20 +45,18 @@ export const useProductStore = defineStore("products", {
         this.productsFavorites = this.productsFavorites.filter(
           (e) => e.id !== productId
         );
-
-        console.log("ai")
       }
       return r.success === 200;
     },
     async getAllProducts() {
-      //const r = await axios.product.getAllProduct(0, 100000);
-      //if (r.success == 200) {
-      //  if (typeof r.data === "string") {
-      //    this.products = [];
-      //  } else {
-      //    this.products = r.data;
-      //  }
-      //}
+      const r = await axios.product.getProducts(0, 20);
+      if (r.success == 200) {
+        if (typeof r.data === "string") {
+          this.products = [];
+        } else {
+          this.products = r.data;
+        }
+      }
     },
     async removeProduct(id: string) {
       const r = await axios.product.deleteProduct(id);
@@ -74,11 +72,11 @@ export const useProductStore = defineStore("products", {
       const r = await axios.product.getProductById(id);
       if (r.success == 200) {
         if (typeof r.data != "string") {
-          return r.data
+          return r.data;
         }
       }
 
-      return null
+      return null;
     },
 
     async addProduct(

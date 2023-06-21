@@ -50,7 +50,7 @@ export default {
   }),
   methods: {
     logoutHandler() {
-      console.log("logout");
+      //TODO: logout
     },
     closeModal() {
       this.isModalOpen = false;

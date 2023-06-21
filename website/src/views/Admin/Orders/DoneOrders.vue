@@ -32,7 +32,6 @@ const orderStore = useOrderStore();
 export default {
   name: "DoneOrders",
   data: () => ({
-    //TODO: ir buscar os direitos
     items: Array as () => LinkProps[],
     orders: Array as () => OrderAdmin[],
   }),

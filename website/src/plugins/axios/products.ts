@@ -1,6 +1,11 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
-import { Material, Product, ProductSimple, TechnicalInfo } from "@/appTypes/Product";
+import {
+  Material,
+  Product,
+  ProductSimple,
+  TechnicalInfo,
+} from "@/appTypes/Product";
 import {
   AddProductResponse,
   GetProductById,
@@ -13,33 +18,37 @@ const url = "product";
 const productImage = `http://localhost:8080/${url}/all/productImage`;
 const materialImage = `http://localhost:8080/${url}/all/materialImage`;
 
-//const getAllProducts = async (
-//  categoryId: string,
-//  offset: number,
-//  numItems: number
-//) => {
-//  try {
-//    const req = await app.config.globalProperties.$axios.get(
-//      `${url}/all`,
-//      {
-//        params: {
-//          offset,
-//          numItems,
-//          categoryId,
-//        },
-//      }
-//    );
-//
-//    return handleResponse(req, (data: GetProductsByCategoryResponse) => {
-//      return data.data;
-//    });
-//  } catch (error) {
-//    return {
-//      success: error.request.status,
-//      data: error.request.statusText,
-//    };
-//  }
-//};
+const getAllProducts = async (offset: number, numItems: number) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(`${url}/all/products`, {
+      params: {
+        offset,
+        numItems,
+      },
+    });
+
+    return handleResponse(req, (data: GetProductsByCategoryResponse) => {
+      const products: ProductSimple[] = [];
+
+      for (let i = 0; i < data.data.length; i++) {
+        const item = data.data[i];
+        products.push({
+          name: item.name,
+          id: item.id,
+          href: `${productImage}?imageId=${item.image}`,
+          price: item.price,
+        });
+      }
+      return products;
+    });
+  } catch (error) {
+    console.log(error)
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
 
 const addProduct = async (
   name: string,
@@ -117,8 +126,8 @@ const getProductById = async (productId: string) => {
         materials.push({
           id: material.id,
           name: material.name,
-          href: `${materialImage}?materialId=${material.id}`
-        })
+          href: `${materialImage}?materialId=${material.id}`,
+        });
       }
 
       return {
@@ -136,7 +145,7 @@ const getProductById = async (productId: string) => {
       } as Product;
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -223,6 +232,10 @@ const getProductBySubCategoryId = async (
 };
 
 export interface ProductAxios {
+  getProducts: (
+    offset: number,
+    numItems: number
+  ) => Promise<Response<ProductSimple[]>>;
   getProductByCategoryId: (
     categoryId: string,
     offset: number,
@@ -254,6 +267,12 @@ const productStore: ProductAxios = {
     numItems: number
   ) => {
     return await getProductByCategoryId(categoryId, offset, numItems);
+  },
+  getProducts: async (
+    offset: number,
+    numItems: number
+  ) => {
+    return await getAllProducts( offset, numItems);
   },
   getProductBySubCategoryId: async (
     subCategoryId: string,

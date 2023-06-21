@@ -152,9 +152,9 @@ export default {
       this.productId = productId;
       this.isRemoveModalOpen = true;
     },
-    //TODO:
     onChangePagePagination(number: string) {
-      console.log("page " + number);
+      //TODO: Pagination
+      //console.log("page " + number);
     },
 
     handleOnClickAvatar(number: string) {
@@ -184,7 +184,7 @@ export default {
       this.closeRemoveModal();
     },
     shoppingCartHandler(productId: string) {
-      console.log("add to shopping cart" + productId);
+      this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {
       const userId = userStore.id;

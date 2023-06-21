@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="goTo">
     <img :src="logo" alt="Logo" class="max-width" />
   </div>
 </template>
@@ -26,6 +26,10 @@ export default {
     return {
       logo: path,
     };
-  },
+  },methods: {
+    goTo() {
+      this.$router.push("/")
+    }
+  }
 };
 </script>

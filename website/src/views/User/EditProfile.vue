@@ -161,7 +161,6 @@ export default {
 
             const r = await customerStore.editCustomer(this.id, argName, argEmail, argAddress, argNif, this.password)
             if (r) {
-                console.log("save changes");
                 userStore.update(argName, argEmail);
                 customerStore.update(argAddress, argNif);
                 this.$router.push("/user/profile");
