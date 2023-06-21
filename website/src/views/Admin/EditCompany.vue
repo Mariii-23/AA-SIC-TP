@@ -1,11 +1,15 @@
 <template>
   <SimpleBodyLayout>
     <TwoColumnsPanel>
-      <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
-        :closeModal="closeModal" :isModalOpen="isModalOpen" />
+      <!--<ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
+        :closeModal="closeModal" :isModalOpen="isModalOpen" />-->
       <template v-slot:first>
-        <TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
-          :button-handler="openModal" />
+        <!--<TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
+          :button-handler="openModal" />-->
+          <TitleCardLinksButton
+          :title="$t('store')"
+          :items="items"
+        />
       </template>
       <template v-slot:second>
         <TitleWithButtonAndGoBack :title="$t('company')" :buttonText="$t('save-changes')" :buttonHandler="saveChanges" />
@@ -99,11 +103,12 @@
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
+//import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+//import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import TitleWithButtonAndGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
 import { useCompanyStore } from "@/store/companyStore";
+import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
 
 const companyStore = useCompanyStore();
 
@@ -202,10 +207,11 @@ export default {
   },
   components: {
     TwoColumnsPanel,
-    TitleCardLinksButton,
+    //TitleCardLinksButton,
     SimpleBodyLayout,
-    ConfirmationModal,
+    //ConfirmationModal,
     TitleWithButtonAndGoBack,
+    TitleCardLinks
   },
 };
 </script>

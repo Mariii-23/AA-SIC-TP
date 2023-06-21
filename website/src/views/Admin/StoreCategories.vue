@@ -7,7 +7,7 @@
   <SimpleBodyLayout>
     <ConfirmationModal
     :title="$t('rmv-category')"
-    :text="$t('rmv-category-text') + ' ' + category + '?'"
+    :text="$t('rmv-category-text') + ' ' + categoryName + '?'"
     :confirmHandler="removeCategoryHandler"
     :closeModal="closeRemoveModal"
     :isModalOpen="isRemoveModalOpen"
@@ -66,7 +66,8 @@ export default {
     isRemoveModalOpen: false,
     isLogoutModalOpen: false,
     categories: [] as Category[],
-    category: "",
+    categoryId: "",
+    categoryName: ""
   }),
   mounted: async function () {
     this.items = [
@@ -90,7 +91,7 @@ export default {
   },
   methods: {
     async removeCategoryHandler() {
-      const r = await categoryStore.removeCategory(this.category);
+      const r = await categoryStore.removeCategory(this.categoryId);
       if (r) {
         notifications.openSuccessAlert(this.$t("rmv-category-success"));
       } else {
@@ -109,8 +110,9 @@ export default {
     closeRemoveModal() {
       this.isRemoveModalOpen = false;
     },
-    openRemoveModal(categoryname: string) {
-      this.category = categoryname;
+    openRemoveModal(categoryid: string, categoryname: string) {
+      this.categoryId = categoryid;
+      this.categoryName = categoryname;
       this.isRemoveModalOpen = true;
     },
     openLogoutModal() {

@@ -28,7 +28,7 @@
             <UpdateSubcategoriesForm
               :remove-subcategory="removeSubcategory"
               :add-subcategories="registerSubcategories"
-              :text-button="$t('edit-category')"
+              :text-button="$t('save-changes')"
               v-bind:sub-categories="subCategories"
             />
           </template>
@@ -128,7 +128,7 @@ export default {
         notificationStore.openErrorAlert("update-category-error");
       }
       await categoryStore.getAllCategories();
-      this.$router.back();
+      this.$router.push("/admin/categories");
     },
     goBack() {
       this.tab = this.tab - 1;

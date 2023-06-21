@@ -10,7 +10,7 @@
           <v-file-input
             class="mr-2"
             bg-color="primary"
-            :label="textField.value1"
+            :label="$t('image')"
             accept="image/*"
             @change="(e) => handleFileUpload(e, i)"
             @click:clear="(e) => clearInput(e, i)"
@@ -18,7 +18,7 @@
 
           <v-text-field
             bg-color="primary"
-            :label="$t('value')"
+            :label="$t('name')"
             v-model="textField.value2"
           />
 

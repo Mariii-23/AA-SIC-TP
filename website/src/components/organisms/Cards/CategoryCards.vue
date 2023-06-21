@@ -8,7 +8,7 @@
         () => editCategoryHandler && editCategoryHandler(category.id)
       "
       :remove-category-handler="
-        () => removeCategoryHandler && removeCategoryHandler(category.id)
+        () => removeCategoryHandler && removeCategoryHandler(category.id, category.name)
       "
     />
   </CardsLayout>
