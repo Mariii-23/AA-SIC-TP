@@ -30,6 +30,6 @@ public interface ProductRep extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM product " +
             "ORDER BY id ASC" +
-            " LIMIT ?3 OFFSET ?2", nativeQuery = true)
+            " LIMIT ?2 OFFSET ?1", nativeQuery = true)
     List<Product> findProductsPagination(int offset, int numItems);
 }
