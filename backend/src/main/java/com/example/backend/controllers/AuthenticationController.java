@@ -32,6 +32,8 @@ public class AuthenticationController {
         try {
             return ResponseEntity.ok(authenticateService.authenticate(request));
         } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }

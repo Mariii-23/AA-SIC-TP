@@ -66,14 +66,15 @@ public class AuthenticateService {
         }
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) throws UserNotFoundException {
-        authenticationManager.authenticate((
+    public AuthenticationResponse authenticate(AuthenticationRequest request) throws Exception {
+        User user = userRep.findByEmail(request.getEmail()).orElseThrow(() -> new UserNotFoundException("User not found"));
+        try{
+            authenticationManager.authenticate((
                 new UsernamePasswordAuthenticationToken(request.getEmail(),
                 request.getPassword()
                 )));
-        User user = userRep.findByEmail(request.getEmail()).orElse(null);
-        if (user == null) {
-            throw new UserNotFoundException("User with email " + request.getEmail() + " not found");
+        } catch (Exception e) {
+            throw new Exception("Password incorrect");
         }
         String token = jwtService.generateToken(user);
         Token tokenObj = new Token(token, user);
