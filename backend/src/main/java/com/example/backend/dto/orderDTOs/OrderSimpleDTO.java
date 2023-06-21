@@ -3,6 +3,8 @@ package com.example.backend.dto.orderDTOs;
 import com.example.backend.model.Order;
 import com.example.backend.model.OrderState;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class OrderSimpleDTO {
@@ -18,9 +20,10 @@ public class OrderSimpleDTO {
     }
 
     public OrderSimpleDTO(int order_id, LocalDate date, double total, OrderState state, int customer_id) {
+        DecimalFormat df = new DecimalFormat("#.##");
         this.id = order_id;
         this.date = date;
-        this.total = total;
+        this.total = Double.parseDouble(df.format(total));
         this.state = state;
         this.customer_id = customer_id;
     }
