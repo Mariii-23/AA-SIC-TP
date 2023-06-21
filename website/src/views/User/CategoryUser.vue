@@ -10,7 +10,7 @@
 
     <ProductPreviewUserCards
       :products="productsUser"
-      :shopping-cart-handler="shoppingCartHandler"
+      :view-more-handler="viewMoreHandler"
       :favorite-icon-handler="favoriteIconHandler"
       :on-click-handler="onClickProduct"
     />
@@ -107,7 +107,7 @@ export default {
       type: Function,
       required: true,
     },
-    shoppingCartHandler: {
+    viewMoreHandler: {
       type: Function,
       required: true,
     },

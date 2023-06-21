@@ -10,9 +10,9 @@
       <v-btn
         icon
         class="action elevation-0 bg-secondary"
-        @click="shoppingCartHandler"
+        @click="viewMoreHandler"
       >
-        <v-icon>mdi-shopping-outline</v-icon>
+        <v-icon>mdi-dots-horizontal-circle-outline</v-icon>
       </v-btn>
       <v-btn
         icon
@@ -38,7 +38,7 @@ export default {
       type: Object as () => ProductUserProps,
       required: true,
     },
-    shoppingCartHandler: {
+    viewMoreHandler: {
       type: Function,
       required: true,
     },

@@ -23,6 +23,7 @@
       :favouriteIconHandler="favouriteIconHandler"
       :selectMaterialHandler="selectMaterialHandler"
       v-bind:related-products="productsRelatedUser"
+      :viewMoreHandler="viewMoreHandler"
     />
 
     <ProductAdmin
@@ -198,6 +199,12 @@ export default {
 
     addMaterialHandler() {
       this.$router.push("/admin/materials/add");
+    },
+
+    viewMoreHandler(productId: string){
+      console.log("view more " + productId)
+      //TODO: mudar de pagina
+      this.$router.push("/product/" + productId);
     },
 
     async addToCartHandler() {

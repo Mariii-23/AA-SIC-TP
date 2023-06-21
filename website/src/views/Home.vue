@@ -10,7 +10,7 @@
 
     <ProductPreviewUserCards
       :products="productsUser"
-      :shopping-cart-handler="shoppingCartHandler"
+      :view-more-handler="viewMoreHandler"
       :favorite-icon-handler="favoriteIconHandler"
       :on-click-handler="handleOnClickAvatar"
     />
@@ -210,7 +210,7 @@ export default {
 
       this.closeRemoveModal();
     },
-    shoppingCartHandler(productId: string) {
+    viewMoreHandler(productId: string) {
       this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {

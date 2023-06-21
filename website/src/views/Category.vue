@@ -25,7 +25,7 @@
     v-bind:category="category"
     :handle-on-click-avatar="handleOnClickAvatar"
     :handle-page-change="onChangePagePagination"
-    :shopping-cart-handler="shoppingCartHandler"
+    :view-more-handler="viewMoreHandler"
     :favorite-icon-handler="favoriteIconHandler"
     :on-click-product="onClickProductUser"
   />
@@ -83,7 +83,7 @@ export default {
         if (newValue == "") {
           await productStore.getProductByCategoryId(this.category.id);
         } else {
-          await productStore.getProductBySubCategoryId(this.category.id);
+          await productStore.getProductBySubCategoryId(newValue);
         }
       }
     );
@@ -183,11 +183,7 @@ export default {
 
       this.closeRemoveModal();
     },
-    shoppingCartHandler(productId: string) {
-      if (!userStore.isLoggedIn) {
-        this.$router.push("/login");
-      }
-      else 
+    viewMoreHandler(productId: string) {
         this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {

@@ -1,7 +1,7 @@
 <template>
     <SimpleBodyLayout>
         <HeadingText>{{ $t("favourites") }}</HeadingText>
-        <ProductPreviewUserCards :products="favourites" :shopping-cart-handler="shoppingCartHandler"
+        <ProductPreviewUserCards :products="favourites" :view-more-handler="viewMoreHandler"
             :favorite-icon-handler="favoriteIconHandler" />
         <div v-if="favourites.length == 0">
             <BodyText>{{ $t("no-favourites") }}</BodyText>
@@ -50,8 +50,8 @@ export default {
         );
     },
     methods: {
-        shoppingCartHandler(productId: string) {
-            console.log("add to shopping cart" + productId);
+        viewMoreHandler(productId: string) {
+            this.$router.push(`/product/${productId}`);
         },
         async favoriteIconHandler(productId: string) {
             const userId = userStore.id;

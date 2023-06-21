@@ -26,7 +26,7 @@
       <RelatedProducts
         :products="relatedProducts"
         :favouriteIconHandler="favouriteIconHandler"
-        :addToCartHandler="addToCartHandler"
+        :viewMoreHandler="viewMoreHandler"
       />
     </div>
   </div>
@@ -117,6 +117,10 @@ export default {
       type: Function,
       required: true,
     },
+    viewMoreHandler: {
+      type: Function,
+      required: true,
+    }
   },
   components: {
     Carousel,

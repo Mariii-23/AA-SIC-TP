@@ -13,8 +13,8 @@
           :favoriteIconHandler="
             () => favouriteIconHandler && favouriteIconHandler(product.id)
           "
-          :shoppingCartHandler="
-            () => addToCartHandler && addToCartHandler(product.id)
+          :viewMoreHandler="
+            () => viewMoreHandler && viewMoreHandler(product.id)
           "
         />
       </v-slide-group-item>
@@ -39,7 +39,7 @@ export default {
       type: Function,
       required: true,
     },
-    addToCartHandler: {
+    viewMoreHandler: {
       type: Function,
       required: true,
     },
