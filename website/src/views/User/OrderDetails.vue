@@ -1,20 +1,22 @@
 <template>
   <SimpleBodyLayout>
-    <ConfirmationModal
+    <!--<ConfirmationModal
       :title="$t('logout')"
       :text="$t('logout-text')"
       :confirmHandler="logoutHandler"
       :closeModal="closeModal"
       :isModalOpen="isModalOpen"
-    />
+    />-->
     <TwoColumnsPanel>
       <template v-slot:first>
-        <TitleCardLinksButton
+        <!--<TitleCardLinksButton
           :title="$t('hello') + ', ' + userName + '!'"
           :items="items"
           :button-text="$t('logout')"
           :button-handler="openModal"
-        />
+        />-->
+        <TitleCardLinks :title="$t('hello') + ', ' + userName + '!'"
+          :items="items" />
       </template>
       <template v-slot:second>
         <TitleGoBack :title="$t('order-details')" />
@@ -27,14 +29,15 @@
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
+//import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Order } from "@/appTypes/Order";
 import OrderCard from "@/components/organisms/Card/OrderCard.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
-import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+//import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import { useOrderStore } from "@/store/orders";
 import { useUserStore } from "@/store/userStore";
+import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
 
 const ordersStore = useOrderStore();
 const userStore = useUserStore();
@@ -87,11 +90,12 @@ export default {
   },
   components: {
     TwoColumnsPanel,
-    TitleCardLinksButton,
+    //TitleCardLinksButton,
     SimpleBodyLayout,
     OrderCard,
     TitleGoBack,
-    ConfirmationModal,
+    //ConfirmationModal,
+    TitleCardLinks,
   },
 };
 </script>

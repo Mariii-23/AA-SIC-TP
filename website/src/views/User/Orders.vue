@@ -1,4 +1,9 @@
 <template>
+  <div v-if="!loaded">
+      <v-progress-linear
+      indeterminate
+    />
+    </div>
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
@@ -40,6 +45,7 @@ export default {
     userName: "",
     userId: "",
     isModalOpen: false,
+    loaded: false,
   }),
   mounted: async function () {
     if (userStore.isLoggedIn) {
@@ -48,6 +54,7 @@ export default {
     }
 
     await ordersStore.getAllOrders(this.userId);
+    this.loaded = true;
     this.orders = ordersStore.myOrders;
 
     this.items = [

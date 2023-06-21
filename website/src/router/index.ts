@@ -169,12 +169,12 @@ const routes = [
         component: () => import("@/views/User/EditProfile.vue"),
       },
       {
-        path: "orders",
+        path: "user/orders",
         name: "User Orders",
         component: () => import("@/views/User/Orders.vue"),
       },
       {
-        path: "/orders/:id",
+        path: "user/orders/:id",
         name: "Order info",
         component: () => import("@/views/User/OrderDetails.vue"),
       },
