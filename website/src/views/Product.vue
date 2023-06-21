@@ -227,7 +227,12 @@ export default {
     },
     async buyNowHandler() {
       await this.addToCartHandler();
+      if (!userStore.isLoggedIn) {
+        this.$router.push("/login");
+      }
+      else {
       this.$router.push("/user/cart");
+      }
     },
 
     async favouriteIconHandler() {
