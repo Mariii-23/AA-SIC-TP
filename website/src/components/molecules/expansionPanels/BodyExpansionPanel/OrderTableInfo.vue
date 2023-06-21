@@ -3,7 +3,7 @@
       <tbody>
         <tr v-for="item in orderItems" :key="item.name">
           <td>{{ item.name }}</td>
-          <td>{{ item.quantity }} x {{ item.price }}€</td>
+          <td>{{ item.quantity }} x {{ item.price.toFixed(2) }}€</td>
         </tr>
         <tr v-if="total">
           <td class="font-weight-bold">{{ $t("total") }}:</td>

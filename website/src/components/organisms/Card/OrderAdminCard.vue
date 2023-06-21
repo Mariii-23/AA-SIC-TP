@@ -33,7 +33,7 @@
                             <Avatar :href="item.material" :size="30" />
                         </td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.price }}€</td>
+                        <td>{{ item.price.toFixed(2) }}€</td>
                     </tr>
                 </tbody>
             </v-table>
