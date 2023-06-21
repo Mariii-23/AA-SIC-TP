@@ -55,17 +55,6 @@ export default {
 </script>
 
 <style scoped>
-.imgContainer {
-  width: 150px;
-  height: 150px;
-}
-
-.image {
-  border-radius: 5%;
-  width: 100%;
-  height: 100%;
-}
-
 .actions {
   display: flex;
   flex-direction: row;

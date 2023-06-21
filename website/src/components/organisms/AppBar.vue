@@ -148,6 +148,7 @@ export default {
       adminsStore.clearStore();
       userStore.logout();
       this.$router.push("/");
+      this.isModalOpen = false;
     },
     openModal(){
       this.isModalOpen = true;
