@@ -196,5 +196,6 @@
     "no-favourites": "Ainda não adicionou nenhum produto aos favoritos. Adicione produtos à sua lista de favoritos para os poder encontrar mais facilmente.",
     "empty-cart": "Ainda não adicionou nenhum produto ao seu carrinho.",
 
-    "loginInvalid": "Email ou palavra-passe incorretos"
+    "passwordIncorrect": "Palavra-passe incorreta",
+    "emailIncorrect": "Não existe nenhuma conta associada a este email"
 }

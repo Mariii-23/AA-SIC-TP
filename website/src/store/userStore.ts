@@ -46,9 +46,15 @@ export const useUserStore = defineStore("user", {
         const notificationStore = useNotificationStore();
         notificationStore.openErrorAlert("tokenInvalid");
       }
-      else {
+      else if (r.success == 400){
+        console.log("password incorrect");
         const notificationStore = useNotificationStore();
-        notificationStore.openErrorAlert("loginInvalid");
+        notificationStore.openErrorAlert("passwordIncorrect");
+      }
+      else if (r.success == 404){
+        console.log("email incorrect");
+        const notificationStore = useNotificationStore();
+        notificationStore.openErrorAlert("emailIncorrect");
       }
     },
     async register(
