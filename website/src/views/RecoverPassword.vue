@@ -22,7 +22,7 @@
 
             <div>
               <v-text-field v-model="code" name="code" :label="$t('code')" type="text" :placeholder="$t('code')"
-                single-line class="input-form rounded-lg" required bg-color="primary"/>
+                single-line class="input-form rounded-lg" required bg-color="primary" :rules="codeRules"/>
                 <v-text-field
                     v-model="password"
                     name="password"
@@ -142,6 +142,13 @@ export default {
         },
       ],
       code: "",
+      codeRules: [
+          value => {
+            if (value?.length > 0) return true
+  
+            return this.$t("invalid-code")
+          },
+        ],
       password: "",
         passwordRules: [
           value => {
@@ -157,6 +164,11 @@ export default {
   
             return this.$t("password-match")
           },
+          value => {
+            if (value?.length >= 8) return true
+  
+            return this.$t("password-length")
+          },
         ],
     }
   },
@@ -167,7 +179,6 @@ export default {
     },
     async recoverPassword() {
       const result = await userStore.confirmRecoverPassword(this.code, this.password)
-      console.log(result)
       if (result){
         this.$router.push("/login");
       }
