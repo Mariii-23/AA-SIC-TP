@@ -6,34 +6,34 @@
         {{ material.name }}
       </v-card-title>
 
+      <v-card-title class="card-item-material bg-secondary">
+        <v-text-field
+          class="custom-full-width"
+          v-if="isEdit"
+          :label="$t('name')"
+          v-model="textField.value2"
+        />
+      </v-card-title>
       <div class="inputImageContainer">
         <v-file-input
           v-if="isEdit"
           accept="image/*"
           :label="$t('image')"
-          class="bg-primary custom-full-width"
+          class="custom-full-width"
           @change="handleFileUpload"
         />
       </div>
-      <v-card-title class="card-item-material bg-secondary">
-        <v-text-field
-          class="bg-primary custom-full-width"
-          v-if="isEdit"
-          :label="textField.label2"
-          v-model="textField.value2"
-        />
-      </v-card-title>
     </v-card-item>
     <div class="actions">
       <PrimaryButton
-        class="action elevation-0 bg-secondary"
+        class="action elevation-2 bg-primary"
         v-if="isEdit"
         :handle-click="updateMaterial"
       >
         {{ $t("save") }}
       </PrimaryButton>
       <PrimaryButton
-        class="action elevation-0 bg-secondary"
+        class="action elevation-2 bg-primary"
         v-if="isEdit"
         :handle-click="cancelHandler"
       >
