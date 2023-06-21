@@ -7,7 +7,7 @@
   <SimpleBodyLayout>
     <ConfirmationModal
       :title="$t('rmv-material')"
-      :text="$t('rmv-material-text') + ' ' + material + '?'"
+      :text="$t('rmv-material-text') + ' ' + materialName + '?'"
       :confirmHandler="removeMaterialHandler"
       :closeModal="closeRemoveModal"
       v-bind:is-modal-open="isRemoveModalOpen"
@@ -65,7 +65,8 @@ export default {
     isRemoveModalOpen: false,
     isLogoutModalOpen: false,
     materials: [] as Material[],
-    material: "",
+    materialId: "",
+    materialName: ""
   }),
   mounted: async function () {
     this.items = [
@@ -92,10 +93,12 @@ export default {
     },
     closeRemoveModal() {
       this.isRemoveModalOpen = false;
-      this.material = "";
+      this.materialId = "";
+      this.materialName = "";
     },
     openRemoveModal(materialId: string, materialName: string) {
-      this.material = materialName;
+      this.materialId = materialId;
+      this.materialName = materialName;
       this.isRemoveModalOpen = true;
     },
     openLogoutModal() {
@@ -108,7 +111,7 @@ export default {
       console.log("logout");
     },
     async removeMaterialHandler() {
-      const r = await materialsStore.removeMaterial(this.material);
+      const r = await materialsStore.removeMaterial(this.materialId);
       if (r) {
         notifications.openSuccessAlert(this.$t("rmv-material-success"));
       } else {

@@ -5,7 +5,7 @@
       :key="material.id"
       :material="material"
       :remove-material-handler="
-        () => removeMaterialHandler && removeMaterialHandler(material.id)
+        () => removeMaterialHandler && removeMaterialHandler(material.id, material.name)
       "
       :update-material-handler="updateMaterialHandler"
     />

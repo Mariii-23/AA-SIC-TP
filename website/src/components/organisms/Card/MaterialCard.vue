@@ -10,7 +10,7 @@
         <v-file-input
           v-if="isEdit"
           accept="image/*"
-          :label="textField.value1"
+          :label="$t('image')"
           class="bg-primary custom-full-width"
           @change="handleFileUpload"
         />
