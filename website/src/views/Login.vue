@@ -21,23 +21,6 @@
 
             <FullWidthButton> {{ $t("login") }}</FullWidthButton>
 
-
-            <!--<div class="custom-divider">
-                <div class="line" />
-                <div class="text">
-                  <p>
-                    {{ $t("or") }}
-                  </p>
-                </div>
-                <div class="line" />
-              </div>
-
-              <div class="custom-flex">
-                <PrimaryButton :handleClick="handleLoginWithGoogle">
-                  {{ $t("continue-google") }}
-                </PrimaryButton>
-              </div>
-              -->
             <div class="signup-phrase">
               <p>{{ $t("dont-have-account") }}</p>
               <p class="link" @click="goToRegister()">{{ $t("register") }}</p>
@@ -59,23 +42,6 @@
   flex-direction: column;
   gap: 20px;
 }
-
-/*.custom-divider {
-  display: flex;
-  align-items: center;
-  margin: 0px 0;
-}
-
-.custom-divider .line {
-  flex-grow: 1;
-  height: 1px;
-  background-color: black;
-}
-
-.custom-divider .text {
-  margin: 0 10px;
-}
-*/
 
 .body {
   display: flex;
@@ -107,8 +73,10 @@
 <script lang="ts">
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import { useUserStore } from "@/store/userStore";
+import { useNotificationStore  } from "@/store/notificationStore";
 
 const userStore = useUserStore();
+const notificationStore = useNotificationStore();
 
 export default {
   name: "Login",
@@ -141,18 +109,13 @@ export default {
     async login() {
       await userStore.login(this.email, this.password);
       if (userStore.isLoggedIn) {
-        if (userStore.role == "ADMIN")
+        this.$router.push("/");
+        /*if (userStore.role == "ADMIN")
           this.$router.push("/admin")
         else {
           this.$router.push("/category/12")
-        }
+        }*/
       }
-    },
-    /*handleLoginWithGoogle() {
-      console.log("login with google");
-    },*/
-    handleLoginWithEmail() {
-      console.log("login with email");
     },
     goToRegister() {
       this.$router.push("/register");

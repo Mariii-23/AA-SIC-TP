@@ -194,5 +194,7 @@
 
     "favourites": "Favourites",
     "no-favourites": "You haven't added any favourites yet. Add products to your favourites list to find them easily.",
-    "empty-cart": "You haven't added any product to your cart yet."
+    "empty-cart": "You haven't added any product to your cart yet.",
+
+    "loginInvalid": "Incorrect email or password"
 }
