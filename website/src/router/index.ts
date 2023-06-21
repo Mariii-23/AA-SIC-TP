@@ -42,12 +42,12 @@ const routes = [
         component: () => import("@/views/Product.vue"),
       },
       {
-      path: "category/:id",
+        path: "category/:id",
         name: "Category",
         component: () => import("@/views/Category.vue"),
       },
 
-      // FIXME: alterar pagina 
+      // FIXME: alterar pagina
       {
         path: "/category/:id/subcategory/:subCategoryId",
         name: "SubCategory",
@@ -155,7 +155,6 @@ const routes = [
         name: "OrderDoneDetails",
         component: () => import("@/views/Admin/Orders/DoneOrderDetails.vue"),
       },
-
 
       //USER
       {
