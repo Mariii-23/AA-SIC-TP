@@ -1,8 +1,7 @@
 <template>
   <CardLayout class="card bg-secondary">
-    <div class="img">
-      <v-img max-height="150px" max-width="150px" :src="orderItem?.img" />
-    </div>
+    <ImageCard max-height="125px" max-width="125px" class="mt-2 ml-2" :href="orderItem?.href"/>
+
     <div class="info">
       <div class="name-remove">
         <v-card-title class="mt-2">{{ orderItem?.name }}</v-card-title>
@@ -37,6 +36,7 @@ import { OrderItem } from "@/appTypes/Order";
 import CardLayout from "@/layouts/CardLayout.vue";
 import Avatar from "@/components/atoms/AvatarVue.vue";
 import QuantityButton from "@/components/atoms/Button/QuantityButton.vue";
+import ImageCard from "@/components/atoms/ImageCard.vue";
 export default {
   name: "CartItemCard",
   props: {
@@ -61,7 +61,7 @@ export default {
       required: true,
     },
   },
-  components: { CardLayout, Avatar, QuantityButton },
+  components: { CardLayout, Avatar, QuantityButton, ImageCard },
 };
 </script>
 
