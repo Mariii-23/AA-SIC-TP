@@ -1,4 +1,9 @@
 <template>
+  <div v-if="admins.length == 0">
+      <v-progress-linear
+      indeterminate
+    />
+    </div>
   <SimpleBodyLayout>
     <ConfirmationModal
     :title="$t('removeAdmin')"

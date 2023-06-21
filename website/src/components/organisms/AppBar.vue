@@ -58,7 +58,7 @@
         <BodyText id="orders-text">{{ $t("orders") }}</BodyText>
       </v-btn>
     </div>
-    <div @click="goTo('/admin')">
+    <div @click="goTo('/admin/profile')">
       <v-btn icon v-if="loggedIn && user_type == 'ADMIN'">
         <v-icon>mdi-account-group-outline</v-icon>
       </v-btn>

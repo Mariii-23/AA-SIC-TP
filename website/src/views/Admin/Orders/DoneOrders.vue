@@ -1,4 +1,9 @@
 <template>
+  <div v-if="orders.length == 0">
+      <v-progress-linear
+      indeterminate
+    />
+    </div>
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
