@@ -1,32 +1,32 @@
 <template>
     <div class="materials">
-        <Material :materials="materials" :selectMaterialHandler="selectMaterialHandler"/>
+        <MaterialsSelect :materials="materials" :selectMaterialHandler="selectMaterialHandler"/>
         <PrimaryButton :handleClick="addMaterialHandler" class="add_btn">+</PrimaryButton>
     </div>
 </template>
 
 <script lang="ts">
-import { Materials } from "@/appTypes/Product";
+import { Material } from "@/appTypes/Product";
 import PrimaryButton from "@/components/atoms/Button/PrimaryButton.vue";
-import Material from "@/components/molecules/Materials.vue";
+import MaterialsSelect from "@/components/molecules/MaterialsSelect.vue";
 
 export default {
     name: "Materials",
     props: {
         materials: {
-            type: Array as () => Materials[],
-            require: true,
+            type: Array as () => Material[],
+            required: true,
         },
         addMaterialHandler: {
             type: Function,
-            require: true,
+            required: true,
         },
         selectMaterialHandler: {
             type: Function,
-            require: true,
+            required: true,
         },
     },
-    components: { PrimaryButton, Material },
+    components: { PrimaryButton, MaterialsSelect },
 };
 </script>
 

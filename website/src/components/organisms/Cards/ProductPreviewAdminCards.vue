@@ -10,6 +10,7 @@
       :edit-product-handler="
         () => editProductHandler && editProductHandler(product.id)
       "
+      :onClick="onClickHandler"
     />
   </CardsLayout>
 </template>
@@ -27,12 +28,14 @@ export default {
   props: {
     products: {
       type: Array as () => ProductSimple[],
-      require: true,
+      required: true,
     },
     deleteProductHandler: {
       type: Function,
     },
     editProductHandler: {
+      type: Function,
+    },    onClickHandler: {
       type: Function,
     },
   },

@@ -29,11 +29,11 @@ export default {
         products: Array as () => ProductUserProps[],
         favouriteIconHandler: {
             type: Function,
-            require: true,
+            required: true,
         },
         addToCartHandler: {
             type: Function,
-            require: true,
+            required: true,
         },
     }
 }

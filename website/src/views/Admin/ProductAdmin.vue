@@ -1,190 +1,156 @@
 <template>
-    <div>
-        <ConfirmationModal :title="$t('remove-product')" :text="$t('modal-remove-product') + ' ' + productDesc.name + '? '"
-            :confirmHandler="deleteProductHandler" :closeModal="closeModal" :isModalOpen="isModalOpen" />
+  <ConfirmationModal
+    :title="$t('remove-product')"
+    :text="$t('modal-remove-product') + ' ' + product.name + '? '"
+    :confirmHandler="deleteProductHandler"
+    :closeModal="closeModal"
+    :isModalOpen="isModalOpen"
+  />
 
-        <div class="product">
-            <div class="left-side">
-                <Carousel :images="productImages" class="carousel" />
-                <ProductInfo :info="productInfo"
-                    :editProductInfoHandler="() => editProductInfoHandler && editProductInfoHandler(productDesc.id)" />
-            </div>
-            <div class="product-desc">
-                <ProductDesc :product="productDesc" :materials="materials" :addMaterialHandler="addMaterialHandler"
-                    :selectMaterialHandler="selectMaterialHandler" :deleteProductHandler="openModal"
-                    :editProductDescHandler="() => editProductDescHandler && editProductDescHandler(productDesc.id)" />
-            </div>
-        </div>
+  <div class="product">
+    <ProductLayout>
+      <template v-slot:first>
+        <Carousel :images="productImages" class="carousel" />
+        <ProductInfo
+          :info="productInfo"
+          :editProductInfoHandler="
+            () => editProductInfoHandler && editProductInfoHandler(product.id)
+          "
+        />
+      </template>
+      <template v-slot:second>
+        <ProductDescAdmin
+          :product="product"
+          :materials="materials"
+          :addMaterialHandler="addMaterialHandler"
+          :selectMaterialHandler="selectMaterialHandler"
+          :deleteProductHandler="openModal"
+          :editProductDescHandler="
+            () => editProductDescHandler && editProductDescHandler(product.id)
+          "
+        />
+      </template>
+    </ProductLayout>
 
-        <div class="related-products">
-            <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-            <RelatedProducts :products="relatedProducts" :editProductHandler="editProductHandler"
-                :deleteProductHandler="deleteProductHandler" />
-        </div>
-    </div>
+  <div class="related-products">
+    <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
+    <RelatedProducts
+      :products="relatedProducts"
+      :editProductHandler="editProductHandler"
+      :deleteProductHandler="deleteProductHandler"
+    />
+  </div>
+  </div>
 </template>
 
 <script lang="ts">
 import Carousel from "@/components/molecules/Carousel.vue";
 import ProductInfo from "@/components/molecules/ProductInfoAdmin.vue";
-import ProductDesc from "@/components/molecules/ProductDescAdmin.vue";
+import ProductDescAdmin from "@/components/molecules/ProductDescAdmin.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsAdmin.vue";
-import { ProductInformation, ProductImages, Material } from "@/appTypes/Product";
+import {
+  ProductInformation,
+  Material,
+  ProductSimple,
+} from "@/appTypes/Product";
 import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+import ProductLayout from "@/layouts/Body/ProductLayout.vue";
 
 export default {
-    name: "ProductAdmin",
-    data() {
-        return {
-            isModalOpen: false,
-            productDesc: {
-                name: "Product name",
-                id: "8",
-                price: 8,
-            },
-            relatedProducts: [
-                {
-                    id: "1",
-                    name: "Product name 1",
-                    price: 1,
-                    href: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-                },
-                {
-                    id: "2",
-                    name: "Product name 2",
-                    price: 2,
-                    href: "http://diamond.mariii.xyz:8080/api/wall/pleasant-lake.jpg",
-                },
-                {
-                    id: "3",
-                    name: "Product name 3",
-                    price: 3,
-                    href: "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
-                },
-                {
-                    id: "4",
-                    name: "Product name 4",
-                    price: 4,
-                    href: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-                },
-                {
-                    id: "5",
-                    name: "Product name 5",
-                    price: 5,
-                    href: "https://cdn.vuetifyjs.com/images/cards/hotel.jpg",
-                },
-                {
-                    id: "6",
-                    name: "Product name 6",
-                    price: 6,
-                    href: "http://diamond.mariii.xyz:8080/api/wall/pleasant-lake.jpg",
-                },
-                {
-                    id: "7",
-                    name: "Product name 7",
-                    price: 7,
-                    href: "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
-                }
-            ]
-        }
+  name: "ProductAdmin",
+  data() {
+    return {
+      isModalOpen: false,
+    };
+  },
+  props: {
+    relatedProducts: Array as () => ProductSimple[],
+    product: {
+      type: Object as () => ProductSimple,
+      required: true,
     },
-    props: {
-        //relatedProducts: Array as () => ProductUserProps[],
-        //productDesc: Object as () => ProductDescriptionUser,
-        productInfo: Object as () => ProductInformation,
-        productImages: Object as () => ProductImages,
-        materials: {
-            type: Array as () => Material[],
-            require: true,
-        },
+    productInfo: Object as () => ProductInformation,
+    productImages: Array as () => string[],
+    materials: {
+      type: Array as () => Material[],
+      required: true,
+    },
 
-        //HANDLERS
-        deleteProductHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductDescHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductInfoHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductHandler: {
-            type: Function,
-            require: true,
-        },
-        addMaterialHandler: {
-            type: Function,
-            require: true,
-        },
-        selectMaterialHandler: {
-            type: Function,
-            require: true
-        }
-
+    //HANDLERS
+    deleteProductHandler: {
+      type: Function,
+      required: true,
     },
-    methods: {
-        openModal() {
-            this.isModalOpen = true;
-        },
-        closeModal() {
-            this.isModalOpen = false;
-        },
+    editProductDescHandler: {
+      type: Function,
+      required: true,
     },
-    components: {
-        Carousel,
-        ProductInfo,
-        ProductDesc,
-        HeadingText,
-        RelatedProducts,
-        ConfirmationModal
-    }
+    editProductInfoHandler: {
+      type: Function,
+      required: true,
+    },
+    editProductHandler: {
+      type: Function,
+      required: true,
+    },
+    addMaterialHandler: {
+      type: Function,
+      required: true,
+    },
+    selectMaterialHandler: {
+      type: Function,
+      required: true,
+    },
+  },
+  methods: {
+    openModal() {
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
+    },
+  },
+  components: {
+    Carousel,
+    ProductInfo,
+    ProductDescAdmin,
+    HeadingText,
+    RelatedProducts,
+    ConfirmationModal,
+    ProductLayout,
+  },
 };
 </script>
 
 <style scoped>
 .product {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 50px;
-}
-
-.left-side {
-    width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .carousel {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
-.product-desc {
-    width: 40%;
-}
 
 .related-products {
-    margin: 50px 10% 50px 10%;
-    width: 80%;
+  margin: 30px 5% 30px 5%;
 }
 
-
 @media screen and (max-width: 950px) {
-    .product {
-        flex-direction: column;
-    }
+  .product {
+    flex-direction: column;
+  }
 
-    .product-desc {
-        width: 100%;
-        margin-top: 50px;
-    }
+  .product-desc {
+    width: 100%;
+    margin-top: 50px;
+  }
 
-    .left-side {
-        width: 100%;
-    }
+  .left-side {
+    width: 100%;
+  }
 }
 </style>

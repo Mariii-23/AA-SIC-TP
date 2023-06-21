@@ -23,7 +23,7 @@ const getAllAdmins = async (offset: number, numItems: number) => {
         element.id = element.iD;
       });
       return data.data;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -49,7 +49,7 @@ const getAllCustomers = async (offset: number, numItems: number) => {
         element.id = element.iD;
       });
       return data.data;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -68,7 +68,7 @@ const addAdmin = async (email: string, password: string, name: string) => {
     return handleResponse(req, (data) => {
       data.id = data.iD;
       return data;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -82,9 +82,9 @@ const removeAdmin = async (id: string) => {
     const req = await app.config.globalProperties.$axios.delete(
       `${url}/remove/${id}`
     );
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
       return "";
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -93,12 +93,29 @@ const removeAdmin = async (id: string) => {
   }
 };
 
-const editAdmin = async (id: string, email: string, name: string, password: string) => {
+const editAdmin = async (
+  id: string,
+  email: string,
+  name: string,
+  password: string
+) => {
   try {
-    let paramEmail, paramName, paramPassword
-    if (email == "") { paramEmail = null; } else { paramEmail = email; }
-    if (name == "") { paramName = null; } else { paramName = name; }
-    if (password == "") { paramPassword = null; } else { paramPassword = password; }
+    let paramEmail, paramName, paramPassword;
+    if (email == "") {
+      paramEmail = null;
+    } else {
+      paramEmail = email;
+    }
+    if (name == "") {
+      paramName = null;
+    } else {
+      paramName = name;
+    }
+    if (password == "") {
+      paramPassword = null;
+    } else {
+      paramPassword = password;
+    }
 
     const req = await app.config.globalProperties.$axios.post(
       `${url}/edit/${id}`,
@@ -109,9 +126,9 @@ const editAdmin = async (id: string, email: string, name: string, password: stri
       }
     );
 
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
       return "";
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -156,7 +173,12 @@ const admin: AdminAxios = {
   removeAdmin: async (id: string) => {
     return await removeAdmin(id);
   },
-  updateAdmin: async (id: string, email: string, name: string, password: string) => {
+  updateAdmin: async (
+    id: string,
+    email: string,
+    name: string,
+    password: string
+  ) => {
     return await editAdmin(id, email, name, password);
   },
 };

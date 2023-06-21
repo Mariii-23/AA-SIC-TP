@@ -1,7 +1,11 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
 import { ProductSimple } from "@/appTypes/Product";
-import { GetProductsByCategoryResponse, Response, GetCustomerResponse } from "@/appTypes/AxiosTypes";
+import {
+  GetProductsByCategoryResponse,
+  Response,
+  GetCustomerResponse,
+} from "@/appTypes/AxiosTypes";
 
 const url = "/customer";
 
@@ -95,18 +99,15 @@ const getProductFavorites = async (
 
 const getCustomerById = async (id: string) => {
   try {
-    const req = await app.config.globalProperties.$axios.get(
-      `${url}`, {
+    const req = await app.config.globalProperties.$axios.get(`${url}`, {
       params: {
-        id
-      }
-    }
-    );
+        id,
+      },
+    });
     return handleResponse(req, (data) => {
       return data;
-    })
-  }
-  catch (error) {
+    });
+  } catch (error) {
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -117,7 +118,8 @@ const getCustomerById = async (id: string) => {
 const recoverPassword = async (email: string) => {
   try {
     const req = await app.config.globalProperties.$axios.post(
-      `${url}/password/recover?email=${email}`);
+      `${url}/password/recover?email=${email}`
+    );
     return handleResponse(req, (data) => {
       return data;
     });
@@ -129,13 +131,19 @@ const recoverPassword = async (email: string) => {
   }
 };
 
-const confirmRecoverPassword = async (code: string, password: string, id: string) => {
+const confirmRecoverPassword = async (
+  code: string,
+  password: string,
+  id: string
+) => {
   try {
     const req = await app.config.globalProperties.$axios.post(
-      `${url}/password/recover/confirm/${id}`, {
-      token: code,
-      newPassword: password,
-    });
+      `${url}/password/recover/confirm/${id}`,
+      {
+        token: code,
+        newPassword: password,
+      }
+    );
     return handleResponse(req, (data) => {
       return data;
     });
@@ -147,15 +155,41 @@ const confirmRecoverPassword = async (code: string, password: string, id: string
   }
 };
 
-const editCustomer = async (id: string, name: string, email: string,
-  address: string, nif: string, password: string) => {
+const editCustomer = async (
+  id: string,
+  name: string,
+  email: string,
+  address: string,
+  nif: string,
+  password: string
+) => {
   try {
     let paramName, paramEmail, paramAddress, paramNif, paramPassword;
-    if (name == "") { paramName = null; } else { paramName = name; }
-    if (email == "") { paramEmail = null; } else { paramEmail = email; }
-    if (address == "") { paramAddress = null; } else { paramAddress = address; }
-    if (nif == "") { paramNif = null; } else { paramNif = nif; }
-    if (password == "") { paramPassword = null; } else { paramPassword = password; }
+    if (name == "") {
+      paramName = null;
+    } else {
+      paramName = name;
+    }
+    if (email == "") {
+      paramEmail = null;
+    } else {
+      paramEmail = email;
+    }
+    if (address == "") {
+      paramAddress = null;
+    } else {
+      paramAddress = address;
+    }
+    if (nif == "") {
+      paramNif = null;
+    } else {
+      paramNif = nif;
+    }
+    if (password == "") {
+      paramPassword = null;
+    } else {
+      paramPassword = password;
+    }
 
     const req = await app.config.globalProperties.$axios.post(
       `${url}/edit?customer_id=${id}`,
@@ -167,9 +201,9 @@ const editCustomer = async (id: string, name: string, email: string,
         nif: paramNif,
       }
     );
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
       return "";
-    })
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -192,12 +226,8 @@ export interface CustomerAxios {
     customerId: string,
     productId: string
   ) => Promise<Response<void>>;
-  getCustomerById: (
-    id: string
-  ) => Promise<Response<GetCustomerResponse>>;
-  recoverPassword: (
-    email: string
-  ) => Promise<Response<String>>;
+  getCustomerById: (id: string) => Promise<Response<GetCustomerResponse>>;
+  recoverPassword: (email: string) => Promise<Response<String>>;
   confirmRecoverPassword: (
     code: string,
     password: string,
@@ -233,10 +263,21 @@ const customer: CustomerAxios = {
   recoverPassword: async (email: string) => {
     return await recoverPassword(email);
   },
-  confirmRecoverPassword: async (code: string, password: string, id: string) => {
+  confirmRecoverPassword: async (
+    code: string,
+    password: string,
+    id: string
+  ) => {
     return await confirmRecoverPassword(code, password, id);
   },
-  editCustomer: async (id: string, name: string, email: string, address: string, nif: string, password: string) => {
+  editCustomer: async (
+    id: string,
+    name: string,
+    email: string,
+    address: string,
+    nif: string,
+    password: string
+  ) => {
     return await editCustomer(id, name, email, address, nif, password);
   },
 };

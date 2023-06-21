@@ -106,6 +106,10 @@
     "update-category-success": "Categoria atualizada com sucesso",
     "update-category-error": "Erro ao atualizar a categoria",
 
+    "update-category": "Editar Categoria",
+    "rmv-subcategory-success": "Subcategoria eliminada com sucesso",
+    "rmv-subcategory-error": "Erro ao eliminar a subcategoria",
+
     "add-subcategories": "Adicionar subcategories",
 
     "rmv-product": "Remover produto",

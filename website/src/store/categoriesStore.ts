@@ -27,6 +27,38 @@ export const useCategoriesStore = defineStore("categories", {
       }
       return r.success == 200;
     },
+    async removeSubCategory(subcategoryId: string, categoryId: string) {
+      const r = await axios.categories.deleteSubcategory(subcategoryId);
+      if (r.success == 200) {
+        if (typeof r.data !== "string") {
+          const category = this.categories.findIndex(
+            (e) => e.id === categoryId
+          );
+          if (category >= 0) {
+            this.categories[category].subCategories = this.categories[
+              category
+            ].subCategories.filter((e) => e.id !== subcategoryId);
+          }
+        }
+      }
+      return r.success == 200;
+    },
+    async addSubCategories(subcategory: ImageProp, categoryId: string) {
+      const r = await axios.categories.addSubCategory(categoryId, subcategory);
+      if (r.success == 200) {
+        if (typeof r.data !== "string") {
+          const category = this.categories.findIndex(
+            (e) => e.id === categoryId
+          );
+          this.categories[category].subCategories.push(r.data);
+        }
+      }
+      return r.success == 200;
+    },
+    async updateCategory(categoryId: string, name: string, photo: string ) {
+      const r = await axios.categories.updateCategory(categoryId, name, photo);
+      return r.success == 200;
+    },
     async addCategory(name: string, photo: string, subCategories: ImageProp[]) {
       const r = await axios.categories.addCategory(name, photo);
       if (r.success == 200) {
@@ -34,10 +66,7 @@ export const useCategoriesStore = defineStore("categories", {
           const categoryId = r.data.id;
           const subCategoriesProps = [] as SubCategory[];
           for (const item of subCategories) {
-            const r2 = await axios.categories.addSubCategories(
-              categoryId,
-              item
-            );
+            const r2 = await axios.categories.addSubCategory(categoryId, item);
             if (typeof r2.data !== "string") {
               subCategoriesProps.push(r2.data);
             }
@@ -56,7 +85,7 @@ export const useCategoriesStore = defineStore("categories", {
       const category = this.categories.find((e) => e.id == categoryId);
       if (category) this.category = category;
 
-      // TODO: no caso de nao ter tem q pedir ao backend
+      // FIXME: no caso de nao ter tem q pedir ao backend
       return true;
     },
   },

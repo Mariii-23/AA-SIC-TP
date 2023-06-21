@@ -1,108 +1,100 @@
 <template>
-    <v-card color="secondary" class="card">
-        <div class="header">
-            <v-card-title>{{ product.name }}</v-card-title>
-            <v-btn icon class="elevation-0" color="secondary"
-                v-on:click="editProductDescHandler">
-                <v-icon size="30">mdi-pencil-outline</v-icon>
-            </v-btn>
-        </div>
-        <div class="body">
-            <HeadingText :size="6">{{ product.price }}€</HeadingText>
+  <v-card color="secondary" class="card">
+    <v-card-title>
+      <div class="header">
+        {{ product.name }}
+        <v-btn
+          icon
+          class="elevation-0"
+          color="secondary"
+          v-on:click="editProductDescHandler"
+        >
+          <v-icon size="30">mdi-pencil-outline</v-icon>
+        </v-btn>
+      </div>
+    </v-card-title>
 
-        <Material class="materials" 
-            :materials="materials" 
-            :addMaterialHandler="addMaterialHandler" 
-            :selectMaterialHandler="selectMaterialHandler"
-        />
-        <FullWidthButton class="btn" :handleClick="deleteProductHandler">
-             {{ $t("remove-product") }} 
-        </FullWidthButton>
+    <v-card-item dense>
+      <HeadingText :size="6">{{ product.price }}€</HeadingText>
 
-        </div>
-        
-    </v-card>
+      <MaterialsAdmin
+        class="materials"
+        :materials="materials"
+        :addMaterialHandler="addMaterialHandler"
+        :selectMaterialHandler="selectMaterialHandler"
+      />
+    </v-card-item>
+    <v-card-text>
+      <FullWidthButton class="btn" :handleClick="deleteProductHandler">
+        {{ $t("remove-product") }}
+      </FullWidthButton>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts">
 import HeadingText from "../atoms/Typography/HeadingText.vue";
 import FullWidthButton from "../atoms/Button/FullWidthButton.vue";
-import { ProductDescriptionUser, Material as Materials } from "@/appTypes/Product";
-import Material from "../molecules/MaterialsAdmin.vue";
+import {  Material, ProductSimple } from "@/appTypes/Product";
+import MaterialsAdmin from "../molecules/MaterialsAdmin.vue";
 
 export default {
-    name: "ProductDesc",
-    props: {
-        product: {
-            type: Object as () => ProductDescriptionUser,
-            default: () => ({
-                name: "Product name",
-                price: 12.99,
-                favorite: false,
-                id: "-1"
-            }),
-        },
-        materials: {
-            type: Array as () => Materials[],
-            require: true,
-        },
-        //HANDLERS
-        deleteProductHandler: {
-            type: Function,
-            require: true,
-        },
-        editProductDescHandler: {
-            type: Function,
-            require: true,
-        },
-        addMaterialHandler: {
-            type: Function,
-            require: true,
-        },
-        selectMaterialHandler: {
-            type: Function,
-            require: true,
-        }
+  name: "ProductDesc",
+  props: {
+    product: {
+      type: Object as () => ProductSimple,
+      required: true,
     },
-    components: { 
-        HeadingText, 
-        FullWidthButton,
-        Material
-    }
+    materials: {
+      type: Array as () => Material[],
+      required: true,
+    },
+    //HANDLERS
+    deleteProductHandler: {
+      type: Function,
+      required: true,
+    },
+    editProductDescHandler: {
+      type: Function,
+      required: true,
+    },
+    addMaterialHandler: {
+      type: Function,
+      required: true,
+    },
+    selectMaterialHandler: {
+      type: Function,
+      required: true,
+    },
+  },
+  components: {
+    HeadingText,
+    FullWidthButton,
+    MaterialsAdmin,
+  },
 };
 </script>
 
 <style scoped>
 .card {
-    padding: 10px;
+  padding: 10px;
 }
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.body {
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center
-}
-
-.btn{
-    margin-top: 10px;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .materials {
-    padding: 0;
-    margin-top: 10px;
-    margin-bottom: 15px;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 </style>

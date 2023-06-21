@@ -8,7 +8,7 @@
             :label="photo"
             @click:clear="clearInputImage"
             @change="handleFileUpload"
-            required
+            :required="requiredFile"
             :rules="imageRules"
           />
           <v-text-field
@@ -56,9 +56,24 @@ export default {
       ],
     };
   },
+  mounted: function () {
+    if (this.nameInput !== undefined) {
+      this.name = this.nameInput;
+    }
+  },
   props: {
     register: {
       type: Function,
+    },
+    requiredFile: {
+      type: Boolean,
+      default: true,
+    },
+    nameInput: {
+      type: String,
+    },
+    imageInput: {
+      type: String,
     },
   },
   methods: {

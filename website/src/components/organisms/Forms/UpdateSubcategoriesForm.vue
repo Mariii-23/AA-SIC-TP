@@ -1,5 +1,27 @@
 <template>
   <CardLayout class="bg-secondary">
+    <v-card-item>
+      <div
+        v-for="subcategory in subCategories"
+        :key="subcategory.id"
+        class="body-subcategory-wrapper"
+      >
+        <div class="avatar-subcategory-wrapper">
+          <AvatarLink :image-href="subcategory.href" :size="30" />
+          <HeadingText :size="5">
+            {{ subcategory.name }}
+          </HeadingText>
+        </div>
+
+        <v-btn
+          icon
+          @click="removeSubcategory(subcategory.id)"
+          class="elevation-0 bg-secondary"
+        >
+          <v-icon icon="mdi-trash-can-outline" />
+        </v-btn>
+      </div>
+    </v-card-item>
     <v-card-text class="fill-height">
       <form ref="form" @submit.prevent="addHandler()">
         <div
@@ -44,18 +66,23 @@
 </template>
 
 <script lang="ts">
+import { SubCategory } from "@/appTypes/Product";
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import CardLayout from "@/layouts/CardLayout.vue";
+import AvatarLink from "@/components/molecules/AvatarLink.vue";
+import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 
 export default {
-  name: "Add Subcategories Form",
-  data: () => ({
-    textFields: [] as {
-      value1: string;
-      value2: string;
-      photo: string;
-    }[],
-  }),
+  name: "Update Subcategories Form",
+  data() {
+    return {
+      textFields: [] as {
+        value1: string;
+        value2: string;
+        photo: string;
+      }[],
+    };
+  },
   mounted: function () {
     this.textFields.push({
       value1: "",
@@ -103,18 +130,28 @@ export default {
         });
       }
 
-      this.addSubcategories && this.addSubcategories(subCategories);
+      this.addSubcategories(subCategories);
     },
   },
   props: {
     textButton: {
       type: String,
+      required: true,
     },
     addSubcategories: {
       type: Function,
+      required: true,
+    },
+    removeSubcategory: {
+      type: Function,
+      required: true,
+    },
+    subCategories: {
+      type: Array as () => SubCategory[],
+      required: true,
     },
   },
-  components: { FullWidthButton, CardLayout },
+  components: { FullWidthButton, CardLayout, AvatarLink, HeadingText },
 };
 </script>
 
@@ -128,5 +165,15 @@ export default {
 }
 .text-fields-row {
   display: flex;
+}
+
+.body-subcategory-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.avatar-subcategory-wrapper {
+  display: flex;
+  gap: 20px;
 }
 </style>

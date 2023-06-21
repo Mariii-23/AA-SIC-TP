@@ -72,7 +72,7 @@ const updateMaterial = async (id: string, name: string, image: string) => {
       {
         id,
         name,
-        image: image!== "" ? image : null,
+        image: image !== "" ? image : null,
       }
     );
 

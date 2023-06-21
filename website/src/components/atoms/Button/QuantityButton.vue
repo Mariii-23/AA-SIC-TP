@@ -63,11 +63,11 @@ export default {
         },
         incrementHandler: {
             type: Function,
-            require: true,
+            required: true,
         },
         decrementHandler: {
             type: Function,
-            require: true,
+            required: true,
         },
     }
 }

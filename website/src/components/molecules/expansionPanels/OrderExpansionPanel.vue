@@ -42,7 +42,7 @@
     props: {
       orders: {
         type: Array as () => Order[],
-        require: true,
+        required: true,
       },
       viewDetailsHandler: {
         type: Function,

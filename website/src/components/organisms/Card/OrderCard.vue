@@ -24,14 +24,14 @@
                 <tbody>
                     <tr v-for="item in order.orderItems" :key="item.name">
                         <td class="product">
-                            <v-img max-height="50px" max-width="50px" class="mr-2" :src="item.img"/>
+                            <v-img max-height="50px" max-width="50px" class="mr-2" :src="item.href"/>
                             {{ item.name }}
                         </td>
                         <td>
                             <Avatar :href="item.materialHref" :size="30" />
                         </td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.price }}€</td>
+                        <td>{{ item.price.toFixed(2) }}€</td>
                     </tr>
                 </tbody>
             </v-table>

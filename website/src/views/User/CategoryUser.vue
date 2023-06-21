@@ -12,6 +12,7 @@
       :products="productsUser"
       :shopping-cart-handler="shoppingCartHandler"
       :favorite-icon-handler="favoriteIconHandler"
+      :on-click-handler="onClickProduct"
     />
 
     <Pagination
@@ -114,6 +115,10 @@ export default {
       type: Function,
       required: true,
     },
+    onClickProduct: {
+      type: Function,
+      required: true,
+    }
   },
   components: {
     SimpleBodyLayout,

@@ -15,6 +15,7 @@
     :addProductHandler="addProductHandler"
     :edit-product-handler="editProductHandler"
     :delete-product-handler="openRemoveModal"
+    :on-click-product="onClickProductUser"
   />
 
   <CategoryUser
@@ -26,6 +27,7 @@
     :handle-page-change="onChangePagePagination"
     :shopping-cart-handler="shoppingCartHandler"
     :favorite-icon-handler="favoriteIconHandler"
+    :on-click-product="onClickProductUser"
   />
 </template>
 
@@ -58,7 +60,7 @@ export default {
     };
   },
   mounted: async function () {
-    await categoriesStore.getCategoryById(this.$route.params.id);
+    await categoriesStore.getCategoryById(this.$route.params.id.toString());
     this.category = categoriesStore.category;
     this.productsFavorite = [];
 
@@ -69,7 +71,7 @@ export default {
       this.products = r;
     }
 
-    if (userStore.isLoggedIn) {
+    if (userStore.isLoggedIn && !userStore.isAdmin) {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
         userStore.id
       );
@@ -162,8 +164,9 @@ export default {
         this.categoryId = number;
       }
     },
-
-    //TODO:
+    onClickProductUser(productId: string) {
+      this.$router.push(`/product/${productId}`);
+    },
     addProductHandler() {
       this.$router.push("/admin/product/add");
     },

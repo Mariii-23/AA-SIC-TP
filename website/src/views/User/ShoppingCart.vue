@@ -1,26 +1,26 @@
 <template>
-    <SimpleBodyLayout>
-        <ShoppingCartLayout>
-            <template v-slot:first>
-              <CartItemCards 
-                :order-items="cart.items" 
-                :incrementHandler="incrementHandler" 
-                :decrementHandler="decrementHandler"
-                :removeProductHandler="removeProductHandler"    
-            />
-            <div v-if="cart.items && cart.items.length === 0">
-                <BodyText>{{ $t("empty-cart") }}</BodyText>
-            </div>
-            </template>
-            <template v-slot:second>
-                <CartTotalCard 
-                    :cart="cart"
-                    :makeOrder="makeOrder"
-                    :cancelOrder="cancelOrder"
-                />
-            </template>
-        </ShoppingCartLayout>
-    </SimpleBodyLayout>
+  <SimpleBodyLayout>
+    <ShoppingCartLayout>
+      <template v-slot:first>
+        <CartItemCards
+          :order-items="cart.items"
+          :incrementHandler="incrementHandler"
+          :decrementHandler="decrementHandler"
+          :removeProductHandler="removeProductHandler"
+        />
+        <div v-if="cart.items && cart.items.length === 0">
+          <BodyText>{{ $t("empty-cart") }}</BodyText>
+        </div>
+      </template>
+      <template v-slot:second>
+        <CartTotalCard
+          :cart="cart"
+          :makeOrder="makeOrder"
+          :cancelOrder="cancelOrder"
+        />
+      </template>
+    </ShoppingCartLayout>
+  </SimpleBodyLayout>
 </template>
 
 <script lang="ts">
@@ -65,37 +65,40 @@ export default {
         }
       }
     },
-    incrementHandler(index: number) {
+    async incrementHandler(index: number) {
       const quantity = this.cart.items[index].quantity;
-      shoppingCartStore.updateProduct(index, quantity + 1);
+      await shoppingCartStore.updateProduct(index, quantity + 1);
       this.updateTotal();
     },
-    decrementHandler(index: number) {
+    async decrementHandler(index: number) {
       const quantity = this.cart.items[index].quantity;
       if (quantity > 1) {
-        shoppingCartStore.updateProduct(index, quantity - 1);
+        await shoppingCartStore.updateProduct(index, quantity - 1);
       } else if (quantity == 1) this.removeProductHandler(index);
       this.updateTotal();
     },
-    removeProductHandler(index: number) {
-      shoppingCartStore.removeProduct(index);
+    async removeProductHandler(index: number) {
+      await shoppingCartStore.removeProduct(index);
       this.updateTotal();
     },
-    makeOrder() {
-      this.updateTotal();
+    async makeOrder() {
+      const orderId = await shoppingCartStore.buyShoppingCart();
+
+      if (orderId) {
+        this.$router.push(`/orders/${orderId}`);
+      }
       console.log("make order");
     },
     cancelOrder() {
       this.$router.back();
-      }
-      },
-    components: {
-        ShoppingCartLayout,
-        SimpleBodyLayout,
-        CartItemCards,
-        CartTotalCard,
-        BodyText
-
-    
+    },
+  },
+  components: {
+    ShoppingCartLayout,
+    SimpleBodyLayout,
+    CartItemCards,
+    CartTotalCard,
+    BodyText,
+  },
 };
 </script>

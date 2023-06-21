@@ -63,7 +63,24 @@ const removeCategory = async (id: string) => {
       `${url}/category/remove/${id}`
     );
 
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
+      return null;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const deleteSubCategory = async (id: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.delete(
+      `${url}/subcategory/remove/${id}`
+    );
+
+    return handleResponse(req, () => {
       return null;
     });
   } catch (error) {
@@ -81,6 +98,32 @@ const addCategoryInfo = async (name: string, image: string) => {
       {
         name,
         image,
+      }
+    );
+
+    return handleResponse(req, (data: CategoryResponse) => {
+      return {
+        id: data.id,
+        name: data.name,
+        href: `${categoryImage}?categoryId=${data.id}`,
+        subCategories: [],
+      };
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const updateCategoryInfo = async (id: string, name: string, image: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/category/edit/${id}`,
+      {
+        name,
+        image: image !== "" ? image : null,
       }
     );
 
@@ -134,7 +177,13 @@ export interface CategoriesAxios {
   ) => Promise<Response<Category[]>>;
   deleteCategory: (id: string) => Promise<Response<void>>;
   addCategory: (name: string, photo: string) => Promise<Response<Category>>;
-  addSubCategories: (
+  updateCategory: (
+    id: string,
+    name: string,
+    photo: string
+  ) => Promise<Response<void>>;
+  deleteSubcategory: (id: string) => Promise<Response<void>>;
+  addSubCategory: (
     categoryId: string,
     subCategory: ImageProp
   ) => Promise<Response<SubCategory>>;
@@ -150,8 +199,14 @@ const categories: CategoriesAxios = {
   addCategory: async (name: string, photo: string) => {
     return await addCategoryInfo(name, photo);
   },
-  addSubCategories: async (categoryId: string, subCategory: ImageProp) => {
+  updateCategory: async (id: string, name: string, photo: string) => {
+    return await updateCategoryInfo(id, name, photo);
+  },
+  addSubCategory: async (categoryId: string, subCategory: ImageProp) => {
     return await addSubcategory(categoryId, subCategory);
+  },
+  deleteSubcategory: async (id: string) => {
+    return await deleteSubCategory(id);
   },
 };
 

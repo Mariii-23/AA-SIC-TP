@@ -20,11 +20,11 @@
     props: {
       orderItems: {
         type: Array as () => OrderItem[],
-        require: true,
+        required: true,
       },
       total: {
         type: Number,
-        require: true,
+        required: true,
       },
     },
   };

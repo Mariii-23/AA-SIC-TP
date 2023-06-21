@@ -21,7 +21,7 @@ export interface GetOrder {
   total: number;
   state: OrderState;
   items: {
-    id: string,
+    id: string;
     name: string;
     price: string;
     quantity: number;
@@ -139,14 +139,13 @@ export interface GetAllCustomersResponse {
 }
 
 export interface GetCustomerResponse {
-    iD: string;
-    email: string;
-    name: string;
-    birthday: Date;
-    nif: string;
-    address: string;
+  iD: string;
+  email: string;
+  name: string;
+  birthday: Date;
+  nif: string;
+  address: string;
 }
-
 
 export interface GetAllAdminsResponse {
   last: boolean;
@@ -176,4 +175,31 @@ export interface ShoppingCartResponse {
     materialId: string;
     productImageId: string;
   }[];
+}
+
+export interface GetProductById {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+
+  categoryID: string,
+
+  description: string;
+  technicalInfo: {
+    name: string;
+    description: string;
+  }[];
+
+  materials: {
+    id: string;
+    name: string;
+  }[];
+
+  reviews: {
+    classification: number;
+    comment: string;
+    username: string;
+  }[];
+  images: string[];
 }

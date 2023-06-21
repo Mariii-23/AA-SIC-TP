@@ -3,8 +3,10 @@ import axios from "@/plugins/axios/axios";
 import { Cart } from "@/appTypes/Order";
 import { ProductAddCard } from "@/appTypes/Product";
 import { useUserStore } from "./userStore";
+import { useCustomerStore } from "./customerStore";
 
 const userStore = useUserStore();
+const customerStore = useCustomerStore();
 
 export const useShoppingCartStore = defineStore("shoppingCart", {
   state: () => ({
@@ -43,6 +45,10 @@ export const useShoppingCartStore = defineStore("shoppingCart", {
         }
       }
 
+      if (id === "") {
+        return false;
+      }
+
       this.cart.items.push({
         id,
         name: product.name,
@@ -52,6 +58,7 @@ export const useShoppingCartStore = defineStore("shoppingCart", {
         materialId: product.id,
         materialHref: `http://localhost:8080/product/all/materialImage?materialId=${product.materialId}`,
       });
+      return true;
     },
 
     async removeProduct(index: number) {
@@ -73,6 +80,24 @@ export const useShoppingCartStore = defineStore("shoppingCart", {
         if (r.success != 200) return;
       }
       this.cart.items[index].quantity = quantity;
+    },
+
+    async buyShoppingCart() {
+      const address = customerStore.address;
+      if (userStore.isLoggedIn && address) {
+        const customerId = userStore.id;
+        const r = await axios.shoppingCard.buyShoppingCart(
+          customerId,
+          address,
+          false
+        );
+
+        if(r.success == 200 && typeof r.data != "string") {
+          return r.data.id;
+        }
+      }
+
+      return null;
     },
   },
 });

@@ -60,17 +60,30 @@ export interface Product {
   id: string;
   name: string;
   price: number;
-  images: ProductImages;
-  info: ProductInformation;
-  materials: number[];
+
+  categoryId: string,
+
+  images: string[];
+
+  information: ProductInformation;
+
+  materials: Material[];
+
+  reviews: Review[];
 }
 
-export interface ProductAddCard  extends ProductSimple {
-  materialId: string
+export interface Review {
+  classification: number;
+  comment: string;
+  username: string;
+}
+
+export interface ProductAddCard extends ProductSimple {
+  materialId: string;
 }
 
 export interface ProductSimple {
-  id: string
+  id: string;
   name: string;
   price: number;
   href: string;

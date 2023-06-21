@@ -1,6 +1,6 @@
 <template>
   <CardLayout>
-    <v-card-item>
+    <v-card-item @click="onClick && onClick(product.id)">
       <ImageCard :href="product.href" />
       <v-card-title>{{ product.name }}</v-card-title>
       <v-card-subtitle>{{ product.price }}€</v-card-subtitle>
@@ -28,6 +28,7 @@
 <script lang="ts">
 import { ProductSimple } from "@/appTypes/Product";
 import CardLayout from "@/layouts/CardLayout.vue";
+import ImageCard from "@/components/atoms/ImageCard.vue";
 
 export default {
   name: "ProductPreviewAdmin",
@@ -44,8 +45,11 @@ export default {
       type: Function,
       required: true,
     },
+    onClick: {
+      type: Function,
+    },
   },
-  components: { CardLayout },
+  components: { CardLayout, ImageCard },
 };
 </script>
 

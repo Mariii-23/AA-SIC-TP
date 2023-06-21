@@ -1,33 +1,46 @@
 <template>
-    <v-card color="secondary" class="card">
-        <div class="header">
-            <v-card-title>{{ product.name }}</v-card-title>
-            <v-btn icon class="elevation-0" color="secondary" v-on:click="favouriteIconHandler">
-                <v-icon size="30" v-if="product.favourite">mdi-heart</v-icon>
-                <v-icon size="30" v-else>mdi-heart-outline</v-icon>
-            </v-btn>
-        </div>
-        <div class="body">
-            <HeadingText :size="6">{{ product.price }}€</HeadingText>
+  <v-card color="secondary" class="card">
+    <v-card-title>
+      <div class="header">
+        {{ product.name }}
+        <v-btn
+          icon
+          class="elevation-0"
+          color="secondary"
+          v-on:click="favouriteIconHandler"
+        >
+          <v-icon size="30" v-if="isFavourite">mdi-heart</v-icon>
+          <v-icon size="30" v-else>mdi-heart-outline</v-icon>
+        </v-btn>
+      </div>
+    </v-card-title>
 
-            <Material class="materials" 
-                :materials="materials" 
-                :selectMaterialHandler="selectMaterialHandler"
-            />
-
-            <div class="actions">
-                <QuantityButton
-                    :quantity="quantity"
-                    :incrementHandler="() => incrementQuantityHandler && incrementQuantityHandler(product.id, quantity)"
-                    :decrementHandler="() => decrementQuantityHandler && decrementQuantityHandler(product.id, quantity)"
-                 />
-                <PrimaryButton :handleClick="buyNowHandler">{{ $t("buy-now") }} </PrimaryButton>
-            </div>
-            <FullWidthButton class="btn" :handleClick="addToCartHandler"> {{ $t("add-cart") }} </FullWidthButton>
-
-        </div>
-
-    </v-card>
+    <v-card-item  dense>
+      <HeadingText :size="6">{{ product.price }}€</HeadingText>
+      <MaterialsSelect
+        class="materials"
+        :materials="materials"
+        :selectMaterialHandler="selectMaterialHandler"
+      />
+    </v-card-item>
+    <v-card-text>
+      <div class="actions">
+        <QuantityButton
+          v-bind:quantity="quantity"
+          :incrementHandler="incrementQuantityHandler"
+          :decrementHandler="decrementQuantityHandler"
+        />
+        <PrimaryButton :handleClick="buyNowHandler"
+          >{{ $t("buy-now") }}
+        </PrimaryButton>
+      </div>
+    </v-card-text>
+    <v-card-actions>
+      <FullWidthButton class="btn" :handleClick="addToCartHandler">
+        {{ $t("add-cart") }}
+      </FullWidthButton>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -35,96 +48,75 @@ import QuantityButton from "../atoms/Button/QuantityButton.vue";
 import HeadingText from "../atoms/Typography/HeadingText.vue";
 import PrimaryButton from "../atoms/Button/PrimaryButton.vue";
 import FullWidthButton from "../atoms/Button/FullWidthButton.vue";
-import { ProductDescriptionUser } from "@/appTypes/Product";
-import Material from "../molecules/Materials.vue";
-import { Materials } from "@/appTypes/Product";
+import { ProductSimple } from "@/appTypes/Product";
+import MaterialsSelect from "../molecules/MaterialsSelect.vue";
+import { Material } from "@/appTypes/Product";
 
 export default {
-    name: "ProductDesc",
-    props: {
-        product: {
-            type: Object as () => ProductDescriptionUser,
-            default: () => ({
-                name: "Product name",
-                price: 12.99,
-                favorite: false,
-                id: "-1"
-            }),
-        },
-        materials: {
-            type: Array as () => Materials[],
-            require: true,
-        },
-        addToCartHandler: {
-            type: Function,
-            require: true,
-        },
-        buyNowHandler: {
-            type: Function,
-            require: true,
-        },
-        favouriteIconHandler: {
-            type: Function,
-            require: true,
-        },
-        selectMaterialHandler: {
-            type: Function,
-            require: true,
-        },
-        quantity: {
-            type: Number,
-        },
-        incrementQuantityHandler: {
-            type: Function,
-            require: true,
-        },
-        decrementQuantityHandler: {
-            type: Function,
-            require: true,
-        },
+  name: "ProductDesc",
+  props: {
+    isFavourite: {
+      type: Boolean,
+      // TODO: por isto
+      default: false,
     },
-    components: {
-        HeadingText,
-        QuantityButton,
-        PrimaryButton,
-        FullWidthButton,
-        Material
-    }
+    product: {
+      type: Object as () => ProductSimple,
+      required: true,
+    },
+    materials: {
+      type: Array as () => Material[],
+      required: true,
+    },
+    addToCartHandler: {
+      type: Function,
+      required: true,
+    },
+    buyNowHandler: {
+      type: Function,
+      required: true,
+    },
+    favouriteIconHandler: {
+      type: Function,
+      required: true,
+    },
+    selectMaterialHandler: {
+      type: Function,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+    },
+    incrementQuantityHandler: {
+      type: Function,
+      required: true,
+    },
+    decrementQuantityHandler: {
+      type: Function,
+      required: true,
+    },
+  },
+  components: {
+    HeadingText,
+    QuantityButton,
+    PrimaryButton,
+    FullWidthButton,
+    MaterialsSelect,
+  },
 };
 </script>
 
 <style scoped>
-.card {
-    padding: 10px;
-}
-
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.body {
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center
-}
-
-.btn {
-    margin-top: 10px;
-    width: 100%;
-}
-
-.materials {
-    padding: 0;
-    margin-top: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

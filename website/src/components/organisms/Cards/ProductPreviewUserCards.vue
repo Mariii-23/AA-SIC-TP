@@ -4,8 +4,13 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      :shopping-cart-handler="() => shoppingCartHandler && shoppingCartHandler(product.id)"
-      :favorite-icon-handler="() => favoriteIconHandler && favoriteIconHandler(product.id)"
+      :shopping-cart-handler="
+        () => shoppingCartHandler && shoppingCartHandler(product.id)
+      "
+      :favorite-icon-handler="
+        () => favoriteIconHandler && favoriteIconHandler(product.id)
+      "
+      :onClick="onClickHandler"
     />
   </CardsLayout>
 </template>
@@ -23,12 +28,15 @@ export default {
   props: {
     products: {
       type: Array as () => ProductUserProps[],
-      require: true,
+      required: true,
     },
     shoppingCartHandler: {
       type: Function,
     },
     favoriteIconHandler: {
+      type: Function,
+    },
+    onClickHandler: {
       type: Function,
     },
   },

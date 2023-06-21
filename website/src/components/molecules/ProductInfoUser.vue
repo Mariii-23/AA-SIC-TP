@@ -20,7 +20,7 @@
             <tbody>
               <tr v-for="item in info.technical" :key="item.name">
                 <td>{{ item.name }}</td>
-                <td>{{ item.info }}</td>
+                <td>{{ item.description }}</td>
               </tr>
             </tbody> 
           </v-table>
@@ -42,6 +42,7 @@ export default {
   props: {
     info: {
       type: Object as () => ProductInformation,
+      required: true
     }
   },
 }

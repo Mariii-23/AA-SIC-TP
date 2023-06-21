@@ -17,6 +17,7 @@
       :products="products"
       :delete-product-handler="deleteProductHandler"
       :edit-product-handler="editProductHandler"
+      :on-click-handler="onClickProduct"
     />
 
     <Pagination
@@ -28,7 +29,6 @@
 </template>
 
 <script lang="ts">
-import Breadcrumbs from "@/components/molecules/Breadcrumbs.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import CategoriesAvatar from "@/components/organisms/AvatarList/CategoriesAvatar.vue";
 import Pagination from "@/components/molecules/Pagination.vue";
@@ -66,7 +66,11 @@ export default {
     },
     editProductHandler: {
       type: Function,
-    },
+    }, 
+     onClickProduct: {
+      type: Function,
+      required: true,
+    }
   },
   components: {
     SimpleBodyLayout,

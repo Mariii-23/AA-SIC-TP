@@ -1,11 +1,17 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
-import { ProductSimple, TechnicalInfo } from "@/appTypes/Product";
-import { AddProductResponse, GetProductsByCategoryResponse, Response } from "@/appTypes/AxiosTypes";
+import { Material, Product, ProductSimple, TechnicalInfo } from "@/appTypes/Product";
+import {
+  AddProductResponse,
+  GetProductById,
+  GetProductsByCategoryResponse,
+  Response,
+} from "@/appTypes/AxiosTypes";
 
 const url = "product";
 
 const productImage = `http://localhost:8080/${url}/all/productImage`;
+const materialImage = `http://localhost:8080/${url}/all/materialImage`;
 
 //const getAllProducts = async (
 //  categoryId: string,
@@ -66,7 +72,7 @@ const addProduct = async (
       };
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -83,6 +89,54 @@ const deleteProduct = async (productId: string) => {
       return null;
     });
   } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const getProductById = async (productId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(`${url}/all`, {
+      params: {
+        productId,
+      },
+    });
+
+    return handleResponse(req, (data: GetProductById) => {
+      const images = [] as string[];
+
+      for (const item of data.images) {
+        images.push(`${productImage}?imageId=${item}`);
+      }
+
+      const materials = [] as Material[];
+
+      for (const material of data.materials) {
+        materials.push({
+          id: material.id,
+          name: material.name,
+          href: `${materialImage}?materialId=${material.id}`
+        })
+      }
+
+      return {
+        id: data.id,
+        name: data.name,
+        price: data.price,
+        images,
+        categoryId: data.categoryID,
+        materials,
+        information: {
+          details: data.description,
+          technical: data.technicalInfo,
+        },
+        reviews: data.reviews,
+      } as Product;
+    });
+  } catch (error) {
+    console.log(error)
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -180,6 +234,7 @@ export interface ProductAxios {
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
   deleteProduct: (productId: string) => Promise<Response<void>>;
+  getProductById: (productId: string) => Promise<Response<Product>>;
   addProduct: (
     name: string,
     description: string,
@@ -209,6 +264,9 @@ const productStore: ProductAxios = {
   },
   deleteProduct: async (productId) => {
     return deleteProduct(productId);
+  },
+  getProductById: async (productId) => {
+    return getProductById(productId);
   },
   addProduct: async (
     name: string,

@@ -16,9 +16,9 @@ const updateInfo = async (company: CompanyInfo) => {
       company
     );
 
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
       return company;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -35,9 +35,9 @@ const updateNetworkLinks = async (socialNetworks: SocialMedia[]) => {
         socialNetworks,
       }
     );
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
       return socialNetworks;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -54,7 +54,7 @@ const getInfo = async () => {
 
     return handleResponse(req, (data) => {
       return data;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,
@@ -71,7 +71,7 @@ const getSocialNetwork = async () => {
 
     return handleResponse(req, (data) => {
       return data;
-    }) 
+    });
   } catch (error) {
     return {
       success: error.request.status,

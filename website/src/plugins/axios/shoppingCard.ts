@@ -1,7 +1,11 @@
 import { app } from "@/main";
 import { handleResponse } from "./axios";
-import { Response, ShoppingCartResponse } from "@/appTypes/AxiosTypes";
-import { Cart, OrderItem } from "@/appTypes/Order";
+import {
+  GetOrder,
+  Response,
+  ShoppingCartResponse,
+} from "@/appTypes/AxiosTypes";
+import { Cart, Order, OrderItem } from "@/appTypes/Order";
 
 const productImage = "http://localhost:8080/product/all/productImage";
 
@@ -68,13 +72,8 @@ const addItemFromShoppingCart = async (
 ) => {
   try {
     const req = await app.config.globalProperties.$axios.post(
-      `${url}/customer/shoppingCart/product/`,
-      {
-        customerId,
-        productId,
-        materialId,
-        quantity,
-      }
+      `${url}/customer/shoppingCart/product`,
+      { customerId, productId, materialId, quantity }
     );
 
     return handleResponse(req, (data) => {
@@ -111,6 +110,54 @@ const updateItemFromShoppingCart = async (itemId: string, quantity: number) => {
   }
 };
 
+const buyShoppingCart = async (
+  customerId: string,
+  address: string,
+  storePickUp: boolean
+) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/customer/create`,
+      {
+        customerId,
+        address,
+        storePickUp,
+      }
+    );
+
+    return handleResponse(req, (data: GetOrder) => {
+      const orderItems = [] as OrderItem[];
+
+      for (const item of data.items) {
+        orderItems.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          href: `${productImage}?imageId=${item.productImageId}`,
+          materialHref: `http://localhost:8080/product/all/materialImage?materialId=${item.materialId}`,
+          materialId: item.materialId,
+        });
+      }
+
+      const order: Order = {
+        id: data.id,
+        date: data.date,
+        total: data.total,
+        state: data.state,
+        orderItems,
+      };
+      return order;
+    });
+  } catch (error) {
+    console.log(error);
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 export interface ShoppingCardAxios {
   getShoppingCart: (customerId: string) => Promise<Response<Cart>>;
   deleteItem: (itemId: string) => Promise<Response<void>>;
@@ -121,6 +168,12 @@ export interface ShoppingCardAxios {
     quantity: number
   ) => Promise<Response<string>>;
   updateItem: (itemId: string, quantity: number) => Promise<Response<void>>;
+
+  buyShoppingCart: (
+    customerId: string,
+    address: string,
+    storePickUp: boolean
+  ) => Promise<Response<Order>>;
 }
 
 const shoppingCard: ShoppingCardAxios = {
@@ -145,6 +198,13 @@ const shoppingCard: ShoppingCardAxios = {
   },
   updateItem: async (itemId: string, quantity: number) => {
     return await updateItemFromShoppingCart(itemId, quantity);
+  },
+  buyShoppingCart: async (
+    customerId: string,
+    address: string,
+    storePickUp: boolean
+  ) => {
+    return await buyShoppingCart(customerId, address, storePickUp);
   },
 };
 

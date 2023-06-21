@@ -12,7 +12,7 @@ export const useProductStore = defineStore("products", {
     async getAllFavoriteProducts(customerId: string) {
       let products = [] as ProductSimple[];
       const r = await axios.customer.getProductFavorites(customerId, 0, 100000);
-      if (r && typeof r.data != "string") {
+      if (r.success == 200 && typeof r.data != "string") {
         products = r.data;
       }
       this.productsFavorites = products;
@@ -41,10 +41,12 @@ export const useProductStore = defineStore("products", {
         customerId,
         productId
       );
-      if (r && typeof r.data != "string") {
+      if (r.success == 200 && typeof r.data != "string") {
         this.productsFavorites = this.productsFavorites.filter(
-          (e) => e.id != productId
+          (e) => e.id !== productId
         );
+
+        console.log("ai")
       }
       return r.success === 200;
     },
@@ -66,8 +68,17 @@ export const useProductStore = defineStore("products", {
         }
       }
 
-
       return r.success == 200;
+    },
+    async getProduct(id: string) {
+      const r = await axios.product.getProductById(id);
+      if (r.success == 200) {
+        if (typeof r.data != "string") {
+          return r.data
+        }
+      }
+
+      return null
     },
 
     async addProduct(

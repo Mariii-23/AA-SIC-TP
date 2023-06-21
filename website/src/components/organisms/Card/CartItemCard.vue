@@ -42,23 +42,23 @@ export default {
   props: {
     orderItem: {
       type: Object as () => OrderItem,
-      require: true,
+      required: true,
     },
     incrementHandler: {
       type: Function,
-      require: true,
+      required: true,
     },
     decrementHandler: {
       type: Function,
-      require: true,
+      required: true,
     },
     quantity: {
       type: Number,
-      require: true,
+      required: true,
     },
     removeProductHandler: {
       type: Function,
-      require: true,
+      required: true,
     },
   },
   components: { CardLayout, Avatar, QuantityButton },
