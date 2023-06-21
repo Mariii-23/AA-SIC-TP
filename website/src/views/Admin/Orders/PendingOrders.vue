@@ -1,23 +1,23 @@
 <template>
-    <SimpleBodyLayout>
-        <TwoColumnsPanel>
-            <template v-slot:first>
-                <TitleCardLinksButton :title="$t('all-orders')" :items="items" />
-            </template>
-            <template v-slot:second>
-                <HeadingText>{{ $t("pending-orders") }}</HeadingText>
-                <SearchBar bg-color="primary" />
-                <OrderAdminExpansionPanel 
-                    :orders="orders"
-                    :changing-to="`${$t('ready') }`"
-                    :change-state="changeToReady"
-                    :viewDetailsHandler="viewDetailsHandler"
-                 />
-            </template>
-        </TwoColumnsPanel>
-    </SimpleBodyLayout>
+  <SimpleBodyLayout>
+    <TwoColumnsPanel>
+      <template v-slot:first>
+        <TitleCardLinksButton :title="$t('all-orders')" :items="items" />
+      </template>
+      <template v-slot:second>
+        <HeadingText>{{ $t("pending-orders") }}</HeadingText>
+        <SearchBar bg-color="primary" />
+        <OrderAdminExpansionPanel
+          :orders="orders"
+          :changing-to="`${$t('ready')}`"
+          :change-state="changeToReady"
+          :viewDetailsHandler="viewDetailsHandler"
+        />
+      </template>
+    </TwoColumnsPanel>
+  </SimpleBodyLayout>
 </template>
-  
+
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
@@ -27,83 +27,43 @@ import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SearchBar from "@/components/molecules/SearchBar.vue";
 import { OrderAdmin } from "@/appTypes/Order";
 import OrderAdminExpansionPanel from "@/components/molecules/expansionPanels/OrderAdminExpansionPanel.vue";
+import { useOrderStore } from "@/store/orders";
+
+const orderStore = useOrderStore();
 
 export default {
-    name: "PendingOrders",
-    data: () => ({
-        //TODO: ir buscar os direitos
-        items: Array as () => LinkProps[],
-        orders: Array as () => OrderAdmin[],
-    }),
-    mounted: async function () {
+  name: "PendingOrders",
+  data: () => ({
+    items: Array as () => LinkProps[],
+    orders: Array as () => OrderAdmin[],
+  }),
+  mounted: async function () {
+    this.items = [
+      { href: "/admin/orders/pending", icon: "bullseye", text: "pending" },
+      { href: "/admin/orders/ready", icon: "brightness-1", text: "ready" },
+      { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
+    ];
 
-        this.items = [
-            { href: "/admin/orders/pending", icon: "bullseye", text: "pending" },
-            { href: "/admin/orders/ready", icon: "brightness-1", text: "ready" },
-            { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
-        ];
-
-        this.orders = [
-            {
-                id: 1,
-                date: "2021-05-05",
-                total: 500,
-                orderItems: [
-                    {
-                        name: "Cadeira",
-                        quantity: 2,
-                        price: 100,
-                    },
-                    {
-                        name: "Mesa",
-                        quantity: 1,
-                        price: 300,
-                    }
-                ],
-                user: 1,
-            },
-            {
-                id: 2,
-                date: "2021-05-04",
-                total: 1000,
-                orderItems: [
-                    {
-                        name: "Cadeira2",
-                        quantity: 2,
-                        price: 100,
-                    },
-                    {
-                        name: "Mesa2",
-                        quantity: 1,
-                        price: 300,
-                    },
-                    {
-                        name: "Mesa3",
-                        quantity: 1,
-                        price: 300,
-                    }
-                ],
-                user: 2,
-            }
-        ];
+    if (orderStore.ordersPending.length <= 0)
+      await orderStore.getAllOrdersPending();
+    this.orders = orderStore.ordersPending;
+  },
+  methods: {
+    viewDetailsHandler(id: number) {
+      this.$router.push("/admin/orders/pending/" + id);
     },
-    //TODO: handlers
-    methods: {
-        viewDetailsHandler(id: number) {
-            this.$router.push("/admin/orders/pending/" + id)
-        },
-        changeToReady(id: number) {
-            this.$router.push("/admin/orders/ready/" + id)
-        }
+    async changeToReady(id: string) {
+      await orderStore.setOrderReady(id);
+      this.$router.push("/admin/orders/ready/" + id);
     },
-    components: {
-        TwoColumnsPanel,
-        TitleCardLinksButton,
-        SimpleBodyLayout,
-        HeadingText,
-        SearchBar,
-        OrderAdminExpansionPanel
-    },
+  },
+  components: {
+    TwoColumnsPanel,
+    TitleCardLinksButton,
+    SimpleBodyLayout,
+    HeadingText,
+    SearchBar,
+    OrderAdminExpansionPanel,
+  },
 };
 </script>
-  

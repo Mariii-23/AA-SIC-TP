@@ -9,11 +9,11 @@
             :button-handler="
               () => viewDetailsHandler && viewDetailsHandler(order.id)
             "
-            :chip="$t(order.state)"
+            :chip="$t(order.state.toString())"
           />
           <div class="user-title-info-wrapper">
             <div>{{ $t("date-text") }} {{ order.date }}</div>
-            <div>{{ $t("total") }}: {{ order.total }}€</div>
+            <div>{{ $t("total") }}: {{ order.total.toFixed(2) }}€</div>
           </div>
         </template>
         <template v-slot:text>

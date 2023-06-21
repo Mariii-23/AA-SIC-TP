@@ -1,4 +1,9 @@
-import { GetAllOrders, GetOrder, Response } from "@/appTypes/AxiosTypes";
+import {
+  GetAllOrders,
+  GetOrder,
+  Response,
+  GetAllAdminOrders,
+} from "@/appTypes/AxiosTypes";
 import { app } from "@/main";
 import { handleResponse } from "./axios";
 import { Order, OrderItem } from "@/appTypes/Order";
@@ -35,13 +40,117 @@ const getAllOrders = async (
   }
 };
 
+const setOrderReady = async (orderId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/admin/ready/${orderId}`
+    );
+
+    return handleResponse(req, () => {
+      return null;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const setOrderDone = async (orderId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/admin/ready/${orderId}`
+    );
+
+    return handleResponse(req, () => {
+      return null;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const getAllOrdersPending = async (offset: number, numItems: number) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/admin/orders/pending`,
+      {
+        params: {
+          offset,
+          numItems,
+        },
+      }
+    );
+
+    return handleResponse(req, (data: GetAllAdminOrders) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const getAllOrdersDone = async (offset: number, numItems: number) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/admin/orders/done`,
+      {
+        params: {
+          offset,
+          numItems,
+        },
+      }
+    );
+
+    return handleResponse(req, (data: GetAllAdminOrders) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const getAllOrdersReady = async (offset: number, numItems: number) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/admin/orders/ready`,
+      {
+        params: {
+          offset,
+          numItems,
+        },
+      }
+    );
+
+    return handleResponse(req, (data: GetAllAdminOrders) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 const getOrderById = async (orderId: string) => {
   try {
     const req = await app.config.globalProperties.$axios.get(
-      `${url}/customer/order`,{
+      `${url}/customer/order`,
+      {
         params: {
-          orderId
-        }
+          orderId,
+        },
       }
     );
 
@@ -70,7 +179,7 @@ const getOrderById = async (orderId: string) => {
       return order;
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -79,21 +188,58 @@ const getOrderById = async (orderId: string) => {
 };
 
 export interface OrdersAxios {
+  setOrderDone: (
+    orderId: string,
+  ) => Promise<Response<null>>;
+  setOrderReady: (
+    orderId: string,
+  ) => Promise<Response<null>>;
   getAllOrders: (
     customerId: string,
     offset: number,
     numItems: number
   ) => Promise<Response<GetAllOrders>>;
+  getAllOrdersPending: (
+    offset: number,
+    numItems: number
+  ) => Promise<Response<GetAllAdminOrders>>;
+  getAllOrdersReady: (
+    offset: number,
+    numItems: number
+  ) => Promise<Response<GetAllAdminOrders>>;
+  getAllOrdersDone: (
+    offset: number,
+    numItems: number
+  ) => Promise<Response<GetAllAdminOrders>>;
   getOrderId: (customerId: string) => Promise<Response<Order>>;
 }
 
 const orders: OrdersAxios = {
+  setOrderDone: async (
+    orderId: string,
+  ) => {
+    return await setOrderDone(orderId);
+  },
+  setOrderReady: async (
+    orderId: string,
+  ) => {
+    return await setOrderReady(orderId);
+  },
   getAllOrders: async (
     customerId: string,
     offset: number,
     numberItems: number
   ) => {
     return await getAllOrders(customerId, offset, numberItems);
+  },
+  getAllOrdersPending: async (offset: number, numberItems: number) => {
+    return await getAllOrdersPending(offset, numberItems);
+  },
+  getAllOrdersDone: async (offset: number, numberItems: number) => {
+    return await getAllOrdersDone(offset, numberItems);
+  },
+  getAllOrdersReady: async (offset: number, numberItems: number) => {
+    return await getAllOrdersReady(offset, numberItems);
   },
   getOrderId: async (customerId: string) => {
     return await getOrderById(customerId);

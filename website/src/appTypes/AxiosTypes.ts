@@ -40,6 +40,18 @@ export interface GetAllOrders {
   }[];
 }
 
+export interface GetAllAdminOrders {
+  last: boolean;
+  data: {
+    id: string;
+    date: Date;
+    total: number;
+    state: OrderState;
+    customerId: string;
+  }[];
+}
+
+
 export interface GetProductsByCategoryResponse {
   last: boolean;
   data: {
