@@ -6,24 +6,91 @@
           <v-toolbar-title>{{ $t("register") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <v-form fastfail class="custom-flex" ref="form" @submit.prevent="registerHandler()">
-            <v-text-field v-model="name" name="name" :label="$t('name')" type="input" :placeholder="$t('name')" required
-              bg-color="primary" single-line :rules="nameRules" class="input-form" />
-            <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email" single-line
-              class="input-form rounded-lg" required bg-color="primary" :rules="emailRules" />
-            <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-              :placeholder="$t('password')" required bg-color="primary" single-line :rules="passwordRules"
-              class="input-form" />
-            <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
-              :placeholder="$t('confirm-pw')" required bg-color="primary" single-line :rules="confirmPasswordRules"
-              class="input-form" />
+          <form
+            fastfail
+            class="custom-flex"
+            ref="form"
+            @submit.prevent="registerHandler()"
+          >
+            <v-text-field
+              v-model="name"
+              name="name"
+              :label="$t('name')"
+              type="input"
+              :placeholder="$t('name')"
+              required
+              bg-color="primary"
+              single-line
+              :rules="nameRules"
+              class="input-form"
+            />
+            <v-text-field
+              v-model="email"
+              name="email"
+              label="Email"
+              type="text"
+              placeholder="Email"
+              single-line
+              class="input-form rounded-lg"
+              required
+              bg-color="primary"
+              :rules="emailRules"
+            />
+            <v-text-field
+              v-model="password"
+              name="password"
+              :label="$t('password')"
+              type="password"
+              :placeholder="$t('password')"
+              required
+              bg-color="primary"
+              single-line
+              :rules="passwordRules"
+              class="input-form"
+            />
+            <v-text-field
+              v-model="conf_password"
+              name="password"
+              :label="$t('confirm-pw')"
+              type="password"
+              :placeholder="$t('confirm-pw')"
+              required
+              bg-color="primary"
+              single-line
+              :rules="confirmPasswordRules"
+              class="input-form"
+            />
 
-            <v-text-field v-model="address" name="address" :label="$t('address')" type="input"
-              :placeholder="$t('address')" required bg-color="primary" single-line :rules="addressRules"
-              class="input-form" />
-            <v-text-field v-model="nif" name="nif" :label="$t('nif')" type="input" :placeholder="$t('nif')" required
-              bg-color="primary" single-line :rules="nifRules" class="input-form" />
-            <v-text-field bg-color="primary" type="date" :label="$t('dob')" :rules="dobRules" />
+            <v-text-field
+              v-model="address"
+              name="address"
+              :label="$t('address')"
+              type="input"
+              :placeholder="$t('address')"
+              required
+              bg-color="primary"
+              single-line
+              :rules="addressRules"
+              class="input-form"
+            />
+            <v-text-field
+              v-model="nif"
+              name="nif"
+              :label="$t('nif')"
+              type="input"
+              :placeholder="$t('nif')"
+              required
+              bg-color="primary"
+              single-line
+              :rules="nifRules"
+              class="input-form"
+            />
+            <v-text-field
+              bg-color="primary"
+              type="date"
+              :label="$t('dob')"
+              :rules="dobRules"
+            />
 
             <FullWidthButton> {{ $t("register") }}</FullWidthButton>
 
@@ -31,7 +98,7 @@
               <p>{{ $t("have-account") }}</p>
               <p class="link" @click="goToLogIn()">{{ $t("login") }}</p>
             </div>
-          </v-form>
+          </form>
         </v-card-text>
       </v-card>
     </v-container>
@@ -70,7 +137,7 @@
   gap: 4px;
 }
 
-.login-phrase>.link {
+.login-phrase > .link {
   color: blue;
 }
 </style>
@@ -87,72 +154,80 @@ export default {
     return {
       email: "",
       emailRules: [
-        value => {
-          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+        (value) => {
+          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value))
+            return true;
 
-          return this.$t("invalid-email")
+          return this.$t("invalid-email");
         },
       ],
       password: "",
       passwordRules: [
-        value => {
-          if (value?.length >= 8) return true
+        (value) => {
+          if (value?.length >= 8) return true;
 
-          return this.$t("password-length")
+          return this.$t("password-length");
         },
       ],
       conf_password: "",
       confirmPasswordRules: [
-        value => {
-          if (value === this.password) return true
+        (value) => {
+          if (value === this.password) return true;
 
-          return this.$t("password-match")
+          return this.$t("password-match");
         },
-        value => {
-          if (value?.length > 0) return true
+        (value) => {
+          if (value?.length > 0) return true;
 
-          return this.$t("password-length")
+          return this.$t("password-length");
         },
       ],
       address: "",
       addressRules: [
-        value => {
-          if (value?.length >= 8) return true
+        (value) => {
+          if (value?.length >= 8) return true;
 
-          return this.$t("invalid-address")
+          return this.$t("invalid-address");
         },
       ],
       nif: "",
       nifRules: [
-        value => {
-          if (value?.length === 9 && /[0-9-]+/.test(value)) return true
+        (value) => {
+          if (value?.length === 9 && /[0-9-]+/.test(value)) return true;
 
-          return this.$t("invalid-nif")
+          return this.$t("invalid-nif");
         },
       ],
       name: "",
       nameRules: [
-        value => {
-          if (value?.length >= 3 && /[^0-9]/.test(value)) return true
+        (value) => {
+          if (value?.length >= 3 && /[^0-9]/.test(value)) return true;
 
-          return this.$t("invalid-name")
+          return this.$t("invalid-name");
         },
       ],
       date: null,
       dobRules: [
-        value => {
-          if (value?.date_between("06/18/1990", "06/18/2004")) return true
+        (value) => {
+          if (value?.date_between("06/18/1990", "06/18/2004")) return true;
 
-          return this.$t("invalid-date")
+          return this.$t("invalid-date");
         },
       ],
     };
   },
   methods: {
     async registerHandler() {
-      await userStore.register(this.email, this.password, this.name, this.date, this.nif, this.address);
+      await userStore.register(
+        this.email,
+        this.password,
+        this.name,
+        this.date,
+        this.nif,
+        this.address
+      );
       if (userStore.isLoggedIn) {
-        this.$router.push("/")
+        this.$router.push("/");
       }
     },
     // handleSignupWithGoogle() {

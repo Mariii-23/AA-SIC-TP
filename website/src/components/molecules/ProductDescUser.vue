@@ -7,7 +7,7 @@
           icon
           class="elevation-0"
           color="secondary"
-          v-on:click="favouriteIconHandler"
+          v-on:click="favouriteIconHandler(product.id)"
         >
           <v-icon size="30" v-if="isFavourite">mdi-heart</v-icon>
           <v-icon size="30" v-else>mdi-heart-outline</v-icon>
@@ -57,7 +57,6 @@ export default {
   props: {
     isFavourite: {
       type: Boolean,
-      // TODO: por isto
       default: false,
     },
     product: {

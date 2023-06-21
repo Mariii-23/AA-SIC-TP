@@ -10,6 +10,7 @@
           :product="product"
           v-bind:is-favourite="isFavourite"
           :materials="materials"
+          :productfavoriteHandler="productfavouriteIconHandler"
           :addToCartHandler="addToCartHandler"
           :buyNowHandler="buyNowHandler"
           :favouriteIconHandler="favouriteIconHandler"
@@ -63,6 +64,10 @@ export default {
     );
   },
   props: {
+    productfavouriteIconHandler: {
+      type: Function,
+      required: true,
+    },
     relatedProducts: {
       type: Array as () => ProductUserProps[],
       required: true,

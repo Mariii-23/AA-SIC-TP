@@ -112,7 +112,46 @@ export default {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
         userStore.id
       );
+
+      await this.updateRelatedProduct();
     }
+
+    this.$watch(
+      () => this.$route.params.id,
+      async () => {
+        this.isAdmin = userStore.isAdmin();
+        this.product.id = this.$route.params.id.toString();
+
+        this.productsFavorite = [];
+        this.productsRelatedUser = [];
+        this.productsRelatedAdmin = [];
+
+        const product = await productStore.getProduct(this.product.id);
+        if (!product) {
+          //TODO: mudar de pagina
+          //mandar notificacao
+        } else {
+          this.images = product.images;
+          this.info = product.information;
+          this.materials = product.materials;
+          if (product.materials.length > 0) {
+            this.materialId = product.materials[0].id;
+          }
+          this.product.name = product.name;
+          this.product.price = product.price;
+          this.categoryId = product.categoryId;
+
+          await this.updateRelatedProduct();
+        }
+        if (userStore.isLoggedIn && !userStore.isAdmin()) {
+          this.productsFavorite = await productStore.getAllFavoriteProducts(
+            userStore.id
+          );
+
+          await this.updateRelatedProduct();
+        }
+      }
+    );
 
     this.$watch(
       () => userStore,
@@ -132,6 +171,7 @@ export default {
       () => productStore.productsFavorites,
       async (newValue) => {
         this.productsFavorite = newValue;
+        await this.updateRelatedProduct();
       }
     );
 
@@ -201,9 +241,7 @@ export default {
       this.$router.push("/admin/materials/add");
     },
 
-    viewMoreHandler(productId: string){
-      console.log("view more " + productId)
-      //TODO: mudar de pagina
+    viewMoreHandler(productId: string) {
       this.$router.push("/product/" + productId);
     },
 
@@ -236,34 +274,25 @@ export default {
       await this.addToCartHandler();
       if (!userStore.isLoggedIn) {
         this.$router.push("/login");
-      }
-      else {
-      this.$router.push("/user/cart");
+      } else {
+        this.$router.push("/user/cart");
       }
     },
-
-    async favouriteIconHandler() {
+    async favouriteIconHandler(productId: string) {
       const userId = userStore.id;
       if (!userStore.isLoggedIn) {
         this.$router.push("/login");
         return;
       }
-      const product = this.productsFavorite.find(
-        (e) => e.id == this.product.id
-      );
-      const req = await productStore.addRmvFavoriteProducts(
-        userId,
-        this.product.id
-      );
+      const product = this.productsFavorite.find((e) => e.id == productId);
+      const req = await productStore.addRmvFavoriteProducts(userId, productId);
       if (req) {
         if (product) {
-          notificationStore.openSuccessAlert("rm-favorite-success");
           this.productsFavorite = this.productsFavorite.filter(
-            (e) => e.id !== product.id
+            (e) => e.id !== productId
           );
         } else {
           await productStore.getAllFavoriteProducts(userId);
-          notificationStore.openSuccessAlert("add-favorite-success");
         }
       } else {
         if (product) {

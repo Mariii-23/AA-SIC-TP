@@ -8,11 +8,9 @@
   />
 
   <div v-if="products.length == 0">
-      <v-progress-linear
-      indeterminate
-    />
-    </div>
-    
+    <v-progress-linear indeterminate />
+  </div>
+
   <CategoryAdmin
     v-if="isAdmin"
     v-bind:products="products"
@@ -78,7 +76,7 @@ export default {
       this.products = r;
     }
 
-    if (userStore.isLoggedIn && !userStore.isAdmin) {
+    if (userStore.isLoggedIn && !userStore.isAdmin()) {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
         userStore.id
       );
@@ -191,7 +189,7 @@ export default {
       this.closeRemoveModal();
     },
     viewMoreHandler(productId: string) {
-        this.onClickProductUser(productId);
+      this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {
       const userId = userStore.id;
@@ -203,10 +201,11 @@ export default {
       const req = await productStore.addRmvFavoriteProducts(userId, productId);
       if (req) {
         if (product) {
-          notificationStore.openSuccessAlert("rm-favorite-success");
+          this.productsFavorite = this.productsFavorite.filter(
+            (e) => e.id !== product.id
+          );
         } else {
           await productStore.getAllFavoriteProducts(userId);
-          notificationStore.openSuccessAlert("add-favorite-success");
         }
       } else {
         if (product) {

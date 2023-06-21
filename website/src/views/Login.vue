@@ -6,11 +6,35 @@
           <v-toolbar-title>{{ $t("login") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <v-form class="custom-flex" ref="form" fast-fail @submit.prevent="login()">
-            <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email" single-line
-              class="rounded-lg" required bg-color="primary" :rules="emailRules" />
-            <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
-              :placeholder="$t('password')" required bg-color="primary" single-line :rules="passwordRules" />
+          <form
+            class="custom-flex"
+            ref="form"
+            fast-fail
+            @submit.prevent="login()"
+          >
+            <v-text-field
+              v-model="email"
+              name="email"
+              label="Email"
+              type="text"
+              placeholder="Email"
+              single-line
+              class="rounded-lg"
+              required
+              bg-color="primary"
+              :rules="emailRules"
+            />
+            <v-text-field
+              v-model="password"
+              name="password"
+              :label="$t('password')"
+              type="password"
+              :placeholder="$t('password')"
+              required
+              bg-color="primary"
+              single-line
+              :rules="passwordRules"
+            />
 
             <div class="signup-phrase">
               <p>{{ $t("forgot-pw") }}</p>
@@ -25,7 +49,7 @@
               <p>{{ $t("dont-have-account") }}</p>
               <p class="link" @click="goToRegister()">{{ $t("register") }}</p>
             </div>
-          </v-form>
+          </form>
         </v-card-text>
       </v-card>
     </v-container>
@@ -51,7 +75,6 @@
   margin: 3% auto auto auto;
 }
 
-
 @media (max-width: 600px) {
   .body {
     width: 90%;
@@ -65,7 +88,7 @@
   gap: 4px;
 }
 
-.signup-phrase>.link {
+.signup-phrase > .link {
   color: blue;
 }
 </style>
@@ -82,25 +105,26 @@ export default {
     return {
       email: "",
       emailRules: [
-        value => {
-          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+        (value) => {
+          if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value))
+            return true;
 
-          return this.$t("invalid-email")
+          return this.$t("invalid-email");
         },
       ],
       password: "",
       passwordRules: [
-        value => {
-          if (value?.length >= 8) return true
+        (value) => {
+          if (value?.length >= 8) return true;
 
-          return this.$t("password-length")
+          return this.$t("password-length");
         },
         /*value => {
           if verificar password return true
 
           return this.$t('incorrect-login')
         }*/
-      ]
+      ],
     };
   },
   methods: {

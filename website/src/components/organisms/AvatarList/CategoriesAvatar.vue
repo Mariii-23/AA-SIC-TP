@@ -1,10 +1,6 @@
 <template>
   <div class="categories-avatar-wrapper">
-    <v-slide-group
-      v-model="model"
-      selected-class="bg-primary"
-      show-arrows
-    >
+    <v-slide-group v-model="model" selected-class="bg-primary" show-arrows>
       <v-slide-group-item
         v-for="category in categories"
         :key="category.id"
@@ -39,6 +35,12 @@ export default {
   data: () => ({
     model: [],
   }),
+  mounted() {
+    this.$watch(
+      () => this.$route.fullPath,
+      () => (this.model = [])
+    );
+  },
   props: {
     categories: {
       type: Array as () => CategoryInfo[],
@@ -66,7 +68,7 @@ export default {
   overflow-y: auto;
 }
 
-.radius-wrapper{
+.radius-wrapper {
   border-radius: 40px;
 }
 </style>

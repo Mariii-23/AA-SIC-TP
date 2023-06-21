@@ -6,19 +6,19 @@
           <v-toolbar-title>{{ $t("recover-pw") }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text class="fill-height">
-          <v-form fastfail class="custom-flex" ref="form" @submit.prevent="sendCode(email)">
+          <form fastfail class="custom-flex" ref="form" @submit.prevent="sendCode(email)">
             <p>{{ $t("enter-email") }}</p>
             <div>
               <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email" single-line
                 class="input-form rounded-lg" required bg-color="primary" :rules="emailRules" />
               <FullWidthButton> {{ $t("send-code") }}</FullWidthButton>
             </div>
-          </v-form>
+          </form>
           <div class="custom-divider">
             <div class="line" />
           </div>
-          <v-form fastfail class="custom-flex" ref="form" @submit.prevent="recoverPassword()">
-            - <p>{{ $t("enter-code") }}</p>
+          <form fastfail class="custom-flex" ref="form" @submit.prevent="recoverPassword()">
+            <p>{{ $t("enter-code") }}</p>
 
             <div>
               <v-text-field v-model="code" name="code" :label="$t('code')" type="text" :placeholder="$t('code')"
@@ -57,7 +57,7 @@
               <p class="link" @click="sendCode(email)">{{ $t("resend") }}</p>
             </div>
 
-          </v-form>
+          </form>
         </v-card-text>
       </v-card>
     </v-container>

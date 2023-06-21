@@ -43,7 +43,7 @@ export default {
     this.productsUser = [];
     for (let i = 0; i < this.products.length; i++) {
       const item = this.products[i];
-      const isFavorite = this.productsFavorite.find((e) => e.id === item.id);
+      const isFavorite = this.productsFavorite.find((e) => e.id == item.id);
       this.productsUser.push({
         favourite: isFavorite !== undefined,
         ...item,
