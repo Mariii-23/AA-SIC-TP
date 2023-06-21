@@ -7,106 +7,30 @@
         </v-toolbar>
         <v-card-text class="fill-height">
           <v-form fastfail class="custom-flex" ref="form" @submit.prevent="registerHandler()">
-              <div>
-                <v-text-field
-                  v-model="name"
-                  name="name"
-                  :label="$t('name')"
-                  type="input"
-                  :placeholder="$t('name')"
-                  required
-                  bg-color="primary"
-                  single-line
-                  :rules="nameRules"
-                  class="input-form"
-                />
-                <v-text-field
-                  v-model="email"
-                  name="email"
-                  label="Email"
-                  type="text"
-                  placeholder="Email"
-                  single-line
-                  class="input-form rounded-lg"
-                  required
-                  bg-color="primary"
-                  :rules="emailRules"
-                />
-                <v-text-field
-                  v-model="password"
-                  name="password"
-                  :label="$t('password')"
-                  type="password"
-                  :placeholder="$t('password')"
-                  required
-                  bg-color="primary"
-                  single-line
-                  :rules="passwordRules"
-                  class="input-form"
-                />
-                <v-text-field
-                  v-model="conf_password"
-                  name="password"
-                  :label="$t('confirm-pw')"
-                  type="password"
-                  :placeholder="$t('confirm-pw')"
-                  required
-                  bg-color="primary"
-                  single-line
-                  :rules="confirmPasswordRules"
-                  class="input-form"
-                />
+            <v-text-field v-model="name" name="name" :label="$t('name')" type="input" :placeholder="$t('name')" required
+              bg-color="primary" single-line :rules="nameRules" class="input-form" />
+            <v-text-field v-model="email" name="email" label="Email" type="text" placeholder="Email" single-line
+              class="input-form rounded-lg" required bg-color="primary" :rules="emailRules" />
+            <v-text-field v-model="password" name="password" :label="$t('password')" type="password"
+              :placeholder="$t('password')" required bg-color="primary" single-line :rules="passwordRules"
+              class="input-form" />
+            <v-text-field v-model="conf_password" name="password" :label="$t('confirm-pw')" type="password"
+              :placeholder="$t('confirm-pw')" required bg-color="primary" single-line :rules="confirmPasswordRules"
+              class="input-form" />
 
-                <v-text-field
-                  v-model="address"
-                  name="address"
-                  :label="$t('address')"
-                  type="input"
-                  :placeholder="$t('address')"
-                  required
-                  bg-color="primary"
-                  single-line
-                  :rules="addressRules"
-                  class="input-form"
-                />
-                <v-text-field
-                  v-model="nif"
-                  name="nif"
-                  :label="$t('nif')"
-                  type="input"
-                  :placeholder="$t('nif')"
-                  required
-                  bg-color="primary"
-                  single-line
-                  :rules="nifRules"
-                  class="input-form"
-                />
-                <v-text-field bg-color="primary" type="date" :label="$t('dob')"
-                :rules="dobRules" />
-              </div>
+            <v-text-field v-model="address" name="address" :label="$t('address')" type="input"
+              :placeholder="$t('address')" required bg-color="primary" single-line :rules="addressRules"
+              class="input-form" />
+            <v-text-field v-model="nif" name="nif" :label="$t('nif')" type="input" :placeholder="$t('nif')" required
+              bg-color="primary" single-line :rules="nifRules" class="input-form" />
+            <v-text-field bg-color="primary" type="date" :label="$t('dob')" :rules="dobRules" />
 
-              <FullWidthButton> {{ $t("register") }}</FullWidthButton>
+            <FullWidthButton> {{ $t("register") }}</FullWidthButton>
 
-              <!-- <div class="custom-divider">
-                        <div class="line" />
-                        <div class="text">
-                           <p>
-                              {{ $t("or") }}
-                           </p>
-                        </div>
-                        <div class="line" />
-                     </div>
-
-                     <div class="custom-flex">
-                        <PrimaryButton :handleClick="handleSignupWithGoogle">
-                           {{ $t("continue-google") }}
-                        </PrimaryButton>
-                     </div> -->
-
-              <div class="login-phrase">
-                <p>{{ $t("have-account") }}</p>
-                <p class="link" @click="goToLogIn()">{{ $t("login") }}</p>
-              </div>
+            <div class="login-phrase">
+              <p>{{ $t("have-account") }}</p>
+              <p class="link" @click="goToLogIn()">{{ $t("login") }}</p>
+            </div>
           </v-form>
         </v-card-text>
       </v-card>
@@ -123,27 +47,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-/*
-.custom-divider {
-  display: flex;
-  align-items: center;
-  margin: 0px 0;
-}
-
-.custom-divider .line {
-  flex-grow: 1;
-  height: 1px;
-  background-color: black;
-}
-
-.custom-divider .text {
-  margin: 0 10px;
-}*/
-
-.input-form {
-  margin-bottom: 10px;
 }
 
 .body {
@@ -167,7 +70,7 @@
   gap: 4px;
 }
 
-.login-phrase > .link {
+.login-phrase>.link {
   color: blue;
 }
 </style>
@@ -183,7 +86,7 @@ export default {
   data() {
     return {
       email: "",
-      emailRules : [
+      emailRules: [
         value => {
           if (/^[a-z.-]+[a-z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
 
@@ -204,6 +107,11 @@ export default {
           if (value === this.password) return true
 
           return this.$t("password-match")
+        },
+        value => {
+          if (value?.length > 0) return true
+
+          return this.$t("password-length")
         },
       ],
       address: "",
@@ -233,7 +141,7 @@ export default {
       date: null,
       dobRules: [
         value => {
-          if (value?.date_between("06/18/1990","06/18/2004")) return true
+          if (value?.date_between("06/18/1990", "06/18/2004")) return true
 
           return this.$t("invalid-date")
         },

@@ -73,10 +73,8 @@
 <script lang="ts">
 import FullWidthButton from "@/components/atoms/Button/FullWidthButton.vue";
 import { useUserStore } from "@/store/userStore";
-import { useNotificationStore  } from "@/store/notificationStore";
 
 const userStore = useUserStore();
-const notificationStore = useNotificationStore();
 
 export default {
   name: "Login",
