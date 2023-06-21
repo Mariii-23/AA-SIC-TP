@@ -2,6 +2,12 @@
   <SimpleBodyLayout>
     <HeadingText>{{ name }}</HeadingText>
 
+    <div v-if="products.length == 0">
+      <v-progress-linear
+      indeterminate
+    />
+    </div>
+
     <CategoriesAvatar
       :categories="categories"
       :click-handler="handleOnClickAvatar"
