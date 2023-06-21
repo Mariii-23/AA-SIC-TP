@@ -32,14 +32,14 @@
       </template>
     </ProductLayout>
 
-  <div class="related-products">
-    <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
-    <RelatedProducts
-      :products="relatedProducts"
-      :editProductHandler="editProductHandler"
-      :deleteProductHandler="deleteProductHandler"
-    />
-  </div>
+    <div class="related-products">
+      <HeadingText :size="6">{{ $t("related-products") }}</HeadingText>
+      <RelatedProducts
+        :products="relatedProducts"
+        :editProductHandler="editProductHandler"
+        :deleteProductHandler="deleteProductHandler"
+      />
+    </div>
   </div>
 </template>
 
@@ -134,23 +134,7 @@ export default {
   margin-bottom: 50px;
 }
 
-
 .related-products {
   margin: 30px 5% 30px 5%;
-}
-
-@media screen and (max-width: 950px) {
-  .product {
-    flex-direction: column;
-  }
-
-  .product-desc {
-    width: 100%;
-    margin-top: 50px;
-  }
-
-  .left-side {
-    width: 100%;
-  }
 }
 </style>

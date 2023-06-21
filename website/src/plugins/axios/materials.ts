@@ -54,7 +54,7 @@ const removeMaterial = async (id: string) => {
       `${url}/material/remove/${id}`
     );
 
-    return handleResponse(req, (_) => {
+    return handleResponse(req, () => {
       return null;
     });
   } catch (error) {

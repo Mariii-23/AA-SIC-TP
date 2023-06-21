@@ -18,10 +18,17 @@ export default {
   name: "TitleWithButtonAndGoBack",
   methods: {
     goBack() {
-      this.$router.back();
+      if (this.goBackHandler) {
+        this.goBackHandler();
+      } else {
+        this.$router.back();
+      }
     },
   },
   props: {
+    goBackHandler: {
+      type: Function,
+    },
     size: {
       type: Number,
       default: 4,

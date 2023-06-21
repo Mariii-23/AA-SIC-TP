@@ -1,21 +1,22 @@
 <template>
-    <SimpleBodyLayout>
-        <TwoColumnsPanel>
-            <template v-slot:first>
-                <TitleCardLinksButton :title="$t('all-orders')" :items="items" />
-            </template>
-            <template v-slot:second>
-                <TitleWithButtonAndGoBack 
-                    :title="$t('order')"
-                    :button-text="$t('change-to') + ' ' + $t('done')" 
-                    :button-handler="() => changeToDone && changeToDone(order.id)"
-                />
-                <OrderAdminCard :order="order"/>
-            </template>
-        </TwoColumnsPanel>
-    </SimpleBodyLayout>
+  <SimpleBodyLayout>
+    <TwoColumnsPanel>
+      <template v-slot:first>
+        <TitleCardLinksButton :title="$t('all-orders')" :items="items" />
+      </template>
+      <template v-slot:second>
+        <TitleWithButtonAndGoBack
+          :title="$t('order')"
+          :button-text="$t('change-to') + ' ' + $t('done')"
+          :button-handler="() => changeToDone && changeToDone(order.id)"
+          :go-back-handler="goBack"
+        />
+        <OrderAdminCard :order="order" />
+      </template>
+    </TwoColumnsPanel>
+  </SimpleBodyLayout>
 </template>
-  
+
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
@@ -24,60 +25,44 @@ import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { OrderAdmin } from "@/appTypes/Order";
 import OrderAdminCard from "../../../components/organisms/Card/OrderAdminCard.vue";
 import TitleWithButtonAndGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
+import { useOrderStore } from "@/store/orders";
+
+const orderStore = useOrderStore();
 
 export default {
-    name: "ReadyOrdersDetails",
-    data: () => ({
-        //TODO: ir buscar os direitos
-        items: [] as LinkProps[],
-        order: Object as () => OrderAdmin,
-    }),
-    mounted: async function () {
+  name: "ReadyOrdersDetails",
+  data: () => ({
+    items: [] as LinkProps[],
+    order: Object as () => OrderAdmin,
+  }),
+  mounted: async function () {
+    this.items = [
+      { href: "/admin/orders/pending", icon: "brightness-1", text: "pending" },
+      { href: "/admin/orders/ready", icon: "bullseye", text: "ready" },
+      { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
+    ];
 
-        this.items = [
-            { href: "/admin/orders/pending", icon: "brightness-1", text: "pending" },
-            { href: "/admin/orders/ready", icon: "bullseye", text: "ready" },
-            { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
-        ];
-
-        this.order = {
-                id: 1,
-                date: "2021-05-05",
-                total: 500,
-                state: "ready",
-                orderItems: [
-                    {
-                        name: "Cadeira",
-                        quantity: 2,
-                        price: 100,
-                        img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                    material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-                    },
-                    {
-                        name: "Mesa",
-                        quantity: 1,
-                        price: 300,
-                        img: "https://www.ikea.com/pt/pt/images/products/bergmund-cadeira-efeito-carvalho-hallarp-bege__0926594_pe789377_s5.jpg",
-                    material: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png"
-                    }
-                ],
-                user: 1,
-                email: "joao@gmail.com"
-            };
+    const orderId = this.$route.params.id.toString();
+    const order = orderStore.ordersReady.filter((e) => e.id == orderId);
+    if (order) {
+      this.order = order[0];
+    }
+  },
+  methods: {
+    async changeToDone(id: string) {
+      await orderStore.setOrderDone(id);
+      this.$router.push("/admin/orders/done/" + id);
     },
-    //TODO: handlers
-    methods: {
-        changeToDone(id: number) {
-            this.$router.push("admin/orders/done/${id}");
-        }
+    async goBack() {
+      this.$router.push("/admin/orders/done");
     },
-    components: {
-        TwoColumnsPanel,
-        TitleCardLinksButton,
-        SimpleBodyLayout,
-        TitleWithButtonAndGoBack,
-        OrderAdminCard
-    },
+  },
+  components: {
+    TwoColumnsPanel,
+    TitleCardLinksButton,
+    SimpleBodyLayout,
+    TitleWithButtonAndGoBack,
+    OrderAdminCard,
+  },
 };
 </script>
-  

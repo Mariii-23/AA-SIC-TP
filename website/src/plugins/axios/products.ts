@@ -47,7 +47,7 @@ const addProduct = async (
   price: number,
   categoryId: string | null,
   subCategoryId: string | null,
-  materialsId: string[],
+  materialIds: string[],
   infos: TechnicalInfo[],
   images: string[]
 ) => {
@@ -58,7 +58,7 @@ const addProduct = async (
       price,
       categoryId,
       subCategoryId,
-      materialsId,
+      materialIds,
       infos,
       images,
     });
