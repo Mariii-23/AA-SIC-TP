@@ -1,11 +1,7 @@
 <template>
   <SimpleBodyLayout>
     <TwoColumnsPanel>
-      <!--<ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logoutHandler"
-        :closeModal="closeModal" :isModalOpen="isModalOpen" />-->
       <template v-slot:first>
-        <!--<TitleCardLinksButton :title="$t('store')" :items="items" :button-text="$t('logout')"
-          :button-handler="openModal" />-->
           <TitleCardLinks
           :title="$t('store')"
           :items="items"
@@ -104,13 +100,11 @@
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-//import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
-//import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import TitleWithButtonAndGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
 import { useCompanyStore } from "@/store/companyStore";
 import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
-import FullWidthButton from '../../components/atoms/Button/FullWidthButton.vue';
+import FullWidthButton from "../../components/atoms/Button/FullWidthButton.vue";
 
 const companyStore = useCompanyStore();
 
@@ -119,7 +113,6 @@ export default {
   data() {
     return {
       items: [] as LinkProps[],
-      isModalOpen: false,
       company: {
         name: "",
         address: "",
@@ -196,22 +189,10 @@ export default {
       await companyStore.updateInfo(this.company);
       this.$router.push("/admin/company");
     },
-    //TODO: ir buscar os direitos
-    logoutHandler() {
-      console.log("logout");
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
-    openModal() {
-      this.isModalOpen = true;
-    },
   },
   components: {
     TwoColumnsPanel,
-    //TitleCardLinksButton,
     SimpleBodyLayout,
-    //ConfirmationModal,
     TitleWithButtonAndGoBack,
     TitleCardLinks,
     FullWidthButton,

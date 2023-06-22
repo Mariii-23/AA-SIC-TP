@@ -126,17 +126,9 @@ export default {
             ],
             password: "",
             passwordRules: [
-                //value => {
-                //    if (value?.length >= 8) return true
-                //    return this.$t("password-length")
-                //},
             ],
             conf_password: "",
             confirmPasswordRules: [
-                //value => {
-                //    if (value === this.password) return true
-                //    return this.$t("password-match")
-                //},
             ],
         }
     },

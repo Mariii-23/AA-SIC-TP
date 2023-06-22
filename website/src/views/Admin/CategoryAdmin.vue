@@ -1,6 +1,5 @@
 <template>
   <SimpleBodyLayout>
-    <!-- <Breadcrumbs :links="links" class="elevation-2" /> -->
     <TitleWithButton
       :button-text="$t('addProduct')"
       :button-handler="addProductHandler"

@@ -107,7 +107,6 @@ export default {
       () => this.isFavourite,
       (newValues) => {
         this.favourite = newValues;
-        console.log(this.favourite)
             }
       )
   },  components: {

@@ -84,7 +84,6 @@ const adminStore = useAdminsStore();
 
 export default {
   name: "AdminAdminPage",
-  //TODO: ir buscar os direitos
   data() {
     return {
       items: [] as LinkProps[],
@@ -105,10 +104,6 @@ export default {
       ],
       password: "",
       passwordRules: [
-        //value => {
-        //    if (value?.length >= 8) return true
-        //    return this.$t("password-length")
-        //},
       ],
       conf_password: "",
       confirmPasswordRules: [
@@ -150,7 +145,6 @@ export default {
 
       const r = await adminStore.editAdmin(this.id, argemail, argname, this.password);
       if (r) {
-        console.log("save changes");
         userStore.update(argname, argemail);
         this.$router.push("/admin/profile");
       }

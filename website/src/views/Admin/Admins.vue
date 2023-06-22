@@ -78,7 +78,6 @@ export default {
       () => ({ admins: adminStore.admins }),
       (newValues) => {
         this.admins = newValues.admins;
-        console.log(this.admins)
       }
     );
   },

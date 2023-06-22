@@ -93,7 +93,6 @@ export default {
               newValue
             )) / this.productsOnPage
           );
-          console.log(this.length);
           await productStore.getProductBySubCategoryId(newValue, 0, this.productsOnPage);
         }
       }

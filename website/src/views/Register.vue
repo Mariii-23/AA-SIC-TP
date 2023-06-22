@@ -230,14 +230,6 @@ export default {
         this.$router.push("/");
       }
     },
-    // handleSignupWithGoogle() {
-    //    console.log("register with google");
-    //    this.$router.push("/register-personal-data");
-    // },
-    // handleSignupWithEmail() {
-    //    console.log("register with email");
-    //    this.$router.push("/register-personal-data");
-    // },
     goToLogIn() {
       this.$router.push("/login");
     },

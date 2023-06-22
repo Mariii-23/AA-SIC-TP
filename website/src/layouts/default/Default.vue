@@ -62,7 +62,6 @@ export default {
     this.$watch(
       () => ({ categories: categoriesStore.categories }),
       (newValues) => {
-        //TODO: falta por a imagem
         this.categories = newValues.categories;
         let categoriesItens: DrawerItem[] = [];
         newValues.categories.forEach((categorie) => {

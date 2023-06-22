@@ -41,7 +41,7 @@ const routes = [
         component: () => import("@/views/Category.vue"),
       },
 
-      //ADMINN
+      //ADMIN
       {
         path: "admin/add-admin/",
         name: "Add Admin",

@@ -46,7 +46,6 @@ export default {
       { href: "/user/orders", icon: "brightness-1", text: "my-orders" },
     ];
   },
-  //TODO: ir buscar os direitos
   methods: {
     editProfile() {
       this.$router.push("/user/profile/edit");

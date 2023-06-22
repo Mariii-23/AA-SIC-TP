@@ -51,7 +51,6 @@ export default {
   name: "Company",
   data: () => ({
     items:  [] as LinkProps[],
-    isModalOpen: false,
     company: {} as Company,
     textFields: [] as{
       label1: String,
@@ -103,8 +102,6 @@ export default {
     this.$watch(
       () => companyStore.socialNetworks,
       (newValues) => {
-        //this.company.socialNetworks = newValues;
-        console.log(newValues)
         newValues.forEach((socialNetwork) => {
           this.textFields.push({
             label1: this.$t("name"),
@@ -166,17 +163,7 @@ export default {
     },
     editCompanyHandler() {
       this.$router.push("/admin/company/edit");
-    },
-    logoutHandler() {
-      //TODO: ir buscar os direitos
-      console.log("logout");
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
-    openModal() {
-      this.isModalOpen = true;
-    },
+    }
   },
   components: {
     CompanyNetworkLinks,

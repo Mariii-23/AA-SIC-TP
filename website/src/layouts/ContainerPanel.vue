@@ -7,7 +7,6 @@
 <script lang="ts" setup>
 </script>
 
-<!-- FIXME: Change background-color -->
 <style>
 .layout {
     border-radius: 30px;

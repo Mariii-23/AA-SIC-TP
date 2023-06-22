@@ -47,12 +47,10 @@ export const useUserStore = defineStore("user", {
         notificationStore.openErrorAlert("tokenInvalid");
       }
       else if (r.success == 400){
-        console.log("password incorrect");
         const notificationStore = useNotificationStore();
         notificationStore.openErrorAlert("passwordIncorrect");
       }
       else if (r.success == 404){
-        console.log("email incorrect");
         const notificationStore = useNotificationStore();
         notificationStore.openErrorAlert("emailIncorrect");
       }

@@ -183,8 +183,6 @@ export default {
       async (newValue) => {
         this.productsFavorite = newValue;
         await this.updateRelatedProduct();
-        console.log(this.productsFavorite)
-        console.log(productStore.productsFavorites)
       }
     );
 

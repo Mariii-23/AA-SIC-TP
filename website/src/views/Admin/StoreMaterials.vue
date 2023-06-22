@@ -12,13 +12,6 @@
       :closeModal="closeRemoveModal"
       v-bind:is-modal-open="isRemoveModalOpen"
     />
-    <ConfirmationModal
-      :title="$t('logout')"
-      :text="$t('logout-text')"
-      :confirmHandler="logoutHandler"
-      :closeModal="closeLogoutModal"
-      :isModalOpen="isLogoutModalOpen"
-    />
     <TwoColumnsPanel>
       <template v-slot:first>
         <TitleCardLinksButton
@@ -37,6 +30,7 @@
           :remove-material-handler="openRemoveModal"
           :update-material-handler="updateMaterialHandler"
         />
+        <Pagination :length="length" :total-visible="5" :handle-page-change="handlePageChange" />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -54,6 +48,7 @@ import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vu
 import { useMaterialStore } from "@/store/materialsStore";
 import MaterialsEditableCards from "@/components/organisms/Cards/MaterialsEditableCards.vue";
 import { useNotificationStore } from "@/store/notificationStore";
+import Pagination from "@/components/molecules/Pagination.vue";
 
 const materialsStore = useMaterialStore();
 const notifications = useNotificationStore();
@@ -63,10 +58,12 @@ export default {
   data: () => ({
     items: [] as LinkProps[],
     isRemoveModalOpen: false,
-    isLogoutModalOpen: false,
     materials: [] as Material[],
     materialId: "",
-    materialName: ""
+    materialName: "",
+    page: 1,
+    length: 0,
+    materialsOnPage: 16,
   }),
   mounted: async function () {
     this.items = [
@@ -75,8 +72,10 @@ export default {
       { href: "/admin/materials", icon: "bullseye", text: "materials" },
     ];
 
+    this.length = Math.ceil((await materialsStore.getNumberOfMaterials())/this.materialsOnPage);
+
     if (materialsStore.materials.length <= 0) {
-      await materialsStore.getAllMaterials();
+      await materialsStore.getAllMaterials(0, this.materialsOnPage);
     }
     this.materials = materialsStore.materials;
 
@@ -101,15 +100,6 @@ export default {
       this.materialName = materialName;
       this.isRemoveModalOpen = true;
     },
-    openLogoutModal() {
-      this.isLogoutModalOpen = true;
-    },
-    closeLogoutModal() {
-      this.isLogoutModalOpen = false;
-    },
-    logoutHandler() {
-      console.log("logout");
-    },
     async removeMaterialHandler() {
       const r = await materialsStore.removeMaterial(this.materialId);
       if (r) {
@@ -125,13 +115,17 @@ export default {
       photo: string
     ) {
       const r = await materialsStore.updateMaterial(materialId, name, photo);
-      await materialsStore.getAllMaterials();
+      await materialsStore.getAllMaterials((this.page-1)*this.materialsOnPage, this.materialsOnPage);
       if (r) {
         notifications.openSuccessAlert(this.$t("update-material-success"));
       } else {
         notifications.openErrorAlert(this.$t("update-material-error"));
       }
     },
+    async handlePageChange(page: number){
+      this.page = page;
+      await materialsStore.getAllMaterials((this.page-1)*this.materialsOnPage, this.materialsOnPage);
+    }
   },
   components: {
     TwoColumnsPanel,
@@ -140,6 +134,7 @@ export default {
     TitleWithButton,
     ConfirmationModal,
     MaterialsEditableCards,
+    Pagination
   },
 };
 </script>

@@ -112,7 +112,6 @@ export default {
     // PRODUCT
     const productId = this.$route.params.id.toString();
     const product = await productStore.getProduct(productId);
-    console.log(product);
     if (product) {
       this.product = product;
     }

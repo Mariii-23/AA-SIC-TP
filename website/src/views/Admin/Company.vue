@@ -1,12 +1,4 @@
 <template>
-  <div>
-    <ConfirmationModal
-    :title="$t('logout')"
-    :text="$t('logout-text')"
-    :confirmHandler="logoutHandler"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-  />
   <SimpleBodyLayout>
     <TwoColumnsPanel>
       <template v-slot:first>
@@ -72,7 +64,6 @@
       </template>
     </TwoColumnsPanel></SimpleBodyLayout
   >
-  </div>
 </template>
 
 <style>
@@ -102,7 +93,6 @@ export default {
   name: "Company",
   data: () => ({
     items:  [] as LinkProps[],
-    isModalOpen: false,
     company: {} as Company,
     textFields: [] as{
       label1: String,
@@ -233,16 +223,6 @@ export default {
     },
     editCompanyHandler() {
       this.$router.push("/admin/company/edit");
-    },
-    logoutHandler() {
-      //TODO: ir buscar os direitos
-      console.log("logout");
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
-    openModal() {
-      this.isModalOpen = true;
     },
   },
   components: {

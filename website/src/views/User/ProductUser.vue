@@ -59,7 +59,6 @@ export default {
       (newValues) => {
         this.isFavourite =
           newValues.find((e) => e.id == this.product.id) !== undefined;
-          console.log(this.isFavourite)
       }
     );
   },
