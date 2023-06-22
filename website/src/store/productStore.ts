@@ -190,16 +190,16 @@ export const useProductStore = defineStore("products", {
         offset,
         numItems
       );
-      if (r && typeof r.data != "string") {
+      if (r.success && typeof r.data != "string") {
         products = r.data;
       }
       this.products = products;
       return products;
     },
 
-    async addImagesProduct(productId: string, images: string[]) {
-      const r = await axios.product.addImagesProduct(productId, images);
-      return r && typeof r.data != "string";
+    async addImageProduct(productId: string, image: string) {
+      const r = await axios.product.addImageProduct(productId, image);
+      return r.success == 200;
     },
 
     async deteleImageProduct(productId: string, imageId: string) {

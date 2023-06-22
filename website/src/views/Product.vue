@@ -110,7 +110,9 @@ export default {
     }
     if (userStore.isLoggedIn && !userStore.isAdmin()) {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
-        userStore.id
+        userStore.id,
+        0,
+        1000
       );
 
       await this.updateRelatedProduct();
@@ -145,7 +147,9 @@ export default {
         }
         if (userStore.isLoggedIn && !userStore.isAdmin()) {
           this.productsFavorite = await productStore.getAllFavoriteProducts(
-            userStore.id
+            userStore.id,
+            0,
+            1000
           );
 
           await this.updateRelatedProduct();
@@ -157,7 +161,11 @@ export default {
       () => userStore,
       async (newValue) => {
         if (!newValue.isAdmin()) {
-          const r = await productStore.getAllFavoriteProducts(newValue.id);
+          const r = await productStore.getAllFavoriteProducts(
+            newValue.id,
+            0,
+            1000
+          );
           if (r !== undefined) {
             this.productsFavorite = r;
           }
@@ -182,7 +190,11 @@ export default {
   },
   methods: {
     async updateRelatedProduct() {
-      const r = await productStore.getProductByCategoryId(this.categoryId);
+      const r = await productStore.getProductByCategoryId(
+        this.categoryId,
+        0,
+        1000
+      );
       this.productsRelatedUser = [];
       this.productsRelatedAdmin = [];
       const isAdmin = userStore.isAdmin();
@@ -285,7 +297,7 @@ export default {
             (e) => e.id !== productId
           );
         } else {
-          await productStore.getAllFavoriteProducts(userId);
+          await productStore.getAllFavoriteProducts(userId, 0, 1000);
         }
       } else {
         if (product) {

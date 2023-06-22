@@ -17,7 +17,7 @@
 
             <DeleteImages
               v-bind:images="product.images"
-              :removeImage="deleteImage"
+              :removeFile="deleteImage"
               :size="150"
             />
             <HeadingText>{{ $t("add-more-images") }}</HeadingText>
@@ -211,10 +211,11 @@ export default {
       );
 
       if (typeof r !== "string") {
-        const r2 = await productStore.addImagesProduct(
-          this.product.id,
-          this.images
-        );
+        let r2 = true;
+        for (const image of this.images) {
+          const r3 = await productStore.addImageProduct(this.product.id, image);
+          r2 = r2 && r3;
+        }
         if (r2) {
           notificationStore.openSuccessAlert("edit-product-success");
           this.$router.push(`/product/${r.id}`);

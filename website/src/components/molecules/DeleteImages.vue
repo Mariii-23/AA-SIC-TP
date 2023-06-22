@@ -6,7 +6,7 @@
           <AvatarLink :image-href="image.href" :size="size" />
           <v-btn
             icon
-            @click="removeFile(image.id)"
+            @click="async () => {await removeFile(image.id)}"
             class="elevation-0 bg-secondary"
           >
             <v-icon icon="mdi-trash-can-outline" />

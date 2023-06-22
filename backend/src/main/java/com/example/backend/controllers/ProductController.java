@@ -73,7 +73,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/edit/removeimage/{productId}/{imageId}")
+    @DeleteMapping("/edit/removeimage/{productId}/{imageId}")
     public void removeProductImage(final @PathVariable int productId, final @PathVariable int imageId) {
         try {
             productService.removeProductImage(productId, imageId);

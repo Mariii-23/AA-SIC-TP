@@ -122,7 +122,10 @@
     "rmv-product-error": "Erro ao remover o produto, este contêm encomendas associadas a ele",
     "update-product-success": "Produto atualizado com sucesso",
     "update-product-error": "Erro ao atualizar o producto",
+    "edit-product-success": "Produto atualizado com sucesso",
+    "edit-product-error": "Erro ao atualizar o producto",
 
+    "add-more-images": "Adicionar mais imagens",
 
     "store": "Loja",
     "categories": "Categorias",

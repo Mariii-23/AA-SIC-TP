@@ -21,7 +21,8 @@ const materialImage = `http://localhost:8080/${url}/all/materialImage`;
 const getNumberOfProducts = async () => {
   try {
     const req = await app.config.globalProperties.$axios.get(
-      `${url}/all/numberOfProducts`);
+      `${url}/all/numberOfProducts`
+    );
     return handleResponse(req, (data) => {
       return data;
     });
@@ -216,19 +217,20 @@ const getProductById = async (productId: string) => {
 };
 
 const getNumberOfProductsByCategoryId = async (categoryId: string) => {
-    try {
-      const req = await app.config.globalProperties.$axios.get(
-        `${url}/category/numberOfProducts?categoryId=${categoryId}`);
-  
-      return handleResponse(req, (data) => {
-        return data;
-      });
-    } catch (error) {
-      return {
-        success: error.request.status,
-        data: error.request.statusText,
-      };
-    }
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/category/numberOfProducts?categoryId=${categoryId}`
+    );
+
+    return handleResponse(req, (data) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
 };
 
 const getProductByCategoryId = async (
@@ -272,7 +274,8 @@ const getProductByCategoryId = async (
 const getNumberOfProductsBySubCategoryId = async (subCategoryId: string) => {
   try {
     const req = await app.config.globalProperties.$axios.get(
-      `${url}/subcategory/numberOfProducts?subCategoryId=${subCategoryId}`);
+      `${url}/subcategory/numberOfProducts?subCategoryId=${subCategoryId}`
+    );
     return handleResponse(req, (data) => {
       return data;
     });
@@ -323,11 +326,10 @@ const getProductBySubCategoryId = async (
   }
 };
 
-//TODO: verificar no backend
 const deleteImageProduct = async (productId: string, imageId: string) => {
   try {
     const req = await app.config.globalProperties.$axios.delete(
-      `${url}/edit/removeImages/${productId}/${imageId}`
+      `${url}/edit/removeimage/${productId}/${imageId}`
     );
     return handleResponse(req, () => {
       return null;
@@ -340,15 +342,15 @@ const deleteImageProduct = async (productId: string, imageId: string) => {
   }
 };
 
-const addImageProduct = async (productId: string, images: string[]) => {
+const addImageProduct = async (productId: string, image: string) => {
   try {
     const req = await app.config.globalProperties.$axios.post(
       `${url}/edit/addimages/${productId}`,
       {
-        images,
+        image,
       }
     );
-    return handleResponse(req, (data: string[]) => {
+    return handleResponse(req, (data) => {
       return data;
     });
   } catch (error) {
@@ -365,13 +367,17 @@ export interface ProductAxios {
     offset: number,
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
-  getNumberOfProductsByCategoryId: (categoryId: string) => Promise<Response<number>>;
+  getNumberOfProductsByCategoryId: (
+    categoryId: string
+  ) => Promise<Response<number>>;
   getProductByCategoryId: (
     categoryId: string,
     offset: number,
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
-  getNumberOfProductsBySubCategoryId: (subCategoryId: string) => Promise<Response<number>>;
+  getNumberOfProductsBySubCategoryId: (
+    subCategoryId: string
+  ) => Promise<Response<number>>;
   getProductBySubCategoryId: (
     subCategoryId: string,
     offset: number,
@@ -389,10 +395,10 @@ export interface ProductAxios {
     infos: TechnicalInfo[],
     images: string[]
   ) => Promise<Response<ProductSimple>>;
-  addImagesProduct: (
+  addImageProduct: (
     productId: string,
-    images: string[]
-  ) => Promise<Response<String[]>>;
+    image: string
+  ) => Promise<Response<String>>;
   removeImageProduct: (
     productId: string,
     imageId: string
@@ -474,8 +480,8 @@ const productStore: ProductAxios = {
       infos
     );
   },
-  addImagesProduct: async (productId: string, images: string[]) => {
-    return await addImageProduct(productId, images);
+  addImageProduct: async (productId: string, image: string) => {
+    return await addImageProduct(productId, image);
   },
   removeImageProduct: async (productId: string, imageId: string) => {
     return await deleteImageProduct(productId, imageId);
