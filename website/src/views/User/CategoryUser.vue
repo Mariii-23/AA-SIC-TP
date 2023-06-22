@@ -16,8 +16,8 @@
     />
 
     <Pagination
-      length="10"
-      total-visible="6"
+      :length="length"
+      total-visible="5"
       :handle-page-change="handlePageChange"
     />
   </SimpleBodyLayout>
@@ -118,7 +118,11 @@ export default {
     onClickProduct: {
       type: Function,
       required: true,
-    }
+    },
+    length: {
+      type: Number,
+      required: true,
+    },
   },
   components: {
     SimpleBodyLayout,

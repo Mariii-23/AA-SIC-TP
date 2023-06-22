@@ -9,9 +9,16 @@ export const useProductStore = defineStore("products", {
     product: {} as Product,
   }),
   actions: {
-    async getAllFavoriteProducts(customerId: string) {
+    async getNumberOfFavorites(customerId: string) {
+      const r = await axios.customer.getNumberOfFavorites(customerId);
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllFavoriteProducts(customerId: string, offset: number, numItems: number) {
       let products = [] as ProductSimple[];
-      const r = await axios.customer.getProductFavorites(customerId, 0, 100000);
+      const r = await axios.customer.getProductFavorites(customerId, offset, numItems);
       if (r.success == 200 && typeof r.data != "string") {
         products = r.data;
       }
@@ -48,8 +55,15 @@ export const useProductStore = defineStore("products", {
       }
       return r.success === 200;
     },
-    async getAllProducts() {
-      const r = await axios.product.getProducts(0, 20);
+    async getNumberOfProducts() {
+      const r= await axios.product.getNumberOfProducts();
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllProducts(offset: number, numItems: number) {
+      const r = await axios.product.getProducts(offset, numItems);
       if (r.success == 200) {
         if (typeof r.data === "string") {
           this.products = [];
@@ -106,6 +120,15 @@ export const useProductStore = defineStore("products", {
       return r.data;
     },
 
+    async getNumberOfProductsByCategoryId(categoryId: string) {
+      const r = await axios.product.getNumberOfProductsByCategoryId(
+        categoryId
+      );
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return r.success;
+    },
     async editProduct(
       productId: string,
       name: string,
@@ -135,12 +158,13 @@ export const useProductStore = defineStore("products", {
       return r.data;
     },
 
-    async getProductByCategoryId(categoryId: string) {
+    async getProductByCategoryId(categoryId: string, offset: number, numItems: number) {
+
       let products = [] as ProductSimple[];
       const r = await axios.product.getProductByCategoryId(
         categoryId,
-        0,
-        100000
+        offset,
+        numItems
       );
       if (r && typeof r.data != "string") {
         products = r.data;
@@ -149,12 +173,22 @@ export const useProductStore = defineStore("products", {
       return products;
     },
 
-    async getProductBySubCategoryId(subcategoryId: string) {
+    async getNumberOfProductsBySubCategoryId(subcategoryId: string) {
+      const r = await axios.product.getNumberOfProductsBySubCategoryId(
+        subcategoryId
+      );
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+
+    async getProductBySubCategoryId(subcategoryId: string, offset: number, numItems: number) {
       let products = [] as ProductSimple[];
       const r = await axios.product.getProductBySubCategoryId(
         subcategoryId,
-        0,
-        100000
+        offset,
+        numItems
       );
       if (r && typeof r.data != "string") {
         products = r.data;

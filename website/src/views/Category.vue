@@ -1,39 +1,20 @@
 <template>
-  <ConfirmationModal
-    :title="$t('rmv-product')"
-    :text="$t('rmv-product-text') + ' ' + productId + '?'"
-    :confirmHandler="deleteProductHandler"
-    :closeModal="closeRemoveModal"
-    v-bind:is-modal-open="isRemoveModalOpen"
-  />
+  <ConfirmationModal :title="$t('rmv-product')" :text="$t('rmv-product-text') + ' ' + productId + '?'"
+    :confirmHandler="deleteProductHandler" :closeModal="closeRemoveModal" v-bind:is-modal-open="isRemoveModalOpen" />
 
   <div v-if="products.length == 0">
     <v-progress-linear indeterminate />
   </div>
 
-  <CategoryAdmin
-    v-if="isAdmin"
-    v-bind:products="products"
-    v-bind:category="category"
-    :handle-on-click-avatar="handleOnClickAvatar"
-    :handle-page-change="onChangePagePagination"
-    :addProductHandler="addProductHandler"
-    :edit-product-handler="editProductHandler"
-    :delete-product-handler="openRemoveModal"
-    :on-click-product="onClickProductUser"
-  />
+  <CategoryAdmin v-if="isAdmin" v-bind:products="products" v-bind:category="category"
+    :handle-on-click-avatar="handleOnClickAvatar" :handle-page-change="onChangePagePagination"
+    :addProductHandler="addProductHandler" :edit-product-handler="editProductHandler"
+    :delete-product-handler="openRemoveModal" :on-click-product="onClickProductUser" :length="length" />
 
-  <CategoryUser
-    v-else
-    v-bind:products="products"
-    v-bind:products-favorite="productsFavorite"
-    v-bind:category="category"
-    :handle-on-click-avatar="handleOnClickAvatar"
-    :handle-page-change="onChangePagePagination"
-    :view-more-handler="viewMoreHandler"
-    :favorite-icon-handler="favoriteIconHandler"
-    :on-click-product="onClickProductUser"
-  />
+  <CategoryUser v-else v-bind:products="products" v-bind:products-favorite="productsFavorite" v-bind:category="category"
+    :handle-on-click-avatar="handleOnClickAvatar" :handle-page-change="onChangePagePagination"
+    :view-more-handler="viewMoreHandler" :favorite-icon-handler="favoriteIconHandler"  :length="length"
+    :on-click-product="onClickProductUser" />
 </template>
 
 <script lang="ts">
@@ -62,6 +43,9 @@ export default {
       categoryId: "",
       isRemoveModalOpen: false,
       productId: "",
+      page: 1,
+      length: 0,
+      productsOnPage: 20,
     };
   },
   mounted: async function () {
@@ -71,7 +55,13 @@ export default {
 
     this.isAdmin = userStore.isAdmin();
 
-    const r = await productStore.getProductByCategoryId(this.category.id);
+    this.length = Math.ceil(
+      (await productStore.getNumberOfProductsByCategoryId(
+        this.category.id
+      )) / this.productsOnPage
+    );
+
+    const r = await productStore.getProductByCategoryId(this.category.id, 0, this.productsOnPage);
     if (r) {
       this.products = r;
     }
@@ -86,9 +76,22 @@ export default {
       () => this.categoryId,
       async (newValue) => {
         if (newValue == "") {
-          await productStore.getProductByCategoryId(this.category.id);
+          this.page = 1;
+          this.length = Math.ceil(
+            (await productStore.getNumberOfProductsByCategoryId(
+              this.category.id
+            )) / this.productsOnPage
+          );
+          await productStore.getProductByCategoryId(this.category.id, 0, this.productsOnPage);
         } else {
-          await productStore.getProductBySubCategoryId(newValue);
+          this.page = 1;
+          this.length = Math.ceil(
+            (await productStore.getNumberOfProductsBySubCategoryId(
+              newValue
+            )) / this.productsOnPage
+          );
+          console.log(this.length);
+          await productStore.getProductBySubCategoryId(newValue, 0, this.productsOnPage);
         }
       }
     );
@@ -130,7 +133,7 @@ export default {
         await categoriesStore.getCategoryById(newValue);
         this.category = categoriesStore.category;
 
-        const r = await productStore.getProductByCategoryId(this.category.id);
+        const r = await productStore.getProductByCategoryId(this.category.id, 0, this.productsOnPage);
         if (r) {
           this.products = r;
         }
@@ -141,7 +144,7 @@ export default {
       () => categoriesStore.category,
       async (newValue) => {
         this.category = newValue;
-        const r = await productStore.getProductByCategoryId(this.category.id);
+        const r = await productStore.getProductByCategoryId(this.category.id, 0, this.productsOnPage);
         if (r) {
           this.products = r;
         }
@@ -157,9 +160,14 @@ export default {
       this.productId = productId;
       this.isRemoveModalOpen = true;
     },
-    onChangePagePagination(number: string) {
-      //TODO: Pagination
-      //console.log("page " + number);
+    async onChangePagePagination(page: number) {
+      this.page = page;
+      if (this.categoryId == ""){
+        await productStore.getProductByCategoryId(this.category.id, (this.page-1)*this.productsOnPage, this.productsOnPage);
+      }
+      else {
+        await productStore.getProductBySubCategoryId(this.categoryId, (this.page-1)*this.productsOnPage, this.productsOnPage);
+      }
     },
 
     handleOnClickAvatar(number: string) {

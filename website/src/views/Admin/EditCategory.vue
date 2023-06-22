@@ -127,7 +127,7 @@ export default {
       } else {
         notificationStore.openErrorAlert("update-category-error");
       }
-      await categoryStore.getAllCategories();
+      await categoryStore.getAllCategories(0, 10000);
       this.$router.push("/admin/categories");
     },
     goBack() {

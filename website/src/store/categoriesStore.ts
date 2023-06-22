@@ -8,8 +8,8 @@ export const useCategoriesStore = defineStore("categories", {
     category: {} as Category,
   }),
   actions: {
-    async getAllCategories() {
-      const r = await axios.categories.getAllCategories(0, 100000);
+    async getAllCategories(offset: number, numItems: number) {
+      const r = await axios.categories.getAllCategories(offset, numItems);
       if (r.success == 200) {
         if (typeof r.data === "string") {
           this.categories = [];
@@ -79,7 +79,7 @@ export const useCategoriesStore = defineStore("categories", {
     },
     async getCategoryById(categoryId: string) {
       if (this.categories.length <= 0) {
-        await this.getAllCategories();
+        await this.getAllCategories(0, 10000);
       }
 
       const category = this.categories.find((e) => e.id == categoryId);
@@ -88,5 +88,13 @@ export const useCategoriesStore = defineStore("categories", {
       // FIXME: no caso de nao ter tem q pedir ao backend
       return true;
     },
+    async getNumberOfCategories() {
+      const r = await axios.categories.getNumberOfCategories();
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      return r.success;
+    }
+
   },
 });

@@ -47,7 +47,7 @@ export default {
     const categoriesStore = useCategoriesStore();
 
     if (categoriesStore.categories.length == 0) {
-      await categoriesStore.getAllCategories();
+      await categoriesStore.getAllCategories(0, 10000);
       categoriesStore.categories.forEach((categorie) => {
         this.list.push({
           title: categorie.name,

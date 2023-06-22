@@ -15,11 +15,18 @@ export const useOrderStore = defineStore("orders", {
     ordersReady: [] as OrderAdmin[],
   }),
   actions: {
-    async getAllOrders(customerId: string) {
+    async getNumberOfCustomerOrders(customerId: string) {
+      const r = await axios.orders.getNumberOfCustomerOrders(customerId);
+      if (r.success == 200 && typeof r.data != "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllOrders(customerId: string, offset: number, numItems: number) {
       const r: Response<GetAllOrders> = await axios.orders.getAllOrders(
         customerId,
-        0,
-        1000
+        offset,
+        numItems
       );
 
       const orders = [] as Order[];

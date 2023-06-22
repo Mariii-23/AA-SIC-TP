@@ -18,6 +18,21 @@ const url = "product";
 const productImage = `http://localhost:8080/${url}/all/productImage`;
 const materialImage = `http://localhost:8080/${url}/all/materialImage`;
 
+const getNumberOfProducts = async () => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/all/numberOfProducts`);
+    return handleResponse(req, (data) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 const getAllProducts = async (offset: number, numItems: number) => {
   try {
     const req = await app.config.globalProperties.$axios.get(
@@ -200,6 +215,22 @@ const getProductById = async (productId: string) => {
   }
 };
 
+const getNumberOfProductsByCategoryId = async (categoryId: string) => {
+    try {
+      const req = await app.config.globalProperties.$axios.get(
+        `${url}/category/numberOfProducts?categoryId=${categoryId}`);
+  
+      return handleResponse(req, (data) => {
+        return data;
+      });
+    } catch (error) {
+      return {
+        success: error.request.status,
+        data: error.request.statusText,
+      };
+    }
+};
+
 const getProductByCategoryId = async (
   categoryId: string,
   offset: number,
@@ -230,6 +261,20 @@ const getProductByCategoryId = async (
         });
       }
       return products;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+const getNumberOfProductsBySubCategoryId = async (subCategoryId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/subcategory/numberOfProducts?subCategoryId=${subCategoryId}`);
+    return handleResponse(req, (data) => {
+      return data;
     });
   } catch (error) {
     return {
@@ -315,15 +360,18 @@ const addImageProduct = async (productId: string, images: string[]) => {
 };
 
 export interface ProductAxios {
+  getNumberOfProducts: () => Promise<Response<number>>;
   getProducts: (
     offset: number,
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
+  getNumberOfProductsByCategoryId: (categoryId: string) => Promise<Response<number>>;
   getProductByCategoryId: (
     categoryId: string,
     offset: number,
     numItems: number
   ) => Promise<Response<ProductSimple[]>>;
+  getNumberOfProductsBySubCategoryId: (subCategoryId: string) => Promise<Response<number>>;
   getProductBySubCategoryId: (
     subCategoryId: string,
     offset: number,
@@ -352,6 +400,12 @@ export interface ProductAxios {
 }
 
 const productStore: ProductAxios = {
+  getNumberOfProducts: async () => {
+    return await getNumberOfProducts();
+  },
+  getNumberOfProductsByCategoryId: async (categoryId: string) => {
+    return await getNumberOfProductsByCategoryId(categoryId);
+  },
   getProductByCategoryId: async (
     categoryId: string,
     offset: number,
@@ -361,6 +415,9 @@ const productStore: ProductAxios = {
   },
   getProducts: async (offset: number, numItems: number) => {
     return await getAllProducts(offset, numItems);
+  },
+  getNumberOfProductsBySubCategoryId: async (subCategoryId: string) => {
+    return await getNumberOfProductsBySubCategoryId(subCategoryId);
   },
   getProductBySubCategoryId: async (
     subCategoryId: string,

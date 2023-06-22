@@ -58,6 +58,21 @@ const removeProductFavorites = async (
   }
 };
 
+const getNumberOfFavorites = async (customerId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/numberOfFavourites?id=${customerId}`);
+    return handleResponse(req, (data) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 const getProductFavorites = async (
   id: string,
   offset: number,
@@ -213,6 +228,7 @@ const editCustomer = async (
 };
 
 export interface CustomerAxios {
+  getNumberOfFavorites: (customerId: string) => Promise<Response<number>>;
   getProductFavorites: (
     categoryId: string,
     offset: number,
@@ -244,6 +260,9 @@ export interface CustomerAxios {
 }
 
 const customer: CustomerAxios = {
+  getNumberOfFavorites: async (customerId: string) => {
+    return await getNumberOfFavorites(customerId);
+  },
   getProductFavorites: async (
     categoryId: string,
     offset: number,

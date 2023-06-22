@@ -59,11 +59,11 @@ export default {
     isModalOpen: false,
     page: 1,
     length: 0,
-    numberOfCustomers: 0
+    adminsOnPage: 20,
   }),
   mounted: async function () {
-    await adminStore.getAllAdmins(0, 20);
-    this.length = (await adminStore.getNumberOfAdmins())/20;
+    await adminStore.getAllAdmins(0, this.adminsOnPage);
+    this.length = Math.ceil((await adminStore.getNumberOfAdmins())/this.adminsOnPage);
 
     this.admins = adminStore.admins;
 
@@ -104,8 +104,7 @@ export default {
     async handlePageChange(page: number){
       this.page = page;
       const adminStore = useAdminsStore();
-      await adminStore.getAllAdmins((this.page-1)*20, 20);
-      console.log(this.page);
+      await adminStore.getAllAdmins((this.page-1)*this.adminsOnPage, this.adminsOnPage);
     }
   },
   components: {

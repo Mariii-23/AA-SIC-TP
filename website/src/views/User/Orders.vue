@@ -18,6 +18,7 @@
           :orders="orders"
           :view-details-handler="viewDetailsHandler"
         />
+        <Pagination :length="length" :total-visible="5" :handle-page-change="handlePageChange" />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -33,6 +34,7 @@ import { Order } from "@/appTypes/Order";
 import { useOrderStore } from "@/store/orders";
 import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
 import { useUserStore } from "@/store/userStore";
+import Pagination from "@/components/molecules/Pagination.vue";
 
 const ordersStore = useOrderStore();
 const userStore = useUserStore();
@@ -46,6 +48,9 @@ export default {
     userId: "",
     isModalOpen: false,
     loaded: false,
+    page: 1,
+    length: 0,
+    ordersOnPage: 20,
   }),
   mounted: async function () {
     if (userStore.isLoggedIn) {
@@ -53,7 +58,8 @@ export default {
       this.userId = userStore.id;
     }
 
-    await ordersStore.getAllOrders(this.userId);
+    this.length = Math.ceil((await ordersStore.getNumberOfCustomerOrders(this.userId))/this.ordersOnPage);
+    await ordersStore.getAllOrders(this.userId, 0, this.ordersOnPage);
     this.loaded = true;
     this.orders = ordersStore.myOrders;
 
@@ -68,9 +74,16 @@ export default {
         if (!newValue.isAdmin()) {
           this.userName = newValue.name;
           this.userId = newValue.id;
-          await ordersStore.getAllOrders(this.userId);
+          await ordersStore.getAllOrders(this.userId, 0, this.ordersOnPage);
           this.orders = ordersStore.myOrders;
         }
+      }
+    );
+
+    this.$watch(
+      () => ({ orders: ordersStore.myOrders }),
+      async (newValue) => {
+        this.orders = newValue.orders;
       }
     );
 
@@ -82,6 +95,10 @@ export default {
     viewDetailsHandler(productId: number) {
       this.$router.push("orders/" + productId);
     },
+    async handlePageChange(page: number){
+      this.page = page;
+      await ordersStore.getAllOrders(this.userId, (this.page-1)*this.ordersOnPage, this.ordersOnPage);
+    }
   },
   components: {
     TwoColumnsPanel,
@@ -89,6 +106,7 @@ export default {
     SimpleBodyLayout,
     HeadingText,
     OrderExpansionPanels,
-  },
+    Pagination
+},
 };
 </script>

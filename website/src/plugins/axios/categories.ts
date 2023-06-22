@@ -169,6 +169,21 @@ const addSubcategory = async (categoryId: string, subCategory: ImageProp) => {
   }
 };
 
+const getNumberOfCategories = async () => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/category/numberOfCategories`);
+    return handleResponse(req, (data) => {
+      return data;  
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 export interface CategoriesAxios {
   getAllCategories: (
     offset: number,
@@ -186,6 +201,7 @@ export interface CategoriesAxios {
     categoryId: string,
     subCategory: ImageProp
   ) => Promise<Response<SubCategory>>;
+  getNumberOfCategories: () => Promise<Response<number>>;
 }
 
 const categories: CategoriesAxios = {
@@ -207,6 +223,9 @@ const categories: CategoriesAxios = {
   deleteSubcategory: async (id: string) => {
     return await deleteSubCategory(id);
   },
+  getNumberOfCategories: async () => {
+    return await getNumberOfCategories();
+  }
 };
 
 export default categories;

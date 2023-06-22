@@ -38,6 +38,7 @@
           :edit-category-handler="editCategoryHandler"
           :remove-category-handler="openRemoveModal"
         />
+        <Pagination :length="length" :total-visible="5" :handle-page-change="handlePageChange" />
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
@@ -54,6 +55,7 @@ import { useCategoriesStore } from "@/store/categoriesStore";
 import CategoryCards from "@/components/organisms/Cards/CategoryCards.vue";
 import { useNotificationStore } from "@/store/notificationStore";
 import { useUserStore } from "@/store/userStore";
+import Pagination from "@/components/molecules/Pagination.vue";
 
 const categoryStore = useCategoriesStore();
 const notifications = useNotificationStore();
@@ -67,7 +69,10 @@ export default {
     isLogoutModalOpen: false,
     categories: [] as Category[],
     categoryId: "",
-    categoryName: ""
+    categoryName: "",
+    page: 1,
+    length: 0,
+    categoriesOnPage: 16,
   }),
   mounted: async function () {
     this.items = [
@@ -76,8 +81,10 @@ export default {
       { href: "/admin/materials", icon: "brightness-1", text: "materials" },
     ];
 
+    this.length = Math.ceil((await categoryStore.getNumberOfCategories())/this.categoriesOnPage);
+
     if (categoryStore.categories.length <= 0) {
-      await categoryStore.getAllCategories();
+      await categoryStore.getAllCategories(0, this.categoriesOnPage);
     }
 
     this.categories = categoryStore.categories;
@@ -125,6 +132,10 @@ export default {
       userStore.logout();
       this.$router.push("/");
     },
+    async handlePageChange(page: number){
+      this.page = page;
+      await categoryStore.getAllCategories((this.page-1)*this.categoriesOnPage, this.categoriesOnPage);
+    }
   },
   components: {
     TwoColumnsPanel,
@@ -133,6 +144,7 @@ export default {
     TitleWithButton,
     ConfirmationModal,
     CategoryCards,
+    Pagination
   },
 };
 </script>

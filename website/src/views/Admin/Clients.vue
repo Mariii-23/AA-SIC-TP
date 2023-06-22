@@ -42,12 +42,12 @@ export default {
     users: [] as UserInfoProps[],
     page: 1,
     length: 0,
-    numberOfCustomers: 0
+    clientsOnPage: 20,
   }),
   mounted: async function () {
     const adminStore = useAdminsStore();
     await adminStore.getAllCustomers(0, 20);
-    this.length = (await adminStore.getNumberOfCustomers())/20;
+    this.length = Math.ceil((await adminStore.getNumberOfCustomers())/this.clientsOnPage);
 
     this.users = adminStore.customers;
 
@@ -74,8 +74,7 @@ export default {
     async handlePageChange(page: number){
       this.page = page;
       const adminStore = useAdminsStore();
-      await adminStore.getAllCustomers((this.page-1)*20, 20);
-      console.log(this.page);
+      await adminStore.getAllCustomers((this.page-1)*this.clientsOnPage, this.clientsOnPage);
     }
   },
   components: {

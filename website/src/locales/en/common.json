@@ -138,9 +138,9 @@
     "image": "Image",
 
 
-    "pending": "Pending",
-    "ready": "Ready",
-    "done": "Done",
+    "PENDING": "Pending",
+    "READY": "Ready",
+    "DONE": "Done",
     "pending-orders": "Pending orders",
     "ready-orders": "Ready orders",
     "done-orders": "Done orders",
@@ -204,5 +204,6 @@
     "empty-cart": "You haven't added any product to your cart yet.",
 
     "passwordIncorrect": "Incorrect password",
-    "emailIncorrect": "There's no user with that email"
+    "emailIncorrect": "There's no user with that email",
+    "all-products": "All products"
 }

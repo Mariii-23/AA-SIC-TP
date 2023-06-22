@@ -194,7 +194,6 @@
     "add-favorite-success": "Favorito adicionado com sucesso",
     "rm-favorite-success": "Favorito removido com sucesso",
     "add-product-cart-success": "Produto adicionado ao carrinho com sucesso",
-    "add-product-cart-error":"Erro ao adicionar o produto ao carrinho",
 
 
 
@@ -203,5 +202,6 @@
     "empty-cart": "Ainda não adicionou nenhum produto ao seu carrinho.",
 
     "passwordIncorrect": "Palavra-passe incorreta",
-    "emailIncorrect": "Não existe nenhuma conta associada a este email"
+    "emailIncorrect": "Não existe nenhuma conta associada a este email",
+    "all-products": "Todos os produtos"
 }

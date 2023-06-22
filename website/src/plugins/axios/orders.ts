@@ -12,6 +12,21 @@ const productImage = "http://localhost:8080/product/all/productImage";
 
 const url = "/order";
 
+const getNumberOfCustomerOrders = async (customerId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/customer/numberOfOrders?id=${customerId}`);
+    return handleResponse(req, (data: number) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 const getAllOrders = async (
   customerId: string,
   offset: number,
@@ -194,6 +209,9 @@ export interface OrdersAxios {
   setOrderReady: (
     orderId: string,
   ) => Promise<Response<null>>;
+  getNumberOfCustomerOrders: (
+    customerId: string
+  ) => Promise<Response<number>>;
   getAllOrders: (
     customerId: string,
     offset: number,
@@ -224,6 +242,11 @@ const orders: OrdersAxios = {
     orderId: string,
   ) => {
     return await setOrderReady(orderId);
+  },
+  getNumberOfCustomerOrders: async (
+    customerId: string
+  ) => {
+    return await getNumberOfCustomerOrders(customerId);
   },
   getAllOrders: async (
     customerId: string,

@@ -19,7 +19,7 @@ export default {
   },
   props: {
     length: {
-      type: String,
+      type: Number,
       require: true,
     },
     totalVisible: {

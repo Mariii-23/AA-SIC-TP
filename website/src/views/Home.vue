@@ -1,31 +1,16 @@
 <template>
   <div v-if="products.length == 0">
-      <v-progress-linear
-      indeterminate
-    />
-    </div>
+    <v-progress-linear indeterminate />
+  </div>
 
   <SimpleBodyLayout>
-    <HeadingText>{{ name }}</HeadingText>
-    <CategoriesAvatar
-      :categories="categories"
-      :click-handler="handleOnClickAvatar"
-      :size="100"
-    />
+    <HeadingText>{{ $t("all-products") }}</HeadingText>
+    <CategoriesAvatar :categories="categories" :click-handler="handleOnClickAvatar" :size="100" />
 
-    <ProductPreviewUserCards
-      :products="productsUser"
-      :view-more-handler="viewMoreHandler"
-      :favorite-icon-handler="favoriteIconHandler"
-      :on-click-handler="handleOnClickAvatar"
-    />
+    <ProductPreviewUserCards :products="productsUser" :view-more-handler="viewMoreHandler"
+      :favorite-icon-handler="favoriteIconHandler" :on-click-handler="handleOnClickAvatar" />
 
-    <Pagination
-      length="10"
-      total-visible="6"
-      v-if="showPagination"
-      :handle-page-change="onChangePagePagination"
-    />
+    <Pagination :length="length" total-visible="5" v-if="showPagination" :handle-page-change="onChangePagePagination" />
   </SimpleBodyLayout>
 </template>
 
@@ -63,6 +48,9 @@ export default {
       categoryId: "",
       isRemoveModalOpen: false,
       productId: "",
+      page: 1,
+      length: 0,
+      productsOnPage: 20,
     };
   },
   mounted: async function () {
@@ -71,7 +59,8 @@ export default {
     this.showPagination = true;
 
     this.categoryId = "1";
-    await productStore.getAllProducts();
+    await productStore.getAllProducts(0, this.productsOnPage);
+    this.length = Math.ceil((await productStore.getNumberOfProducts()) / this.productsOnPage);
     this.products = productStore.products;
 
     this.categories = categoriesStore.categories;
@@ -105,11 +94,11 @@ export default {
       async (newValue) => {
         if (newValue == "") {
           this.showPagination = true;
-          await productStore.getAllProducts();
+          await productStore.getAllProducts(0, this.productsOnPage);
           this.products = productStore.products;
         } else {
           this.showPagination = false;
-          await productStore.getProductByCategoryId(newValue);
+          await productStore.getProductByCategoryId(newValue, 0, this.productsOnPage);
           this.products = productStore.products;
         }
 
@@ -174,6 +163,15 @@ export default {
       () => productStore.products,
       async (newValue) => {
         this.products = newValue;
+        this.productsUser = [];
+        for (let i = 0; i < this.products.length; i++) {
+          const item = this.products[i];
+          const isFavorite = this.productsFavorite.find((e) => e.id === item.id);
+          this.productsUser.push({
+            favourite: isFavorite !== undefined,
+            ...item,
+          });
+        }
       }
     );
   },
@@ -186,8 +184,9 @@ export default {
       this.productId = productId;
       this.isRemoveModalOpen = true;
     },
-    onChangePagePagination(number: string) {
-      //TODO:
+    async onChangePagePagination(page: number) {
+      this.page = page;
+      await productStore.getAllProducts((this.page - 1) * this.productsOnPage, this.productsOnPage);
     },
     handleOnClickAvatar(number: string) {
       if (this.categoryId == number) {
