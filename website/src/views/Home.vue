@@ -22,7 +22,7 @@
     <ProductPreviewAdminCards :products="products" 
     :delete-product-handler="openRemoveModal" 
     :edit-product-handler="editProductHandler" 
-    :on-click="onClickProductUser" v-if="isAdmin" />
+    :on-click-handler="viewMoreHandler" v-if="isAdmin" />
 
     <ProductPreviewUserCards v-else :products="productsUser" :view-more-handler="viewMoreHandler"
       :favorite-icon-handler="favoriteIconHandler" :on-click-handler="viewMoreHandler" />
@@ -89,7 +89,8 @@ export default {
 
     this.isAdmin = userStore.isAdmin();
 
-    if (userStore.isLoggedIn && !userStore.isAdmin) {
+    if (userStore.isLoggedIn && !this.isAdmin) {
+      console.log("aqui")
       this.productsFavorite = await productStore.getAllFavoriteProducts(
         userStore.id, 0, 100000
       );
@@ -195,11 +196,27 @@ export default {
         }
       }
     );
+    this.$watch(
+      () => productStore.productsFavorites,
+      async (newValue) => {
+        this.productsFavorite = newValue;
+        this.productsUser = [];
+        for (let i = 0; i < this.products.length; i++) {
+          const item = this.products[i];
+          const isFavorite = this.productsFavorite.find((e) => e.id === item.id);
+          this.productsUser.push({
+            favourite: isFavorite !== undefined,
+            ...item,
+          });
+        }
+      }
+    );
   },
   methods: {
     closeRemoveModal() {
       this.isRemoveModalOpen = false;
       this.productId = "";
+      this.nameProductToRemove = "";
     },
     openRemoveModal(productId: string, productName: string) {
       this.nameProductToRemove = productName;
@@ -237,6 +254,7 @@ export default {
       this.closeRemoveModal();
     },
     viewMoreHandler(productId: string) {
+      console.log("view more")
       this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {
@@ -248,16 +266,8 @@ export default {
       const product = this.productsFavorite.find((e) => e.id == productId);
       const req = await productStore.addRmvFavoriteProducts(userId, productId);
       if (req) {
-        if (product) {
-          notificationStore.openSuccessAlert("rm-favorite-success");
-        } else {
-          await productStore.getAllFavoriteProducts(userId);
-          notificationStore.openSuccessAlert("add-favorite-success");
-        }
-      } else {
-        if (product) {
-          notificationStore.openErrorAlert("rm-favorite-error");
-        } else notificationStore.openErrorAlert("add-favorite-error");
+        if (!product) 
+          await productStore.getAllFavoriteProducts(userId, 0, 100000);
       }
     },
   },

@@ -209,7 +209,7 @@ export default {
       date: null,
       dobRules: [
         (value) => {
-          if (value?.date_between("06/18/1990", "06/18/2004")) return true;
+          if (value) return true;
 
           return this.$t("invalid-date");
         },

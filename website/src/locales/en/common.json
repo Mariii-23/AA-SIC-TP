@@ -69,7 +69,7 @@
     "admins": "Admins",
     "company": "Company",
     "profile": "My profile",
-    "rm-admin-text": "Are you sure you want to remove the admin?",
+    "rm-admin-text": "Are you sure you want to remove the administrator",
     "cancel": "Cancel",
     "edit-profile": "Edit profile",
     "edit-company-info": "Edit company information",
@@ -210,5 +210,7 @@
     "passwordIncorrect": "Incorrect password",
     "emailIncorrect": "There's no user with that email",
     "all-products": "All products",
-    "add-more-images": "Add more images"
+    "add-more-images": "Add more images",
+    "code-sent": "The code was sent to your email",
+    "password-changed": "Password successfully changed"
 }

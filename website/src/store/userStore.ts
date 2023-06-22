@@ -88,13 +88,25 @@ export const useUserStore = defineStore("user", {
     },
     async recoverPassword(email: string) {
       const r = await axios.customer.recoverPassword(email);
-      if (r.success == 200) 
+      this.email = email;
+      if (r.success == 200) {
         this.id = r.data;
-
+        const notificationStore = useNotificationStore();
+          notificationStore.openSuccessAlert("code-sent");
+      }
+        else if (r.success == 400){
+          const notificationStore = useNotificationStore();
+          notificationStore.openErrorAlert("emailIncorrect");
+        }
       return r.success;
     },
     async confirmRecoverPassword(code: string, new_password: string) {
       const r = await axios.customer.confirmRecoverPassword(code, new_password, this.id);
+      if (r.success == 200) {
+        await this.login(this.email, new_password);
+        const notificationStore = useNotificationStore();
+        notificationStore.openSuccessAlert("password-changed");
+      }
       return r;
     },
   },

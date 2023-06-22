@@ -16,6 +16,7 @@
           :viewMoreHandler="
             () => viewMoreHandler && viewMoreHandler(product.id)
           "
+          :on-click="() => viewMoreHandler && viewMoreHandler(product.id)"
         />
       </v-slide-group-item>
     </v-slide-group>

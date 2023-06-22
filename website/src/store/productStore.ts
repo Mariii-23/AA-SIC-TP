@@ -27,7 +27,7 @@ export const useProductStore = defineStore("products", {
     },
 
     async addRmvFavoriteProducts(customerId: string, productId: string) {
-      const product = this.productsFavorites.find((e) => e.id === productId);
+      const product = this.productsFavorites.find((e) => e.id == productId);
       if (product) {
         return await this.removeFavoriteProducts(customerId, productId);
       }

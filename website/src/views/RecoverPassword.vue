@@ -78,7 +78,7 @@
 .custom-divider {
   display: flex;
   align-items: center;
-  margin: 0px 0;
+  margin: 10px 0;
 }
 
 .custom-divider .line {
@@ -180,7 +180,7 @@ export default {
     async recoverPassword() {
       const result = await userStore.confirmRecoverPassword(this.code, this.password)
       if (result){
-        this.$router.push("/login");
+        this.$router.push("/");
       }
     },
   },

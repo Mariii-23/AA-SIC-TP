@@ -7,7 +7,7 @@
   <SimpleBodyLayout>
     <ConfirmationModal
     :title="$t('removeAdmin')"
-    :text="$t('rm-admin-text')"
+    :text="$t('rm-admin-text') + ' '  + nameAdmin + '?'"
     :confirmHandler="removeAdminHandler"
     :closeModal="closeModal"
     v-bind:is-modal-open="isModalOpen"
@@ -54,6 +54,7 @@ export default {
   name: "AdminsAdminPage",
   data: () => ({
     idAdmin: "",
+    nameAdmin: "",
     items: [] as LinkProps[],
     admins: [] as AdminInfoProps[],
     isModalOpen: false,
@@ -77,6 +78,7 @@ export default {
       () => ({ admins: adminStore.admins }),
       (newValues) => {
         this.admins = newValues.admins;
+        console.log(this.admins)
       }
     );
   },
@@ -85,6 +87,7 @@ export default {
       if (await adminStore.removeAdmin(this.idAdmin)) {
         this.closeModal();
         notificationStore.openSuccessAlert("removeAdminSuccess");
+        await adminStore.getAllAdmins((this.page-1)*this.adminsOnPage, this.adminsOnPage);
       } else {
         this.closeModal();
         notificationStore.openErrorAlert("removeAdminError");
@@ -93,12 +96,14 @@ export default {
     addAdminHandler() {
       this.$router.push("/admin/add-admin/");
     },
-    openModal(id: string) {
+    openModal(id: string, name: string) {
       this.idAdmin = id;
+      this.nameAdmin = name;
       this.isModalOpen = true;
     },
     closeModal() {
       this.idAdmin = "";
+      this.nameAdmin = "";
       this.isModalOpen = false;
     },
     async handlePageChange(page: number){

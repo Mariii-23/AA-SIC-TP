@@ -123,6 +123,9 @@ export default {
       async (newValue) => {
         this.isAdmin = userStore.isAdmin();
 
+        if (newValue === undefined) {
+          return;
+        }
         this.product.id = newValue.toString();
 
         this.productsFavorite = [];
@@ -180,6 +183,8 @@ export default {
       async (newValue) => {
         this.productsFavorite = newValue;
         await this.updateRelatedProduct();
+        console.log(this.productsFavorite)
+        console.log(productStore.productsFavorites)
       }
     );
 
@@ -190,11 +195,7 @@ export default {
   },
   methods: {
     async updateRelatedProduct() {
-      const r = await productStore.getProductByCategoryId(
-        this.categoryId,
-        0,
-        1000
-      );
+      const r = await productStore.getProductByCategoryId(this.categoryId, 0, 10);
       this.productsRelatedUser = [];
       this.productsRelatedAdmin = [];
       const isAdmin = userStore.isAdmin();
@@ -289,16 +290,11 @@ export default {
         this.$router.push("/login");
         return;
       }
+      
       const product = this.productsFavorite.find((e) => e.id == productId);
       const req = await productStore.addRmvFavoriteProducts(userId, productId);
       if (req) {
-        if (product) {
-          this.productsFavorite = this.productsFavorite.filter(
-            (e) => e.id !== productId
-          );
-        } else {
-          await productStore.getAllFavoriteProducts(userId, 0, 1000);
-        }
+        await productStore.getAllFavoriteProducts(userId, 0, 100000);
       } else {
         if (product) {
           notificationStore.openErrorAlert("rm-favorite-error");

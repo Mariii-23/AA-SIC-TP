@@ -1,5 +1,5 @@
 <template>
-  <ConfirmationModal :title="$t('rmv-product')" :text="$t('rmv-product-text') + ' ' + productId + '?'"
+  <ConfirmationModal :title="$t('rmv-product')" :text="$t('rmv-product-text') + ' ' + productName + '?'"
     :confirmHandler="deleteProductHandler" :closeModal="closeRemoveModal" v-bind:is-modal-open="isRemoveModalOpen" />
 
   <div v-if="products.length == 0">
@@ -43,6 +43,7 @@ export default {
       categoryId: "",
       isRemoveModalOpen: false,
       productId: "",
+      productName: "",
       page: 1,
       length: 0,
       productsOnPage: 20,
@@ -68,7 +69,9 @@ export default {
 
     if (userStore.isLoggedIn && !userStore.isAdmin()) {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
-        userStore.id
+        userStore.id,
+        0, 
+        100000
       );
     }
 
@@ -108,7 +111,9 @@ export default {
       async (newValue) => {
         if (!newValue.isAdmin())
           this.productsFavorite = await productStore.getAllFavoriteProducts(
-            newValue.id
+            newValue.id,
+            0, 
+            100000
           );
       }
     );
@@ -155,9 +160,11 @@ export default {
     closeRemoveModal() {
       this.isRemoveModalOpen = false;
       this.productId = "";
+      this.productName = "";
     },
-    openRemoveModal(productId: string) {
+    openRemoveModal(productId: string, productName: string) {
       this.productId = productId;
+      this.productName = productName;
       this.isRemoveModalOpen = true;
     },
     async onChangePagePagination(page: number) {
@@ -213,7 +220,7 @@ export default {
             (e) => e.id !== product.id
           );
         } else {
-          await productStore.getAllFavoriteProducts(userId);
+          await productStore.getAllFavoriteProducts(userId, 0, 100000);
         }
       } else {
         if (product) {

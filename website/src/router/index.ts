@@ -25,12 +25,6 @@ const routes = [
         name: "Register",
         component: () => import("@/views/Register.vue"),
       },
-      //TODO : delete
-      {
-        path: "try",
-        name: "Layout",
-        component: () => import("@/views/LayoutTry.vue"),
-      },
       {
         path: "recover-password",
         name: "RecoverPassword",
@@ -45,13 +39,6 @@ const routes = [
         path: "category/:id",
         name: "Category",
         component: () => import("@/views/Category.vue"),
-      },
-
-      // FIXME: alterar pagina
-      {
-        path: "/category/:id/subcategory/:subCategoryId",
-        name: "SubCategory",
-        component: () => import("@/views/LayoutTry.vue"),
       },
 
       //ADMINN

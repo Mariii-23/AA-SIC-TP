@@ -11,7 +11,7 @@
         :title="`${$t('admin')} #${user.id}`"
         :button-text="$t('removeAdmin')"
         :button-handler="
-          () => removeAdminHandler && removeAdminHandler(user.id)
+          () => removeAdminHandler && removeAdminHandler(user.id, user.name)
         "
       />
       <div class="user-title-info-wrapper">

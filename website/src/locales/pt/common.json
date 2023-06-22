@@ -69,7 +69,7 @@
     "admins": "Administradores",
     "company": "Empresa",
     "profile": "O meu perfil",
-    "rm-admin-text": "Tem a certeza que pretende remover o administrador?",
+    "rm-admin-text": "Tem a certeza que pretende remover o administrador",
     "cancel": "Cancelar",
     "edit-profile": "Editar perfil",
     "edit-company-info": "Editar informação da empresa",
@@ -207,5 +207,7 @@
     "passwordIncorrect": "Palavra-passe incorreta",
     "emailIncorrect": "Não existe nenhuma conta associada a este email",
     "all-products": "Todos os produtos",
-    "add-more-images": "Adicionar mais imagens"
+    "add-more-images": "Adicionar mais imagens",
+    "code-sent": "O código foi enviado para o seu email",
+    "password-changed": "A sua palavra-passe foi alterada com sucesso"
 }

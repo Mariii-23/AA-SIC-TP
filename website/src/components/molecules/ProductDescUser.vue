@@ -7,15 +7,15 @@
           icon
           class="elevation-0"
           color="secondary"
-          v-on:click="favouriteIconHandler(product.id)"
+          v-on:click="() => favouriteIconHandler(product.id)"
         >
-          <v-icon size="30" v-if="isFavourite">mdi-heart</v-icon>
+          <v-icon size="30" v-if="favourite">mdi-heart</v-icon>
           <v-icon size="30" v-else>mdi-heart-outline</v-icon>
         </v-btn>
       </div>
     </v-card-title>
 
-    <v-card-item  dense>
+    <v-card-item >
       <HeadingText :size="6">{{ product.price }}€</HeadingText>
       <MaterialsSelect
         class="materials"
@@ -54,10 +54,15 @@ import { Material } from "@/appTypes/Product";
 
 export default {
   name: "ProductDesc",
+  data() {
+    return {
+    favourite: false,
+    }
+  },
   props: {
-    isFavourite: {
+    isFavourite : {
       type: Boolean,
-      default: false,
+      required: true,
     },
     product: {
       type: Object as () => ProductSimple,
@@ -95,7 +100,17 @@ export default {
       required: true,
     },
   },
-  components: {
+  mounted() {
+    this.favourite = this.isFavourite;
+
+    this.$watch(
+      () => this.isFavourite,
+      (newValues) => {
+        this.favourite = newValues;
+        console.log(this.favourite)
+            }
+      )
+  },  components: {
     HeadingText,
     QuantityButton,
     PrimaryButton,

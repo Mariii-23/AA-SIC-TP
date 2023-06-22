@@ -18,10 +18,10 @@ const customLightTheme = {
     surface: "#D5BDAF",
     primary: "#E3D5CA",
     secondary: "#F5EBE0",
-    error: "#E5989B", // FIXME: change me
-    info: "#FFCDB2", // FIXME: change me
-    success: "#4caf50", // FIXME: change me
-    warning: "#fb8c00", // FIXME: change me
+    error: "#E5989B", 
+    info: "#FFCDB2", 
+    success: "#4caf50", 
+    warning: "#fb8c00", 
   },
 };
 
@@ -32,10 +32,10 @@ const customDarkTheme = {
     surface: "#F5EBE0",
     primary: "#EDEDE9",
     secondary: "#F5EBE0",
-    error: "#E5989B", // FIXME: change me
-    info: "#FFCDB2", // FIXME: change me
-    success: "#4caf50", // FIXME: change me
-    warning: "#fb8c00", // FIXME: change me
+    error: "#E5989B", 
+    info: "#FFCDB2", 
+    success: "#4caf50",
+    warning: "#fb8c00", 
   },
 };
 
