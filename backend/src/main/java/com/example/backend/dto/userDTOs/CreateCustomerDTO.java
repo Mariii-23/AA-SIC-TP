@@ -1,25 +1,27 @@
 package com.example.backend.dto.userDTOs;
 
 import com.example.backend.model.Customer;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CreateCustomerDTO extends CreateUserDTO {
 
-    private Date birthday;
+    private LocalDate birthday;
     private String nif;
     private String address;
     public CreateCustomerDTO() {
         super();
     }
 
-    public CreateCustomerDTO(Date birthday, String nif, String address) {
+    public CreateCustomerDTO(LocalDate birthday, String nif, String address) {
         this.birthday = birthday;
         this.nif = nif;
         this.address = address;
     }
 
-    public CreateCustomerDTO(Date birthday, String nif, String address, String email, String password, String name) {
+    public CreateCustomerDTO(LocalDate birthday, String nif, String address, String email, String password, String name) {
         super(email,password, name);
         this.birthday = birthday;
         this.nif = nif;
@@ -33,11 +35,11 @@ public class CreateCustomerDTO extends CreateUserDTO {
         this.address = customer.getAddress();
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return this.birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
     public String getNif() {

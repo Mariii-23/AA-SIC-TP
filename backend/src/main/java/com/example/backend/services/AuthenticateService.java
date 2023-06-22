@@ -49,7 +49,7 @@ public class AuthenticateService {
             if (customerRep.existsByNif(request.getNif())) {
                 throw new Exception("NIF already registered");
             }
-            if (LocalDate.now().minusYears(18).isBefore(request.getBirthday().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())) {
+            if (LocalDate.now().minusYears(18).isBefore(request.getBirthday())) {
                 throw new Exception("You must be 18 or older to register");
             }
             Customer customer = new Customer(request.getBirthday(),

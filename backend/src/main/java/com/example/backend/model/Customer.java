@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -10,7 +11,7 @@ import java.util.*;
 public class Customer extends User {
 
 	@Column
-	private Date birthday;
+	private LocalDate birthday;
 
 	@Column(unique = true)
 	private String nif;
@@ -39,7 +40,7 @@ public class Customer extends User {
 		super();
 	}
 
-	public Customer(Date birthday, String nif, String address, String email, String password, String name, ShoppingCart cart) {
+	public Customer(LocalDate birthday, String nif, String address, String email, String password, String name, ShoppingCart cart) {
 		super(email, password, name);
 		this.birthday = birthday;
 		this.nif = nif;
@@ -48,11 +49,11 @@ public class Customer extends User {
 		super.setRole(Role.CUSTOMER);
 	}
 
-	public Date getBirthday() {
+	public LocalDate getBirthday() {
 		return this.birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 

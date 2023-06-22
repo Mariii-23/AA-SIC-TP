@@ -2,20 +2,21 @@ package com.example.backend.dto.userDTOs;
 
 import com.example.backend.model.Customer;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CustomerDTO extends UserDTO{
-    private Date bitrhDate;
+    private LocalDate bitrhDate;
     private String address;
     private String nif;
 
-    public CustomerDTO(Date bitrhDate, String address, String nif) {
+    public CustomerDTO(LocalDate bitrhDate, String address, String nif) {
         this.bitrhDate = bitrhDate;
         this.address = address;
         this.nif = nif;
     }
 
-    public CustomerDTO(String email, String name, Date bitrhDate, String address, String nif, int id) {
+    public CustomerDTO(String email, String name, LocalDate bitrhDate, String address, String nif, int id) {
         super(email, name, id);
         this.bitrhDate = bitrhDate;
         this.address = address;
@@ -29,11 +30,11 @@ public class CustomerDTO extends UserDTO{
         this.nif = customer.getNif();
     }
 
-    public Date getBitrhDate() {
+    public LocalDate getBitrhDate() {
         return bitrhDate;
     }
 
-    public void setBitrhDate(Date bitrhDate) {
+    public void setBitrhDate(LocalDate bitrhDate) {
         this.bitrhDate = bitrhDate;
     }
 
