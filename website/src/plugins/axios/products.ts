@@ -61,7 +61,6 @@ const getAllProducts = async (offset: number, numItems: number) => {
       return products;
     });
   } catch (error) {
-    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -100,7 +99,6 @@ const addProduct = async (
       };
     });
   } catch (error) {
-    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -141,7 +139,6 @@ const editProduct = async (
       };
     });
   } catch (error) {
-    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -208,7 +205,6 @@ const getProductById = async (productId: string) => {
       } as Product;
     });
   } catch (error) {
-    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,

@@ -19,7 +19,6 @@
         <v-card-item>
           <Avatar :href="orderItem?.materialHref" :size="20" />
         </v-card-item>
-        <!--FIXME. alterar para começar na quantidade-->
         <QuantityButton
           class="mr-5"
           :quantity="quantity"

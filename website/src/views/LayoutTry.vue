@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     addUserHandler() {
-      console.log("cliquei");
       this.isAlert = true;
     },
     openModal() {

@@ -1,6 +1,4 @@
 <template>
-    <!-- <v-btn type="submit" color="primary bg-primary elevation-1" @click.native.stop="handleClick" value={{value}}> -->
-    <!-- TODO: ver se ta direito -->
     <v-btn type="submit" color="primary bg-primary elevation-1" @click="handleClick" value={{value}}>
         <ButtonText class="text-black">
             <slot />

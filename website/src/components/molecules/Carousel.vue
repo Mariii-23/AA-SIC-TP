@@ -8,7 +8,7 @@ import { Image } from "@/appTypes/Product";
 
 export default {
   props: {
-    images: Object as () => Image[],
+    images: Array as () => Image[],
   },
 };
 </script>

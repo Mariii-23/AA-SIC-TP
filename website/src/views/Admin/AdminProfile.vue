@@ -51,7 +51,6 @@ import { useUserStore } from "@/store/userStore";
         { href: "/admin/client", icon: "brightness-1", text: "clients" },
       ];
     },
-    //TODO: ir buscar os direitos
     methods: {
       addAdminHandler() {
         this.$router.push("/admin/add-admin/");

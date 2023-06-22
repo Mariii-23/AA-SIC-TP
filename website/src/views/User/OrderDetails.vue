@@ -1,20 +1,7 @@
 <template>
   <SimpleBodyLayout>
-    <!--<ConfirmationModal
-      :title="$t('logout')"
-      :text="$t('logout-text')"
-      :confirmHandler="logoutHandler"
-      :closeModal="closeModal"
-      :isModalOpen="isModalOpen"
-    />-->
     <TwoColumnsPanel>
       <template v-slot:first>
-        <!--<TitleCardLinksButton
-          :title="$t('hello') + ', ' + userName + '!'"
-          :items="items"
-          :button-text="$t('logout')"
-          :button-handler="openModal"
-        />-->
         <TitleCardLinks :title="$t('hello') + ', ' + userName + '!'"
           :items="items" />
       </template>
@@ -29,12 +16,10 @@
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
 import TwoColumnsPanel from "@/layouts/Body/TwoColumnsPanel.vue";
-//import TitleCardLinksButton from "@/components/organisms/TitleCardLinksButton.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import { Order } from "@/appTypes/Order";
 import OrderCard from "@/components/organisms/Card/OrderCard.vue";
 import TitleGoBack from "@/components/molecules/TitleGoBack.vue";
-//import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
 import { useOrderStore } from "@/store/orders";
 import { useUserStore } from "@/store/userStore";
 import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
@@ -49,19 +34,7 @@ export default {
     userName: "",
     orderId: "",
     order: {} as Order,
-    isModalOpen: false,
   }),
-  methods: {
-    logoutHandler() {
-      //TODO: logout
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
-    openModal() {
-      this.isModalOpen = true;
-    },
-  },
   mounted: async function () {
     this.orderId = this.$route.params.id.toString();
 
@@ -90,11 +63,9 @@ export default {
   },
   components: {
     TwoColumnsPanel,
-    //TitleCardLinksButton,
     SimpleBodyLayout,
     OrderCard,
     TitleGoBack,
-    //ConfirmationModal,
     TitleCardLinks,
   },
 };

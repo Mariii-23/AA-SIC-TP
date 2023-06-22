@@ -207,7 +207,7 @@ const editCustomer = async (
     }
 
     const req = await app.config.globalProperties.$axios.post(
-      `${url}/edit?customerId=${id}`,
+      `${url}/edit?customer_id=${id}`,
       {
         name: paramName,
         email: paramEmail,

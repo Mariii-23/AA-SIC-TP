@@ -4,7 +4,7 @@
       {{ $t("total") }}
     </v-card-title>
     <v-card-item>
-      <OrderTableInfo :orderItems="cart.items" :total="cart.total" />
+      <OrderTableInfo :orderItems="cart?.items" :total="cart?.total" />
     </v-card-item>
     <div class="actions">
       <PrimaryButton width="20%" :handleClick="cancelOrder">{{

@@ -85,7 +85,6 @@ export const useCategoriesStore = defineStore("categories", {
       const category = this.categories.find((e) => e.id == categoryId);
       if (category) this.category = category;
 
-      // FIXME: no caso de nao ter tem q pedir ao backend
       return true;
     },
     async getNumberOfCategories() {

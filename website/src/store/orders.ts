@@ -5,8 +5,6 @@ import { GetAllOrders, Response } from "@/appTypes/AxiosTypes";
 import { useCustomerStore } from "@/store/customerStore";
 const customerStore = useCustomerStore();
 
-const num = 20;
-
 export const useOrderStore = defineStore("orders", {
   state: () => ({
     myOrders: [] as Order[],

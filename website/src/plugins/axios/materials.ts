@@ -4,6 +4,22 @@ import { handleResponse } from "./axios";
 
 const url = "/product";
 
+const getNumberOfMaterials = async () => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/all/numberOfMaterials`
+    );
+    return handleResponse (req, (data) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText
+    }
+  }
+};
+
 const getAllMaterials = async (offset: number, numItems: number) => {
   try {
     const req = await app.config.globalProperties.$axios.get(
@@ -88,6 +104,7 @@ const updateMaterial = async (id: string, name: string, image: string) => {
 };
 
 export interface CategoriesAxios {
+  getNumberOfMaterials: () => Promise<Response<number>>;
   getAllMaterials: (
     offset: number,
     numItems: number
@@ -105,6 +122,9 @@ export interface CategoriesAxios {
 }
 
 const materials: CategoriesAxios = {
+  getNumberOfMaterials: async () => {
+    return await getNumberOfMaterials();
+  },
   getAllMaterials: async (offset: number, numberItems: number) => {
     return await getAllMaterials(offset, numberItems);
   },

@@ -9,8 +9,15 @@ export const useMaterialStore = defineStore("materials", {
     materials: [] as Material[],
   }),
   actions: {
-    async getAllMaterials() {
-      const r = await axios.materials.getAllMaterials(0, 100000);
+    async getNumberOfMaterials() {
+      const r = await axios.materials.getNumberOfMaterials();
+      if (r.success == 200 && typeof r.data != "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllMaterials(offset: number, numItems: number) {
+      const r = await axios.materials.getAllMaterials(offset, numItems);
       if (r.success == 200) {
         this.materials = [];
         if (typeof r.data !== "string") {

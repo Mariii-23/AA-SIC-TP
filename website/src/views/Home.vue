@@ -90,7 +90,6 @@ export default {
     this.isAdmin = userStore.isAdmin();
 
     if (userStore.isLoggedIn && !this.isAdmin) {
-      console.log("aqui")
       this.productsFavorite = await productStore.getAllFavoriteProducts(
         userStore.id, 0, 100000
       );
@@ -254,7 +253,6 @@ export default {
       this.closeRemoveModal();
     },
     viewMoreHandler(productId: string) {
-      console.log("view more")
       this.onClickProductUser(productId);
     },
     async favoriteIconHandler(productId: string) {

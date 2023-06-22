@@ -98,7 +98,6 @@ const company: CompanyAxios = {
     return await getSocialNetwork();
   },
   getLogoLink: () => {
-    //FIXME:
     return "http://localhost:8080/info/all/companyImage";
   },
   updateInfo: async (company: CompanyInfo) => {
