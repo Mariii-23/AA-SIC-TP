@@ -20,6 +20,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Set;
 
 @Service("userService")
 public class UserService {
@@ -141,7 +142,7 @@ public class UserService {
         if (customer == null) {
             throw new UserNotFoundException("Customer not found");
         }
-        List<Product> favourites = customer.getFavourites();
+        Set<Product> favourites = customer.getFavourites();
         Product product = favourites.stream().filter(p -> p.getiD() == productId).findFirst().
                                 orElseThrow(() -> new ProductNotFoundException("Product not in favourites"));
         customer.removeFavourite(product);

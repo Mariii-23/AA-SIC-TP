@@ -55,6 +55,9 @@ public class DBService{
     @Autowired
     private SocialNetworkRep socialNetworkRep;
 
+    @Autowired
+    private TechnicalInfoRep technicalInfoRep;
+
 
     public void addUsers() throws Exception {
 
@@ -121,26 +124,47 @@ public class DBService{
         List<Material> materials = new ArrayList<>();
         byte[] image1 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image1.jpg"));
 
-        materials.add(new Material("Oak Wood", image1));
-        materials.add(new Material("Mahogany", image1));
-        materials.add(new Material("Leather", image1));
-        materials.add(new Material("Wicker", image1));
-        materials.add(new Material("Velvet", image1));
-        materials.add(new Material("Bamboo", image1));
-        materials.add(new Material("Suede", image1));
-        materials.add(new Material("Rattan", image1));
-        materials.add(new Material("Microfiber", image1));
-        materials.add(new Material("Linen", image1));
-        materials.add(new Material("Cotton", image1));
-        materials.add(new Material("Silk", image1));
-        materials.add(new Material("Acrylic", image1));
-        materials.add(new Material("Polyester", image1));
-        materials.add(new Material("Metal", image1));
-        materials.add(new Material("Glass", image1));
-        materials.add(new Material("Marble", image1));
-        materials.add(new Material("Granite", image1));
-        materials.add(new Material("Cork", image1));
-        materials.add(new Material("Plastic", image1));
+        byte[] oak = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/oak.jpg"));
+        byte[] mahogany = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/mahogany.jpg"));
+        byte[] leather = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/leather.jpg"));
+        byte[] wicker = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/wicker.jpg"));
+        byte[] velvet = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/velvet.jpg"));
+        byte[] bamboo = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/bamboo.jpg"));
+        byte[] suede = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/suede.jpg"));
+        byte[] rattan = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/rattan.jpg"));
+        byte[] microfiber = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/microfiber.jpg"));
+        byte[] linen = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/linen.jpg"));
+        byte[] cotton = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/cotton.jpg"));
+        byte[] silk = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/silk.jpg"));
+        byte[] acrylic = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/acrylic.jpg"));
+        byte[] polyester = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/polyester.jpg"));
+        byte[] metal = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/metal.jpg"));
+        byte[] glass = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/glass.jpg"));
+        byte[] marble = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/marble.jpg"));
+        byte[] cork = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/cork.jpg"));
+        byte[] granite = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/granite.jpg"));
+        byte[] plastic = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/plastic.jpg"));
+
+        materials.add(new Material("Oak Wood", oak));
+        materials.add(new Material("Mahogany", mahogany));
+        materials.add(new Material("Leather", leather));
+        materials.add(new Material("Wicker", wicker));
+        materials.add(new Material("Velvet", velvet));
+        materials.add(new Material("Bamboo", bamboo));
+        materials.add(new Material("Suede", suede));
+        materials.add(new Material("Rattan", rattan));
+        materials.add(new Material("Microfiber", microfiber));
+        materials.add(new Material("Linen", linen));
+        materials.add(new Material("Cotton", cotton));
+        materials.add(new Material("Silk", silk));
+        materials.add(new Material("Acrylic", acrylic));
+        materials.add(new Material("Polyester", polyester));
+        materials.add(new Material("Metal", metal));
+        materials.add(new Material("Glass", glass));
+        materials.add(new Material("Marble", marble));
+        materials.add(new Material("Granite", granite));
+        materials.add(new Material("Cork", cork));
+        materials.add(new Material("Plastic", plastic));
 
         materialRep.saveAll(materials);
     }
@@ -151,27 +175,47 @@ public class DBService{
         byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
         byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
+        byte[] livingRoom = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
+        byte[] bedroom = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/bedroom.jpg"));
+        byte[] diningRoom = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/dining.jpg"));
+        byte[] office = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/office.jpg"));
+        byte[] outdoor = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/outdoor.jpg"));
+        byte[] kitchen = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/kitchen.jpg"));
+        byte[] bathroom = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/bathroom.jpg"));
+        byte[] kids = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/kids.jpg"));
+        byte[] entertainment = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/entertainment.jpg"));
+        byte[] storage = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/storage.jpg"));
+        byte[] accent = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/accent.jpg"));
+        byte[] workspace = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/workspace.jpg"));
+        byte[] entryway = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/entryway.jpg"));
+        byte[] garden = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/garden.jpg"));
+        byte[] nursery = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/nursery.jpg"));
+        byte[] patio = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/patio.jpg"));
+        byte[] bar = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/bar.jpg"));
+        byte[] library = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/library.jpg"));
+        byte[] playroom = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/playroom.jpg"));
+        byte[] gym = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/gym.jpg"));
 
-        categories.add(new Category("Living Room", image1));
-        categories.add(new Category("Bedroom", image1));
-        categories.add(new Category("Dining Room", image1));
-        categories.add(new Category("Office",image1));
-        categories.add(new Category("Outdoor", image1));
-        categories.add(new Category("Kitchen", image1));
-        categories.add(new Category("Bathroom", image2));
-        categories.add(new Category("Kids", image2));
-        categories.add(new Category("Entertainment", image2));
-        categories.add(new Category("Storage", image2));
-        categories.add(new Category("Accent", image2));
-        categories.add(new Category("Workspace", image2));
-        categories.add(new Category("Entryway", image2));
-        categories.add(new Category("Garden", image2));
-        categories.add(new Category("Nursery", image3));
-        categories.add(new Category("Patio", image3));
-        categories.add(new Category("Bar", image3));
-        categories.add(new Category("Library", image3));
-        categories.add(new Category("Playroom", image3));
-        categories.add(new Category("Gym", image3));
+        categories.add(new Category("Living Room", livingRoom));
+        categories.add(new Category("Bedroom", bedroom));
+        categories.add(new Category("Dining Room", diningRoom));
+        categories.add(new Category("Office", office));
+        categories.add(new Category("Outdoor", outdoor));
+        categories.add(new Category("Kitchen", kitchen));
+        categories.add(new Category("Bathroom", bathroom));
+        categories.add(new Category("Kids", kids));
+        categories.add(new Category("Entertainment", entertainment));
+        categories.add(new Category("Storage", storage));
+        categories.add(new Category("Accent", accent));
+        categories.add(new Category("Workspace", workspace));
+        categories.add(new Category("Entryway", entryway));
+        categories.add(new Category("Garden", garden));
+        categories.add(new Category("Nursery", nursery));
+        categories.add(new Category("Patio", patio));
+        categories.add(new Category("Bar", bar));
+        categories.add(new Category("Library", library));
+        categories.add(new Category("Playroom", playroom));
+        categories.add(new Category("Gym", gym));
 
         categoryRep.saveAll(categories);
 
@@ -187,28 +231,50 @@ public class DBService{
         byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
         byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
+        byte[] sofas = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/sofas.jpg"));
+        byte[] armchairs = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/armchairs.jpg"));
+        byte[] beds = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/beds.jpg"));
+        byte[] diningTables = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/diningTables.jpg"));
+        byte[] desks = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/desks.jpg"));
+        byte[] outdoorSets = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/outdoorSets.jpg"));
+        byte[] cabinets = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/cabinets.jpg"));
+        byte[] toilets = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/toilets.jpg"));
+        byte[] kidsBeds = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/kidsBeds.jpg"));
+        byte[] chairs = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/chairs.jpg"));
+        byte[] tables = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/tables.jpg"));
+        byte[] bookcases = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/bookcase.jpg"));
+        byte[] officeChairs = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/officeChairs.jpg"));
+        byte[] benches = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/benches.jpg"));
+        byte[] gardenSets = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/gardenSets.jpg"));
+        byte[] cribs = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/cribs.jpg"));
+        byte[] patioSets = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/patioSets.jpg"));
+        byte[] barStools = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/barStools.jpg"));
+        byte[] bookshelves = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/bookshelves.jpg"));
+        byte[] playTables = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/playTables.jpg"));
+        byte[] treadmills = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/treadmills.jpg"));
 
-        subCategories.add(new SubCategory("Sofas", image1, categories.get(0)));
-        subCategories.add(new SubCategory("Armchairs", image1, categories.get(0)));
-        subCategories.add(new SubCategory("Beds", image1, categories.get(1)));
-        subCategories.add(new SubCategory("Dining Tables", image1, categories.get( 2)));
-        subCategories.add(new SubCategory("Desks", image1, categories.get(3)));
-        subCategories.add(new SubCategory("Outdoor Sets", image1, categories.get( 4)));
-        subCategories.add(new SubCategory("Cabinets", image2, categories.get( 5)));
-        subCategories.add(new SubCategory("Toilets", image2, categories.get( 6)));
-        subCategories.add(new SubCategory("Kids Beds", image2, categories.get( 7)));
-        subCategories.add(new SubCategory("Chairs", image3, categories.get( 8)));
-        subCategories.add(new SubCategory("Tables", image3, categories.get(9)));
-        subCategories.add(new SubCategory("Bookcases", image3, categories.get(10)));
-        subCategories.add(new SubCategory("Office Chairs", image3, categories.get(11)));
-        subCategories.add(new SubCategory("Benches", image3, categories.get(12)));
-        subCategories.add(new SubCategory("Garden Sets", image3, categories.get(13)));
-        subCategories.add(new SubCategory("Cribs", image3, categories.get(14)));
-        subCategories.add(new SubCategory("Patio Sets", image3, categories.get(15)));
-        subCategories.add(new SubCategory("Bar Stools", image3, categories.get(16)));
-        subCategories.add(new SubCategory("Bookshelves", image3, categories.get(17)));
-        subCategories.add(new SubCategory("Play Tables", image3, categories.get(18)));
-        subCategories.add(new SubCategory("Treadmills", image3, categories.get(19)));
+
+        subCategories.add(new SubCategory("Sofas", sofas, categories.get(0)));
+        subCategories.add(new SubCategory("Armchairs", armchairs, categories.get(0)));
+        subCategories.add(new SubCategory("Beds", beds, categories.get(1)));
+        subCategories.add(new SubCategory("Dining Tables", diningTables, categories.get( 2)));
+        subCategories.add(new SubCategory("Desks", desks, categories.get(3)));
+        subCategories.add(new SubCategory("Outdoor Sets", outdoorSets, categories.get( 4)));
+        subCategories.add(new SubCategory("Cabinets", cabinets, categories.get( 5)));
+        subCategories.add(new SubCategory("Toilets", toilets, categories.get( 6)));
+        subCategories.add(new SubCategory("Kids Beds", kidsBeds, categories.get( 7)));
+        subCategories.add(new SubCategory("Chairs", chairs, categories.get( 8)));
+        subCategories.add(new SubCategory("Tables", tables, categories.get(9)));
+        subCategories.add(new SubCategory("Bookcases", bookcases, categories.get(10)));
+        subCategories.add(new SubCategory("Office Chairs", officeChairs, categories.get(11)));
+        subCategories.add(new SubCategory("Benches", benches, categories.get(12)));
+        subCategories.add(new SubCategory("Garden Sets", gardenSets, categories.get(13)));
+        subCategories.add(new SubCategory("Cribs", cribs, categories.get(14)));
+        subCategories.add(new SubCategory("Patio Sets", patioSets, categories.get(15)));
+        subCategories.add(new SubCategory("Bar Stools", barStools, categories.get(16)));
+        subCategories.add(new SubCategory("Bookshelves", bookshelves, categories.get(17)));
+        subCategories.add(new SubCategory("Play Tables", playTables, categories.get(18)));
+        subCategories.add(new SubCategory("Treadmills", treadmills, categories.get(19)));
 
         subCategoryRep.saveAll(subCategories);
     }
@@ -340,6 +406,18 @@ public class DBService{
 
 
         productRep.saveAll(products);
+    }
+
+    public void addInfos() {
+        List<Product> products = productRep.findAll();
+        List<TechnicalInfo> technicalInfos = new ArrayList<>();
+
+        for (int i = 0; i < products.size(); i++) {
+            technicalInfos.add(new TechnicalInfo("Height (cm)","100", products.get(i)));
+            technicalInfos.add(new TechnicalInfo("Width (cm)","100", products.get(i)));
+        }
+
+        technicalInfoRep.saveAll(technicalInfos);
     }
 
     public void addFavourites() {

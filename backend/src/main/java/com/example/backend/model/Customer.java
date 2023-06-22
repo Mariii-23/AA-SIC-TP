@@ -2,9 +2,7 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
@@ -35,7 +33,7 @@ public class Customer extends User {
 			name = "customer_favourites",
 			joinColumns = @JoinColumn(name = "customer_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private List<Product> favourites = new ArrayList<>();
+	private Set<Product> favourites = new HashSet<>();
 
 	public Customer() {
 		super();
@@ -90,11 +88,11 @@ public class Customer extends User {
 		this.orders = orders;
 	}
 
-	public List<Product> getFavourites() {
+	public Set<Product> getFavourites() {
 		return favourites;
 	}
 
-	public void setFavourites(List<Product> favorites) {
+	public void setFavourites(Set<Product> favorites) {
 		this.favourites = favorites;
 	}
 

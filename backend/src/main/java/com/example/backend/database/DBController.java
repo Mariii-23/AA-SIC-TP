@@ -27,7 +27,7 @@ public class DBController {
         try {
             dbService.addCompany();
         } catch (Exception e) {
-           throw new RuntimeException(e) ;
+            throw new RuntimeException(e) ;
         }
     }
 
@@ -105,6 +105,11 @@ public class DBController {
         dbService.addMoreOrders();
     }
 
+    @PostMapping("/addInfos")
+    public void addInfos() throws Exception {
+        dbService.addInfos();
+    }
+
     @PostMapping("/all")
     public void addAll() throws Exception {
         dbService.addUsers();
@@ -114,11 +119,13 @@ public class DBController {
         dbService.addCategories();
         dbService.addSubcategories();
         dbService.addProducts();
+        dbService.addInfos();
         dbService.addFavourites();
         dbService.addImages();
         dbService.addItems();
         dbService.addOrders();
         dbService.addMoreOrders();
+
     }
 
 }
