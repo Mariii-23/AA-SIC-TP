@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -63,8 +64,9 @@ public class ProductController {
     }
 
     @PostMapping("/edit/addimages/{productId}")
-    public void addProductImages(final @PathVariable int productId, final @RequestBody List<byte[]> images) {
+    public void addProductImages(final @PathVariable int productId, final @RequestBody byte[] image) {
         try {
+            List<byte[]> images = List.of(image);
             productService.addProductImages(productId, images);
         } catch (ProductNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
