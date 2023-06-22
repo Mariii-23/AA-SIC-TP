@@ -24,6 +24,19 @@
       </v-row>
       <v-row>{{ phone_number }}</v-row>
       <v-row>{{ email }}</v-row>
+      <div class="social-networks">
+      <v-row v-for="social in social_media" :key="social" class="mt-5">
+        <v-btn v-if="social.name == 'Facebook'" :href="social.link" class="elevation-0" color="secondary">
+          <v-icon size="x-large">mdi-facebook</v-icon>
+          </v-btn>
+          <v-btn v-else-if="social.name == 'Instagram'" class="elevation-0" color="secondary" :href="social.link">
+          <v-icon size="x-large">mdi-instagram</v-icon>
+          </v-btn>
+          <v-btn v-else :href="social.link" class="elevation-0" color="secondary">
+          <v-icon size="x-large">mdi-link-variant</v-icon>
+          </v-btn>
+      </v-row>
+    </div>
     </v-col>
     <v-spacer />
   </v-footer>
@@ -32,6 +45,7 @@
 <script lang="ts">
 import { useCompanyStore } from "@/store/companyStore";
 import HeadingText from "../atoms/Typography/HeadingText.vue";
+import { SocialMedia } from "@/appTypes/Company";
 const companyStore = useCompanyStore();
 
 export default {
@@ -44,7 +58,7 @@ export default {
     schedule_list: [],
     phone_number: null,
     email: null,
-    social_media_list: [],
+    social_media: [] as SocialMedia[],
   }),
   mounted: async function () {
     if (companyStore.companyInfo.name == "") {
@@ -81,6 +95,8 @@ export default {
       this.email = contact.email;
     }
 
+    this.social_media = companyStore.socialNetworks;
+
     this.$watch(
       () => companyStore.companyInfo,
       (newValues) => {
@@ -102,6 +118,12 @@ export default {
   display: flex;
   align-content: center;
   padding: 20px;
+}
+.social-networks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+    justify-content: center;
 }
 
 @media screen and (max-width: 800px) {

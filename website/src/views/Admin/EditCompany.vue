@@ -13,7 +13,7 @@
       </template>
       <template v-slot:second>
         <TitleWithButtonAndGoBack :title="$t('company')" :buttonText="$t('save-changes')" :buttonHandler="saveChanges" />
-        <form ref="form">
+        <form ref="form" @submit.prevent="saveChanges">
             <v-row>
               <v-col cols="4">
                 <v-list-subheader>
