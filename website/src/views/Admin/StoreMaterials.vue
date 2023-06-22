@@ -125,6 +125,7 @@ export default {
       photo: string
     ) {
       const r = await materialsStore.updateMaterial(materialId, name, photo);
+      await materialsStore.getAllMaterials();
       if (r) {
         notifications.openSuccessAlert(this.$t("update-material-success"));
       } else {

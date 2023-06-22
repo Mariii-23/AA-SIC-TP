@@ -88,6 +88,12 @@ export default {
       { href: "/admin/categories", icon: "bullseye", text: "categories" },
       { href: "/admin/materials", icon: "brightness-1", text: "materials" },
     ];
+    this.$watch (
+      () => categoryStore.category.subCategories,
+      (newValues) => {
+        this.subCategories = newValues;
+      }
+    );
   },
   methods: {
     async removeSubcategory(subcategoryId: string) {
