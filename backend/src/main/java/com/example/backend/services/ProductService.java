@@ -334,4 +334,8 @@ public class ProductService {
     public int getNumberOfProducts() {
         return (int) productRep.count();
     }
+
+    public int getNumberOfMaterials() {
+        return (int) materialRep.count();
+    }
 }

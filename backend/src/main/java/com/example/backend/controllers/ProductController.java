@@ -274,6 +274,11 @@ public class ProductController {
         return productService.getAllMaterials(offset, numItems);
     }
 
+    @GetMapping("/all/numberOfMaterials")
+    public int getNumberOfMaterials() {
+        return productService.getNumberOfMaterials();
+    }
+
     @GetMapping("/all/products")
     public EnvelopeDTO<ProductSimpleDTO> getAllProducts(final @RequestParam int offset, final @RequestParam int numItems) {
         return productService.getAllProducts(offset, numItems);
