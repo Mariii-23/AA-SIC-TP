@@ -106,13 +106,13 @@ public class UserService {
         Admin admin = new Admin(adminDTO.getEmail(),
                                 passwordEncoder.encode(adminDTO.getPassword()),
                                 adminDTO.getName());
-        boolean valid = true;/*emailVerifier
+        boolean valid = emailVerifier
                 .post()
                 .bodyValue("email=" + admin.getEmail())
                 .retrieve()
                 .bodyToMono(JsonNode.class)
                 .map(jsonNode -> jsonNode.get("valid").asBoolean())
-                .block();*/
+                .block();
         if(valid) {
             return addAdmin(admin);
         }

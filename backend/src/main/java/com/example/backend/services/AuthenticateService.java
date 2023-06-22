@@ -34,13 +34,13 @@ public class AuthenticateService {
     private final WebClient emailVerifier;
 
     public AuthenticationResponse register(CreateCustomerDTO request) throws Exception {
-        boolean valid = true;/**emailVerifier
+        boolean valid = emailVerifier
                             .post()
                             .bodyValue("email=" + request.getEmail())
                             .retrieve()
                             .bodyToMono(JsonNode.class)
                             .map(jsonNode -> jsonNode.get("valid").asBoolean())
-                            .block();**/
+                            .block();
         if (valid) {
             ShoppingCart shoppingCart = new ShoppingCart();
             if (customerRep.existsByEmail(request.getEmail())) {
