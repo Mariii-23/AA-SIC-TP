@@ -1,5 +1,6 @@
 package com.example.backend.services;
 
+import com.example.backend.configuration.WebClientConfiguration;
 import com.example.backend.dto.orderDTOs.ItemDTO;
 import com.example.backend.dto.orderDTOs.ShoppingCartDTO;
 import com.example.backend.dto.productDTOs.ProductDetailedDTO;
@@ -11,10 +12,12 @@ import com.example.backend.dto.*;
 import com.example.backend.event.EmailEvent;
 import com.example.backend.model.*;
 import com.example.backend.repositories.*;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -42,6 +45,9 @@ public class UserService {
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    private WebClient emailVerifier;
 
 
     public AdminDTO addAdmin(Admin admin) {
@@ -100,7 +106,7 @@ public class UserService {
         Admin admin = new Admin(adminDTO.getEmail(),
                                 passwordEncoder.encode(adminDTO.getPassword()),
                                 adminDTO.getName());
-        boolean valid = true; /*emailVerifier
+        boolean valid = true;/*emailVerifier
                 .post()
                 .bodyValue("email=" + admin.getEmail())
                 .retrieve()

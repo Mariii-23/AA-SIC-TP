@@ -14,7 +14,7 @@ public class WebClientConfiguration {
                 .baseUrl("https://email-validator8.p.rapidapi.com/api/v2.0/email")
                 .defaultHeaders(httpHeaders -> {
                     httpHeaders.add(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-                    httpHeaders.add("X-RapidAPI-Key", "2deeaf6164msh2b0460d074803f7p19f042jsn25917196af5e");
+                    httpHeaders.add("X-RapidAPI-Key", "5e72bb760cmsh292bcfc943dd575p1afe98jsnac204d7ddc64");
                     httpHeaders.add("X-RapidAPI-Host", "email-validator8.p.rapidapi.com");
                         })
                 .build();

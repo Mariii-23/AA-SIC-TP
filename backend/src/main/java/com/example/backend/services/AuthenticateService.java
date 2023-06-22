@@ -11,6 +11,7 @@ import com.example.backend.model.User;
 import com.example.backend.repositories.CustomerRep;
 import com.example.backend.repositories.TokenRep;
 import com.example.backend.repositories.UserRep;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,13 +34,13 @@ public class AuthenticateService {
     private final WebClient emailVerifier;
 
     public AuthenticationResponse register(CreateCustomerDTO request) throws Exception {
-        boolean valid = true;/*emailVerifier
+        boolean valid = true;/**emailVerifier
                             .post()
                             .bodyValue("email=" + request.getEmail())
                             .retrieve()
                             .bodyToMono(JsonNode.class)
                             .map(jsonNode -> jsonNode.get("valid").asBoolean())
-                            .block();*/
+                            .block();**/
         if (valid) {
             ShoppingCart shoppingCart = new ShoppingCart();
             if (customerRep.existsByEmail(request.getEmail())) {
