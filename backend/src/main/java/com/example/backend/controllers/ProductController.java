@@ -64,10 +64,9 @@ public class ProductController {
     }
 
     @PostMapping("/edit/addimages/{productId}")
-    public void addProductImages(final @PathVariable int productId, final @RequestBody byte[] image) {
+    public void addProductImages(final @PathVariable int productId, final @RequestBody ImageDTO image) {
         try {
-            List<byte[]> images = List.of(image);
-            productService.addProductImages(productId, images);
+            productService.addProductImage(productId, image.getImage());
         } catch (ProductNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

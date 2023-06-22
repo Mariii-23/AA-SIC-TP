@@ -250,15 +250,10 @@ public class ProductService {
         return new ProductSimpleDTO(productRep.save(product));
     }
 
-    public void addProductImages(int productId, List<byte[]> images) throws ProductNotFoundException {
+    public void addProductImage(int productId, byte[] image) throws ProductNotFoundException {
         Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
-        List<Image> productImages = product.getImages();
-        for(byte[] image: images){
-            Image newImage = new Image(image, product);
-            productImages.add(newImage);
-        }
-        product.setImages(productImages);
-        productRep.save(product);
+        Image newImage = new Image(image, product);
+        imageRep.save(newImage);
     }
 
     public void removeProductImage(int productId, int imageId) throws Exception {
