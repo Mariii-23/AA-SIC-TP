@@ -145,6 +145,7 @@ public class DBService{
         byte[] cork = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/cork.jpg"));
         byte[] granite = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/granite.jpg"));
         byte[] plastic = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/plastic.jpg"));
+        byte[] porcelain = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/porcelain.jpg"));
 
         materials.add(new Material("Oak Wood", oak));
         materials.add(new Material("Mahogany", mahogany));
@@ -166,6 +167,7 @@ public class DBService{
         materials.add(new Material("Granite", granite));
         materials.add(new Material("Cork", cork));
         materials.add(new Material("Plastic", plastic));
+        materials.add(new Material("Porcelain", porcelain));
 
         materialRep.saveAll(materials);
     }
@@ -338,7 +340,7 @@ public class DBService{
         SubCategory s7 = subCategories.get(7);
         List<Material> m7 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m7.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Toilet", "Stylish and comfortable wooden toilet.", m7, s7.getCategory(), s7)));
+        products.add((new Product(99.99, "Porcelain Toilet", "Stylish and comfortable porcelain toilet.", m7, s7.getCategory(), s7)));
 
         SubCategory s8 = subCategories.get(8);
         List<Material> m8 = new ArrayList<>();
@@ -363,47 +365,47 @@ public class DBService{
         SubCategory s12 = subCategories.get(12);
         List<Material> m12 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m12.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Wardrobe", "Stylish and comfortable wooden wardrobe.", m12, s12.getCategory(), s12)));
+        products.add((new Product(99.99, "Leather Office Chair", "Stylish and comfortable office chair.", m12, s12.getCategory(), s12)));
 
         SubCategory s13 = subCategories.get(13);
         List<Material> m13 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m13.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Stool", "Stylish and comfortable wooden stool.", m13, s13.getCategory(), s13)));
+        products.add((new Product(99.99, "Wooden Bench", "Stylish and comfortable wooden bench.", m13, s13.getCategory(), s13)));
 
         SubCategory s14 = subCategories.get(14);
         List<Material> m14 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m14.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Sofa", "Stylish and comfortable wooden sofa.", m14, s14.getCategory(), s14)));
+        products.add((new Product(99.99, "Suede Garden Set", "Stylish and comfortable garden set.", m14, s14.getCategory(), s14)));
 
         SubCategory s15 = subCategories.get(15);
         List<Material> m15 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m15.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Bed", "Stylish and comfortable wooden bed.", m15, s15.getCategory(), s15)));
+        products.add((new Product(99.99, "Wood Crib", "Stylish and comfortable crib.", m15, s15.getCategory(), s15)));
 
         SubCategory s16 = subCategories.get(16);
         List<Material> m16 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m16.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Dining Table", "Stylish and comfortable wooden dining table.", m16, s16.getCategory(), s16)));
+        products.add((new Product(99.99, "Bamboo Patio Set", "Stylish and comfortable patio set.", m16, s16.getCategory(), s16)));
 
         SubCategory s17 = subCategories.get(17);
         List<Material> m17 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m17.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Dining Chair", "Stylish and comfortable wooden dining chair.", m17, s17.getCategory(), s17)));
+        products.add((new Product(99.99, "Wooden Bar Stools", "Stylish and comfortable wooden bar stools.", m17, s17.getCategory(), s17)));
 
         SubCategory s18 = subCategories.get(18);
         List<Material> m18 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m18.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Dining Bench", "Stylish and comfortable wooden dining bench.", m18, s18.getCategory(), s18)));
+        products.add((new Product(99.99, "Wooden BookShelves", "Stylish and comfortable wooden dining bench.", m18, s18.getCategory(), s18)));
 
         SubCategory s19 = subCategories.get(19);
         List<Material> m19 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m19.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden Sideboard", "Stylish and comfortable wooden sideboard.", m19, s19.getCategory(), s19)));
+        products.add((new Product(99.99, "Wooden Play Table", "Stylish and comfortable wooden playtable.", m19, s19.getCategory(), s19)));
 
         SubCategory s20 = subCategories.get(20);
         List<Material> m20 = new ArrayList<>();
         for(int i = 0; i < 2; i++) m20.add(materials.get(random.nextInt(materials_size)));
-        products.add((new Product(99.99, "Wooden TV Stand", "Stylish and comfortable wooden TV stand.", m20, s20.getCategory(), s20)));
+        products.add((new Product(99.99, "Treadmill 3000", "Stylish treadmill.", m20, s20.getCategory(), s20)));
 
 
         productRep.saveAll(products);
@@ -445,6 +447,35 @@ public class DBService{
         byte[] image2 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image2.jpg"));
         byte[] image3 = Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/image3.jpg"));
 
+        List<byte[]> imagesList = new ArrayList<>();
+
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/leatherSofa.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/fabricSofa.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/leatherArmchair.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/fabricArmchair.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenBed.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenDiningTable.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenDesk.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenOutdoorSet.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenCabinet.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/porcelainToilet.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenKidsBed.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenChair.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenCoffeeTable.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenBookshelf.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/leatherOfficeChair.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenBench.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/suedeGardenSet.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenCrib.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/bambooPatioSet.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenBarStools.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenBookshelve.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/woodenPlayTable.jpg")));
+        imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/treadmill.jpg")));
+
+        for(int i = 0; i < products.size(); i++) {
+            images.add(new Image(imagesList.get(i), products.get(i)));
+        }
 
         int i = 1;
         for(Product p : products) {
