@@ -65,9 +65,12 @@ export default {
   mounted() {
     if (this.categories.length > 0) {
       const category = this.categories[0];
-      //FIXME:
-      this.categoryId = category.id;
+      this.categoryId = String(category.id);
       this.subCategorys = category.subCategories;
+    }
+
+    if (this.categoryInit!==undefined) {
+      this.categoryId = String(this.categoryInit)
     }
 
     this.$watch(
@@ -82,6 +85,9 @@ export default {
     );
   },
   props: {
+    categoryInit: {
+      type: String,
+    },
     categories: {
       type: Array as () => Category[],
       required: true,

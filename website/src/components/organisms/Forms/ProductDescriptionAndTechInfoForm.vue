@@ -76,7 +76,23 @@ export default {
       ],
     };
   },
+  mounted() {
+    if (this.descriptionInit !== undefined) {
+      this.description = this.descriptionInit;
+    }
+    if (this.technicalInfoInit !== undefined) {
+      for (const technical of this.technicalInfoInit) {
+        this.textFields.push(technical);
+      }
+    }
+  },
   props: {
+    descriptionInit: {
+      type: String,
+    },
+    technicalInfoInit: {
+      type: Array as () => TechnicalInfo[],
+    },
     buttonText: {
       type: String,
       required: true,

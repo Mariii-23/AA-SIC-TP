@@ -24,7 +24,6 @@ export const useShoppingCartStore = defineStore("shoppingCart", {
       return r.data;
     },
 
-    //TODO: falta verificar
     async addProduct(
       product: ProductAddCard,
       quantity: number,

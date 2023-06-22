@@ -18,7 +18,9 @@
     </v-checkbox>
   </v-container>
 
-  <FullWidthButton :handle-click="clickHandler">{{ buttonText }} </FullWidthButton>
+  <FullWidthButton :handle-click="clickHandler"
+    >{{ buttonText }}
+  </FullWidthButton>
 </template>
 
 <script lang="ts">
@@ -33,7 +35,18 @@ export default {
       selected: [] as string[],
     };
   },
+  mounted() {
+    this.selected = []
+    if (this.materialsSelectInitial !== undefined) {
+      for (const material of this.materialsSelectInitial) {
+        this.selected.push(String(material.id));
+      }
+    }
+  },
   props: {
+    materialsSelectInitial: {
+      type: Array as () => Material[],
+    },
     materials: {
       type: Array as () => Material[],
       required: true,

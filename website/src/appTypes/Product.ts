@@ -56,6 +56,11 @@ export interface Item {
   href: string;
 }
 
+export interface Image {
+  id: string,
+  href: string,
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -63,7 +68,7 @@ export interface Product {
 
   categoryId: string,
 
-  images: string[];
+  images: Image[];
 
   information: ProductInformation;
 

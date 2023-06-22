@@ -20,12 +20,15 @@ const materialImage = `http://localhost:8080/${url}/all/materialImage`;
 
 const getAllProducts = async (offset: number, numItems: number) => {
   try {
-    const req = await app.config.globalProperties.$axios.get(`${url}/all/products`, {
-      params: {
-        offset,
-        numItems,
-      },
-    });
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/all/products`,
+      {
+        params: {
+          offset,
+          numItems,
+        },
+      }
+    );
 
     return handleResponse(req, (data: GetProductsByCategoryResponse) => {
       const products: ProductSimple[] = [];
@@ -42,7 +45,7 @@ const getAllProducts = async (offset: number, numItems: number) => {
       return products;
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
       success: error.request.status,
       data: error.request.statusText,
@@ -89,6 +92,47 @@ const addProduct = async (
   }
 };
 
+const editProduct = async (
+  productId: string,
+  name: string,
+  description: string,
+  price: number,
+  categoryId: string,
+  subCategoryId: string | null,
+  materialIds: string[],
+  infos: TechnicalInfo[]
+) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/edit/${productId}`,
+      {
+        name,
+        description,
+        price,
+        categoryId,
+        subCategoryId,
+        materialIds,
+        infos,
+      }
+    );
+
+    return handleResponse(req, (data) => {
+      return {
+        name: data.name,
+        id: data.id,
+        href: `${productImage}?imageId=${data.image}`,
+        price: data.price,
+      };
+    });
+  } catch (error) {
+    console.log(error);
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 const deleteProduct = async (productId: string) => {
   try {
     const req = await app.config.globalProperties.$axios.delete(
@@ -114,10 +158,13 @@ const getProductById = async (productId: string) => {
     });
 
     return handleResponse(req, (data: GetProductById) => {
-      const images = [] as string[];
+      const images = [] as ImageProduct[];
 
       for (const item of data.images) {
-        images.push(`${productImage}?imageId=${item}`);
+        images.push({
+          id: item,
+          href: `${productImage}?imageId=${item}`,
+        });
       }
 
       const materials = [] as Material[];
@@ -231,6 +278,42 @@ const getProductBySubCategoryId = async (
   }
 };
 
+//TODO: verificar no backend
+const deleteImageProduct = async (productId: string, imageId: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.delete(
+      `${url}/edit/removeImages/${productId}/${imageId}`
+    );
+    return handleResponse(req, () => {
+      return null;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
+const addImageProduct = async (productId: string, images: string[]) => {
+  try {
+    const req = await app.config.globalProperties.$axios.post(
+      `${url}/edit/addimages/${productId}`,
+      {
+        images,
+      }
+    );
+    return handleResponse(req, (data: string[]) => {
+      return data;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 export interface ProductAxios {
   getProducts: (
     offset: number,
@@ -258,6 +341,14 @@ export interface ProductAxios {
     infos: TechnicalInfo[],
     images: string[]
   ) => Promise<Response<ProductSimple>>;
+  addImagesProduct: (
+    productId: string,
+    images: string[]
+  ) => Promise<Response<String[]>>;
+  removeImageProduct: (
+    productId: string,
+    imageId: string
+  ) => Promise<Response<void>>;
 }
 
 const productStore: ProductAxios = {
@@ -268,11 +359,8 @@ const productStore: ProductAxios = {
   ) => {
     return await getProductByCategoryId(categoryId, offset, numItems);
   },
-  getProducts: async (
-    offset: number,
-    numItems: number
-  ) => {
-    return await getAllProducts( offset, numItems);
+  getProducts: async (offset: number, numItems: number) => {
+    return await getAllProducts(offset, numItems);
   },
   getProductBySubCategoryId: async (
     subCategoryId: string,
@@ -307,6 +395,33 @@ const productStore: ProductAxios = {
       infos,
       images
     );
+  },
+  editProduct: async (
+    productId: string,
+    name: string,
+    description: string,
+    price: number,
+    categoryId: string,
+    subCategoryId: string | null,
+    materialsId: string[],
+    infos: TechnicalInfo[]
+  ) => {
+    return await editProduct(
+      productId,
+      name,
+      description,
+      price,
+      categoryId,
+      subCategoryId,
+      materialsId,
+      infos
+    );
+  },
+  addImagesProduct: async (productId: string, images: string[]) => {
+    return await addImageProduct(productId, images);
+  },
+  removeImageProduct: async (productId: string, imageId: string) => {
+    return await deleteImageProduct(productId, imageId);
   },
 };
 

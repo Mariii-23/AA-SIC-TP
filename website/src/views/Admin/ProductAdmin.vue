@@ -1,5 +1,5 @@
 <template>
-<div class="product">
+  <div class="product">
     <ProductLayout>
       <template v-slot:first>
         <Carousel :images="productImages" class="carousel" />
@@ -45,6 +45,7 @@ import {
   ProductInformation,
   Material,
   ProductSimple,
+  Image,
 } from "@/appTypes/Product";
 import ProductLayout from "@/layouts/Body/ProductLayout.vue";
 
@@ -57,7 +58,7 @@ export default {
       required: true,
     },
     productInfo: Object as () => ProductInformation,
-    productImages: Array as () => string[],
+    productImages: Array as () => Image[],
     materials: {
       type: Array as () => Material[],
       required: true,

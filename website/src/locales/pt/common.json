@@ -112,6 +112,8 @@
 
     "add-subcategories": "Adicionar subcategories",
 
+    "add-product": "Adicionar produto",
+    "edit-product": "Editar produto",
     "rmv-product": "Remover produto",
     "rmv-product-text": "Tem a certeza que quer remover o produto",
     "add-product-success": "Produto adicionado com sucesso",
@@ -120,7 +122,6 @@
     "rmv-product-error": "Erro ao remover o produto, este contêm encomendas associadas a ele",
     "update-product-success": "Produto atualizado com sucesso",
     "update-product-error": "Erro ao atualizar o producto",
-    "add-product-cart-error": "Erro ao adicionar o produto ao carrinho",
 
 
     "store": "Loja",

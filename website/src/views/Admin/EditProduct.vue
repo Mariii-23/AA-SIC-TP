@@ -1,21 +1,31 @@
 <template>
   <div class="body">
     <SimpleBodyLayout>
-      <TitleGoBack :title="$t('add-product')" />
+      <TitleGoBack :title="$t('edit-product')" />
       <v-card width="100%">
         <NextTabs :tabs="tabs" v-bind:selected-tab="tab">
           <template v-slot:tab1>
             <AddNamePriceForm
               :register="updateNameAndPriceHandler"
               :button-text="$t('next-step')"
+              v-bind:name-inicial="product.name"
+              v-bind:price-inicial="product.price"
             />
           </template>
           <template v-slot:tab2>
             <TitleWithGoBackIcon :title="$t('previos-step')" :goBack="goBack" />
+
+            <DeleteImages
+              v-bind:images="product.images"
+              :removeImage="deleteImage"
+              :size="150"
+            />
+            <HeadingText>{{ $t("add-more-images") }}</HeadingText>
             <FilesInput
               :label="$t('images')"
               :register="updateImages"
               :button-text="$t('next-step')"
+              :files-required="false"
             />
           </template>
           <template v-slot:tab3>
@@ -23,6 +33,8 @@
             <ProductDescriptionAndTechInfoForm
               :register="updateDescriptionTechincalInfo"
               :button-text="$t('next-step')"
+              :descriptionInit="product.information.details"
+              :technicalInfoInit="product.information.technical"
             />
           </template>
           <template v-slot:tab4>
@@ -31,6 +43,7 @@
               v-bind:materials="materials"
               :register="updateMaterials"
               :button-text="$t('next-step')"
+              :materials-select-initial="product.materials"
             />
           </template>
           <template v-slot:tab5>
@@ -38,7 +51,8 @@
             <SelectBoxCategoryAndSubcategory
               v-bind:categories="categoriesInfo"
               :register="updateCategories"
-              :button-text="$t('add-product')"
+              :button-text="$t('save')"
+              :categoryInit="product.categoryId"
             />
           </template>
         </NextTabs>
@@ -48,11 +62,13 @@
 </template>
 
 <script lang="ts">
+import DeleteImages from "@/components/molecules/DeleteImages.vue";
+import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import SelectBoxCategoryAndSubcategory from "@/components/organisms/selectBox/SelectBoxCategoryAndSubcategory.vue";
 import FilesInput from "@/components/molecules/FilesInput.vue";
 import AddNamePriceForm from "@/components/organisms/Forms/AddNamePriceForm.vue";
-import { Category, Material, TechnicalInfo } from "@/appTypes/Product";
+import { Category, Material, Product, TechnicalInfo } from "@/appTypes/Product";
 import ProductDescriptionAndTechInfoForm from "@/components/organisms/Forms/ProductDescriptionAndTechInfoForm.vue";
 import NextTabs from "@/components/organisms/NextTabs.vue";
 import { useProductStore } from "@/store/productStore";
@@ -69,9 +85,11 @@ const materialsStore = useMaterialStore();
 const categoriesStore = useCategoriesStore();
 
 export default {
-  name: "AddProduct",
+  name: "Edit Product",
   data() {
     return {
+      product: {} as Product,
+
       name: "",
       price: 0,
       images: [] as string[],
@@ -91,6 +109,14 @@ export default {
     };
   },
   mounted: async function () {
+    // PRODUCT
+    const productId = this.$route.params.id.toString();
+    const product = await productStore.getProduct(productId);
+    console.log(product);
+    if (product) {
+      this.product = product;
+    }
+
     this.tabs = [
       {
         label: this.$t("name-price"),
@@ -162,25 +188,41 @@ export default {
     updateCategories(categoryId: string, subcategoryId: string) {
       this.categoryId = categoryId;
       this.subcategoryId = subcategoryId;
-      this.addProduct();
+      this.editProduct();
     },
-    async addProduct() {
-      const r = await productStore.addProduct(
+    async deleteImage(imageId: string) {
+      const r = await productStore.deteleImageProduct(this.product.id, imageId);
+      if (r) {
+        this.product.images = this.product.images.filter(
+          (e) => e.id != imageId
+        );
+      }
+    },
+    async editProduct() {
+      const r = await productStore.editProduct(
+        this.product.id,
         this.name,
         this.description,
         this.price,
         this.categoryId,
         this.subcategoryId,
         this.materialsId,
-        this.technicalInfo,
-        this.images
+        this.technicalInfo
       );
 
       if (typeof r !== "string") {
-        notificationStore.openSuccessAlert("add-product-success");
-        this.$router.push(`/product/${r.id}`);
+        const r2 = await productStore.addImagesProduct(
+          this.product.id,
+          this.images
+        );
+        if (r2) {
+          notificationStore.openSuccessAlert("edit-product-success");
+          this.$router.push(`/product/${r.id}`);
+        } else {
+          notificationStore.openErrorAlert("edit-product-error");
+        }
       } else {
-        notificationStore.openErrorAlert("add-product-error");
+        notificationStore.openErrorAlert("edit-product-error");
       }
     },
     goBack() {
@@ -200,6 +242,8 @@ export default {
     SelectBoxCategoryAndSubcategory,
     TitleGoBack,
     SimpleBodyLayout,
+    DeleteImages,
+    HeadingText,
   },
 };
 </script>

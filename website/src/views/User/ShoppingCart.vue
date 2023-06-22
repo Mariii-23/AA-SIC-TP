@@ -85,9 +85,8 @@ export default {
       const orderId = await shoppingCartStore.buyShoppingCart();
 
       if (orderId) {
-        this.$router.push(`user/orders/${orderId}`);
+        this.$router.push(`/user/orders/${orderId}`);
       }
-      console.log("make order");
     },
     cancelOrder() {
       this.$router.back();

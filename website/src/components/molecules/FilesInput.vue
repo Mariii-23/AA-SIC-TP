@@ -6,7 +6,7 @@
           <v-file-input
             multiple
             chips
-            required
+            :required="filesRequired"
             accept="image/*"
             :label="label"
             @change="handleFileSelection"
@@ -53,6 +53,10 @@ export default {
     },
     register: {
       type: Function,
+    },
+    filesRequired: {
+      type: Boolean,
+      default: true,
     },
   },
   methods: {

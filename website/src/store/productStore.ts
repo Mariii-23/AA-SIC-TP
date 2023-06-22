@@ -106,6 +106,35 @@ export const useProductStore = defineStore("products", {
       return r.data;
     },
 
+    async editProduct(
+      productId: string,
+      name: string,
+      description: string,
+      price: number,
+      categoryId: string | null,
+      subCategoryId: string | null,
+      materialsId: string[],
+      infos: TechnicalInfo[]
+    ) {
+      const r = await axios.product.editProduct(
+        productId,
+        name,
+        description,
+        price,
+        categoryId,
+        subCategoryId,
+        materialsId,
+        infos
+      );
+
+      if (r.success == 200 && typeof r.data != "string") {
+        this.products = this.products.filter((e) => e.id != productId);
+        this.products.push(r.data);
+      }
+
+      return r.data;
+    },
+
     async getProductByCategoryId(categoryId: string) {
       let products = [] as ProductSimple[];
       const r = await axios.product.getProductByCategoryId(
@@ -132,6 +161,16 @@ export const useProductStore = defineStore("products", {
       }
       this.products = products;
       return products;
+    },
+
+    async addImagesProduct(productId: string, images: string[]) {
+      const r = await axios.product.addImagesProduct(productId, images);
+      return r && typeof r.data != "string";
+    },
+
+    async deteleImageProduct(productId: string, imageId: string) {
+      const r = await axios.product.removeImageProduct(productId, imageId);
+      return r && typeof r.data != "string";
     },
   },
 });

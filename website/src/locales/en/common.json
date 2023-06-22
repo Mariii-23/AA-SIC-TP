@@ -113,6 +113,8 @@
 
     "add-subcategories": "Add subcategories",
 
+    "add-product": "Add product",
+    "edit-product": "Edit product",
     "rmv-product": "Remove product",
     "rmv-product-text": "Are you sure you want to remove the product",
     "add-product-success": "Product successfully aded",

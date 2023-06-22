@@ -39,7 +39,7 @@ import ProductInfo from "@/components/molecules/ProductInfoUser.vue";
 import ProductDesc from "@/components/molecules/ProductDescUser.vue";
 import HeadingText from "@/components/atoms/Typography/HeadingText.vue";
 import RelatedProducts from "@/components/organisms/RelatedProductsUser.vue";
-import { ProductInformation, ProductSimple } from "@/appTypes/Product";
+import { Image, ProductInformation, ProductSimple } from "@/appTypes/Product";
 import { Material } from "@/appTypes/Product";
 import { ProductUserProps } from "@/appTypes/ProductUserProps";
 import ProductLayout from "@/layouts/Body/ProductLayout.vue";
@@ -85,7 +85,7 @@ export default {
       required: true,
     },
     productImages: {
-      type: Array as () => string[],
+      type: Array as () => Image[],
       required: true,
     },
     materials: {
@@ -125,7 +125,7 @@ export default {
     viewMoreHandler: {
       type: Function,
       required: true,
-    }
+    },
   },
   components: {
     Carousel,

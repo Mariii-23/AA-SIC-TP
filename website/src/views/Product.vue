@@ -51,6 +51,7 @@ import {
   ProductInformation,
   Material,
   ProductSimple,
+  Image,
 } from "@/appTypes/Product";
 import { useUserStore } from "@/store/userStore";
 import { useProductStore } from "@/store/productStore";
@@ -73,7 +74,7 @@ export default {
     categoryId: "",
     materialId: "",
     quantity: 1,
-    images: [] as string[],
+    images: [] as Image[],
     info: {} as ProductInformation,
     materials: [] as Material[],
     isRemoveModalOpen: false,
@@ -93,7 +94,6 @@ export default {
 
     const product = await productStore.getProduct(this.product.id);
     if (!product) {
-      //TODO: mudar de pagina
       //mandar notificacao
     } else {
       this.images = product.images;
@@ -118,9 +118,10 @@ export default {
 
     this.$watch(
       () => this.$route.params.id,
-      async () => {
+      async (newValue) => {
         this.isAdmin = userStore.isAdmin();
-        this.product.id = this.$route.params.id.toString();
+
+        this.product.id = newValue.toString();
 
         this.productsFavorite = [];
         this.productsRelatedUser = [];
@@ -128,7 +129,6 @@ export default {
 
         const product = await productStore.getProduct(this.product.id);
         if (!product) {
-          //TODO: mudar de pagina
           //mandar notificacao
         } else {
           this.images = product.images;
@@ -221,24 +221,17 @@ export default {
       this.isRemoveModalOpen = true;
     },
 
-    //ESTES TRÊS FAZEM O MESMO?
-    //TODO:
     editProductDescHandler(productId: string) {
-      console.log("edit product desc " + productId);
+      this.$router.push(`/admin/product/edit/${productId}`);
     },
-
-    //TODO:
     editProductInfoHandler(productId: string) {
-      console.log("edit product info " + productId);
+      this.editProductDescHandler(productId);
     },
-
-    //TODO:
     editProductHandler(productId: string) {
-      console.log("edit product " + productId);
+      this.editProductDescHandler(productId);
     },
-
     addMaterialHandler() {
-      this.$router.push("/admin/materials/add");
+      this.editProductDescHandler(this.product.id);
     },
 
     viewMoreHandler(productId: string) {
@@ -254,7 +247,7 @@ export default {
         materialId: this.materialId,
         id: this.product.id,
         name: this.product.id,
-        href: this.images[0],
+        href: this.images[0].href,
         price: this.product.price,
       };
 

@@ -62,7 +62,21 @@ export default {
       ],
     };
   },
+  mounted() {
+    if (this.nameInicial !== undefined) {
+      this.name = this.nameInicial;
+    }
+    if (this.priceInicial !== undefined) {
+      this.price = this.priceInicial;
+    }
+  },
   props: {
+    nameInicial: {
+      type: String,
+    },
+    priceInicial: {
+      type: Number,
+    },
     buttonText: {
       type: String,
       required: true,
