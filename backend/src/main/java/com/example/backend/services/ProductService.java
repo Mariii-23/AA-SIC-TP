@@ -333,4 +333,9 @@ public class ProductService {
     public int getNumberOfMaterials() {
         return (int) materialRep.count();
     }
+
+    public ProductDetailedDTO searchProduct(String productName) throws ProductNotFoundException {
+        Product product = productRep.findByName(productName).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        return new ProductDetailedDTO(product);
+    }
 }

@@ -99,4 +99,22 @@ public class AdminController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @GetMapping("/search/customer")
+    public CustomerDTO searchCustomerByName(final @RequestParam String name) {
+        try {
+            return userService.searchCustomerByName(name);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/search/admin")
+    public AdminDTO searchAdminByName(final @RequestParam String name) {
+        try {
+            return userService.searchAdminByName(name);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }

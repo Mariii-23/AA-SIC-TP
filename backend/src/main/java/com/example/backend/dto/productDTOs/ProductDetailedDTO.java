@@ -1,5 +1,8 @@
 package com.example.backend.dto.productDTOs;
 
+import com.example.backend.model.Image;
+import com.example.backend.model.Product;
+
 import java.util.List;
 
 public class ProductDetailedDTO extends ProductSimpleDTO{
@@ -23,6 +26,16 @@ public class ProductDetailedDTO extends ProductSimpleDTO{
         this.reviews = reviews;
         this.images = images;
         this.categoryID = categoryID;
+    }
+
+    public ProductDetailedDTO(Product product) {
+        super(product.getiD(), product.getName(), product.getPrice());
+        this.description = product.getDescription();
+        this.materials = product.getMaterials().stream().map(MaterialDTO::new).toList();
+        this.technicalInfo = product.getInfos().stream().map(TechnicalInfoDTO::new).toList();
+        this.reviews = product.getReviews().stream().map(ReviewDTO::new).toList();
+        this.images = product.getImages().stream().map(Image::getiD).toList();
+        this.categoryID = product.getCategory().getiD();
     }
     public List<MaterialDTO> getMaterials() {
         return materials;

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AdminRep extends JpaRepository<Admin, Integer> {
@@ -15,4 +16,7 @@ public interface AdminRep extends JpaRepository<Admin, Integer> {
 
     @Query(value = "SELECT COUNT(*) FROM user WHERE role='ADMIN'", nativeQuery = true)
     int getNumberOfAdmins();
+
+    @Query(value = "SELECT * FROM user WHERE role='ADMIN' AND name LIKE %?1%", nativeQuery = true)
+    Optional<Admin> findByName(String name);
 }

@@ -249,4 +249,20 @@ public class UserService {
             throw new UserNotFoundException("Customer not found");
         } else return c.getFavourites().size();
     }
+
+    public CustomerDTO searchCustomerByName(String name) throws UserNotFoundException {
+        Customer customer = customerRep.findByName(name).orElse(null);
+        if (customer == null) {
+            throw new UserNotFoundException("Customer not found");
+        }
+        return new CustomerDTO(customer);
+    }
+
+    public AdminDTO searchAdminByName(String name) throws UserNotFoundException {
+        Admin admin = adminRep.findByName(name).orElse(null);
+        if (admin == null) {
+            throw new UserNotFoundException("Admin not found");
+        }
+        return new AdminDTO(admin);
+    }
 }

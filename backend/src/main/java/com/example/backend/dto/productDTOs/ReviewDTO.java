@@ -1,5 +1,7 @@
 package com.example.backend.dto.productDTOs;
 
+import com.example.backend.model.Review;
+
 public class ReviewDTO {
     private int classification;
     private String comment;
@@ -12,6 +14,12 @@ public class ReviewDTO {
         this.classification = classification;
         this.comment = comment;
         this.username = username;
+    }
+
+    public ReviewDTO(Review review) {
+        this.classification = review.getClassification();
+        this.comment = review.getComment();
+        this.username = review.getAuthor().getName();
     }
 
     public int getClassification() {

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRep extends JpaRepository<Product, Integer> {
@@ -32,4 +33,7 @@ public interface ProductRep extends JpaRepository<Product, Integer> {
             "ORDER BY id ASC" +
             " LIMIT ?2 OFFSET ?1", nativeQuery = true)
     List<Product> findProductsPagination(int offset, int numItems);
+
+    @Query(value = "SELECT * FROM product WHERE name LIKE %?1%", nativeQuery = true)
+    Optional<Product> findByName(String productName);
 }

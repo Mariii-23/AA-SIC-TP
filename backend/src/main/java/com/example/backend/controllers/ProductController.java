@@ -303,4 +303,12 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/customer/search")
+    public ProductDetailedDTO searchProduct(final @RequestParam String productName) {
+        try {
+            return productService.searchProduct(productName);
+        } catch (ProductNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }
