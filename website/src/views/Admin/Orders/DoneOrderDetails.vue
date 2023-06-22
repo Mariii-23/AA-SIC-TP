@@ -42,9 +42,9 @@ export default {
   },
   mounted: async function () {
     this.items = [
-      { href: "/admin/orders/pending", icon: "brightness-1", text: "pending" },
-      { href: "/admin/orders/ready", icon: "brightness-1", text: "ready" },
-      { href: "/admin/orders/done", icon: "bullseye", text: "done" },
+      { href: "/admin/orders/pending", icon: "brightness-1", text: "PENDING" },
+      { href: "/admin/orders/ready", icon: "brightness-1", text: "READY" },
+      { href: "/admin/orders/done", icon: "bullseye", text: "DONE" },
     ];
 
     const orderId = this.$route.params.id.toString();

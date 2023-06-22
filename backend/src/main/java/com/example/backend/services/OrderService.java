@@ -131,7 +131,7 @@ public class OrderService {
                 orderItem.getPrice(),
                 orderItem.getQuantity(),
                 orderItem.getMaterial().getID(),
-                orderItem.getProduct().getImages().get(0).getiD(),
+                1, //orderItem.getProduct().getImages().get(0).getiD(),
                 orderItem.getiD())).toList());
     }
 

@@ -67,10 +67,17 @@ export const useOrderStore = defineStore("orders", {
         }
       }
     },
-    async getAllOrdersPending() {
+    async getNumberOfPendingOrders() {
+      const r = await axios.orders.getNumberOfPendingOrders();
+      if (r.success == 200 && typeof r.data != "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllOrdersPending(offset: number, numItems: number) {
       const r: Response<GetAllOrders> = await axios.orders.getAllOrdersPending(
-        0,
-        num
+        offset,
+        numItems
       );
 
       const orders = [] as OrderAdmin[];
@@ -98,10 +105,17 @@ export const useOrderStore = defineStore("orders", {
       }
       this.ordersPending = orders;
     },
-    async getAllOrdersDone() {
+    async getNumberOfDoneOrders() {
+      const r = await axios.orders.getNumberOfDoneOrders();
+      if (r.success == 200 && typeof r.data != "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllOrdersDone(offset: number, numItems: number) {
       const r: Response<GetAllOrders> = await axios.orders.getAllOrdersDone(
-        0,
-        num
+        offset,
+        numItems
       );
 
       const orders = [] as OrderAdmin[];
@@ -122,10 +136,17 @@ export const useOrderStore = defineStore("orders", {
       }
       this.ordersDone = orders;
     },
-    async getAllOrdersReady() {
+    async getNumberOfReadyOrders() {
+      const r = await axios.orders.getNumberOfReadyOrders();
+      if (r.success == 200 && typeof r.data != "string") {
+        return r.data;
+      }
+      return r.success;
+    },
+    async getAllOrdersReady(offset: number, numItems: number) {
       const r: Response<GetAllOrders> = await axios.orders.getAllOrdersReady(
-        0,
-        num
+        offset,
+        numItems
       );
 
       const orders = [] as OrderAdmin[];

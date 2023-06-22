@@ -18,6 +18,7 @@
           :change-state="changeToReady"
           :viewDetailsHandler="viewDetailsHandler"
         />
+        <Pagination :length="length" :total-visible="5" :handle-page-change="handlePageChange" />
       </template>
     </TwoColumnsPanel>
   </SimpleBodyLayout>
@@ -33,7 +34,7 @@ import SearchBar from "@/components/molecules/SearchBar.vue";
 import { OrderAdmin } from "@/appTypes/Order";
 import OrderAdminExpansionPanel from "@/components/molecules/expansionPanels/OrderAdminExpansionPanel.vue";
 import { useOrderStore } from "@/store/orders";
-
+import Pagination from "@/components/molecules/Pagination.vue";
 const orderStore = useOrderStore();
 
 export default {
@@ -42,18 +43,30 @@ export default {
     items: Array as () => LinkProps[],
     orders: Array as () => OrderAdmin[],
     loaded: false,
+    page: 1,
+    length: 0,
+    ordersOnPage: 5,
   }),
   mounted: async function () {
     this.items = [
-      { href: "/admin/orders/pending", icon: "bullseye", text: "pending" },
-      { href: "/admin/orders/ready", icon: "brightness-1", text: "ready" },
-      { href: "/admin/orders/done", icon: "brightness-1", text: "done" },
+      { href: "/admin/orders/pending", icon: "bullseye", text: "PENDING" },
+      { href: "/admin/orders/ready", icon: "brightness-1", text: "READY" },
+      { href: "/admin/orders/done", icon: "brightness-1", text: "DONE" },
     ];
+    this.length = Math.ceil((await orderStore.getNumberOfPendingOrders())/this.ordersOnPage);
 
     if (orderStore.ordersPending.length <= 0)
-      await orderStore.getAllOrdersPending();
+      await orderStore.getAllOrdersPending(0, this.ordersOnPage);
     this.loaded = true;
     this.orders = orderStore.ordersPending;
+
+    this.$watch(
+      () => ({orders: orderStore.ordersPending}),
+      (newValue) => {
+        this.orders = newValue.orders
+        this.loaded = true
+      }
+    )
   },
   methods: {
     viewDetailsHandler(id: number) {
@@ -63,6 +76,11 @@ export default {
       await orderStore.setOrderReady(id);
       this.$router.push("/admin/orders/ready/" + id);
     },
+    async handlePageChange(page: number){
+      this.page = page;
+      this.loaded = false;
+      await orderStore.getAllOrdersPending((this.page-1)*this.ordersOnPage, this.ordersOnPage);
+    }
   },
   components: {
     TwoColumnsPanel,
@@ -71,6 +89,7 @@ export default {
     HeadingText,
     SearchBar,
     OrderAdminExpansionPanel,
+    Pagination,
   },
 };
 </script>
