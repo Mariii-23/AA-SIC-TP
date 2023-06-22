@@ -71,6 +71,21 @@ public class OrderController {
         return orderService.getNumberOfOrders();
     }
 
+    @GetMapping("/admin/numberOfOrders/pending")
+    public int getNumberOfPendingOrders() {
+        return orderService.getNumberOfPendingOrders();
+    }
+
+    @GetMapping("/admin/numberOfOrders/ready")
+    public int getNumberOfReadyOrders() {
+        return orderService.getNumberOfReadyOrders();
+    }
+
+    @GetMapping("/admin/numberOfOrders/done")
+    public int getNumberOfDoneOrders() {
+        return orderService.getNumberOfDoneOrders();
+    }
+
     @PostMapping("/admin/ready/{orderId}")
     public boolean setOrderReady(@PathVariable int orderId){
         try {

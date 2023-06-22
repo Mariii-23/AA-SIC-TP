@@ -240,4 +240,16 @@ public class OrderService {
         boolean isLast = (offset + numItems) >= orderRep.countOrdersByState(OrderState.DONE.ordinal());
         return new EnvelopeDTO<>(isLast, list);
     }
+
+    public int getNumberOfPendingOrders() {
+        return orderRep.countOrdersByState(OrderState.PENDING.ordinal());
+    }
+
+    public int getNumberOfReadyOrders() {
+        return orderRep.countOrdersByState(OrderState.READY.ordinal());
+    }
+
+    public int getNumberOfDoneOrders() {
+        return orderRep.countOrdersByState(OrderState.DONE.ordinal());
+    }
 }
