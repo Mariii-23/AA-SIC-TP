@@ -13,7 +13,17 @@
       </template>
       <template v-slot:second>
         <HeadingText>{{ $t("clients") }}</HeadingText>
-        <SearchBar bg-color="primary" />
+        <v-autocomplete class="search-bar mt-5" 
+      append-inner-icon="mdi-magnify"
+      :items="itemsSearch"
+       v-model="searching" 
+       menu-icon=""
+       width="100%" 
+       bg-color="primary"
+        :label="$t('search')"
+        @change="search()"/>
+        
+
         <UserExpansionPanels
           :users="users"
           :view-details-handler="viewDetailsHandler"
@@ -22,6 +32,14 @@
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
+
+<style scoped>
+.search-bar {
+  width: 100%;
+  margin-top: 13px;
+  align-content: center;
+}
+</style>
 
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
@@ -35,6 +53,8 @@ import { UserInfoProps } from "@/appTypes/User";
 import { useAdminsStore } from "@/store/adminsStore";
 import Pagination from "@/components/molecules/Pagination.vue";
 
+const adminStore = useAdminsStore();
+
 export default {
   name: "ClientsAdminPage",
   data: () => ({
@@ -43,14 +63,23 @@ export default {
     page: 1,
     length: 0,
     clientsOnPage: 20,
+    searching: "",
+    itemsSearch: []
   }),
   mounted: async function () {
-    const adminStore = useAdminsStore();
+    await adminStore.getAllCustomers(0, 100000);
+
+    for (let i = 0; i < adminStore.customers.length; i++) {
+      this.itemsSearch.push(adminStore.customers[i].name);
+    }
+
     await adminStore.getAllCustomers(0, 20);
     this.length = Math.ceil((await adminStore.getNumberOfCustomers())/this.clientsOnPage);
 
     this.users = adminStore.customers;
 
+    
+  
     this.items = [
       { href: "/admin/profile", icon: "brightness-1", text: "profile" },
       { href: "/admin", icon: "brightness-1", text: "admins" },
@@ -63,6 +92,13 @@ export default {
         this.users = newValues.users;
       }
     );
+
+    this.$watch(
+        () => this.searching,
+        (newValues) => {
+          this.search();
+        }
+      );
   },
   methods: {
     viewDetailsHandler(id: number) {
@@ -75,6 +111,12 @@ export default {
       this.page = page;
       const adminStore = useAdminsStore();
       await adminStore.getAllCustomers((this.page-1)*this.clientsOnPage, this.clientsOnPage);
+    },
+    async search(){
+      const adminStore = useAdminsStore();
+      const r = await adminStore.searchCustomers(this.searching);
+      if (r)
+        this.$router.push("/admin/client/" + r);
     }
   },
   components: {

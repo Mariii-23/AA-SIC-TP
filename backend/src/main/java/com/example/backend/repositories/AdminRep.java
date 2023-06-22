@@ -17,6 +17,6 @@ public interface AdminRep extends JpaRepository<Admin, Integer> {
     @Query(value = "SELECT COUNT(*) FROM user WHERE role='ADMIN'", nativeQuery = true)
     int getNumberOfAdmins();
 
-    @Query(value = "SELECT * FROM user WHERE role='ADMIN' AND name LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM user WHERE role='ADMIN' AND name LIKE %?1% LIMIT 1", nativeQuery = true)
     Optional<Admin> findByName(String name);
 }

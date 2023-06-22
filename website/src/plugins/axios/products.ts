@@ -5,6 +5,7 @@ import {
   Product,
   ProductSimple,
   TechnicalInfo,
+  Image
 } from "@/appTypes/Product";
 import {
   AddProductResponse,
@@ -171,7 +172,7 @@ const getProductById = async (productId: string) => {
     });
 
     return handleResponse(req, (data: GetProductById) => {
-      const images = [] as ImageProduct[];
+      const images = [] as Image[];
 
       for (const item of data.images) {
         images.push({
@@ -357,6 +358,53 @@ const addImageProduct = async (productId: string, image: string) => {
   }
 };
 
+const search = async (name: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(
+      `${url}/search?productName=${name}`);
+      return handleResponse(req, (data: GetProductById) => {
+        const images = [] as Image[];
+  
+        for (const item of data.images) {
+          images.push({
+            id: item,
+            href: `${productImage}?imageId=${item}`,
+          });
+        }
+  
+        const materials = [] as Material[];
+  
+        for (const material of data.materials) {
+          materials.push({
+            id: material.id,
+            name: material.name,
+            href: `${materialImage}?materialId=${material.id}`,
+          });
+        }
+  
+        return {
+          id: data.id,
+          name: data.name,
+          price: data.price,
+          images,
+          categoryId: data.categoryID,
+          materials,
+          information: {
+            details: data.description,
+            technical: data.technicalInfo,
+          },
+          reviews: data.reviews,
+        } as Product;
+      });
+    } catch (error) {
+      return {
+        success: error.request.status,
+        data: error.request.statusText,
+      };
+    }
+  };
+
+
 export interface ProductAxios {
   getNumberOfProducts: () => Promise<Response<number>>;
   getProducts: (
@@ -399,6 +447,9 @@ export interface ProductAxios {
     productId: string,
     imageId: string
   ) => Promise<Response<void>>;
+  search: (
+    search: string
+  ) => Promise<Response<Product>>;
 }
 
 const productStore: ProductAxios = {
@@ -482,6 +533,9 @@ const productStore: ProductAxios = {
   removeImageProduct: async (productId: string, imageId: string) => {
     return await deleteImageProduct(productId, imageId);
   },
+  search: async (name: string) => {
+    return await search(name);
+  }
 };
 
 export default productStore;

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
 import { AdminInfoProps, CustomerInfoProps } from "@/appTypes/User";
+import { useNotificationStore } from "./notificationStore";
 
 export const useAdminsStore = defineStore("admins", {
   state: () => ({
@@ -60,9 +61,31 @@ export const useAdminsStore = defineStore("admins", {
     async editAdmin(id: string, email: string, name: string, password: string) {
       const r = await axios.admins.updateAdmin(id, email, name, password);
       if (r.success == 200) {
-        this.getAllAdmins();
+        this.getAllAdmins(0, 100000);
       }
       return r.success == 200;
     },
+    async searchCustomers (name: string) {
+      const r = await axios.admins.searchCustomers(name);
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      else if (r.success == 400) {
+        const notificationStore = useNotificationStore();
+        notificationStore.openErrorAlert("no-results");
+      }
+      return r.success == 200;
+    },
+    async searchAdmins (name: string) {
+      const r = await axios.admins.searchAdmins(name);
+      if (r.success && typeof r.data !== "string") {
+        return r.data;
+      }
+      else if (r.success == 400) {
+        const notificationStore = useNotificationStore();
+        notificationStore.openErrorAlert("no-results");
+      }
+      return r.success == 200;
+    }
   },
 });

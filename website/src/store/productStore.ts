@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "@/plugins/axios/axios";
 import { Product, ProductSimple, TechnicalInfo } from "@/appTypes/Product";
+import { useNotificationStore } from "./notificationStore";
 
 export const useProductStore = defineStore("products", {
   state: () => ({
@@ -205,6 +206,17 @@ export const useProductStore = defineStore("products", {
     async deteleImageProduct(productId: string, imageId: string) {
       const r = await axios.product.removeImageProduct(productId, imageId);
       return r && typeof r.data != "string";
+    },
+    async search (name: string) {
+      const r = await axios.product.search(name);
+      if (r.success && typeof r.data !== "string") {
+        return r.data.id;
+      }
+      else if (r.success == 400){
+        const notificationStore = useNotificationStore();
+        notificationStore.openErrorAlert("no-results")
+      }
+      return r.success;
     },
   },
 });

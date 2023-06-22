@@ -303,7 +303,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/customer/search")
+    @GetMapping("/search")
     public ProductDetailedDTO searchProduct(final @RequestParam String productName) {
         try {
             return productService.searchProduct(productName);

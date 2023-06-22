@@ -1,11 +1,6 @@
 <template>
-  <ConfirmationModal
-    :title="$t('logout')"
-    :text="$t('logout-text')"
-    :confirmHandler="logout"
-    :closeModal="closeModal"
-    :isModalOpen="isModalOpen"
-  />
+  <ConfirmationModal :title="$t('logout')" :text="$t('logout-text')" :confirmHandler="logout" :closeModal="closeModal"
+    :isModalOpen="isModalOpen" />
   <v-app-bar>
     <v-app-bar-nav-icon @click="changeDrawer">
       <v-icon>mdi-menu</v-icon>
@@ -17,9 +12,15 @@
 
     <v-spacer />
 
-    <div class="search-bar">
-      <SearchBar bg-color="secondary" />
-    </div>
+      <v-autocomplete class="search-bar mt-5" 
+      append-inner-icon="mdi-magnify"
+      :items="products"
+       v-model="name" 
+       menu-icon=""
+       width="100%" 
+       bg-color="secondary"
+        :label="$t('search')"
+        @change="search()"/>
 
     <v-spacer />
 
@@ -89,7 +90,9 @@ import SearchBar from "@/components/molecules/SearchBar.vue";
 import { useUserStore } from "@/store/userStore";
 import ConfirmationModal from "./Modal/ConfirmationModal.vue";
 import { useAdminsStore } from "@/store/adminsStore";
+import { useProductStore } from "@/store/productStore";
 const userStore = useUserStore();
+const productsStore = useProductStore();
 
 export default {
   name: "AppBar",
@@ -99,6 +102,8 @@ export default {
     username: "",
     id: "",
     isModalOpen: false,
+    name: "",
+    products: []
   }),
   setup() {
     const drawerStore = usedrawerStore();
@@ -108,13 +113,18 @@ export default {
       changeDrawer: drawerStore.changeDrawer,
     };
   },
-  mounted: function () {
-
+  mounted: async function () {
     this.loggedIn = userStore.isLoggedIn;
     this.user_type = userStore.role;
     this.username = userStore.name;
     this.id = userStore.id;
 
+    await productsStore.getAllProducts(0, 10000);
+    for (let i = 0; i < productsStore.products.length; i++) {
+                    this.products.push(
+                        productsStore.products[i].name
+                    );
+    }
     // Use o watch para observar as mudanças no userStore
     this.$watch(
       () => ({
@@ -130,6 +140,15 @@ export default {
         this.id = newValues.id;
       }
     );
+
+      this.$watch(
+        () => this.name,
+        (newValues) => {
+          this.name = newValues;
+          this.search();
+        }
+      );
+  
   },
   computed: {
     truncatedUsername() {
@@ -150,15 +169,19 @@ export default {
       this.$router.push("/");
       this.isModalOpen = false;
     },
-    openModal(){
+    openModal() {
       this.isModalOpen = true;
     },
-    closeModal(){
+    closeModal() {
       this.isModalOpen = false;
     },
     userAccountHandler() {
       this.$router.push("/user/profile");
     },
+    async search(){;
+      const id = await productsStore.search(this.name);
+      this.$router.push(`/product/${id}`);
+    }
   },
   components: { Logo, BodyText, LanguageSwitcher, SearchBar, ConfirmationModal },
 };
@@ -178,6 +201,7 @@ export default {
   align-content: center;
 }
 
+
 @media screen and (max-width: 800px) {
   .search-bar {
     visibility: hidden;
@@ -187,4 +211,5 @@ export default {
     visibility: hidden;
     display: none;
   }
-}</style>
+}
+</style>

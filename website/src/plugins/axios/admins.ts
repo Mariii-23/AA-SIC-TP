@@ -166,6 +166,37 @@ const editAdmin = async (
   }
 };
 
+const searchCustomers = async (name: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(`${url}/search/customer?name=${name}`);
+    return handleResponse(req, (data) => {
+      return data.iD;
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+const searchAdmins = async (name: string) => {
+  try {
+    const req = await app.config.globalProperties.$axios.get(`${url}/search/admin?name=${name}`);
+    return handleResponse(req, (data) => {
+      return {
+        id: data.iD,
+        email: data.email,
+        name: data.name,
+      };
+    });
+  } catch (error) {
+    return {
+      success: error.request.status,
+      data: error.request.statusText,
+    };
+  }
+};
+
 export interface AdminAxios {
   getAllCustomers: (
     offset: number,
@@ -189,6 +220,8 @@ export interface AdminAxios {
     name: string,
     password: string
   ) => Promise<Response<string>>;
+  searchCustomers: (name: string) => Promise<Response<string>>;
+  searchAdmins: (name: string) => Promise<Response<AddAdminResponse>>;
 }
 
 const admin: AdminAxios = {
@@ -218,6 +251,13 @@ const admin: AdminAxios = {
   ) => {
     return await editAdmin(id, email, name, password);
   },
+  searchCustomers: async (name: string) => {
+    return await searchCustomers(name);
+  },
+  searchAdmins: async (name: string) => {
+    return await searchAdmins(name);
+  }
+
 };
 
 export default admin;

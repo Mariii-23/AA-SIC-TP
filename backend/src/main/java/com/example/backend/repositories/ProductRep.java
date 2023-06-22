@@ -34,6 +34,6 @@ public interface ProductRep extends JpaRepository<Product, Integer> {
             " LIMIT ?2 OFFSET ?1", nativeQuery = true)
     List<Product> findProductsPagination(int offset, int numItems);
 
-    @Query(value = "SELECT * FROM product WHERE name LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM product WHERE name LIKE %?1% LIMIT 1", nativeQuery = true)
     Optional<Product> findByName(String productName);
 }

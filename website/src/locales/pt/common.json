@@ -207,5 +207,6 @@
     "all-products": "Todos os produtos",
     "add-more-images": "Adicionar mais imagens",
     "code-sent": "O código foi enviado para o seu email",
-    "password-changed": "A sua palavra-passe foi alterada com sucesso"
+    "password-changed": "A sua palavra-passe foi alterada com sucesso",
+    "no-results": "Não existem resultados que correspondam à pesquisa"
 }

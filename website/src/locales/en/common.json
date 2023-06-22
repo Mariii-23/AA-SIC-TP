@@ -211,5 +211,6 @@
     "all-products": "All products",
     "add-more-images": "Add more images",
     "code-sent": "The code was sent to your email",
-    "password-changed": "Password successfully changed"
+    "password-changed": "Password successfully changed",
+    "no-results": "There are no results that match your search"
 }

@@ -24,7 +24,15 @@
       </template>
       <template v-slot:second>
         <HeadingText>{{ $t("admins") }}</HeadingText>
-        <SearchBar bg-color="primary" />
+        <v-autocomplete class="search-bar mt-5" 
+      append-inner-icon="mdi-magnify"
+      :items="itemsSearch"
+       v-model="searching" 
+       menu-icon=""
+       width="100%" 
+       bg-color="primary"
+        :label="$t('search')"
+        @change="search()"/>
         <AdminExpansionPanels
           :admins="admins"
           :remove-admin-handler="openModal"
@@ -33,6 +41,15 @@
       </template> </TwoColumnsPanel
   ></SimpleBodyLayout>
 </template>
+
+<style scoped>
+.search-bar {
+  width: 100%;
+  margin-top: 13px;
+  align-content: center;
+}
+</style>
+
 
 <script lang="ts">
 import { LinkProps } from "@/appTypes/Link";
@@ -61,8 +78,15 @@ export default {
     page: 1,
     length: 0,
     adminsOnPage: 20,
+    searching: "",
+    itemsSearch: [] as string[]
   }),
   mounted: async function () {
+    await adminStore.getAllAdmins(0, 100000);
+
+    for (let i = 0; i < adminStore.admins.length; i++) {
+      this.itemsSearch.push(adminStore.admins[i].name);
+    }
     await adminStore.getAllAdmins(0, this.adminsOnPage);
     this.length = Math.ceil((await adminStore.getNumberOfAdmins())/this.adminsOnPage);
 
@@ -78,6 +102,12 @@ export default {
       () => ({ admins: adminStore.admins }),
       (newValues) => {
         this.admins = newValues.admins;
+      }
+    );
+    this.$watch(
+      () => this.searching,
+      (newValues) => {
+          this.search();
       }
     );
   },
@@ -109,6 +139,17 @@ export default {
       this.page = page;
       const adminStore = useAdminsStore();
       await adminStore.getAllAdmins((this.page-1)*this.adminsOnPage, this.adminsOnPage);
+    },
+    async search () {
+      const adminStore = useAdminsStore();
+      const admin = await adminStore.searchAdmins(this.searching);
+      if (admin){
+      this.admins = [];
+      this.admins.push(admin);
+      }
+      else {
+        this.admins = adminStore.admins;
+      }
     }
   },
   components: {
