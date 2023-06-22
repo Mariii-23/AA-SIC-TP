@@ -23,7 +23,10 @@ public class NotificationService implements INotificationService{
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
-
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+            System.out.println("Error sending email to: " + to);
+        }
     }
 }
