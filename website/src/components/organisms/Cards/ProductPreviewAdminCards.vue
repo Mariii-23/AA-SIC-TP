@@ -5,7 +5,7 @@
       :key="product.id"
       :product="product"
       :delete-product-handler="
-        () => deleteProductHandler && deleteProductHandler(product.id)
+        () => deleteProductHandler && deleteProductHandler(product.id, product.name)
       "
       :edit-product-handler="
         () => editProductHandler && editProductHandler(product.id)

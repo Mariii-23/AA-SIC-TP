@@ -2,12 +2,28 @@
   <div v-if="products.length == 0">
     <v-progress-linear indeterminate />
   </div>
+  <ConfirmationModal
+    :title="$t('rmv-product')"
+    :text="$t('rmv-product-text') + ' ' + nameProductToRemove + '?'"
+    :confirmHandler="deleteProductHandler"
+    :closeModal="closeRemoveModal"
+    v-bind:is-modal-open="isRemoveModalOpen"
+  />
+
 
   <SimpleBodyLayout>
-    <HeadingText>{{ $t("all-products") }}</HeadingText>
+    <TitleWithButton v-if="isAdmin" 
+    :title="$t('all-products')" 
+    :buttonText="$t('addProduct')" 
+    :buttonHandler="addProductHandler"/>
+    <HeadingText v-else>{{ $t("all-products") }}</HeadingText>
     <CategoriesAvatar :categories="categories" :click-handler="handleOnClickAvatar" :size="100" />
-
-    <ProductPreviewUserCards :products="productsUser" :view-more-handler="viewMoreHandler"
+    
+    <ProductPreviewAdminCards :products="products" 
+    :delete-product-handler="openRemoveModal" 
+    :edit-product-handler="editProductHandler" 
+    :on-click="onClickProductUser" v-if="isAdmin" />
+    <ProductPreviewUserCards v-else :products="productsUser" :view-more-handler="viewMoreHandler"
       :favorite-icon-handler="favoriteIconHandler" :on-click-handler="handleOnClickAvatar" />
 
     <Pagination :length="length" total-visible="5" v-if="showPagination" :handle-page-change="onChangePagePagination" />
@@ -27,6 +43,9 @@ import { useUserStore } from "@/store/userStore";
 import { useNotificationStore } from "@/store/notificationStore";
 import { ProductUserProps } from "@/appTypes/ProductUserProps";
 import { useCompanyStore } from "@/store/companyStore";
+import ProductPreviewAdminCards from "@/components/organisms/Cards/ProductPreviewAdminCards.vue";
+import ConfirmationModal from "@/components/organisms/Modal/ConfirmationModal.vue";
+import TitleWithButton from "@/components/molecules/TitleWithButton.vue";
 
 const categoriesStore = useCategoriesStore();
 const productStore = useProductStore();
@@ -51,6 +70,7 @@ export default {
       page: 1,
       length: 0,
       productsOnPage: 20,
+      nameProductToRemove: "",
     };
   },
   mounted: async function () {
@@ -180,7 +200,8 @@ export default {
       this.isRemoveModalOpen = false;
       this.productId = "";
     },
-    openRemoveModal(productId: string) {
+    openRemoveModal(productId: string, productName: string) {
+      this.nameProductToRemove = productName;
       this.productId = productId;
       this.isRemoveModalOpen = true;
     },
@@ -245,6 +266,9 @@ export default {
     CategoriesAvatar,
     ProductPreviewUserCards,
     Pagination,
+    ConfirmationModal,
+    ProductPreviewAdminCards,
+    TitleWithButton,
   },
 };
 </script>
