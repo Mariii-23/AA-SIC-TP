@@ -18,6 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticateService {
@@ -44,6 +47,9 @@ public class AuthenticateService {
             }
             if (customerRep.existsByNif(request.getNif())) {
                 throw new Exception("NIF already registered");
+            }
+            if (LocalDate.now().minusYears(18).isBefore(request.getBirthday().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())) {
+                throw new Exception("You must be 18 or older to register");
             }
             Customer customer = new Customer(request.getBirthday(),
                     request.getNif(),
