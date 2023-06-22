@@ -205,5 +205,6 @@
 
     "passwordIncorrect": "Incorrect password",
     "emailIncorrect": "There's no user with that email",
-    "all-products": "All products"
+    "all-products": "All products",
+    "add-more-images": "Add more images"
 }

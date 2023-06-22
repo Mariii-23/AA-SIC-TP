@@ -23,8 +23,9 @@
     :delete-product-handler="openRemoveModal" 
     :edit-product-handler="editProductHandler" 
     :on-click="onClickProductUser" v-if="isAdmin" />
+
     <ProductPreviewUserCards v-else :products="productsUser" :view-more-handler="viewMoreHandler"
-      :favorite-icon-handler="favoriteIconHandler" :on-click-handler="handleOnClickAvatar" />
+      :favorite-icon-handler="favoriteIconHandler" :on-click-handler="viewMoreHandler" />
 
     <Pagination :length="length" total-visible="5" v-if="showPagination" :handle-page-change="onChangePagePagination" />
   </SimpleBodyLayout>
@@ -78,7 +79,7 @@ export default {
     this.name = companyStore.companyInfo.name;
     this.showPagination = true;
 
-    this.categoryId = "1";
+    this.categoryId = "";
     await productStore.getAllProducts(0, this.productsOnPage);
     this.length = Math.ceil((await productStore.getNumberOfProducts()) / this.productsOnPage);
     this.products = productStore.products;
@@ -90,7 +91,7 @@ export default {
 
     if (userStore.isLoggedIn && !userStore.isAdmin) {
       this.productsFavorite = await productStore.getAllFavoriteProducts(
-        userStore.id
+        userStore.id, 0, 100000
       );
     }
 
@@ -155,7 +156,7 @@ export default {
       async (newValue) => {
         if (!newValue.isAdmin())
           this.productsFavorite = await productStore.getAllFavoriteProducts(
-            newValue.id
+            newValue.id, 0, 100000
           );
 
         this.productsUser = [];
