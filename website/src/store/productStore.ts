@@ -216,7 +216,7 @@ export const useProductStore = defineStore("products", {
         const notificationStore = useNotificationStore();
         notificationStore.openErrorAlert("no-results")
       }
-      return r.success;
+      return r.success == 200;
     },
   },
 });

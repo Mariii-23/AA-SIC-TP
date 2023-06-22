@@ -19,7 +19,6 @@
        menu-icon=""
        width="100%" 
        bg-color="secondary"
-        :label="$t('search')"
         @change="search()"/>
 
     <v-spacer />
@@ -180,7 +179,8 @@ export default {
     },
     async search(){;
       const id = await productsStore.search(this.name);
-      this.$router.push(`/product/${id}`);
+      if (id != false)
+        this.$router.push(`/product/${id}`);
     }
   },
   components: { Logo, BodyText, LanguageSwitcher, SearchBar, ConfirmationModal },
