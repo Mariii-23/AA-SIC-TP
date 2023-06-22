@@ -71,9 +71,13 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/edit/removeimages/{productId}")
-    public void removeProductImages(final @PathVariable int productId, final @RequestBody List<byte[]> images) {
-        productService.removeProductImages(productId, images);
+    @PostMapping("/edit/removeimage/{productId}/{imageId}")
+    public void removeProductImage(final @PathVariable int productId, final @PathVariable int imageId) {
+        try {
+            productService.removeProductImage(productId, imageId);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
 

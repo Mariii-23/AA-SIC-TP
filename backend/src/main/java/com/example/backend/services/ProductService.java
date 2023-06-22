@@ -261,11 +261,10 @@ public class ProductService {
         productRep.save(product);
     }
 
-    public void removeProductImages(int productId, List<byte[]> images) {
-        for(byte[] image: images){
-            Image imageToRemove = imageRep.findByImage(image);
-            if (imageToRemove.getProduct().getiD() == productId) imageRep.delete(imageToRemove);
-        }
+    public void removeProductImage(int productId, int imageId) throws Exception {
+        Image imageToRemove = imageRep.findById(imageId).orElseThrow(() -> new ImageNotFoundException("Image not found"));
+        if (imageToRemove.getProduct().getiD() == productId) imageRep.delete(imageToRemove);
+        else throw new Exception("Product and image don't match");
     }
 
     public MaterialDTO editMaterial(int materialId, String name, byte[] image) throws MaterialNotFoundException {
