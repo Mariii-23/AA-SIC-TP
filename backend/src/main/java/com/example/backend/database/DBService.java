@@ -479,7 +479,7 @@ public class DBService{
         imagesList.add(Files.readAllBytes(Paths.get("src/main/java/com/example/backend/database/images/products/treadmill.jpg")));
 
         for(int i = 0; i < products.size(); i++) {
-            images.add(new Image(imagesList.get(i), products.get(i)));
+            productService.addProductImage(products.get(i).getiD(), imagesList.get(i));
         }
 
         int i = 1;
