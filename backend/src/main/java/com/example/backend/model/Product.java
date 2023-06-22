@@ -154,4 +154,12 @@ public class Product {
 	public void removeMaterial(Material material) {
 		this.materials.remove(material);
 	}
+
+	public void addImage(Image image) {
+		this.images.add(image);
+	}
+
+	public void addInfo(TechnicalInfo info) {
+		this.infos.add(info);
+	}
 }

@@ -1,6 +1,7 @@
 package com.example.backend.database;
 
 import com.example.backend.dto.orderDTOs.OrderDetailedDTO;
+import com.example.backend.exception.ProductNotFoundException;
 import com.example.backend.exception.UserNotFoundException;
 import com.example.backend.dto.userDTOs.CreateAdminDTO;
 import com.example.backend.dto.userDTOs.CreateCustomerDTO;
@@ -8,6 +9,7 @@ import com.example.backend.model.*;
 import com.example.backend.repositories.*;
 import com.example.backend.services.AuthenticateService;
 import com.example.backend.services.OrderService;
+import com.example.backend.services.ProductService;
 import com.example.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,9 @@ public class DBService{
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private CustomerRep customerRep;
@@ -413,14 +418,14 @@ public class DBService{
 
     public void addInfos() {
         List<Product> products = productRep.findAll();
-        List<TechnicalInfo> technicalInfos = new ArrayList<>();
-
         for (int i = 0; i < products.size(); i++) {
-            technicalInfos.add(new TechnicalInfo("Height (cm)","100", products.get(i)));
-            technicalInfos.add(new TechnicalInfo("Width (cm)","100", products.get(i)));
+            Product product = products.get(i);
+            TechnicalInfo info1 = new TechnicalInfo("Height (cm)","100", products.get(i));
+            product.addInfo(info1);
+            TechnicalInfo info2 = new TechnicalInfo("Width (cm)","100", products.get(i));
+            product.addInfo(info2);
+            productRep.save(product);
         }
-
-        technicalInfoRep.saveAll(technicalInfos);
     }
 
     public void addFavourites() {
@@ -439,7 +444,7 @@ public class DBService{
         customerRep.saveAll(customersWithFavourites);
     }
 
-    public void addImages() throws IOException {
+    public void addImages() throws IOException, ProductNotFoundException {
         List<Product> products = productRep.findAll();
         List<Image> images = new ArrayList<>();
 
@@ -480,16 +485,15 @@ public class DBService{
         int i = 1;
         for(Product p : products) {
             if (i % 3 == 0) {
-                images.add(new Image(image1, p));
+                productService.addProductImage(p.getiD(), image1);
             } else if (i % 3 == 1) {
-                images.add(new Image(image2, p));
+                productService.addProductImage(p.getiD(), image2);
             } else {
-                images.add(new Image(image3, p));
+                productService.addProductImage(p.getiD(), image3);
             }
             i++;
         }
 
-        imageRep.saveAll(images);
     }
 
     public void addItems() throws Exception {

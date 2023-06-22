@@ -76,7 +76,7 @@ public class DBController {
     public void addImages() {
         try {
             dbService.addImages();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
