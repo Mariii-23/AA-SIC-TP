@@ -14,11 +14,12 @@ public class NotificationService implements INotificationService{
     @Override
     public void sendNotification(final User user, final String subject, final String message) {
         System.out.println("Sending new price notification to customer: " + user + " with new price: " + message);
-        //sendEmail(user.getEmail(), subject, message);
+        sendEmail(user.getEmail(), subject, message);
     }
 
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("lojaonline-ea@outlook.pt");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
