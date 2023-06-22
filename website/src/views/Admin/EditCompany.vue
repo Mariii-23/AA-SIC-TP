@@ -94,6 +94,7 @@
                   :rules="emailRules"/>
               </v-col>
             </v-row>
+            <FullWidthButton>{{ $t("save-changes") }} </FullWidthButton>
         </form>
       </template>
     </TwoColumnsPanel>
@@ -109,6 +110,7 @@ import SimpleBodyLayout from "@/layouts/Body/SimpleBodyLayout.vue";
 import TitleWithButtonAndGoBack from "@/components/molecules/TitleWithButtonAndGoBack.vue";
 import { useCompanyStore } from "@/store/companyStore";
 import TitleCardLinks from "@/components/organisms/TitleCardLinks.vue";
+import FullWidthButton from '../../components/atoms/Button/FullWidthButton.vue';
 
 const companyStore = useCompanyStore();
 
@@ -211,7 +213,8 @@ export default {
     SimpleBodyLayout,
     //ConfirmationModal,
     TitleWithButtonAndGoBack,
-    TitleCardLinks
+    TitleCardLinks,
+    FullWidthButton,
   },
 };
 </script>
