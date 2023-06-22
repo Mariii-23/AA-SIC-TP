@@ -253,7 +253,8 @@ public class ProductService {
     public void addProductImage(int productId, byte[] image) throws ProductNotFoundException {
         Product product = productRep.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found"));
         Image newImage = new Image(image, product);
-        imageRep.save(newImage);
+        product.addImage(newImage);
+        productRep.save(product);
     }
 
     public void removeProductImage(int productId, int imageId) throws Exception {
