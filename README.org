@@ -1,43 +1,24 @@
-#+TITLE: Software Engineering @ University of Minho
+* Online Shopping
 
-All my exercises, reports and projects throughout the course.
+This repository contains the source code of a web application developed to enhance the online shopping experience. The project is targeted towards stores aiming to establish an effective online presence, providing a generic solution adaptable to various types of commerce.
 
+The development of this application considered the use of two distinct applications (backend and frontend), both essential to providing a complete and efficient solution. Feel free to explore the source code and contribute to the development of this project.
 
-* Content
+*  Technologies Used:
 
-** 1st year
-[[https://github.com/Mariii-23/1_Ano_UNI][All exercises and material]]
-- Funcional Programming
-- [[https://github.com/Mariii-23/LI1-ExciteBike][Software Labs I]]
-- Imperative Programming
-- [[https://github.com/Mariii-23/-LI2-Pl4-5-][Software Labs II]]
+- Backend (Server-side) :: Spring Boot
+  Responsible for business logic, database management (MySQL), and service provision.
+- Frontend (Client-side) :: Vue.js
+  Responsible for presenting the interface to users and interacting with the backend through HTTP requests.
 
-** 2st year
-[[https://github.com/Mariii-23/2_Ano_UNI][All exercises and material]]
+* Project Overview:
+The main goal is to offer a versatile application capable of meeting the needs of online stores, providing a user-friendly experience for both buyers and administrators. This repository includes task models, functional and non-functional requirements, as well as mockups for complex pages.
 
-- Computer Architecture ARQC
-- [[https://github.com/Mariii-23/shafa][Data communication]]
-- ISD
+* Product Users:
 
-- [[https://github.com/Mariii-23/Programming_Calculus_20-21][Programming Calculus]]
-- [[https://github.com/Mariii-23/LI3-2020-2021][Software Labs III]]
-- [[https://github.com/Mariii-23/auras][Operating Systems]]
-- R
-- Object Oriented Programming
+- Administrator
+- Unregistered User
+- Registered User
 
-** 3st year
-[[https://github.com/Mariii-23/3_Ano_Uni][All exercises and material]]
-
-- [[https://github.com/Mariii-23/IA_2021_2022][Artificial Intelligence]]
-- [[https://github.com/Mariii-23/Flight-Booking-][Distributed Systems]]
-- [[https://github.com/SugaryLump/LI4][Software Labs IV]]
-- [[https://github.com/matildeopbravo/trabalho-dss][Software Systems Development]]
-- [[https://github.com/Mariii-23/CC_20-21][Computer Communications]]
-- Numerical Methods and Nonlinear Optimization
-
-- [[https://github.com/Mariii-23/3_Ano_Uni/tree/main/2sem/RC/TrabalhosPraticos][Computer Networks]]
-- Languages Processing
-- ADI
-- Databases
-- Computer Graphics
-- IO
+* Achievement:
+We are proud to announce that the project received an evaluation of 19 out of 20 points.
