@@ -1,0 +1,43 @@
+#+TITLE: Software Engineering @ University of Minho
+
+All my exercises, reports and projects throughout the course.
+
+
+* Content
+
+** 1st year
+[[https://github.com/Mariii-23/1_Ano_UNI][All exercises and material]]
+- Funcional Programming
+- [[https://github.com/Mariii-23/LI1-ExciteBike][Software Labs I]]
+- Imperative Programming
+- [[https://github.com/Mariii-23/-LI2-Pl4-5-][Software Labs II]]
+
+** 2st year
+[[https://github.com/Mariii-23/2_Ano_UNI][All exercises and material]]
+
+- Computer Architecture ARQC
+- [[https://github.com/Mariii-23/shafa][Data communication]]
+- ISD
+
+- [[https://github.com/Mariii-23/Programming_Calculus_20-21][Programming Calculus]]
+- [[https://github.com/Mariii-23/LI3-2020-2021][Software Labs III]]
+- [[https://github.com/Mariii-23/auras][Operating Systems]]
+- R
+- Object Oriented Programming
+
+** 3st year
+[[https://github.com/Mariii-23/3_Ano_Uni][All exercises and material]]
+
+- [[https://github.com/Mariii-23/IA_2021_2022][Artificial Intelligence]]
+- [[https://github.com/Mariii-23/Flight-Booking-][Distributed Systems]]
+- [[https://github.com/SugaryLump/LI4][Software Labs IV]]
+- [[https://github.com/matildeopbravo/trabalho-dss][Software Systems Development]]
+- [[https://github.com/Mariii-23/CC_20-21][Computer Communications]]
+- Numerical Methods and Nonlinear Optimization
+
+- [[https://github.com/Mariii-23/3_Ano_Uni/tree/main/2sem/RC/TrabalhosPraticos][Computer Networks]]
+- Languages Processing
+- ADI
+- Databases
+- Computer Graphics
+- IO
